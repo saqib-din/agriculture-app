@@ -8,7 +8,7 @@
                 <div class="swiper-slide">
                     <div class="slide-home-1">
                         <div class="image overflow-hidden">
-                            <img src="./images/page-title/index-1.jpg" data-src="./images/page-title/index-1.jpg"
+                            <img src="{{ asset('assets/images/page-title/index-1.jpg') }}" data-src="{{ asset('assets/images/page-title/index-1.jpg') }}"
                                 alt="" class="lazyload tf-animate-zoom-in-out" />
                         </div>
                         <div class="content-wrap">
@@ -21,7 +21,7 @@
                                     Every Farmer Matters.
                                 </h1>
                                 <div class="img-item ">
-                                    <img src="./images/item/line-throw-title.png"
+                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}"
                                         class="tf-trainsition-draw-left access-trainsition" alt="" />
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
@@ -47,7 +47,7 @@
                 <div class="swiper-slide">
                     <div class="slide-home-1">
                         <div class="image overflow-hidden">
-                            <img src="./images/page-title/index-2.jpg" data-src="./images/page-title/index-2.jpg"
+                            <img src="{{ asset('assets/images/page-title/index-2.jpg') }}" data-src="{{ asset('assets/images/page-title/index-2.jpg') }}"
                                 alt="" class="lazyload tf-animate-zoom-in-out" />
                         </div>
                         <div class="content-wrap">
@@ -61,7 +61,7 @@
                                 </h1>
                                 <div class="img-item ">
                                     <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="./images/item/line-throw-title.png" alt="" />
+                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
                                     The paramount doctrine of the
@@ -86,7 +86,7 @@
                 <div class="swiper-slide">
                     <div class="slide-home-1">
                         <div class="image overflow-hidden">
-                            <img src="./images/page-title/index-3.jpg" data-src="./images/page-title/index-3.jpg"
+                            <img src="{{ asset('assets/images/page-title/index-3.jpg') }}" data-src="{{ asset('assets/images/page-title/index-3.jpg') }}"
                                 alt="" class="lazyload tf-animate-zoom-in-out" />
                         </div>
                         <div class="content-wrap">
@@ -100,7 +100,7 @@
                                 </h1>
                                 <div class="img-item">
                                     <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="./images/item/line-throw-title.png" alt="" />
+                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
                                     The paramount doctrine of the
@@ -149,16 +149,16 @@
     <!-- Section-break-page -->
     <section class="s-break-page">
         <div class="img-item item-1">
-            <img src="./images/item/grass-4.png" alt="" class="" />
+            <img src="{{ asset('assets/images/item/grass-4.png') }}" alt="" class="" />
         </div>
         <div class="img-item item-2 wow zoomIn">
             <div class="scroll-element-3">
 
-                <img src="./images/item/barn.png" alt="" class="" />
+                <img src="{{ asset('assets/images/item/barn.png') }}" alt="" class="" />
             </div>
         </div>
         <div class="img-item item-3">
-            <img src="./images/item/page-title-top.png" alt="" class="" />
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" class="" />
         </div>
     </section><!-- /.Section-break-page -->
 
@@ -169,7 +169,7 @@
                 <div class="col-lg-4">
                     <div class="box-portfolio style-4 tf-img-hover mb-s-991">
                         <div class="image hover01">
-                            <img src="./images/widget/box-portfolio-1.jpg" data-src="./images/widget/box-portfolio-1.jpg"
+                            <img src="{{ asset('assets/images/widget/box-portfolio-1.jpg') }}" data-src="{{ asset('assets/images/widget/box-portfolio-1.jpg') }}"
                                 alt="" class="lazyload" />
                         </div>
                         <div class="content">
@@ -195,7 +195,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="box-portfolio style-4 tf-img-hover mb-s-991">
                         <div class="image hover01">
-                            <img src="./images/widget/box-portfolio-2.jpg" data-src="./images/widget/box-portfolio-2.jpg"
+                            <img src="{{ asset('assets/images/widget/box-portfolio-2.jpg') }}" data-src="{{ asset('assets/images/widget/box-portfolio-2.jpg') }}"
                                 alt="" class="lazyload" />
                         </div>
                         <div class="content">
@@ -221,7 +221,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="box-portfolio style-4 tf-img-hover">
                         <div class="image hover01">
-                            <img src="./images/widget/box-portfolio-3.jpg" data-src="./images/widget/box-portfolio-3.jpg"
+                            <img src="{{ asset('assets/images/widget/box-portfolio-3.jpg') }}" data-src="{{ asset('assets/images/widget/box-portfolio-3.jpg') }}"
                                 alt="" class="lazyload" />
                         </div>
                         <div class="content">
@@ -295,7 +295,7 @@
                                 </div>
                             </a>
                             <div class="image hover-item">
-                                <img src="./images/section/s-about.jpg" data-src="./images/section/s-about.jpg"
+                                <img src="{{ asset('assets/images/section/s-about.jpg') }}" data-src="{{ asset('assets/images/section/s-about.jpg') }}"
                                     alt="" class="lazyload tf-animate-2" />
                             </div>
                         </div>
@@ -406,7 +406,7 @@
                             tellus non finibus rutrum.
                         </p>
                         <div class="img-item ">
-                            <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                         </div>
                     </div>
                 </div>
@@ -512,16 +512,16 @@
             </div>
         </div>
         <div class="s-img-item item-1">
-            <img src="./images/item/page-title-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/house-mountain.png') }}" alt="" />
         </div>
         <div class="s-img-item item-2 wow zoomIn">
             <div class="scroll-element-3">
 
-                <img src="./images/item/house-mountain.png" alt="" />
+                <img src="{{ asset('assets/images/item/house-mountain.png') }}" alt="" />
             </div>
         </div>
         <div class="s-img-item item-3">
-            <img src="./images/item/page-title-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section service -->
 
@@ -533,8 +533,8 @@
                     <div class="main-section">
                         <div class="image">
                             <div class="video-wrap style-4">
-                                <img class="lazyload tf-animate-2 " data-src="./images/section/s-why-us.jpg"
-                                    src="./images/section/s-why-us.jpg" alt="" />
+                                <img class="lazyload tf-animate-2 " data-src="{{ asset('assets/images/section/s-why-us.jpg') }}"
+                                    src="{{ asset('assets/images/section/s-why-us.jpg') }}" alt="" />
                                 <div class="box-video tf-animate__box animate__slow ">
                                     <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                         class="style-icon-play popup-youtube">
@@ -549,7 +549,7 @@
                             <div class="heading-section style-2">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Why Choose DonalFarm?
@@ -642,7 +642,7 @@
                             <div class="heading-section style-2">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Our Commitment
@@ -719,11 +719,11 @@
                         </div>
                         <div class="image-wrap img-hover">
                             <div class="image hover-item">
-                                <img src="./images/section/s-commit.jpg" data-src="./images/section/s-commit.jpg"
+                                <img src="{{ asset('assets/images/section/s-commit.jpg') }}" data-src="{{ asset('assets/images/section/s-commit.jpg') }}"
                                     alt="" class="lazyload" />
                             </div>
                             <div class="img-item item-1  tf-animate__box animate__slow">
-                                <img class="lazyload up-down-move" src="./images/item/notice.png" alt="" />
+                                <img class="lazyload up-down-move" src="{{ asset('assets/images/item/notice.png') }}" alt="" />
                             </div>
                         </div>
                     </div>
@@ -749,20 +749,20 @@
                                 mattis, tellus non finibus rutrum.
                             </p>
                             <div class="img-item">
-                                <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="s-img-item item-1">
-                <img src="./images/item/page-title-top.png" alt="" />
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
             </div>
             <div class="s-img-item item-2 wow zoomIn">
-                <img src="./images/item/windmill.png" alt="" />
+                <img src="{{ asset('assets/images/item/windmill.png') }}" alt="" />
             </div>
             <div class="s-img-item item-3">
-                <img src="./images/item/green.png" alt="" />
+                <img src="{{ asset('assets/images/item/green.png') }}" alt="" />
             </div>
         </div>
 
@@ -775,8 +775,8 @@
                                 <div class="swiper-slide">
                                     <div class="box-portfolio style-5">
                                         <div class="image">
-                                            <img src="./images/section/s-project-1.jpg"
-                                                data-src="./images/section/s-project-1.jpg" alt=""
+                                            <img src="{{ asset('assets/images/section/s-project-1.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-1.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
@@ -805,8 +805,8 @@
                                 <div class="swiper-slide">
                                     <div class="box-portfolio style-5">
                                         <div class="image">
-                                            <img src="./images/section/s-project-2.jpg"
-                                                data-src="./images/section/s-project-2.jpg" alt=""
+                                            <img src="{{ asset('assets/images/section/s-project-2.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-2.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
@@ -835,8 +835,8 @@
                                 <div class="swiper-slide">
                                     <div class="box-portfolio style-5">
                                         <div class="image">
-                                            <img src="./images/section/s-project-3.jpg"
-                                                data-src="./images/section/s-project-3.jpg" alt=""
+                                            <img src="{{ asset('assets/images/section/s-project-3.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-3.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
@@ -878,7 +878,7 @@
 
         </div>
         <div class="s-img-item item-4">
-            <img src="./images/item/page-title-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section project -->
 
@@ -889,7 +889,7 @@
                 <div class="col-lg-12">
                     <div class="content-wrap">
                         <div class="image wow fadeInLeft " data-wow-delay="0s">
-                            <img class="absolute scroll-element-3" src="./images/item/s-testi.png" alt="" />
+                            <img class="absolute scroll-element-3" src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
                         </div>
 
                         <div class="content-section">
@@ -897,7 +897,7 @@
                                 <p class="sub-title">Testimonials With Us</p>
                                 <p class="title tf-animate-2">What Clients Says?</p>
                                 <div class="img-item">
-                                    <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                 </div>
                                 <div class="img-item item-2">
                                     <i class="icon-quote"></i>
@@ -923,7 +923,7 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="./images/widget/author-comment.jpg" alt="" />
+                                                        <img src="{{ asset('assets/images/widget/author-comment.jpg') }}" alt="" />
                                                     </div>
                                                     <div class="infor">
                                                         <div class="name-wrap">
@@ -1030,16 +1030,16 @@
         </div>
 
         <div class="s-img-item item-1">
-            <img src="./images/item/brown-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
         </div>
         <div class="s-img-item item-2 zoomIn wow">
             <div class="scroll-element-4">
 
-                <img src="./images/item/tructor.png" alt="" />
+                <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
             </div>
         </div>
         <div class="s-img-item item-bottom">
-            <img src="./images/item/brown-bottom.png" alt="" />
+            <img src="{{ asset('assets/images/item/brown-bottom.png') }}" alt="" />
         </div>
     </section><!-- /.Section counter -->
 
@@ -1063,7 +1063,7 @@
                         <div class="heading-section style-2 has-text mb-43">
                             <div class="img-item">
                                 <div class="item mr-16">
-                                    <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                 </div>
                                 <p class="sub-title">
                                     Frequently Asked Questions
@@ -1177,12 +1177,12 @@
                     <div class="s-right img-hover">
                         <div class="image-wrap hover-item">
                             <div class="image">
-                                <img src="./images/section/s-faq.jpg" data-src="./images/section/s-faq.jpg"
+                                <img src="{{ asset('assets/images/section/s-faq.jpg') }}" data-src="{{ asset('assets/images/section/s-faq.jpg') }}"
                                     alt="" class="lazyload tf-animate-2" />
                             </div>
                         </div>
                         <div class="img-item  tf-animate__box-2 ">
-                            <img class="up-down-move" src="./images/item/question.png" alt="" />
+                            <img class="up-down-move" src="{{ asset('assets/images/item/question.png') }}" alt="" />
                         </div>
                         <div class="content">
                             <p class="text fs-30 font-snowfall">
@@ -1203,7 +1203,7 @@
             </div>
         </div>
         <div class="s-img-item item-1 t--40 z-3">
-            <img src="./images/item/page-title-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section faq -->
 
@@ -1213,11 +1213,11 @@
             <div class="image scroll-element-3 ">
                 <div class="wow zoomIn">
 
-                    <img class="scale-1-1" src="./images/item/gree-field.jpg" alt="" />
+                    <img class="scale-1-1" src="{{ asset('assets/images/item/gree-field.jpg') }}" alt="" />
                 </div>
             </div>
             <div class="s-img-item item-bottom">
-                <img src="./images/item/page-title-top.png" alt="" />
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
             </div>
         </div>
         <div class="slider-side">
@@ -1229,13 +1229,13 @@
                                 <div class="swiper-slide">
                                     <div class="box-event ">
                                         <div class="image hover-item">
-                                            <img src="./images/widget/box-event-1.jpg"
-                                                data-src="./images/widget/box-event-1.jpg" alt=""
+                                            <img src="{{ asset('assets/images/widget/box-event-1.jpg') }}"
+                                                data-src="{{ asset('assets/images/widget/box-event-1.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="./images/item/rice-plant-2.png" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Discover Farm Tour
@@ -1257,13 +1257,13 @@
                                 <div class="swiper-slide">
                                     <div class="box-event ">
                                         <div class="image hover-item">
-                                            <img src="./images/widget/box-event-2.jpg"
-                                                data-src="./images/widget/box-event-2.jpg" alt=""
+                                            <img src="{{ asset('assets/images/widget/box-event-2.jpg') }}"
+                                                data-src="{{ asset('assets/images/widget/box-event-2.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="./images/item/rice-plant-2.png" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Farm In Summer
@@ -1285,13 +1285,13 @@
                                 <div class="swiper-slide">
                                     <div class="box-event ">
                                         <div class="image hover-item">
-                                            <img src="./images/widget/box-event-3.jpg"
-                                                data-src="./images/widget/box-event-3.jpg" alt=""
+                                            <img src="{{ asset('assets/images/widget/box-event-3.jpg') }}"
+                                                data-src="{{ asset('assets/images/widget/box-event-3.jpg') }}" alt=""
                                                 class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="./images/item/rice-plant-2.png" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Children's Summer Camp
@@ -1332,7 +1332,7 @@
                             tellus non finibus rutrum.
                         </p>
                         <div class="img-item">
-                            <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                         </div>
                     </div>
                 </div>
@@ -1348,8 +1348,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="./images/blog/blog-1.jpg"
-                                                    src="./images/blog/blog-1.jpg" alt="" />
+                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-1.jpg') }}"
+                                                    src="{{ asset('assets/images/blog/blog-1.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
                                                     <i class="fa-solid fa-play"></i>
@@ -1419,8 +1419,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="./images/blog/blog-2.jpg"
-                                                    src="./images/blog/blog-2.jpg" alt="" />
+                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-2.jpg') }}"
+                                                    src="{{ asset('assets/images/blog/blog-2.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
                                                     <i class="fa-solid fa-play"></i>
@@ -1488,8 +1488,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="./images/blog/blog-3.jpg"
-                                                    src="./images/blog/blog-3.jpg" alt="" />
+                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-3.jpg') }}"
+                                                    src="{{ asset('assets/images/blog/blog-3.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
                                                     <i class="fa-solid fa-play"></i>
@@ -1586,9 +1586,9 @@
                     <div class="col-lg-5">
                         <div class="content-left">
                             <div class="image mb-30 mh-unset">
-                                <img src="./images/section/s-contact.jpg" alt="./images/section/s-contact.jpg"
+                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}" alt="./images/section/s-contact.jpg"
                                     class="lazyload" />
-                                <img src="./images/item/leaf.png" alt=""
+                                <img src="{{ asset('assets/images/item/leaf.png') }}" alt=""
                                     class="img-item tf-animate__rotate-left" />
                             </div>
                             <ul class="contact-list">
@@ -1649,7 +1649,7 @@
                                     We will reply you within 24 hours via email, thank you for contacting
                                 </p>
                                 <div class="img-item">
-                                    <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                 </div>
                             </div>
                             <form id="contactform" method="post" action="./contact/contact-process.php"
@@ -1705,7 +1705,7 @@
                                 </div>
                             </form>
                             <div class="img-item item-1 up-down-move">
-                                <img src="./images/item/corn-3.png" alt="">
+                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -1713,7 +1713,7 @@
             </div>
         </div>
         <div class="s-img-item item-1">
-            <img src="./images/item/page-title-top.png" alt="" />
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section contact us -->
 
@@ -1730,7 +1730,7 @@
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="./images/partner/wide-open.png" alt=""
+                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}" alt=""
                                                     class="lazyload">
                                             </a>
                                         </div>
@@ -1741,7 +1741,7 @@
 
                                         <div class="image">
                                             <a href="#">
-                                                <img src="./images/partner/sollio.png" alt="" class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>
@@ -1751,7 +1751,7 @@
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="./images/partner/syngenta.png" alt="" class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}" alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>
@@ -1762,7 +1762,7 @@
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="./images/partner/strachan-valley.png" alt=""
+                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}" alt=""
                                                     class="lazyload">
                                             </a>
                                         </div>
@@ -1774,7 +1774,7 @@
 
                                         <div class="image">
                                             <a href="#">
-                                                <img src="./images/partner/new-holland.png" alt=""
+                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}" alt=""
                                                     class="lazyload">
                                             </a>
                                         </div>
@@ -1785,7 +1785,7 @@
 
                                         <div class="image">
                                             <a href="#">
-                                                <img src="./images/partner/stony-field.png" alt=""
+                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}" alt=""
                                                     class="lazyload">
                                             </a>
                                         </div>

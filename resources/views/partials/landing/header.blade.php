@@ -7,14 +7,14 @@
                     <div class="header-left">
                         <div class="logo-site">
                             <a href="index.html">
-                                <img src="./images/logo/logo.png" alt="" />
+                                <img src="{{ asset('assets/images/logo/logo.png') }}" alt="" />
                             </a>
                         </div>
                         <div class="main-nav">
                             <ul class="nav-list">
                                 <li class="item has-child current-menu">
                                     <a href="javascript:void(0)">Home</a>
-                                    <ul class="sub-nav">
+                                    {{-- <ul class="sub-nav">
                                         <li class="current-item">
                                             <a href="index.html">
                                                 <span>
@@ -34,7 +34,7 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
                                     <a href="javascript:void(0)">Page</a>
@@ -253,7 +253,7 @@
                         <div class="top">
                             <div class="logo">
                                 <a href="index.html" rel="home" class="main-logo">
-                                    <img id="mobile-logo_header" alt="" src="./images/logo/logo-2.png" />
+                                    <img id="mobile-logo_header" alt="" src="{{ asset('assets/images/logo/logo-2.png') }}" />
                                 </a>
                                 <div class="mobile-nav-close">
                                     <i class="icon-close"></i>
@@ -474,7 +474,7 @@
                         <div class="header-left">
                             <div class="logo-site">
                                 <a href="index.html">
-                                    <img src="./images/logo/logo.png" alt="" />
+                                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="" />
                                 </a>
                             </div>
                             <div class="main-nav">
@@ -719,11 +719,11 @@
             </div>
         </div>
         <div class="header-item children">
-            <img src="./images/item/page-title-top.png" alt="">
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
         </div>
     </div>
 
     <div class="header-item">
-        <img src="./images/item/page-title-top.png" alt="">
+        <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
     </div>
 </header><!-- /.Header -->
