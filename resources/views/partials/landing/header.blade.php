@@ -14,7 +14,7 @@
                             <ul class="nav-list">
                                 <li class="item has-child current-menu">
                                     <a href="javascript:void(0)">Home</a>
-                                    <ul class="sub-nav">
+                                    {{-- <ul class="sub-nav">
                                         <li class="current-item">
                                             <a href="index.html">
                                                 <span>
@@ -34,11 +34,11 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Page</a>
-                                    <ul class="sub-nav">
+                                    <a href="javascript:void(0)">Products</a>
+                                    {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="about-us.html">
                                                 <span>
@@ -116,11 +116,11 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Portfolio</a>
-                                    <ul class="sub-nav">
+                                    <a href="javascript:void(0)">Services</a>
+                                    {{-- <ul class="sub-nav">
 
                                         <li>
                                             <a href="portfolio-style-1.html">
@@ -154,11 +154,11 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Shop</a>
-                                    <ul class="sub-nav">
+                                    <a href="javascript:void(0)">Team</a>
+                                    {{-- <ul class="sub-nav">
                                         <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                         <li><a href="shop-details.html"><span>Shop Details</span></a></li>
                                         <li><a href="shop-cart.html"><span>Shop Cart</span></a></li>
@@ -167,11 +167,11 @@
                                         <li><a href="order-tracking.html"><span>Order Tracking</span></a></li>
                                         <li><a href="my-account.html"><span>My Account</span></a></li>
                                         <li><a href="order-details.html"><span>Order Detail</span></a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Services</a>
-                                    <ul class="sub-nav">
+                                    <a href="javascript:void(0)">About us</a>
+                                    {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="our-services.html">
                                                 <span>
@@ -186,11 +186,11 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Blog</a>
-                                    <ul class="sub-nav">
+                                    <a href="javascript:void(0)">Contact us</a>
+                                    {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="blog-full-width.html">
                                                 <span>
@@ -213,11 +213,11 @@
                                                 </span>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
-                                <li class="item has-child">
+                                {{-- <li class="item has-child">
                                     <a href="contact-us.html">Contact</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
