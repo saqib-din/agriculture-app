@@ -242,12 +242,12 @@
         </div>
     </div>
     <div class="img-item item-1">
-        <img src="./images/item/grass-2.png" alt="" />
+        <img src="{{ asset('assets/images/item/grass-2.png') }}" alt="" />
     </div>
     <div class="img-item item-2">
 
         <div class="  scroll-element-3">
-            <img class="wow zoomIn" src="./images/item/silo.png" alt="" />
+            <img class="wow zoomIn" src="{{ asset('assets/images/item/silo.png') }}" alt="{{ asset('assets/images/item/silo.png') }}" />
         </div>
     </div>
 </footer>
