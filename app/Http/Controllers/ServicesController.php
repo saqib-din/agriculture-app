@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SingleController extends Controller
-
+class ServicesController extends Controller
 {
-
     public function show()
     {
-        return view('pages.products.single-product');
+        return view('pages.servicess.our-services');
     }
 }

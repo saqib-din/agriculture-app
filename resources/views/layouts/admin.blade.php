@@ -38,14 +38,12 @@
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
     data-pc-theme_contrast="">
 
-
     {{-- Page loader --}}
     <div class="loader-bg">
         <div class="loader-track">
             <div class="loader-fill"></div>
         </div>
     </div>
-
 
     @if (!in_array(Route::currentRouteName(), ['password.request', 'login', 'password.reset', 'register', 'landing.home']))
         @include('partials.landing.admin.sidebar')

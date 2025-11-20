@@ -1,37 +1,39 @@
 @extends('layouts.landing')
 
 @section('hero')
-    <!-- Page-title-home-1 -->
-    <div class="page-title-home-1">
-        <div class="swiper-container slider-home-1">
+    <!-- Page-title-home-3 -->
+    <div class="page-title-home-3">
+        <div class="swiper-container slider-home-3">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="slide-home-1">
-                        <div class="image overflow-hidden">
-                            <img src="{{ asset('assets/images/page-title/index-1.jpg') }}" data-src="{{ asset('assets/images/page-title/index-1.jpg') }}"
-                                alt="" class="lazyload tf-animate-zoom-in-out" />
+                    <div class="slide-home-3 overflow-hidden">
+                        <div class="image tf-animate-zoom-in-out">
+                            <img src="{{ asset('assets/images/page-title/home-3-1.jpg') }}"
+                                data-src="{{ asset('assets/images/page-title/home-3-1.jpg') }}" alt=""
+                                class="lazyload">
                         </div>
                         <div class="content-wrap">
                             <div class="content">
-                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
-                                    Better Agriculture for Better Future
+                                <p class="sub-title font-snowfall ">
+                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
+                                        class="tf-trainsition-draw-left access-trainsition">
+                                    <span class="tf-fade-top fade-item-1">
+                                        Better Agriculture for Better Future
+                                    </span>
                                 </p>
                                 <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br />
+                                    Every Crop Counts, <br>
                                     Every Farmer Matters.
                                 </h1>
                                 <div class="img-item ">
-                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}"
-                                        class="tf-trainsition-draw-left access-trainsition" alt="" />
+                                    <img class="tf-trainsition-draw-left access-trainsition"
+                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the
-                                    economic and technological euphoria
-                                    of recent <br />
-                                    decades has been that everything
-                                    depends on innovation.
+                                    The paramount doctrine of the economic and technological euphoria of recent <br>
+                                    decades has been that everything depends on innovation.
                                 </p>
-                                <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
+                                <a href="{{ url('/services') }}" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
                                     <span class="text-style cl-primary">
                                         See Our Services
                                     </span>
@@ -45,69 +47,32 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="slide-home-1">
-                        <div class="image overflow-hidden">
-                            <img src="{{ asset('assets/images/page-title/index-2.jpg') }}" data-src="{{ asset('assets/images/page-title/index-2.jpg') }}"
-                                alt="" class="lazyload tf-animate-zoom-in-out" />
+                    <div class="slide-home-3 overflow-hidden">
+                        <div class="image tf-animate-zoom-in-out">
+                            <img src="{{ asset('assets/images/page-title/home-3-2.jpg') }}"
+                                data-src="{{ asset('assets/images/page-title/home-3-2.jpg') }}" alt=""
+                                class="lazyload">
                         </div>
                         <div class="content-wrap">
                             <div class="content">
-                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
-                                    Better Agriculture for Better Future
+                                <p class="sub-title font-snowfall ">
+                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
+                                        class="tf-trainsition-draw-left access-trainsition">
+                                    <span class="tf-fade-top fade-item-1">
+                                        Better Agriculture for Better Future
+                                    </span>
                                 </p>
                                 <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br />
+                                    Every Crop Counts, <br>
                                     Every Farmer Matters.
                                 </h1>
                                 <div class="img-item ">
-                                    <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
+                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
+                                        class="tf-trainsition-draw-left access-trainsition">
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the
-                                    economic and technological euphoria
-                                    of recent <br />
-                                    decades has been that everything
-                                    depends on innovation.
-                                </p>
-                                <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
-                                    <span class="text-style cl-primary">
-                                        See Our Services
-                                    </span>
-
-                                    <div class="icon">
-                                        <i class="icon-arrow_right"></i>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="slide-home-1">
-                        <div class="image overflow-hidden">
-                            <img src="{{ asset('assets/images/page-title/index-3.jpg') }}" data-src="{{ asset('assets/images/page-title/index-3.jpg') }}"
-                                alt="" class="lazyload tf-animate-zoom-in-out" />
-                        </div>
-                        <div class="content-wrap">
-                            <div class="content">
-                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
-                                    Better Agriculture for Better Future
-                                </p>
-                                <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Day Is A Good <br />
-                                    Day To Be A Farmer
-                                </h1>
-                                <div class="img-item">
-                                    <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
-                                </div>
-                                <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the
-                                    economic and technological euphoria
-                                    of recent <br />
-                                    decades has been that everything
-                                    depends on innovation.
+                                    The paramount doctrine of the economic and technological euphoria of recent <br>
+                                    decades has been that everything depends on innovation.
                                 </p>
                                 <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
                                     <span class="text-style cl-primary">
@@ -123,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-slide-home-1 btn-next">
+            <div class=" btn-slide-home-3 btn-next">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
                     preserveAspectRatio="xMidYMid meet">
                     <g fill="#ffffff">
@@ -132,7 +97,7 @@
                     </g>
                 </svg>
             </div>
-            <div class="btn-slide-home-1 btn-prev">
+            <div class=" btn-slide-home-3 btn-prev">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
                     preserveAspectRatio="xMidYMid meet">
                     <g fill="#ffffff">
@@ -142,11 +107,18 @@
                 </svg>
             </div>
         </div>
-    </div><!-- /.Page-title-home-1 -->
+
+        <div class="img-item item-2">
+            <img src="{{ asset('assets/images/item/rice-plant.png') }}" alt="">
+        </div>
+        <div class="img-item item-3">
+            <img src="{{ asset('assets/images/item/corn.png') }}" alt="">
+        </div>
+    </div><!-- /.Page-title-home-3 -->
 @endsection
 
 @section('content')
-    <!-- Section-break-page -->
+    {{-- <!-- Section-break-page -->
     <section class="s-break-page">
         <div class="img-item item-1">
             <img src="{{ asset('assets/images/item/grass-4.png') }}" alt="" class="" />
@@ -176,7 +148,7 @@
                             <div class="icon hover02">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="our-services.html" class="title fs-22 font-worksans fw-6 hover-text-4">
+                            <a href="{{ url('/services') }}" class="title fs-22 font-worksans fw-6 hover-text-4">
                                 We Use New Technology</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -185,7 +157,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="our-services.html" class="btn-read font-worksans fw-5">
+                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -202,7 +174,7 @@
                             <div class="icon">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="our-services.html" class="title fs-22 font-worksans fw-6 hover-text-4">
+                            <a href="{{ url('/services') }}" class="title fs-22 font-worksans fw-6 hover-text-4">
                                 Making Healthy Foods</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -211,7 +183,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="our-services.html" class="btn-read font-worksans fw-5">
+                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -228,7 +200,7 @@
                             <div class="icon">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="our-services.html" class="title fs-23 font-worksans fw-6 hover-text-4">
+                            <a href="{{ url('/services') }}" class="title fs-23 font-worksans fw-6 hover-text-4">
                                 Reforming In The Systems</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -237,7 +209,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="our-services.html" class="btn-read font-worksans fw-5">
+                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -246,9 +218,9 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section box portfolio -->
+    </section><!-- /.Section box portfolio --> --}}
 
-    <!-- Section about -->
+    {{-- <!-- Section about -->
     <section class="s-about-us">
         <div class="tf-container w-1290">
             <div class="row">
@@ -286,7 +258,7 @@
                                 and markets mycorrhizal fungi which
                                 accelerate plant performance.
                             </p>
-                            <a href="about-us.html" class="tf-btn btn-read-more gap-34">
+                            <a href="{{ url('/aboutus') }}" class="tf-btn btn-read-more gap-34">
                                 <span class="text-style">
                                     More About Us
                                 </span>
@@ -385,7 +357,7 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section about -->
+    </section><!-- /.Section about --> --}}
 
     <!-- Section service -->
     <section class="s-service has-img-item">

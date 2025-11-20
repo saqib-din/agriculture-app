@@ -8,6 +8,6 @@ class CategoriesController extends Controller
 {
     public function show()
     {
-        return view('pages.products.category');
+        return view('pages.products.product-list');
     }
 }

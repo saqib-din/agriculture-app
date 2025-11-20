@@ -9,10 +9,6 @@
                         <div class="col-md-12">
                             <div class="page-header-title d-flex justify-content-between">
                                 <h2 class="mb-0">Dashboard</h2>
-                                {{-- <a id="refreshBtn" class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
-                                    data-bs-placement="left" title="Stats Refresh Now">
-                                    <i class="ti ti-refresh f-20"></i>
-                                </a> --}}
                             </div>
                         </div>
                     </div>

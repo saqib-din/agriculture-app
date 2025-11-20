@@ -21,11 +21,11 @@
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
                             <div class="breadcrumb">
-                                <a href="index.html">Home</a>
+                                <a href="{{ url('/') }}">Home</a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="shop-products.html"> Shop Products </a>
+                                <a href="{{ url('products') }}"> Shop Products </a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
@@ -46,7 +46,7 @@
     <!-- Main-content -->
     <div class="main-content page-shop-detail pt-0">
 
-        <!-- Section box icon wrap -->
+        {{-- <!-- Section box icon wrap -->
         <section class="s-box-wrap">
             <div class="tf-container">
                 <div class="row">
@@ -107,7 +107,7 @@
             <div class="s-img-item item-2">
                 <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
             </div>
-        </section><!-- Section box icon wrap -->
+        </section><!-- Section box icon wrap --> --}}
 
         <!-- Section product detail -->
         <section class="s-product-detail section-image-zoom zoom-active">
@@ -121,73 +121,69 @@
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
                                                 data-src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-1.jpg') }}" alt=""
-                                                class="lazyload tf-image-zoom">
+                                                data-zoom="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
+                                                alt="" class="lazyload tf-image-zoom">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item ">
                                             <img src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
                                                 data-src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-2.jpg') }}" alt=""
-                                                class="lazyload  tf-image-zoom">
+                                                data-zoom="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
+                                                alt="" class="lazyload  tf-image-zoom">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item ">
                                             <img src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
                                                 data-src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-3.jpg') }}" alt=""
-                                                class="lazyload tf-image-zoom">
+                                                data-zoom="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
+                                                alt="" class="lazyload tf-image-zoom">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
                                                 data-src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-4.jpg') }}" alt=""
-                                                class="lazyload tf-image-zoom">
+                                                data-zoom="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
+                                                alt="" class="lazyload tf-image-zoom">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="swiper-container tf-product-media-thumbs" data-direction="horizontal">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-1.jpg') }}" alt=""
-                                                class="lazyload">
+                                                data-src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
+                                                alt="" class="lazyload">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-2.jpg') }}" alt=""
-                                                class="lazyload">
+                                                data-src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
+                                                alt="" class="lazyload">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-3.jpg') }}" alt=""
-                                                class="lazyload">
+                                                data-src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
+                                                alt="" class="lazyload">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="image item">
                                             <img src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-4.jpg') }}" alt=""
-                                                class="lazyload">
+                                                data-src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
+                                                alt="" class="lazyload">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
 
@@ -398,7 +394,7 @@
                                         </div>
                                         <button type="submit" class="tf-btn btn-add-cart">
                                             <span class="text-style">
-                                                Add To Cart
+                                                Request A Quote
                                             </span>
                                             <span class="icon">
                                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -497,7 +493,8 @@
                                         <div class="author-wrap">
                                             <div class="author">
                                                 <div class="image-avt">
-                                                    <img src="{{ asset('assets/images/widget/author-comment.jpg') }}" alt="">
+                                                    <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
+                                                        alt="">
                                                 </div>
                                                 <div class="entry">
                                                     <a href="#"
@@ -585,8 +582,9 @@
                                             </li>
                                         </ul>
                                         <div class="image">
-                                            <img src="{{ asset('assets/images/item/macaroni.png') }}" data-src="{{ asset('assets/images/item/macaroni.png') }}"
-                                                alt="" class="lazyload">
+                                            <img src="{{ asset('assets/images/item/macaroni.png') }}"
+                                                data-src="{{ asset('assets/images/item/macaroni.png') }}" alt=""
+                                                class="lazyload">
                                         </div>
                                         <a href="#" class="name-product font-worksans hover-text-4">
                                             Iceland Macaroni Cheese
@@ -649,8 +647,8 @@
                                     <div class="card-product style-2 mw-unset">
                                         <div class="image">
                                             <img src="{{ asset('assets/images/item/extre-budweiser.png') }}"
-                                                data-src="{{ asset('assets/images/item/extre-budweiser.png') }}" alt=""
-                                                class="lazyload">
+                                                data-src="{{ asset('assets/images/item/extre-budweiser.png') }}"
+                                                alt="" class="lazyload">
                                         </div>
                                         <a href="#" class="name-product font-worksans hover-text-4">
                                             Extreme Budweiser
@@ -721,8 +719,9 @@
                                             </li>
                                         </ul>
                                         <div class="image">
-                                            <img src="{{ asset('assets/images/item/sitema.png') }}" data-src="{{ asset('assets/images/item/sitema.png') }}"
-                                                alt="" class="lazyload">
+                                            <img src="{{ asset('assets/images/item/sitema.png') }}"
+                                                data-src="{{ asset('assets/images/item/sitema.png') }}" alt=""
+                                                class="lazyload">
                                         </div>
                                         <a href="#" class="name-product font-worksans hover-text-4">
                                             Sitema BakeIT Plastic Box
@@ -785,8 +784,9 @@
                                     <div class="card-product style-2 mw-unset">
 
                                         <div class="image">
-                                            <img src="{{ asset('assets/images/item/avocado.png') }}" data-src="{{ asset('assets/images/item/avocado.png') }}"
-                                                alt="" class="lazyload">
+                                            <img src="{{ asset('assets/images/item/avocado.png') }}"
+                                                data-src="{{ asset('assets/images/item/avocado.png') }}" alt=""
+                                                class="lazyload">
                                         </div>
                                         <a href="#" class="name-product font-worksans hover-text-4">
                                             Avocado, Hass Large

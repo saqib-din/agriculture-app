@@ -78,6 +78,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-23">
@@ -118,6 +119,7 @@
                         </ul>
                     </div>
                 </div>
+                
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-28">

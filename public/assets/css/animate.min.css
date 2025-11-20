@@ -9,6 +9,7 @@
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
 }
+
 @-webkit-keyframes bounce {
     0%,
     20%,

@@ -47,17 +47,18 @@
                             </svg>
                             <span>Default</span>
                         </a>
-
                     </div>
                 </li>
 
                 <li class="dropdown pc-h-item">
+
                     <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
                         <svg class="pc-icon">
                             <use xlink:href="#custom-setting-2"></use>
                         </svg>
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
                         <a href="{{ route('profile.update') }}" class="dropdown-item">
                             <i class="ti ti-user"></i>

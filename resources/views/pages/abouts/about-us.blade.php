@@ -21,7 +21,7 @@
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
                             <div class="breadcrumb">
-                                <a href="index.html">Home</a>
+                                <a href="{{ url('/') }}">Home</a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>

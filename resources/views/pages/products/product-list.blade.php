@@ -21,7 +21,7 @@
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
                             <div class="breadcrumb">
-                                <a href="index.html">Home</a>
+                                <a href="{{ url('/') }}">Home</a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
@@ -189,7 +189,7 @@
                             </div>
                         </div>
 
-                        <div class="sidebar-item sb-tag">
+                        {{-- <div class="sidebar-item sb-tag">
                             <h5 class="sb-title">
                                 Tags
                             </h5>
@@ -216,7 +216,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-8">

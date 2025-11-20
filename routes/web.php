@@ -4,7 +4,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+
+// Backend Controllers
+use App\Http\Controllers\BackendProductController;
 
 Route::get('/', function () {
     return view('pages.landing.index');
@@ -12,10 +17,15 @@ Route::get('/', function () {
 
 // Products
 Route::get('/singleproduct', [SingleController::class, 'show'])->name('singleproduct');
-Route::get('/category', [CategoriesController::class, 'show'])->name('category');
+Route::get('/products', [CategoriesController::class, 'show'])->name('products');
+
+Route::get('/services', [ServicesController::class, 'show'])->name('services');
 
 // About Us
 Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
+
+// Contact Us
+Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
 
 // 404 error page
 Route::get('/not-found', function () {
@@ -30,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/product/add', [BackendProductController::class, 'productAdd'])->name('backend.products.create');
+
 });
 
 require __DIR__ . '/auth.php';

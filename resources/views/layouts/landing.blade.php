@@ -28,7 +28,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/magnific-popup.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/odometer.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/drift-basic.min.css') }}" />
-
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}" />
 
@@ -39,6 +38,9 @@
 
     <!-- Font -->
     <link rel="stylesheet" href="{{ asset('assets/font/fonts.css') }}" />
+
+    <!-- Map Style -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/map.min.css') }}" />
 
     <!-- Icon -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/icons/icomoon/style.css') }}" />
@@ -150,6 +152,8 @@
     <script type="text/javascript" src="{{ asset('assets/js/Splitetext.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/nouislider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/map.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/map.js') }}"></script>
 
     <!-- Javascript -->
     <script type="text/javascript" src="{{ asset('assets/js/zoom.js') }}"></script>

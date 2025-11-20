@@ -52,12 +52,10 @@
                             <div class="title">
                                 <p class="number s1 font-snowfall">4</p>
                                 <div class="image">
-                                    <img class="lazyload" src="{{ asset('assets/images/item/404.png') }}" data-src="{{ asset('assets/images/item/404.png') }}"
-                                        alt="">
+                                    <img class="lazyload" src="{{ asset('assets/images/item/404.png') }}"
+                                        data-src="{{ asset('assets/images/item/404.png') }}" alt="">
                                 </div>
-
                                 <p class="number s2 font-snowfall">4</p>
-
                             </div>
                             <h1 class="not-found text-upper font-farmhouse">
                                 Oopsie! Something's Missing...
@@ -71,7 +69,6 @@
                                 Please try searching for some other page, or return to the website's homepage to find
                                 what you're looking for.
                             </p>
-
                             <a href="{{ url('/') }}" class="tf-btn">
                                 <span class="text-style">
 
