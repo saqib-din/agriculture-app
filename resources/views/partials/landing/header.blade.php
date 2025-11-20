@@ -13,7 +13,7 @@
                         <div class="main-nav">
                             <ul class="nav-list">
                                 <li class="item has-child current-menu">
-                                    <a href="javascript:void(0)">Home</a>
+                                    <a href="{{ url('/') }}">Home</a>
                                     {{-- <ul class="sub-nav">
                                         <li class="current-item">
                                             <a href="index.html">
@@ -119,7 +119,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Services</a>
+                                    <a href="{{ route('services') }}">Services</a>
                                     {{-- <ul class="sub-nav">
 
                                         <li>
@@ -157,7 +157,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Team</a>
+                                    <a href="#">Team</a>
                                     {{-- <ul class="sub-nav">
                                         <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                         <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -189,7 +189,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Contact us</a>
+                                    <a href="{{ url('/contact') }} ">Contact us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="blog-full-width.html">
@@ -253,7 +253,8 @@
                         <div class="top">
                             <div class="logo">
                                 <a href="index.html" rel="home" class="main-logo">
-                                    <img id="mobile-logo_header" alt="" src="{{ asset('assets/images/logo/logo-2.png') }}" />
+                                    <img id="mobile-logo_header" alt=""
+                                        src="{{ asset('assets/images/logo/logo-2.png') }}" />
                                 </a>
                                 <div class="mobile-nav-close">
                                     <i class="icon-close"></i>
@@ -262,10 +263,12 @@
                             <nav id="mobile-main-nav" class="mobile-main-nav">
                                 <ul id="menu-mobile-menu" class="menu">
                                     <li class="menu-item menu-item-has-children-mobile current-nav">
-                                        <a class="item-menu-mobile current" href="javascript:void(0)">
+                                        <a class="item-menu-mobile current" href="{{ url('/') }}">
                                             Home
                                             <i class="icon-arrow_down"></i>
                                         </a>
+
+
                                         <ul class="sub-menu-mobile">
                                             <li class="menu-item current">
                                                 <a href="index.html">Home 1</a>
