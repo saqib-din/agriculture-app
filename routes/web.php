@@ -12,6 +12,8 @@ use App\Http\Controllers\TeamController;
 // Backend Controllers
 use App\Http\Controllers\BackendProductController;
 
+
+
 Route::get('/', function () {
     return view('pages.landing.index');
 });
@@ -28,6 +30,11 @@ Route::get('/teams', [TeamController::class, 'show'])->name('teams');
 
 // About Us
 Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
+
+
+Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
+
+
 
 // Contact Us
 Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');

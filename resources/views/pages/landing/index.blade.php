@@ -1,39 +1,37 @@
 @extends('layouts.landing')
 
 @section('hero')
-    <!-- Page-title-home-3 -->
-    <div class="page-title-home-3">
-        <div class="swiper-container slider-home-3">
+    <!-- Page-title-home-1 -->
+    <div class="page-title-home-1">
+        <div class="swiper-container slider-home-1">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="slide-home-3 overflow-hidden">
-                        <div class="image tf-animate-zoom-in-out">
-                            <img src="{{ asset('assets/images/page-title/home-3-1.jpg') }}"
-                                data-src="{{ asset('assets/images/page-title/home-3-1.jpg') }}" alt=""
-                                class="lazyload">
+                    <div class="slide-home-1">
+                        <div class="image overflow-hidden">
+                            <img src="{{ asset('assets/images/page-title/index-1.jpg') }}" data-src="{{ asset('assets/images/page-title/index-1.jpg') }}"
+                                alt="" class="lazyload tf-animate-zoom-in-out" />
                         </div>
                         <div class="content-wrap">
                             <div class="content">
-                                <p class="sub-title font-snowfall ">
-                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
-                                    <span class="tf-fade-top fade-item-1">
-                                        Better Agriculture for Better Future
-                                    </span>
+                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
+                                    Better Agriculture for Better Future
                                 </p>
                                 <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br>
+                                    Every Crop Counts, <br />
                                     Every Farmer Matters.
                                 </h1>
                                 <div class="img-item ">
-                                    <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
+                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}"
+                                        class="tf-trainsition-draw-left access-trainsition" alt="" />
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the economic and technological euphoria of recent <br>
-                                    decades has been that everything depends on innovation.
+                                    The paramount doctrine of the
+                                    economic and technological euphoria
+                                    of recent <br />
+                                    decades has been that everything
+                                    depends on innovation.
                                 </p>
-                                <a href="{{ url('/services') }}" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
+                                <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
                                     <span class="text-style cl-primary">
                                         See Our Services
                                     </span>
@@ -47,32 +45,69 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="slide-home-3 overflow-hidden">
-                        <div class="image tf-animate-zoom-in-out">
-                            <img src="{{ asset('assets/images/page-title/home-3-2.jpg') }}"
-                                data-src="{{ asset('assets/images/page-title/home-3-2.jpg') }}" alt=""
-                                class="lazyload">
+                    <div class="slide-home-1">
+                        <div class="image overflow-hidden">
+                            <img src="{{ asset('assets/images/page-title/index-2.jpg') }}" data-src="{{ asset('assets/images/page-title/index-2.jpg') }}"
+                                alt="" class="lazyload tf-animate-zoom-in-out" />
                         </div>
                         <div class="content-wrap">
                             <div class="content">
-                                <p class="sub-title font-snowfall ">
-                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
-                                    <span class="tf-fade-top fade-item-1">
-                                        Better Agriculture for Better Future
-                                    </span>
+                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
+                                    Better Agriculture for Better Future
                                 </p>
                                 <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br>
+                                    Every Crop Counts, <br />
                                     Every Farmer Matters.
                                 </h1>
                                 <div class="img-item ">
-                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
+                                    <img class="tf-trainsition-draw-left access-trainsition"
+                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
                                 </div>
                                 <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the economic and technological euphoria of recent <br>
-                                    decades has been that everything depends on innovation.
+                                    The paramount doctrine of the
+                                    economic and technological euphoria
+                                    of recent <br />
+                                    decades has been that everything
+                                    depends on innovation.
+                                </p>
+                                <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
+                                    <span class="text-style cl-primary">
+                                        See Our Services
+                                    </span>
+
+                                    <div class="icon">
+                                        <i class="icon-arrow_right"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="slide-home-1">
+                        <div class="image overflow-hidden">
+                            <img src="{{ asset('assets/images/page-title/index-3.jpg') }}" data-src="{{ asset('assets/images/page-title/index-3.jpg') }}"
+                                alt="" class="lazyload tf-animate-zoom-in-out" />
+                        </div>
+                        <div class="content-wrap">
+                            <div class="content">
+                                <p class="sub-title font-snowfall tf-fade-top fade-item-1">
+                                    Better Agriculture for Better Future
+                                </p>
+                                <h1 class="title font-farmhouse tf-fade-right fade-item-2">
+                                    Every Day Is A Good <br />
+                                    Day To Be A Farmer
+                                </h1>
+                                <div class="img-item">
+                                    <img class="tf-trainsition-draw-left access-trainsition"
+                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="" />
+                                </div>
+                                <p class="text font-nunito tf-fade-left fade-item-4">
+                                    The paramount doctrine of the
+                                    economic and technological euphoria
+                                    of recent <br />
+                                    decades has been that everything
+                                    depends on innovation.
                                 </p>
                                 <a href="our-services.html" class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
                                     <span class="text-style cl-primary">
@@ -88,7 +123,7 @@
                     </div>
                 </div>
             </div>
-            <div class=" btn-slide-home-3 btn-next">
+            <div class="btn-slide-home-1 btn-next">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
                     preserveAspectRatio="xMidYMid meet">
                     <g fill="#ffffff">
@@ -97,7 +132,7 @@
                     </g>
                 </svg>
             </div>
-            <div class=" btn-slide-home-3 btn-prev">
+            <div class="btn-slide-home-1 btn-prev">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
                     preserveAspectRatio="xMidYMid meet">
                     <g fill="#ffffff">
@@ -107,18 +142,11 @@
                 </svg>
             </div>
         </div>
-
-        <div class="img-item item-2">
-            <img src="{{ asset('assets/images/item/rice-plant.png') }}" alt="">
-        </div>
-        <div class="img-item item-3">
-            <img src="{{ asset('assets/images/item/corn.png') }}" alt="">
-        </div>
-    </div><!-- /.Page-title-home-3 -->
+    </div><!-- /.Page-title-home-1 -->
 @endsection
 
 @section('content')
-    {{-- <!-- Section-break-page -->
+    <!-- Section-break-page -->
     <section class="s-break-page">
         <div class="img-item item-1">
             <img src="{{ asset('assets/images/item/grass-4.png') }}" alt="" class="" />
@@ -126,11 +154,11 @@
         <div class="img-item item-2 wow zoomIn">
             <div class="scroll-element-3">
 
-                <img src="{{ asset('assets/images/item/barn.png') }}" alt="" class="" />
+                <img class="" src="{{ asset('assets/images/item/gree-field.jpg') }}"alt="" />
             </div>
-        </div>
-        <div class="img-item item-3">
-            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" class="" />
+            <div class="img-item item-2">
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
+            </div>
         </div>
     </section><!-- /.Section-break-page -->
 
@@ -148,7 +176,7 @@
                             <div class="icon hover02">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="{{ url('/services') }}" class="title fs-22 font-worksans fw-6 hover-text-4">
+                            <a href="our-services.html" class="title fs-22 font-worksans fw-6 hover-text-4">
                                 We Use New Technology</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -157,7 +185,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
+                                <a href="our-services.html" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -174,7 +202,7 @@
                             <div class="icon">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="{{ url('/services') }}" class="title fs-22 font-worksans fw-6 hover-text-4">
+                            <a href="our-services.html" class="title fs-22 font-worksans fw-6 hover-text-4">
                                 Making Healthy Foods</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -183,7 +211,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
+                                <a href="our-services.html" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -200,7 +228,7 @@
                             <div class="icon">
                                 <i class="icon-healthy-food-1"></i>
                             </div>
-                            <a href="{{ url('/services') }}" class="title fs-23 font-worksans fw-6 hover-text-4">
+                            <a href="our-services.html" class="title fs-23 font-worksans fw-6 hover-text-4">
                                 Reforming In The Systems</a>
                             <p class="text font-nunito">
                                 Ultrices sagittis orci a scelerisque
@@ -209,7 +237,7 @@
                                 nulla.
                             </p>
                             <div class="bot">
-                                <a href="{{ url('/services') }}" class="btn-read font-worksans fw-5">
+                                <a href="our-services.html" class="btn-read font-worksans fw-5">
                                     Read More
                                 </a>
                             </div>
@@ -218,7 +246,7 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section box portfolio --> --}}
+    </section><!-- /.Section box portfolio -->
 
     {{-- <!-- Section about -->
     <section class="s-about-us">
@@ -267,8 +295,9 @@
                                 </div>
                             </a>
                             <div class="image hover-item">
-                                <img src="{{ asset('assets/images/section/s-about.jpg') }}" data-src="{{ asset('assets/images/section/s-about.jpg') }}"
-                                    alt="" class="lazyload tf-animate-2" />
+                                <img src="{{ asset('assets/images/section/s-about.jpg') }}"
+                                    data-src="{{ asset('assets/images/section/s-about.jpg') }}" alt=""
+                                    class="lazyload tf-animate-2" />
                             </div>
                         </div>
                         <div class="content-right">
@@ -378,7 +407,8 @@
                             tellus non finibus rutrum.
                         </p>
                         <div class="img-item ">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                alt="" />
                         </div>
                     </div>
                 </div>
@@ -497,7 +527,379 @@
         </div>
     </section><!-- /.Section service -->
 
-    <!-- Section why us -->
+    <!-- Section shopping today  -->
+    <section class="s-shopping">
+        <div class="tf-container w-1620">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-wrap">
+                        <div class="content-section">
+                            <div class="heading-section style-2 has-text">
+                                <div class="img-item">
+                                    <div class="item">
+                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"alt="" />
+                                    </div>
+                                    <p class="sub-title">
+                                        Shopping Today
+                                    </p>
+                                </div>
+
+                                <p class="title  wow fadeInLeft" data-wow-delay="0s">
+                                    We Provide High <br>
+                                    Quality Agricultural <br>
+                                    Products.
+                                </p>
+                                <p class="text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ex
+                                    igula, pulvinar ultrices justo sed, bibendum lobortis nibh. Pellentesque
+                                    mattis eros sit amet lorem tristique faucibus.
+                                </p>
+                            </div>
+                            <a href="{{ url('/category') }}" class="tf-btn scale-40">
+                                <span class="text-style ">
+                                    View All The Shop
+                                </span>
+
+                                <div class="icon">
+                                    <i class="icon-arrow_right"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="s-slider">
+                            <div class="swiper-container slider-shopping-card">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="card-product mw-unset style-2 type-2 wow fadeInUp"
+                                            data-wow-delay="0s">
+                                            <ul class="trendy-list">
+                                                <li class="trendy-item ">
+                                                    <p class="color-1">Sale!</p>
+                                                </li>
+                                            </ul>
+                                            <div class="image">
+                                                <img src="{{ asset('assets/images/item/strawberry.png') }}"
+                                                    data-src="./images/item/strawberry.png" alt=""
+                                                    class=" lazyload">
+                                            </div>
+                                            <a href="shop-details.html" class="name-product font-worksans hover-text-4">
+                                                Organic Strawberries
+                                            </a>
+                                            <div class="pricing-star">
+                                                <div class="price-wrap">
+                                                    <span class=" price-1">$6.25</span>
+                                                    <span class=" price-2">$5.11</span>
+                                                </div>
+                                                <div class="wg-rating">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product-btn-list">
+                                                <a href="#addcart" class="icon shoping" data-bs-toggle="modal">
+
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Add to card
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </a>
+                                                <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Add Wishlist
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </a>
+                                                <a href="#" class="icon view-product">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Quick View
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Compare
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-repeat"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="card-product mw-unset style-2 type-2 wow fadeInUp"
+                                            data-wow-delay="0.1s">
+                                            <ul class="trendy-list">
+                                                <li class="trendy-item ">
+                                                    <p class="color-1">Sale!</p>
+                                                </li>
+                                            </ul>
+                                            <div class="image">
+                                                <img src="{{ asset('assets/images/item/eggs.png') }}" data-src="{{ asset('assets/images/item/eggs.png') }}"
+                                                    alt="" class=" lazyload">
+                                            </div>
+                                            <a href="shop-details.html" class="name-product font-worksans hover-text-4">
+                                                Free-Range Chicken Eggs
+
+                                            </a>
+                                            <div class="pricing-star">
+                                                <div class="price-wrap">
+                                                    <span class=" price-1">$5.25</span>
+                                                    <span class=" price-2">$3.00</span>
+                                                </div>
+                                                <div class="wg-rating">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product-btn-list">
+                                                <a href="#addcart" class="icon shoping" data-bs-toggle="modal">
+
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Add to card
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </a>
+                                                <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Add Whitelist
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-heart"></i>
+                                                </a>
+                                                <a href="#" class="icon view-product">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Quick View
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon">
+                                                    <div class="tt-text">
+
+                                                        <p>
+                                                            Compare
+                                                        </p>
+                                                    </div>
+                                                    <i class="fa-solid fa-repeat"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-slide-wrap">
+                            <div class="btn-prev btn-slider-shopping">
+                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="68px" height="18px"
+                                    viewBox="0 0 68 18" preserveAspectRatio="xMidYMid meet">
+
+                                    <g fill="#0d401c">
+                                        <path
+                                            d="M6.3 14.3 c-3.5 -2.1 -6.3 -4.2 -6.3 -4.9 0 -0.6 2.7 -3 6 -5.3 6.4 -4.5 8.3 -4.1 2.6 0.6 l-3.5 2.8 24.7 0 c23.6 0 38.2 0.9 38.2 2.3 0 0.4 -7.3 0.3 -16.3 -0.1 -9 -0.5 -23.3 -0.5 -31.8 0 l-15.4 0.8 5.3 2.9 c5 2.8 6.6 4.6 4 4.6 -0.7 0 -4.1 -1.7 -7.5 -3.7z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="btn-next btn-slider-shopping">
+                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="68px" height="18px"
+                                    viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
+                                    <g fill="#0d401c">
+                                        <path
+                                            d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="s-img-item item-1">
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}"alt="">
+        </div>
+        <div class="s-img-item item-2 wow zoomIn">
+            <div class="nhapNhap">
+
+                <img src="{{ asset('assets/images/item/house-mountain-3.png') }}" alt="">
+            </div>
+        </div>
+    </section><!-- /.Section shopping today  -->
+
+    {{-- <!-- Section project -->
+    <section class="s-project">
+        <div class="heading-side has-img-item">
+            <div class="tf-container w-1290">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="heading-section style-3 has-text text-center">
+                            <p class="sub-title">Closes Projects</p>
+                            <p class="title tf-animate-3">
+                                Latest Projects List
+                            </p>
+                            <p class="text">
+                                Duis eleifend euismod arcu, nec
+                                faucibus mauris finibus id. Integer
+                                mattis, tellus non finibus rutrum.
+                            </p>
+                            <div class="img-item">
+                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                    alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="s-img-item item-1">
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
+            </div>
+            <div class="s-img-item item-2 wow zoomIn">
+                <img src="{{ asset('assets/images/item/windmill.png') }}" alt="" />
+            </div>
+            <div class="s-img-item item-3">
+                <img src="{{ asset('assets/images/item/green.png') }}" alt="" />
+            </div>
+        </div>
+
+        <div class="slider-side">
+            <div class="tf-container w-1290">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="swiper-container slider-s-project">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="box-portfolio style-5">
+                                        <div class="image">
+                                            <img src="{{ asset('assets/images/section/s-project-1.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-1.jpg') }}"
+                                                alt="" class="lazyload" />
+                                        </div>
+                                        <div class="content">
+                                            <p class="sub font-farmhouse text-upper">
+                                                Agriculture - farm
+                                            </p>
+                                            <a href="portfolio-details.html"
+                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
+                                                Joy
+                                                Of Sheep Farming</a>
+                                            <div class="bot">
+                                                <p class="text font-nunito">
+                                                    Lorem ipsum dolor sit amet,
+                                                    consectetur adipiscing <br> elit. Sed
+                                                    a cursus massa. Cras ut dui nec
+                                                    nibh <br> vehicula fermentum. natoque
+                                                    penatibus.
+                                                </p>
+                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
+                                                    <i class="icon-arrow_right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="box-portfolio style-5">
+                                        <div class="image">
+                                            <img src="{{ asset('assets/images/section/s-project-2.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-2.jpg') }}"
+                                                alt="" class="lazyload" />
+                                        </div>
+                                        <div class="content">
+                                            <p class="sub font-farmhouse text-upper">
+                                                Agriculture - farm
+                                            </p>
+                                            <a href="portfolio-details.html"
+                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
+                                                Joy
+                                                Of Sheep Farming</a>
+                                            <div class="bot">
+                                                <p class="text font-nunito">
+                                                    Lorem ipsum dolor sit amet,
+                                                    consectetur adipiscing <br> elit. Sed
+                                                    a cursus massa. Cras ut dui nec
+                                                    nibh <br> vehicula fermentum. natoque
+                                                    penatibus.
+                                                </p>
+                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
+                                                    <i class="icon-arrow_right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="box-portfolio style-5">
+                                        <div class="image">
+                                            <img src="{{ asset('assets/images/section/s-project-3.jpg') }}"
+                                                data-src="{{ asset('assets/images/section/s-project-3.jpg') }}"
+                                                alt="" class="lazyload" />
+                                        </div>
+                                        <div class="content">
+                                            <p class="sub font-farmhouse text-upper">
+                                                Agriculture - farm
+                                            </p>
+                                            <a href="portfolio-details.html"
+                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
+                                                Joy
+                                                Of Sheep Farming</a>
+                                            <div class="bot">
+                                                <p class="text font-nunito">
+                                                    Lorem ipsum dolor sit amet,
+                                                    consectetur adipiscing <br> elit. Sed
+                                                    a cursus massa. Cras ut dui nec
+                                                    nibh <br> vehicula fermentum. natoque
+                                                    penatibus.
+                                                </p>
+                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
+                                                    <i class="icon-arrow_right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="bot">
+                            <div class="swiper-pagination style-1 pagination-s-project"></div>
+                            <a href="portfolio-style-1.html" class="tf-btn-read hover-text-4">View All Latest
+                                Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="s-img-item item-4">
+            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
+        </div>
+    </section><!-- /.Section project --> --}}
+
+    {{-- <!-- Section why us -->
     <section class="s-why-us has-img-item">
         <div class="tf-container w-1290">
             <div class="row">
@@ -505,7 +907,8 @@
                     <div class="main-section">
                         <div class="image">
                             <div class="video-wrap style-4">
-                                <img class="lazyload tf-animate-2 " data-src="{{ asset('assets/images/section/s-why-us.jpg') }}"
+                                <img class="lazyload tf-animate-2 "
+                                    data-src="{{ asset('assets/images/section/s-why-us.jpg') }}"
                                     src="{{ asset('assets/images/section/s-why-us.jpg') }}" alt="" />
                                 <div class="box-video tf-animate__box animate__slow ">
                                     <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
@@ -521,7 +924,8 @@
                             <div class="heading-section style-2">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                        <img class="tf-animate-1"
+                                            src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Why Choose DonalFarm?
@@ -602,9 +1006,253 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section why us -->
+    </section><!-- /.Section why us --> --}}
 
-    <!-- Section our commitments -->
+    <!-- Section testimonial -->
+    <section class="s-testimonial style-2">
+        <div class="wrap">
+            <div class="image wow fadeInLeft" data-wow-delay="0s">
+                <div class="scroll-element-2">
+                    <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
+                </div>
+                <div class="sign ">
+                    <img src="{{ asset('assets/images/item/sign.png') }}" alt="">
+                </div>
+            </div>
+            <div class="content-section">
+                <div class="heading-section has-text mb-35">
+                    <p class="sub-title">Meet The Farmer</p>
+                    <p class="title mb-18 tf-animate-1">We Are Dedicated Farmers</p>
+                    <p class="text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibus commodo.
+                        Proin vehicula massa id congue rutrum, ex libero sodales ex, cursus euismod purus.
+                    </p>
+                    <div class="img-item">
+                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                    </div>
+                </div>
+                <p class="quote font-snowfall fs-30">
+                    “Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
+                    good
+                    morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.”
+                </p>
+                <div class="bot">
+                    <div class="author-wrap">
+                        <p class="author text-upper fw-6 font-worksans">
+                            <a href="#" class="">
+                                Donald Christopher
+                            </a>- Talk
+                        </p>
+                        <p class="duty">
+                            Farm Owner Donald Farm Happiness
+                        </p>
+                    </div>
+                    <a href="our-farmers.html" class="tf-btn scale-40">
+                        <span class="text-style">
+                            View All The Farmers
+                        </span>
+                        <div class="icon">
+                            <i class="icon-arrow_right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.Section testimonial -->
+
+    <!-- Section testimonial 3 -->
+    <section class="s-testimonial-3 overflow-hidden">
+        <div class="tf-container w-1290">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-section text-center has-text relative">
+                        <p class="sub-title ">Testimonials From People Who Have
+                            Experienced It
+                            <i class="icon-quote tf-animate__box-2 "></i>
+
+                        </p>
+                        <p class="title wow fadeInUp" data-wow-delay="0s">What Customers Says?
+                        </p>
+                        <p class="text">
+                            Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non
+                            finibus rutrum.
+
+                        </p>
+                        <div class="img-item">
+                            <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="s-slider">
+            <div class="tf-container w-1290">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="testimonial-thumbs">
+                            <div class="swiper-container slider-testimonial-3-thumb">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="image-avt">
+                                            <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}" alt="">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="image-avt">
+                                            <img src="{{ asset('assets/images/widget/author-comment.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="image-avt">
+                                            <img src="{{ asset('assets/images/section/customer-say-4.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-container slider-testimonial-3">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="testimonial style-3">
+
+                                            <div class="comment">
+                                                <p class="caption fs-30 font-snowfall">
+                                                    Having been a host farmer for three seasons, we’ve seen
+                                                    firsthand
+                                                    the difference this
+                                                    internship makes in beginning <br>
+                                                    farmers and host farms alike. As a farmer it is difficult to
+                                                    weigh
+                                                    the benefits of
+                                                    hosting young farmers. Fresh energy <br>
+                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
+                                                    egestas.
+                                                </p>
+                                            </div>
+                                            <div class="infor">
+                                                <div class="name-wrap">
+                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
+                                                        CHRISTINE Rose
+                                                    </a>
+                                                    <div class="wg-rating">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="duty">
+                                                    Director, Radical Orange Pty Ltd.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="testimonial style-3">
+
+                                            <div class="comment">
+                                                <p class="caption fs-30 font-snowfall">
+                                                    Having been a host farmer for three seasons, we’ve seen
+                                                    firsthand
+                                                    the difference this
+                                                    internship makes in beginning
+                                                    farmers and host farms alike. As a farmer it is difficult to
+                                                    weigh
+                                                    the benefits of
+                                                    hosting young farmers. Fresh energy
+                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
+                                                    egestas.
+                                                </p>
+                                            </div>
+                                            <div class="infor">
+                                                <div class="name-wrap">
+                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
+                                                        CHRISTINE Rose
+                                                    </a>
+                                                    <div class="wg-rating">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="duty">
+                                                    Director, Radical Orange Pty Ltd.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="testimonial style-3">
+
+                                            <div class="comment">
+                                                <p class="caption fs-30 font-snowfall">
+                                                    Having been a host farmer for three seasons, we’ve seen
+                                                    firsthand
+                                                    the difference this
+                                                    internship makes in beginning
+                                                    farmers and host farms alike. As a farmer it is difficult to
+                                                    weigh
+                                                    the benefits of
+                                                    hosting young farmers. Fresh energy
+                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
+                                                    egestas.
+                                                </p>
+                                            </div>
+                                            <div class="infor">
+                                                <div class="name-wrap">
+                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
+                                                        CHRISTINE Rose
+                                                    </a>
+                                                    <div class="wg-rating">
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </div>
+                                                </div>
+                                                <p class="duty">
+                                                    Director, Radical Orange Pty Ltd.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-slide-testimonial-3 btn-prev">
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50px" height="15px"
+                    viewBox="0 0 68 18" preserveAspectRatio="xMidYMid meet">
+                    <g fill="#0d401c">
+                        <path
+                            d="M6.3 14.3 c-3.5 -2.1 -6.3 -4.2 -6.3 -4.9 0 -0.6 2.7 -3 6 -5.3 6.4 -4.5 8.3 -4.1 2.6 0.6 l-3.5 2.8 24.7 0 c23.6 0 38.2 0.9 38.2 2.3 0 0.4 -7.3 0.3 -16.3 -0.1 -9 -0.5 -23.3 -0.5 -31.8 0 l-15.4 0.8 5.3 2.9 c5 2.8 6.6 4.6 4 4.6 -0.7 0 -4.1 -1.7 -7.5 -3.7z" />
+                    </g>
+                </svg>
+            </div>
+            <div class="btn-slide-testimonial-3 btn-next">
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50px" height="15px"
+                    viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
+                    <g fill="#0d401c">
+                        <path
+                            d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="s-img-item scroll-element-3">
+            <img class="scale-1-1 lazyload" src="./images/section/yellow-f.png" data-src="{{ asset('assets/images/section/yellow-f.png') }}"
+                alt="">
+        </div>
+    </section><!-- /.Section testimonial 3 -->
+
+    {{-- <!-- Section our commitments -->
     <section class="s-our-commitment tf-spacing-3 pb-75">
         <div class="tf-container w-1620">
             <div class="row">
@@ -614,7 +1262,8 @@
                             <div class="heading-section style-2">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                        <img class="tf-animate-1"
+                                            src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Our Commitment
@@ -691,177 +1340,32 @@
                         </div>
                         <div class="image-wrap img-hover">
                             <div class="image hover-item">
-                                <img src="{{ asset('assets/images/section/s-commit.jpg') }}" data-src="{{ asset('assets/images/section/s-commit.jpg') }}"
-                                    alt="" class="lazyload" />
+                                <img src="{{ asset('assets/images/section/s-commit.jpg') }}"
+                                    data-src="{{ asset('assets/images/section/s-commit.jpg') }}" alt=""
+                                    class="lazyload" />
                             </div>
                             <div class="img-item item-1  tf-animate__box animate__slow">
-                                <img class="lazyload up-down-move" src="{{ asset('assets/images/item/notice.png') }}" alt="" />
+                                <img class="lazyload up-down-move" src="{{ asset('assets/images/item/notice.png') }}"
+                                    alt="" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- /.Section our commitments -->
+    </section><!-- /.Section our commitments --> --}}
 
-    <!-- Section project -->
-    <section class="s-project">
-        <div class="heading-side has-img-item">
-            <div class="tf-container w-1290">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="heading-section style-3 has-text text-center">
-                            <p class="sub-title">Closes Projects</p>
-                            <p class="title tf-animate-3">
-                                Latest Projects List
-                            </p>
-                            <p class="text">
-                                Duis eleifend euismod arcu, nec
-                                faucibus mauris finibus id. Integer
-                                mattis, tellus non finibus rutrum.
-                            </p>
-                            <div class="img-item">
-                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="s-img-item item-1">
-                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-            </div>
-            <div class="s-img-item item-2 wow zoomIn">
-                <img src="{{ asset('assets/images/item/windmill.png') }}" alt="" />
-            </div>
-            <div class="s-img-item item-3">
-                <img src="{{ asset('assets/images/item/green.png') }}" alt="" />
-            </div>
-        </div>
 
-        <div class="slider-side">
-            <div class="tf-container w-1290">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="swiper-container slider-s-project">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="box-portfolio style-5">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/section/s-project-1.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/s-project-1.jpg') }}" alt=""
-                                                class="lazyload" />
-                                        </div>
-                                        <div class="content">
-                                            <p class="sub font-farmhouse text-upper">
-                                                Agriculture - farm
-                                            </p>
-                                            <a href="portfolio-details.html"
-                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
-                                                Joy
-                                                Of Sheep Farming</a>
-                                            <div class="bot">
-                                                <p class="text font-nunito">
-                                                    Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing <br> elit. Sed
-                                                    a cursus massa. Cras ut dui nec
-                                                    nibh <br> vehicula fermentum. natoque
-                                                    penatibus.
-                                                </p>
-                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
-                                                    <i class="icon-arrow_right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="box-portfolio style-5">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/section/s-project-2.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/s-project-2.jpg') }}" alt=""
-                                                class="lazyload" />
-                                        </div>
-                                        <div class="content">
-                                            <p class="sub font-farmhouse text-upper">
-                                                Agriculture - farm
-                                            </p>
-                                            <a href="portfolio-details.html"
-                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
-                                                Joy
-                                                Of Sheep Farming</a>
-                                            <div class="bot">
-                                                <p class="text font-nunito">
-                                                    Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing <br> elit. Sed
-                                                    a cursus massa. Cras ut dui nec
-                                                    nibh <br> vehicula fermentum. natoque
-                                                    penatibus.
-                                                </p>
-                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
-                                                    <i class="icon-arrow_right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="box-portfolio style-5">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/section/s-project-3.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/s-project-3.jpg') }}" alt=""
-                                                class="lazyload" />
-                                        </div>
-                                        <div class="content">
-                                            <p class="sub font-farmhouse text-upper">
-                                                Agriculture - farm
-                                            </p>
-                                            <a href="portfolio-details.html"
-                                                class="title fs-23 font-worksans fw-6 hover-text-secondary">The
-                                                Joy
-                                                Of Sheep Farming</a>
-                                            <div class="bot">
-                                                <p class="text font-nunito">
-                                                    Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing <br> elit. Sed
-                                                    a cursus massa. Cras ut dui nec
-                                                    nibh <br> vehicula fermentum. natoque
-                                                    penatibus.
-                                                </p>
-                                                <a href="portfolio-details.html" class="btn-read icon style-circle">
-                                                    <i class="icon-arrow_right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="bot">
-                            <div class="swiper-pagination style-1 pagination-s-project"></div>
-                            <a href="portfolio-style-1.html" class="tf-btn-read hover-text-4">View All Latest
-                                Projects</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="s-img-item item-4">
-            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-        </div>
-    </section><!-- /.Section project -->
-
-    <!-- Section testimonial -->
+    {{-- <!-- Section testimonial -->
     <section class="s-testimonial">
         <div class="tf-container full">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="content-wrap">
                         <div class="image wow fadeInLeft " data-wow-delay="0s">
-                            <img class="absolute scroll-element-3" src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
+                            <img class="absolute scroll-element-3" src="{{ asset('assets/images/item/s-testi.png') }}"
+                                alt="" />
                         </div>
 
                         <div class="content-section">
@@ -869,7 +1373,8 @@
                                 <p class="sub-title">Testimonials With Us</p>
                                 <p class="title tf-animate-2">What Clients Says?</p>
                                 <div class="img-item">
-                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                        alt="" />
                                 </div>
                                 <div class="img-item item-2">
                                     <i class="icon-quote"></i>
@@ -895,7 +1400,8 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="{{ asset('assets/images/widget/author-comment.jpg') }}" alt="" />
+                                                        <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
+                                                            alt="" />
                                                     </div>
                                                     <div class="infor">
                                                         <div class="name-wrap">
@@ -944,87 +1450,7 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section testimonial -->
-
-    <!-- Section counter -->
-    <section class="s-counter has-img-item ">
-        <div class="tf-container w-1290">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="wg-counter p-0">
-                        <div class="counter-item">
-                            <div class="icon">
-                                <i class="icon-barley"></i>
-                            </div>
-                            <div class="counter">
-                                <div class="odometer fs-65 style-1 style-1-1">
-                                    1000
-                                </div>
-                            </div>
-                            <p class="sub">Completed Projects</p>
-                        </div>
-                        <div class="counter-item">
-                            <div class="icon">
-                                <i class="fa-solid fa-cow"></i>
-                            </div>
-                            <div class="counter">
-                                <div class="odometer fs-65 style-1 style-1-2">
-                                    1000
-                                </div>
-                            </div>
-                            <p class="sub">Animals Anda Plants</p>
-                        </div>
-                        <div class="counter-item">
-                            <div class="icon">
-                                <i class="fa-solid fa-tractor"></i>
-                            </div>
-                            <div class="counter">
-                                <div class="odometer fs-65 style-1-3">
-                                    10
-                                </div>
-                            </div>
-                            <p class="sub">Years Of Experience</p>
-                        </div>
-                        <div class="counter-item">
-                            <div class="icon">
-                                <i class="icon-barley"></i>
-                            </div>
-                            <div class="counter">
-                                <div class="odometer fs-65 style-1-4">
-                                    1000
-                                </div>
-                            </div>
-                            <p class="sub">Tons of Harvest</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="s-img-item item-1">
-            <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
-        </div>
-        <div class="s-img-item item-2 zoomIn wow">
-            <div class="scroll-element-4">
-
-                <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
-            </div>
-        </div>
-        <div class="s-img-item item-bottom">
-            <img src="{{ asset('assets/images/item/brown-bottom.png') }}" alt="" />
-        </div>
-    </section><!-- /.Section counter -->
-
-    <!-- Section break page -->
-    <section class="s-break-page style-2">
-        <div class="content">
-            <h1 class="font-farmhouse text-center text-anime-style-1">
-                Agriculture Is The Most <br />
-                Healthful, Most Useful And Most <br />
-                Noble Employment Of Man
-            </h1>
-        </div>
-    </section><!-- /.Section break page -->
+    </section><!-- /.Section testimonial --> --}}
 
     <!-- Section faq -->
     <section class="s-faq has-img-item tf-pt-0">
@@ -1035,7 +1461,8 @@
                         <div class="heading-section style-2 has-text mb-43">
                             <div class="img-item">
                                 <div class="item mr-16">
-                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                        alt="" />
                                 </div>
                                 <p class="sub-title">
                                     Frequently Asked Questions
@@ -1149,12 +1576,14 @@
                     <div class="s-right img-hover">
                         <div class="image-wrap hover-item">
                             <div class="image">
-                                <img src="{{ asset('assets/images/section/s-faq.jpg') }}" data-src="{{ asset('assets/images/section/s-faq.jpg') }}"
-                                    alt="" class="lazyload tf-animate-2" />
+                                <img src="{{ asset('assets/images/section/s-faq.jpg') }}"
+                                    data-src="{{ asset('assets/images/section/s-faq.jpg') }}" alt=""
+                                    class="lazyload tf-animate-2" />
                             </div>
                         </div>
                         <div class="img-item  tf-animate__box-2 ">
-                            <img class="up-down-move" src="{{ asset('assets/images/item/question.png') }}" alt="" />
+                            <img class="up-down-move" src="{{ asset('assets/images/item/question.png') }}"
+                                alt="" />
                         </div>
                         <div class="content">
                             <p class="text fs-30 font-snowfall">
@@ -1179,7 +1608,7 @@
         </div>
     </section><!-- /.Section faq -->
 
-    <!-- Section banner -->
+    {{-- <!-- Section banner -->
     <section class="s-banner">
         <div class="heading-side has-img-item">
             <div class="image scroll-element-3 ">
@@ -1202,12 +1631,13 @@
                                     <div class="box-event ">
                                         <div class="image hover-item">
                                             <img src="{{ asset('assets/images/widget/box-event-1.jpg') }}"
-                                                data-src="{{ asset('assets/images/widget/box-event-1.jpg') }}" alt=""
-                                                class="lazyload" />
+                                                data-src="{{ asset('assets/images/widget/box-event-1.jpg') }}"
+                                                alt="" class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                                    alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Discover Farm Tour
@@ -1230,12 +1660,13 @@
                                     <div class="box-event ">
                                         <div class="image hover-item">
                                             <img src="{{ asset('assets/images/widget/box-event-2.jpg') }}"
-                                                data-src="{{ asset('assets/images/widget/box-event-2.jpg') }}" alt=""
-                                                class="lazyload" />
+                                                data-src="{{ asset('assets/images/widget/box-event-2.jpg') }}"
+                                                alt="" class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                                    alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Farm In Summer
@@ -1258,12 +1689,13 @@
                                     <div class="box-event ">
                                         <div class="image hover-item">
                                             <img src="{{ asset('assets/images/widget/box-event-3.jpg') }}"
-                                                data-src="{{ asset('assets/images/widget/box-event-3.jpg') }}" alt=""
-                                                class="lazyload" />
+                                                data-src="{{ asset('assets/images/widget/box-event-3.jpg') }}"
+                                                alt="" class="lazyload" />
                                         </div>
                                         <div class="content">
                                             <div class="img-item">
-                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                                <img src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                                    alt="" />
                                             </div>
                                             <a href="event-detail.html" class="title fw-7 font-worksans">
                                                 Children's Summer Camp
@@ -1288,9 +1720,91 @@
                 </div>
             </div>
         </div>
-    </section><!-- /.Section banner -->
+    </section><!-- /.Section banner --> --}}
 
-    <!-- Section blog post -->
+    {{-- <!-- Section counter -->
+    <section class="s-counter has-img-item ">
+        <div class="tf-container w-1290">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wg-counter p-0">
+                        <div class="counter-item">
+                            <div class="icon">
+                                <i class="icon-barley"></i>
+                            </div>
+                            <div class="counter">
+                                <div class="odometer fs-65 style-1 style-1-1">
+                                    1000
+                                </div>
+                            </div>
+                            <p class="sub">Completed Projects</p>
+                        </div>
+                        <div class="counter-item">
+                            <div class="icon">
+                                <i class="fa-solid fa-cow"></i>
+                            </div>
+                            <div class="counter">
+                                <div class="odometer fs-65 style-1 style-1-2">
+                                    1000
+                                </div>
+                            </div>
+                            <p class="sub">Animals Anda Plants</p>
+                        </div>
+                        <div class="counter-item">
+                            <div class="icon">
+                                <i class="fa-solid fa-tractor"></i>
+                            </div>
+                            <div class="counter">
+                                <div class="odometer fs-65 style-1-3">
+                                    10
+                                </div>
+                            </div>
+                            <p class="sub">Years Of Experience</p>
+                        </div>
+                        <div class="counter-item">
+                            <div class="icon">
+                                <i class="icon-barley"></i>
+                            </div>
+                            <div class="counter">
+                                <div class="odometer fs-65 style-1-4">
+                                    1000
+                                </div>
+                            </div>
+                            <p class="sub">Tons of Harvest</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="s-img-item item-1">
+            <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
+        </div>
+        <div class="s-img-item item-2 zoomIn wow">
+            <div class="scroll-element-4">
+
+                <img src="{{ asset('assets/images/item/tructor.png') }}" alt="" />
+            </div>
+        </div>
+        <div class="s-img-item item-bottom">
+            <img src="{{ asset('assets/images/item/brown-bottom.png') }}" alt="" />
+        </div>
+    </section><!-- /.Section counter --> --}}
+
+    <!-- Section break page -->
+    <section class="s-break-page style-2">
+        <div class="content">
+            <h1 class="font-farmhouse text-center text-anime-style-1">
+                Agriculture Is The Most <br />
+                Healthful, Most Useful And Most <br />
+                Noble Employment Of Man
+            </h1>
+        </div>
+    </section><!-- /.Section break page -->
+
+
+
+    {{-- <!-- Section blog post -->
     <section class="s-blog-post">
         <div class="tf-container w-1290">
             <div class="row">
@@ -1304,7 +1818,8 @@
                             tellus non finibus rutrum.
                         </p>
                         <div class="img-item">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                alt="" />
                         </div>
                     </div>
                 </div>
@@ -1320,7 +1835,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-1.jpg') }}"
+                                                <img class="lazyload"
+                                                    data-src="{{ asset('assets/images/blog/blog-1.jpg') }}"
                                                     src="{{ asset('assets/images/blog/blog-1.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
@@ -1391,7 +1907,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-2.jpg') }}"
+                                                <img class="lazyload"
+                                                    data-src="{{ asset('assets/images/blog/blog-2.jpg') }}"
                                                     src="{{ asset('assets/images/blog/blog-2.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
@@ -1460,7 +1977,8 @@
                                     <article class="article-blog-item type-3 style-2 img-hover">
                                         <div class="image">
                                             <div class="video-wrap hover-item">
-                                                <img class="lazyload" data-src="{{ asset('assets/images/blog/blog-3.jpg') }}"
+                                                <img class="lazyload"
+                                                    data-src="{{ asset('assets/images/blog/blog-3.jpg') }}"
                                                     src="{{ asset('assets/images/blog/blog-3.jpg') }}" alt="" />
                                                 <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                                     class="style-icon-play popup-youtube">
@@ -1548,7 +2066,7 @@
                 </svg>
             </div>
         </div>
-    </section><!-- /.Section blog post -->
+    </section><!-- /.Section blog post --> --}}
 
     <!-- Section contact us -->
     <section class="s-contact-us has-img-item">
@@ -1558,9 +2076,10 @@
                     <div class="col-lg-5">
                         <div class="content-left">
                             <div class="image mb-30 mh-unset">
-                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}" alt="{{ asset('assets/images/section/s-contact.jpg') }}"
-                                    class="lazyload" />
-                                <img src="{{ asset('assets/images/item/leaf.png') }}" alt="{{ asset('assets/images/item/leaf.png') }}"
+                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}"
+                                    alt="{{ asset('assets/images/section/s-contact.jpg') }}" class="lazyload" />
+                                <img src="{{ asset('assets/images/item/leaf.png') }}"
+                                    alt="{{ asset('assets/images/item/leaf.png') }}"
                                     class="img-item tf-animate__rotate-left" />
                             </div>
                             <ul class="contact-list">
@@ -1621,7 +2140,8 @@
                                     We will reply you within 24 hours via email, thank you for contacting
                                 </p>
                                 <div class="img-item">
-                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                        alt="" />
                                 </div>
                             </div>
                             <form id="contactform" method="post" action="./contact/contact-process.php"
@@ -1702,7 +2222,18 @@
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}" alt=""
+                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt=""
                                                     class="lazyload">
                                             </a>
                                         </div>
@@ -1710,20 +2241,11 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}" alt="" class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}"
+                                                    alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>
@@ -1734,8 +2256,8 @@
                                         <div class="image">
                                             <a href="#">
 
-                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}" alt=""
-                                                    class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
+                                                    alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>
@@ -1746,8 +2268,8 @@
 
                                         <div class="image">
                                             <a href="#">
-                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}" alt=""
-                                                    class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}"
+                                                    alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>
@@ -1757,8 +2279,8 @@
 
                                         <div class="image">
                                             <a href="#">
-                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}" alt=""
-                                                    class="lazyload">
+                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}"
+                                                    alt="" class="lazyload">
                                             </a>
                                         </div>
                                     </div>

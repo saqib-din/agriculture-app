@@ -119,7 +119,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ url('/services') }}">Services</a>
+                                    <a href="javascript:void(0)">Services</a>
                                     {{-- <ul class="sub-nav">
 
                                         <li>
@@ -157,7 +157,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ url('/teams') }}">Team</a>
+                                    <a href="javascript:void(0)">Team</a>
                                     {{-- <ul class="sub-nav">
                                         <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                         <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -189,7 +189,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ url('/contactus') }}">Contact Us</a>
+                                    <a href="javascript:void(0)">Contact us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="blog-full-width.html">
@@ -265,11 +265,11 @@
                             <nav id="mobile-main-nav" class="mobile-main-nav">
                                 <ul id="menu-mobile-menu" class="menu">
                                     <li class="menu-item menu-item-has-children-mobile current-nav">
-                                        <a class="item-menu-mobile current" href="javascript:void(0)">
+                                        <a class="item-menu-mobile current" href="{{ url('/') }}">
                                             Home
                                             {{-- <i class="icon-arrow_down"></i> --}}
                                         </a>
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item current">
                                                 <a href="index.html">Home 1</a>
                                             </li>
