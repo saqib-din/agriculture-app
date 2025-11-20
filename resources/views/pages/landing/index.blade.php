@@ -273,7 +273,7 @@
                                 and markets mycorrhizal fungi which
                                 accelerate plant performance.
                             </p>
-                            <a href="{{ url('/aboutus') }}" class="tf-btn btn-read-more gap-34">
+                            <a href="about-us.html" class="tf-btn btn-read-more gap-34">
                                 <span class="text-style">
                                     More About Us
                                 </span>
