@@ -11,7 +11,7 @@
                     <div class="col-lg-5">
                         <div class="image-wrap">
                             <div class="image">
-                                <img src="./images/widget/commitment.jpg" data-src="./images/widget/commitment.jpg"
+                                <img src="{{ asset('assets/images/widget/commitment.jpg" data-src="./images/widget/commitment.jpg') }}"
                                     alt="" class="lazyload">
                             </div>
                             <div class="img-item item-1 tf-animate__box">
@@ -24,7 +24,8 @@
                             <div class="heading-section style-2 ">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                            alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Our Commitment To Freshness
@@ -83,7 +84,7 @@
                 </div>
             </div>
             <div class="s-img-item item-1 scroll-element-4">
-                <img src="./images/item/tructor.png" alt="">
+                <img src="{{ asset('assets/images/item/tructor.png') }}" alt="">
             </div>
         </section><!-- /.Section our commitment 2 -->
 
@@ -162,11 +163,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -189,7 +185,8 @@
                                 rutrum.
                             </p>
                             <div class="img-item">
-                                <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                    alt="" />
                             </div>
                         </div>
                     </div>
@@ -197,8 +194,9 @@
                         <div class="grid-layout-3">
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-1.jpg"
-                                        data-src="./images/widget/provide-item-1.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-1.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-1.jpg') }}" alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-salad"></i>
                                     </div>
@@ -217,8 +215,9 @@
                             </div>
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-2.jpg"
-                                        data-src="./images/widget/provide-item-2.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-2.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-2.jpg') }}" alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-cow"></i>
                                     </div>
@@ -237,8 +236,9 @@
                             </div>
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0.2s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-3.jpg"
-                                        data-src="./images/widget/provide-item-3.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-3.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-3.jpg') }}" alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-chicken-2
                                             "></i>
@@ -258,8 +258,9 @@
                             </div>
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-4.jpg"
-                                        data-src="./images/widget/provide-item-4.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-4.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-4.jpg') }}" alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-fertilizer"></i>
                                     </div>
@@ -278,8 +279,9 @@
                             </div>
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-5.jpg"
-                                        data-src="./images/widget/provide-item-5.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-5.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-5.jpg') }}"alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-lemon-slice"></i>
                                     </div>
@@ -298,8 +300,9 @@
                             </div>
                             <div class="box-infor ic-hover img-hover style-1 wow fadeInUp" data-wow-delay="0.2s">
                                 <div class="image hover-icon hover-item">
-                                    <img src="./images/widget/provide-item-6.jpg"
-                                        data-src="./images/widget/provide-item-6.jpg" alt="" class=" lazyload">
+                                    <img src="{{ asset('assets/images/widget/provide-item-6.jpg') }}"
+                                        data-src="{{ asset('assets/images/widget/provide-item-6.jpg') }}" alt=""
+                                        class=" lazyload">
                                     <div class="icon style-circle">
                                         <i class="icon-meat222"></i>
                                     </div>
@@ -323,7 +326,7 @@
             </div>
         </section><!-- /.Section provide -->
 
-        <!-- Section pricing -->
+        {{-- <!-- Section pricing -->
         <section class="s-pricing has-img-item tf-pt-0 ">
             <div class="tf-container">
                 <div class="row">
@@ -338,7 +341,7 @@
                                 rutrum.
                             </p>
                             <div class="img-item">
-                                <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"alt="" />
                             </div>
                         </div>
                     </div>
@@ -482,12 +485,12 @@
                 </div>
             </div>
             <div class="s-img-item item-1">
-                <img src="./images/item/page-title-top.png" alt="">
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
             </div>
             <div class="s-img-item item-2">
-                <img src="./images/item/page-title-top.png" alt="">
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
             </div>
-        </section><!-- /.Section pricing -->
+        </section><!-- /.Section pricing --> --}}
 
         <!-- Section testimonial -->
         <section class="s-testimonial-2 style-2">
@@ -498,7 +501,8 @@
                             <p class="sub-title">Testimonials From People Who Have Experienced It </p>
                             <p class="title text-anime-style-1">What Custommer Says?</p>
                             <div class="img-item">
-                                <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                    alt="" />
                             </div>
                             <div class="img-item item-2">
                                 <i class="icon-quote"></i>
@@ -522,7 +526,7 @@
                                 </div>
                             </div>
                             <div class="img-item">
-                                <img src="./images/item/line-throw-title.png" alt="">
+                                <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
                         </div>
                     </div>
@@ -556,7 +560,8 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="./images/widget/author-comment.jpg" alt="">
+                                                        <img src="{{ asset('assets/images/images/widget/author-comment.jpg') }}"
+                                                            alt="">
                                                     </div>
                                                     <div class="infor">
                                                         <div class="name-wrap">
@@ -598,7 +603,8 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="./images/section/customer-say-3.jpg" alt="">
+                                                        <img src="{{ asset('assets/images/images/section/customer-say-3.jpg') }}"
+                                                            alt="">
                                                     </div>
                                                     <div class="infor">
                                                         <div class="name-wrap">
@@ -635,11 +641,11 @@
             </div>
 
             <div class="s-img-item item-1 scroll-element-3">
-                <img src="./images/item/gree-field.jpg" data-src="./images/item/gree-field.jpg" alt=""
-                    class="lazyload scale-1-1">
+                <img src="{{ asset('assets/images/images/item/gree-field.jpg') }}"data-src="./images/item/gree-field.jpg') }}"
+                    alt="" class="lazyload scale-1-1">
             </div>
             <div class="s-img-item item-2">
-                <img src="./images/item/page-title-top.png" alt="" />
+                <img src="{{ asset('assets/images/images/item/page-title-top.png') }}"alt="" />
             </div>
         </section><!-- /.Section testimonial -->
 
@@ -652,9 +658,9 @@
                             <div class="content-left">
 
                                 <div class="image mb-30">
-                                    <img src="./images/section/s-contact.jpg" alt="./images/section/s-contact.jpg"
-                                        class="lazyload" />
-                                    <img src="./images/item/leaf.png" alt=""
+                                    <img src="{{ asset('assets/images/section/s-contact.jpg') }}"
+                                        alt="{{ asset('assets/images/section/s-contact.jpg') }}" class="lazyload" />
+                                    <img src="{{ asset('assets/images/item/leaf.png') }}" alt=""
                                         class="img-item tf-animate__rotate-left" />
                                 </div>
                                 <ul class="contact-list">
@@ -715,7 +721,8 @@
                                         We will reply you within 24 hours via email, thank you for contacting
                                     </p>
                                     <div class="img-item">
-                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                        <img class="tf-animate-1"
+                                            src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                 </div>
                                 <form id="contactform" method="post" action="./contact/contact-process.php"
@@ -865,4 +872,4 @@
         </section><!-- /.Section partner -->
 
     </div><!-- /.Main-content -->
-    @endsection
+@endsection

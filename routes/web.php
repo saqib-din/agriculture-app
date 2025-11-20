@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ServicesController;
+
+
 
 Route::get('/', function () {
     return view('pages.landing.index');
@@ -16,6 +20,12 @@ Route::get('/category', [CategoriesController::class, 'show'])->name('category')
 
 // About Us
 Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
+Route::get('/services', [ServicesController::class, 'show'])->name('services');
+
+
+Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
+
+
 
 // 404 error page
 Route::get('/not-found', function () {

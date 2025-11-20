@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
+class ServicesController extends Controller
 {
 
-    // public function show(Request $request): View
-    // {
-    //     return view('pages.landing.services');
-    // }
+    public function show()
+    {
+        return view('pages.services.services');
+    }
 }

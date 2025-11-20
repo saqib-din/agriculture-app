@@ -119,7 +119,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ route('services') }}">Services</a>
+                                    <a href="{{url('/services')}}">Services</a>
                                     {{-- <ul class="sub-nav">
 
                                         <li>
@@ -189,7 +189,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ url('/contact') }} ">Contact us</a>
+                                    <a href="{{ url('/contactus') }} ">Contact us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="blog-full-width.html">

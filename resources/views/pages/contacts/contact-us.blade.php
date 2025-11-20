@@ -11,9 +11,9 @@
                             <div class="col-lg-5">
                                 <div class="content-left">
                                     <div class="image mb-30">
-                                        <img src="./images/section/s-contact.jpg" alt="./images/section/s-contact.jpg"
+                                        <img src="{{ asset('assets/images/section/s-contact.jpg') }}" alt="{{ asset('assets/images/section/s-contact.jpg') }}"
                                             class=" img lazyload" />
-                                        <img src="./images/item/leaf.png" alt=""
+                                        <img src="{{ asset('assets/images/item/leaf.png') }}" alt=""
                                             class="img-item tf-animate__rotate-left" />
                                     </div>
                                     <ul class="contact-list">
@@ -73,7 +73,7 @@
 
                                         </p>
                                         <div class="img-item">
-                                            <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
+                                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                         </div>
                                     </div>
                                     <form id="contactform" method="post" action="./contact/contact-process.php"
