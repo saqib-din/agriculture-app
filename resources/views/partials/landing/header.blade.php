@@ -509,7 +509,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="{{ url('/category') }}">Products</a>
+                                        <a href="{{ url('/products') }}">Products</a>
                                         {{-- <ul class="sub-nav">
                                             <li>
                                                 <a href="about-us.html">
@@ -591,7 +591,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Services</a>
+                                        <a href="{{ url('/services') }}">Services</a>
                                         {{-- <ul class="sub-nav">
 
                                             <li>
@@ -629,7 +629,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Team</a>
+                                        <a href="{{ url('/team') }}">Team</a>
                                         {{-- <ul class="sub-nav">
                                             <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                             <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -643,7 +643,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">About Us</a>
+                                        <a href="{{ url('/aboutus') }}">About Us</a>
                                         {{-- <ul class="sub-nav">
                                             <li>
                                                 <a href="service-detail.html">
@@ -689,7 +689,7 @@
                                         </ul>
                                     </li> --}}
                                     <li class="item has-child">
-                                        <a href="contact-us.html">Contact Us</a>
+                                        <a href="{{ url('/contactus') }}">Contact Us</a>
                                     </li>
                                 </ul>
                             </div>
