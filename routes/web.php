@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TeamController;
 
 // Backend Controllers
 use App\Http\Controllers\BackendProductController;
@@ -20,6 +21,10 @@ Route::get('/singleproduct', [SingleController::class, 'show'])->name('singlepro
 Route::get('/products', [CategoriesController::class, 'show'])->name('products');
 
 Route::get('/services', [ServicesController::class, 'show'])->name('services');
+
+
+// Teams
+Route::get('/teams', [TeamController::class, 'show'])->name('teams');
 
 // About Us
 Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');

@@ -40,7 +40,7 @@
 
     <!-- Main-content -->
     <div class="main-content page-shop-product pt-0">
-        
+
         <div class="tf-container">
             <div class="row">
                 <div class="col-lg-4">
@@ -245,7 +245,7 @@
                                                 New Post
                                             </span>
                                         </div>
-                                        <div class="select-item">
+                                        {{-- <div class="select-item">
                                             <span class="text-value-item">
                                                 Regular Post
                                             </span>
@@ -254,7 +254,7 @@
                                             <span class="text-value-item">
                                                 Lastest Posts
                                             </span>
-                                        </div>
+                                        </div> --}}
                                         <div class="select-item ">
                                             <span class="text-value-item">
                                                 All Post
@@ -271,8 +271,9 @@
                             <div class="card-product style-2 wow fadeInUp" data-wow-delay="0s">
 
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/haagen.png') }}" data-src="{{ asset('assets/images/item/haagen.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/haagen.png') }}"
+                                        data-src="{{ asset('assets/images/item/haagen.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="{{ url('singleproduct') }}" class="name-product font-worksans hover-text-4">
                                     Häagen-Dazs Salted
@@ -334,7 +335,8 @@
                                     </li>
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/vimto.png') }}" data-src="{{ asset('assets/images/item/vimto.png') }}" alt=""
+                                    <img src="{{ asset('assets/images/item/vimto.png') }}"
+                                        data-src="{{ asset('assets/images/item/vimto.png') }}" alt=""
                                         class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
@@ -402,7 +404,8 @@
 
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/bag.png') }}" data-src="{{ asset('assets/images/item/bag.png') }}" alt=""
+                                    <img src="{{ asset('assets/images/item/bag.png') }}"
+                                        data-src="{{ asset('assets/images/item/bag.png') }}" alt=""
                                         class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
@@ -474,8 +477,9 @@
 
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/macaroni.png') }}" data-src="{{ asset('assets/images/item/macaroni.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/macaroni.png') }}"
+                                        data-src="{{ asset('assets/images/item/macaroni.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Iceland Macaroni Cheese
@@ -537,7 +541,8 @@
 
                                 <div class="image">
                                     <img src="{{ asset('assets/images/item/extre-budweiser.png') }}"
-                                        data-src="{{ asset('assets/images/item/extre-budweiser.png') }}" alt="" class="lazyload">
+                                        data-src="{{ asset('assets/images/item/extre-budweiser.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Extreme Budweiser
@@ -605,8 +610,9 @@
                                     </li>
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/sitema.png') }}" data-src="{{ asset('assets/images/item/sitema.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/sitema.png') }}"
+                                        data-src="{{ asset('assets/images/item/sitema.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Sitema BakeIT Plastic Box
@@ -663,11 +669,12 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="card-product style-2 wow fadeInUp" data-wow-delay="0s">
+                            {{-- <div class="card-product style-2 wow fadeInUp" data-wow-delay="0s">
 
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/avocado.png') }}" data-src="{{ asset('assets/images/item/avocado.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/avocado.png') }}"
+                                        data-src="{{ asset('assets/images/item/avocado.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Handmade And Created
@@ -727,8 +734,9 @@
                             <div class="card-product style-2 wow fadeInUp" data-wow-delay="0.1s">
 
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/banana.png') }}" data-src="{{ asset('assets/images/item/banana.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/banana.png') }}"
+                                        data-src="{{ asset('assets/images/item/banana.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Avocado The Most Nutrient
@@ -788,8 +796,9 @@
                             <div class="card-product style-2 wow fadeInUp" data-wow-delay="0.2s">
 
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/flover.png') }}" data-src="{{ asset('assets/images/item/flover.png') }}"
-                                        alt="" class="lazyload">
+                                    <img src="{{ asset('assets/images/item/flover.png') }}"
+                                        data-src="{{ asset('assets/images/item/flover.png') }}" alt=""
+                                        class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
                                     Golden Curcuma Flavored
@@ -855,7 +864,8 @@
 
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/dense.png') }}" data-src="{{ asset('assets/images/item/dense.png') }}" alt=""
+                                    <img src="{{ asset('assets/images/item/dense.png') }}"
+                                        data-src="{{ asset('assets/images/item/dense.png') }}" alt=""
                                         class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
@@ -922,7 +932,8 @@
 
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/beef.png') }}" data-src="{{ asset('assets/images/item/beef.png') }}" alt=""
+                                    <img src="{{ asset('assets/images/item/beef.png') }}"
+                                        data-src="{{ asset('assets/images/item/beef.png') }}" alt=""
                                         class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
@@ -971,7 +982,6 @@
                                     </a>
                                     <a href="#" class="icon">
                                         <div class="tt-text">
-
                                             <p>
                                                 Compare
                                             </p>
@@ -989,7 +999,8 @@
 
                                 </ul>
                                 <div class="image">
-                                    <img src="{{ asset('assets/images/item/from.png') }}" data-src="{{ asset('assets/images/item/from.png') }}" alt=""
+                                    <img src="{{ asset('assets/images/item/from.png') }}"
+                                        data-src="{{ asset('assets/images/item/from.png') }}" alt=""
                                         class="lazyload">
                                 </div>
                                 <a href="shop-details.html" class="name-product font-worksans hover-text-4">
@@ -1046,11 +1057,17 @@
                                         <i class="fa-solid fa-repeat"></i>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class=" tf-page-pagination">
+                    <div class="tf-page-pagination">
                         <ul>
+                            <!-- Previous -->
+                            <li>
+                                <a href="#" class="prev">Prev</a>
+                            </li>
+
+                            <!-- Page Numbers -->
                             <li>
                                 <a class="active" href="javascript:void(0)">1</a>
                             </li>
@@ -1060,8 +1077,14 @@
                             <li>
                                 <a href="#">3</a>
                             </li>
+
+                            <!-- Next -->
+                            <li>
+                                <a href="#" class="next">Next</a>
+                            </li>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </div>

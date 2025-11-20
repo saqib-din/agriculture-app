@@ -157,7 +157,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Team</a>
+                                    <a href="{{ url('/teams') }}">Team</a>
                                     {{-- <ul class="sub-nav">
                                         <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                         <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -346,7 +346,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">
+                                        <a class="item-menu-mobile" href="{{ url('/teams') }}">
                                             Team
                                             {{-- <i class="icon-arrow_down"></i> --}}
                                         </a>
@@ -628,7 +628,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Team</a>
+                                        <a href="{{ url('/teams') }}">Team</a>
                                         {{-- <ul class="sub-nav">
                                             <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                             <li><a href="shop-details.html"><span>Shop Details</span></a></li>
