@@ -119,7 +119,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Services</a>
+                                    <a href="{{url('/services')}}">Services</a>
                                     {{-- <ul class="sub-nav">
 
                                         <li>
@@ -157,7 +157,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Team</a>
+                                    <a href="{{url('/teams')}}">Team</a>
                                     {{-- <ul class="sub-nav">
                                         <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                         <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -170,7 +170,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="{{ url('aboutus') }}">About Us</a>
+                                    <a href="{{ url('aboutus') }}">About us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="our-services.html">
@@ -189,7 +189,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Contact us</a>
+                                    <a href="{{ url('/contactus') }} ">Contact us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="blog-full-width.html">
@@ -267,8 +267,10 @@
                                     <li class="menu-item menu-item-has-children-mobile current-nav">
                                         <a class="item-menu-mobile current" href="{{ url('/') }}">
                                             Home
-                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                            <i class="icon-arrow_down"></i>
                                         </a>
+
+
                                         <ul class="sub-menu-mobile">
                                             <li class="menu-item current">
                                                 <a href="index.html">Home 1</a>
@@ -279,14 +281,14 @@
                                             <li class="menu-item">
                                                 <a href="home-3.html">Home 3</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
                                         <a class="item-menu-mobile" href="javascript:void(0)">
-                                            Products
-                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                            Page
+                                            <i class="icon-arrow_down"></i>
                                         </a>
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item">
                                                 <a href="about-us.html">About Us</a>
                                             </li>
@@ -320,14 +322,14 @@
                                             <li class="menu-item">
                                                 <a href="testimonial.html">Testimonial</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
                                         <a class="item-menu-mobile" href="javascript:void(0)">
-                                            Services
-                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                            Portfolio
+                                            <i class="icon-arrow_down"></i>
                                         </a>
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item">
                                                 <a href="portfolio-style-1.html">Portfolio Style
                                                     1</a>
@@ -343,14 +345,14 @@
                                             <li class="menu-item">
                                                 <a href="portfolio-details.html">Portfolio Detail</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="{{ url('/teams') }}">
-                                            Team
-                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                        <a class="item-menu-mobile" href="javascript:void(0)">
+                                            Shop
+                                            <i class="icon-arrow_down"></i>
                                         </a>
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item"><a href="shop-products.html">Shop Product</a>
                                             </li>
                                             <li class="menu-item"><a href="shop-details.html">Shop Detail</a>
@@ -368,26 +370,26 @@
                                             </li>
                                             <li class="menu-item"><a href="order-details.html">Order Detail</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
                                         <a class="item-menu-mobile" href="javascript:void(0)">
-                                            About Us
-                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                            Services
+                                            <i class="icon-arrow_down"></i>
                                         </a>
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item">
                                                 <a href="our-services.html">Our Services</a>
                                             </li>
                                             <li class="menu-item">
                                                 <a href="service-detail.html">Service Detail</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
                                     <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">Contact Us
-                                            {{-- <i class="icon-arrow_down"></i></a> --}}
-                                        {{-- <ul class="sub-menu-mobile">
+                                        <a class="item-menu-mobile" href="javascript:void(0)">Blog
+                                            <i class="icon-arrow_down"></i></a>
+                                        <ul class="sub-menu-mobile">
                                             <li class="menu-item">
                                                 <a href="blog-full-width.html">Blog Full Width</a>
                                             </li>
@@ -398,14 +400,14 @@
                                             <li class="menu-item">
                                                 <a href="blog-single.html">Blog Single</a>
                                             </li>
-                                        </ul> --}}
+                                        </ul>
                                     </li>
-                                    {{-- <li class="menu-item menu-item-has-children-mobile">
+                                    <li class="menu-item menu-item-has-children-mobile">
                                         <a class="item-menu-mobile" href="contact-us.html">Contact</a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
                             </nav>
-                            {{-- <div class="group-icon">
+                            <div class="group-icon">
                                 <a class="site-nav-icon header-search" href="#canvasSearch"
                                     data-bs-toggle="offcanvas">
                                     <i class="icon-magnifying-glass fs-21"> </i>
@@ -415,7 +417,7 @@
                                     <i class="icon-basket"></i>
                                     Shop
                                 </a>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="bottom">
                             <div class="infor-list">
@@ -469,7 +471,6 @@
             </div>
         </div>
     </div>
-
     <div class="fixed-header style-absolute">
         <div class="tf-container w-1780">
             <div class="row">
@@ -508,7 +509,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="{{ url('/products') }}">Products</a>
+                                        <a href="{{ url('/category') }}">Products</a>
                                         {{-- <ul class="sub-nav">
                                             <li>
                                                 <a href="about-us.html">
@@ -628,7 +629,7 @@
                                         </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="{{ url('/teams') }}">Team</a>
+                                        <a href="javascript:void(0)">Team</a>
                                         {{-- <ul class="sub-nav">
                                             <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                             <li><a href="shop-details.html"><span>Shop Details</span></a></li>
@@ -688,7 +689,7 @@
                                         </ul>
                                     </li> --}}
                                     <li class="item has-child">
-                                        <a href="{{ url('/contactus') }}">Contact Us</a>
+                                        <a href="contact-us.html">Contact Us</a>
                                     </li>
                                 </ul>
                             </div>
