@@ -2,16 +2,25 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SingleController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\AboutController;
 
 Route::get('/', function () {
     return view('pages.landing.index');
 });
-Route::get('/services', function () {
-    return view('pages.services');
-})->name('services');
-Route::get('/contact', function () {
-    return view('pages.contact-us');
-})->name('contact-us');
+
+// Products
+Route::get('/singleproduct', [SingleController::class, 'show'])->name('singleproduct');
+Route::get('/category', [CategoriesController::class, 'show'])->name('category');
+
+// About Us
+Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
+
+// 404 error page
+Route::get('/not-found', function () {
+    return view('pages.errors.404');
+})->name('not-found');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -22,6 +31,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__ . '/auth.php';

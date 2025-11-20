@@ -6,7 +6,7 @@
                 <div class="header-inner">
                     <div class="header-left">
                         <div class="logo-site">
-                            <a href="index.html">
+                            <a href="{{ url('/not-found') }}">
                                 <img src="{{ asset('assets/images/logo/logo.png') }}" alt="" />
                             </a>
                         </div>
@@ -37,7 +37,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">Products</a>
+                                    <a href="{{ url('/category') }}">Products</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="about-us.html">
@@ -170,7 +170,7 @@
                                     </ul> --}}
                                 </li>
                                 <li class="item has-child">
-                                    <a href="javascript:void(0)">About us</a>
+                                    <a href="{{ url('aboutus') }}">About us</a>
                                     {{-- <ul class="sub-nav">
                                         <li>
                                             <a href="our-services.html">
@@ -222,24 +222,26 @@
                         </div>
                     </div>
                     <div class="header-right">
-                        <a href="contact-us.html" class="tf-btn gap-30">
+                        {{-- <a href="contact-us.html" class="tf-btn gap-30">
                             <span class="text-style">
                                 Get In Touch!
                             </span>
                             <div class="icon">
                                 <i class="icon-arrow_right"></i>
                             </div>
-                        </a>
-                        <div class="icon-wrap">
+                        </a> --}}
+                        {{-- <div class="icon-wrap">
                             <a class="icon header-search" href="#canvasSearch" data-bs-toggle="offcanvas">
                                 <i class="icon-magnifying-glass fs-21"></i>
                             </a>
                             <a href="shop-products.html" class="icon wg-bag">
                                 <i class="icon-basket"></i>
                             </a>
-                        </div>
-                        <div class="wg-welcome btn-open-welcome">
-                            <i class="icon-fences-icon fs-24"></i>
+                        </div> --}}
+                        <div class="icon-wrap">
+                            <a href="{{ route('login') }}" class="icon style-circle">
+                                <i class="icon-user"></i>
+                            </a>
                         </div>
 
                         <div class="mobile-button">
@@ -483,8 +485,8 @@
                             <div class="main-nav">
                                 <ul class="nav-list">
                                     <li class="item has-child current-menu">
-                                        <a href="javascript:void(0)">Home</a>
-                                        <ul class="sub-nav">
+                                        <a href="{{ url('/') }}">Home</a>
+                                        {{-- <ul class="sub-nav">
                                             <li class="current-item">
                                                 <a href="index.html">
                                                     <span>
@@ -504,11 +506,11 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Page</a>
-                                        <ul class="sub-nav">
+                                        <a href="{{ url('/category') }}">Products</a>
+                                        {{-- <ul class="sub-nav">
                                             <li>
                                                 <a href="about-us.html">
                                                     <span>
@@ -586,11 +588,11 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Portfolio</a>
-                                        <ul class="sub-nav">
+                                        <a href="javascript:void(0)">Services</a>
+                                        {{-- <ul class="sub-nav">
 
                                             <li>
                                                 <a href="portfolio-style-1.html">
@@ -624,11 +626,11 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Shop</a>
-                                        <ul class="sub-nav">
+                                        <a href="javascript:void(0)">Team</a>
+                                        {{-- <ul class="sub-nav">
                                             <li><a href="shop-products.html"><span>Shop Products</span></a></li>
                                             <li><a href="shop-details.html"><span>Shop Details</span></a></li>
                                             <li><a href="shop-cart.html"><span>Shop Cart</span></a></li>
@@ -638,11 +640,11 @@
                                             </li>
                                             <li><a href="my-account.html"><span>My Account</span></a></li>
                                             <li><a href="order-details.html"><span>Order Detail</span></a></li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
-                                        <a href="javascript:void(0)">Services</a>
-                                        <ul class="sub-nav">
+                                        <a href="javascript:void(0)">About Us</a>
+                                        {{-- <ul class="sub-nav">
                                             <li>
                                                 <a href="service-detail.html">
                                                     <span>
@@ -657,9 +659,9 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                        </ul>
+                                        </ul> --}}
                                     </li>
-                                    <li class="item has-child">
+                                    {{-- <li class="item has-child">
                                         <a href="javascript:void(0)">Blog</a>
                                         <ul class="sub-nav">
                                             <li>
@@ -685,32 +687,34 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> --}}
                                     <li class="item has-child">
-                                        <a href="contact-us.html">Contact</a>
+                                        <a href="contact-us.html">Contact Us</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="header-right">
-                            <a href="contact-us.html" class="tf-btn gap-30">
+                            {{-- <a href="contact-us.html" class="tf-btn gap-30">
                                 <span class="text-style">
                                     Get In Touch!
                                 </span>
                                 <div class="icon">
                                     <i class="icon-arrow_right"></i>
                                 </div>
-                            </a>
-                            <div class="icon-wrap">
+                            </a> --}}
+                            {{-- <div class="icon-wrap">
                                 <a class="icon header-search" href="#canvasSearch" data-bs-toggle="offcanvas">
                                     <i class="icon-magnifying-glass fs-21"></i>
                                 </a>
                                 <a href="shop-products.html" class="icon wg-bag">
                                     <i class="icon-basket"></i>
                                 </a>
-                            </div>
-                            <div class="wg-welcome btn-open-welcome">
-                                <i class="icon-fences-icon fs-24"></i>
+                            </div> --}}
+                            <div class="icon-wrap">
+                                <a href="{{ route('login') }}" class="icon style-circle">
+                                    <i class="icon-user"></i>
+                                </a>
                             </div>
                             <div class="mobile-button">
                                 <span></span>

@@ -1586,9 +1586,9 @@
                     <div class="col-lg-5">
                         <div class="content-left">
                             <div class="image mb-30 mh-unset">
-                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}" alt="./images/section/s-contact.jpg"
+                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}" alt="{{ asset('assets/images/section/s-contact.jpg') }}"
                                     class="lazyload" />
-                                <img src="{{ asset('assets/images/item/leaf.png') }}" alt=""
+                                <img src="{{ asset('assets/images/item/leaf.png') }}" alt="{{ asset('assets/images/item/leaf.png') }}"
                                     class="img-item tf-animate__rotate-left" />
                             </div>
                             <ul class="contact-list">

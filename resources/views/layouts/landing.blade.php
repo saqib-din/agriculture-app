@@ -27,6 +27,8 @@
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/magnific-popup.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/odometer.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/drift-basic.min.css') }}" />
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}" />
 
@@ -65,7 +67,7 @@
                         <div class="loader">
                         </div>
                         <div class="icon">
-                            <img src="./images/logo/logo3x.png" alt="">
+                            <img src="{{ asset('assets/images/logo/logo3x.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -104,8 +106,8 @@
                                 <i class="icon-keyboard"></i>
                             </div>
                             <fieldset>
-                                <input class="" type="text" placeholder="Search for anything" name="text" tabindex="2"
-                                    value="" aria-required="true" required="" />
+                                <input class="" type="text" placeholder="Search for anything" name="text"
+                                    tabindex="2" value="" aria-required="true" required="" />
                             </fieldset>
                             <div class="button-submit">
                                 <button class="" type="submit">
@@ -147,7 +149,15 @@
     <script type="text/javascript" src="{{ asset('assets/js/ScrollTrigger.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/Splitetext.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/main.js') }}"></script>
-    <!-- /Javascript -->
+    <script type="text/javascript" src="{{ asset('assets/js/nouislider.min.js') }}"></script>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{{ asset('assets/js/zoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/drift.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/rellax.min.js') }}"></script>
+    <script>
+        var rellax = new Rellax(".rellax");
+    </script>
 
     @yield('scripts')
 
