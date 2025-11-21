@@ -50,11 +50,13 @@
                     <div class="col-lg-5">
                         <div class="image-wrap">
                             <div class="image">
-                                <img src="{{ asset('assets/images/widget/commitment.jpg" data-src="./images/widget/commitment.jpg') }}"
-                                    alt="" class="lazyload">
+                                <img src="{{ asset('assets/images/widget/commitment.jpg') }}"
+                                    data-src="{{ asset('assets/images/widget/commitment.jpg') }}" alt=""
+                                    class="lazyload">
                             </div>
                             <div class="img-item item-1 tf-animate__box">
-                                <img class="up-down-move" src="./images/item/notice-2.png" alt="">
+                                <img class="up-down-move" src="{{ asset('assets/images/item/notice-2.png') }}"
+                                    alt="">
                             </div>
                         </div>
                     </div>
@@ -138,7 +140,7 @@
                                     <div class="swiper-slide">
                                         <div class="box-icon ic-hover wow fadeInUp" data-wow-delay="0s">
                                             <div class="icon hover-icon style-circle">
-                                                <img src="./icons/tomato.png" alt="">
+                                                <img src="{{ asset('assets/icons/tomato.png') }}" alt="">
                                             </div>
                                             <a href="our-commitments.html"
                                                 class="caption fw-6  font-worksans hover-text-secondary">
@@ -187,7 +189,7 @@
                                     <div class="swiper-slide">
                                         <div class="box-icon ic-hover wow fadeInUp" data-wow-delay="0.3s">
                                             <div class="icon hover-icon style-circle">
-                                                <img src="./icons/dollar-circle.png" alt="">
+                                                <img src="{{ asset('assets/icons/dollar-circle.png') }}" alt="">
                                             </div>
                                             <a href="our-commitments.html"
                                                 class="caption fw-6  font-worksans hover-text-secondary">
@@ -599,7 +601,7 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="{{ asset('assets/images/images/widget/author-comment.jpg') }}"
+                                                        <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
                                                             alt="">
                                                     </div>
                                                     <div class="infor">
@@ -642,7 +644,7 @@
                                             <div class="author-wrap">
                                                 <div class="left">
                                                     <div class="image-avt">
-                                                        <img src="{{ asset('assets/images/images/section/customer-say-3.jpg') }}"
+                                                        <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
                                                             alt="">
                                                     </div>
                                                     <div class="infor">
@@ -680,11 +682,11 @@
             </div>
 
             <div class="s-img-item item-1 scroll-element-3">
-                <img src="{{ asset('assets/images/images/item/gree-field.jpg') }}"data-src="./images/item/gree-field.jpg') }}"
+                <img src="{{ asset('assets/images/item/gree-field.jpg') }}"data-src="{{ asset('assets/images/item/gree-field.jpg') }}"
                     alt="" class="lazyload scale-1-1">
             </div>
             <div class="s-img-item item-2">
-                <img src="{{ asset('assets/images/images/item/page-title-top.png') }}"alt="" />
+                <img src="{{ asset('assets/images/item/page-title-top.png') }}"alt="" />
             </div>
         </section><!-- /.Section testimonial --> --}}
 
@@ -839,8 +841,8 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="./images/partner/wide-open.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/wide-open.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>
@@ -850,8 +852,8 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="./images/partner/sollio.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/sollio.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>
@@ -861,8 +863,8 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="./images/partner/syngenta.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/syngenta.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>
@@ -873,8 +875,8 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="./images/partner/strachan-valley.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>
@@ -885,8 +887,8 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="./images/partner/new-holland.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/new-holland.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>
@@ -896,8 +898,8 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="./images/partner/stony-field.png" alt=""
-                                                        class="lazyload">
+                                                    <img src="{{ asset('assets/images/partner/stony-field.png') }}"
+                                                        alt="" class="lazyload">
                                                 </a>
                                             </div>
                                         </div>

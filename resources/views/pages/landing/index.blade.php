@@ -1342,8 +1342,6 @@
         </div>
     </section><!-- /.Section our commitments --> --}}
 
-
-
     {{-- <!-- Section testimonial -->
     <section class="s-testimonial">
         <div class="tf-container full">
@@ -1788,8 +1786,6 @@
             </h1>
         </div>
     </section><!-- /.Section break page --> --}}
-
-
 
     {{-- <!-- Section blog post -->
     <section class="s-blog-post">
