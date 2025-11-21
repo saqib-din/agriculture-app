@@ -1,10 +1,10 @@
 @extends('layouts.landing')
 
-@section('content')
+@section('hero')
     <!-- Page-title -->
     <div class="page-title page-about-us">
         <div class="rellax" data-rellax-speed="5">
-            <img src="{{ asset('assets/images/page-title/about-us.jpg') }}" alt="">
+            <img src="./images/page-title/about-us.jpg" alt="">
         </div>
         <div class="content-wrap">
             <div class="tf-container w-1290">
@@ -18,7 +18,7 @@
                                 About the Farm
                             </h1>
                             <div class="icon-img">
-                                <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
+                                <img src="./images/item/line-throw-title.png" alt="">
                             </div>
                             <div class="breadcrumb">
                                 <a href="index.html">Home</a>
@@ -38,13 +38,15 @@
         </div>
 
         <div class="img-item item-2">
-            <img src="{{ asset('assets/images/item/grass.png') }}" alt="">
+            <img src="./images/item/grass.png" alt="">
         </div>
     </div><!-- /.Page-title -->
+@endsection
 
+@section('content')
     <!-- Main-content -->
     <div class="main-content pb-0 pt-93">
-        <!-- Section our-agriculture-2 -->
+        {{-- <!-- Section our-agriculture-2 -->
         <section class="s-our-agriculture style-2 type-2">
             <div class="counter-wrap">
                 <div class="tf-container w-1290">
@@ -99,7 +101,7 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section our-agriculture-2 -->
+        </section><!-- /.Section our-agriculture-2 --> --}}
 
         <!-- Section welcome to -->
         <section class="s-welcome-to">
@@ -110,7 +112,7 @@
                             <div class="content-section">
                                 <div class="heading-section style-4">
                                     <div class="img-item">
-                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
+                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="">
                                     </div>
                                     <p class="sub-title">
                                         Welcome to DonalFarm Agriculture & Organic Farms
@@ -144,65 +146,11 @@
                 </div>
 
                 <div class="s-img-item item-1 scroll-element-3">
-                    <img class="scale-1-1" src="{{ asset('assets/images/section/yellow-f.png') }}" alt="">
+                    <img class="scale-1-1" src="./images/section/yellow-f.png" alt="">
                 </div>
             </div>
             <div class="s-content-wrap-2">
-                <div class="tf-container w-1620">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="swiper-container slider-gallery">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="gallery-item img-hover wow fadeInUp" data-wow-delay="0s">
-                                            <div class="image hover-item">
-                                                <img class=" lazyload" src="{{ asset('assets/images/widget/gallery-item-4.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/gallery-item-4.jpg') }}" alt="">
-                                            </div>
-                                            <a href="gallery.html" class="add-gallery">
-                                                +
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="gallery-item img-hover wow fadeInUp" data-wow-delay="0.1s">
-                                            <div class="image hover-item">
-                                                <img class=" lazyload" src="{{ asset('assets/images/widget/gallery-item-7.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/gallery-item-7.jpg') }}" alt="">
-                                            </div>
-                                            <a href="gallery.html" class="add-gallery">
-                                                +
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="gallery-item img-hover wow fadeInUp" data-wow-delay="0.2s">
-                                            <div class="image hover-item">
-                                                <img class=" lazyload" src="{{ asset('assets/images/blog/blog-1.jpg') }}"
-                                                    data-src="{{ asset('assets/images/blog/blog-1.jpg') }}" alt="">
-                                            </div>
-                                            <a href="gallery.html" class="add-gallery">
-                                                +
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="gallery-item img-hover wow fadeInUp" data-wow-delay="0.3s">
-                                            <div class="image hover-item">
-                                                <img class=" lazyload" src="{{ asset('assets/images/widget/gallery-item-9.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/gallery-item-9.jpg') }}" alt="">
-                                            </div>
-                                            <a href="gallery.html" class="add-gallery">
-                                                +
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+               
                 <div class="tf-container">
                     <div class="row">
                         <div class="col-md-6">
@@ -238,7 +186,7 @@
             </div>
         </section><!-- /.Section welcome to -->
 
-        <!-- Section our agriculture -->
+        {{-- <!-- Section our agriculture -->
         <section class="s-our-agriculture style-3">
             <div class="s-content-wrap content-section">
                 <div class="tf-container w-1290">
@@ -246,7 +194,7 @@
                         <div class="col-lg-5 col-md-6">
                             <div class="image-wrap">
                                 <div class="image video-wrap style-2">
-                                    <img src="{{ asset('assets/images/section/s-farm.jpg') }}" alt="" class="lazyload">
+                                    <img src="./images/section/s-farm.jpg" alt="" class="lazyload">
                                     <a href="https://www.youtube.com/watch?v=MLpWrANjFbI"
                                         class="style-icon-play popup-youtube">
                                         <i class="fa-solid fa-play"></i>
@@ -259,7 +207,7 @@
                                 <div class="heading-section style-2">
                                     <div class="img-item">
                                         <div class="item">
-                                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                            <img class="tf-animate-1" src="./images/item/rice-plant-2.png"
                                                 alt="" />
                                         </div>
                                         <p class="sub-title">
@@ -307,20 +255,20 @@
                 </div>
             </div>
             <div class="s-img-item item-1 ">
-                <img class="wow fadeInRight" data-wow-delay="0s" src="{{ asset('assets/images/item/rice-plant-color.png') }}"
+                <img class="wow fadeInRight" data-wow-delay="0s" src="./images/item/rice-plant-color.png"
                     alt="">
             </div>
             <div class="s-img-item item-2">
-                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
+                <img src="./images/item/page-title-top.png" alt="">
             </div>
-        </section><!-- /.Section our agriculture -->
+        </section><!-- /.Section our agriculture --> --}}
 
-        <!-- Section benefit -->
+        {{-- <!-- Section benefit -->
         <section class="s-benefit mt--217">
             <div class="benefit-list">
                 <div class="box-icon ic-hover wow fadeInUp" data-wow-delay="0s">
                     <div class="icon mb-29 hover-icon style-circle">
-                        <img src="{{ asset('assets/icons/tomato.png') }}" alt="">
+                        <img src="./icons/tomato.png" alt="">
                     </div>
                     <a href="our-commitments.html" class="caption fw-6 mb-17 font-worksans hover-text-secondary">
                         100% Organic Products
@@ -356,7 +304,7 @@
                 </div>
                 <div class="box-icon ic-hover wow fadeInUp" data-wow-delay="0.3s">
                     <div class="icon mb-29 hover-icon style-circle">
-                        <img src="{{ asset('assets/icons/dollar-circle.png') }}" alt="">
+                        <img src="./icons/dollar-circle.png" alt="">
                     </div>
                     <a href="our-commitments.html" class="caption fw-6 mb-17 font-worksans hover-text-secondary">
                         Reasonable Price
@@ -367,9 +315,9 @@
                     </p>
                 </div>
             </div>
-        </section><!-- /.Section benefit -->
+        </section><!-- /.Section benefit --> --}}
 
-        <!-- Section quality of life -->
+        {{-- <!-- Section quality of life -->
         <section class="s-quality-of-life style-2">
             <div class="tf-container w-1290">
                 <div class="row">
@@ -377,7 +325,7 @@
                         <div class="content-section text-center">
 
                             <div class="img-item item-3 tf-animate__box">
-                                <img class="up-down-move" src="{{ asset('assets/images/item/notice-2.png') }}" alt="">
+                                <img class="up-down-move" src="./images/item/notice-2.png" alt="">
                             </div>
                             <div class="clip-color-text font-snowfall text-center">
                                 <p class="clip-text-bg-vertical">
@@ -467,22 +415,22 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section quality of life -->
+        </section><!-- /.Section quality of life --> --}}
 
-        <!-- Section our history -->
+        {{-- <!-- Section our history -->
         <section class="s-our-history has-img-item tf-pt-0">
             <div class="tf-container w-1620">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content-section img-hover">
                             <div class="image hover-item">
-                                <img src="{{ asset('assets/images/section/our-history.jpg') }}" data-src="{{ asset('assets/images/section/our-history.jpg') }}"
+                                <img src="./images/section/our-history.jpg" data-src="./images/section/our-history.jpg"
                                     alt="" class="lazyload">
                             </div>
                             <div class="heading-section style-4 has-text style-3">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
+                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="">
                                     </div>
                                     <p class="sub-title">
                                         Our History
@@ -521,27 +469,27 @@
 
 
             <div class="s-img-item item-1">
-                <img src="{{ asset('assets/images/item/brown-top.png') }}" alt="">
+                <img src="./images/item/brown-top.png" alt="">
             </div>
             <div class="s-img-item item-bottom">
-                <img src="{{ asset('assets/images/item/brown-bottom.png') }}" alt="">
+                <img src="./images/item/brown-bottom.png" alt="">
             </div>
             <div class="s-img-item item-3 wow zoomIn">
                 <div class="scroll-element-3">
 
-                    <img src="{{ asset('assets/images/item/windmill-2.png') }}" alt="">
+                    <img src="./images/item/windmill-2.png" alt="">
                 </div>
             </div>
-        </section><!-- /.Section our history -->
+        </section><!-- /.Section our history --> --}}
 
-        <!-- Section farmer tour -->
+        {{-- <!-- Section farmer tour -->
         <section class="s-farm-tour">
             <div class="tf-container">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="box-about-us img-hover wow fadeInUp" data-wow-delay="0s">
                             <div class="image hover-item">
-                                <img src="{{ asset('assets/images/widget/about-us-1.jpg') }}" data-src="{{ asset('assets/images/widget/about-us-1.jpg') }}"
+                                <img src="./images/widget/about-us-1.jpg" data-src="./images/widget/about-us-1.jpg"
                                     alt="" class=" lazyload">
                             </div>
                             <div class="content">
@@ -566,7 +514,7 @@
                     <div class="col-md-6">
                         <div class="box-about-us img-hover wow fadeInUp" data-wow-delay="0.1s">
                             <div class="image hover-item">
-                                <img src="{{ asset('assets/images/widget/about-us-2.jpg') }}" data-src="{{ asset('assets/images/widget/about-us-2.jpg') }}"
+                                <img src="./images/widget/about-us-2.jpg" data-src="./images/widget/about-us-2.jpg"
                                     alt="" class=" lazyload">
                             </div>
                             <div class="content">
@@ -591,9 +539,9 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section farmer tour -->
+        </section><!-- /.Section farmer tour --> --}}
 
-        <!-- Section contact us -->
+        {{-- <!-- Section contact us -->
         <section class="s-contact-us style-2 bg-white pt-124 pb-82">
             <div class="section-wrap">
                 <div class="tf-container w-1290">
@@ -661,7 +609,7 @@
 
                                     </p>
                                     <div class="img-item">
-                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
+                                        <img class="tf-animate-1" src="./images/item/rice-plant-2.png" alt="" />
                                     </div>
                                 </div>
                                 <form id="contactform" method="post" action="./contact/contact-process.php"
@@ -722,9 +670,9 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section contact us -->
+        </section><!-- /.Section contact us --> --}}
 
-        <!-- Section partner -->
+        {{-- <!-- Section partner -->
         <section class="s-partner style-2 has-img-item pb-71">
             <div class="tf-container w-1780">
                 <div class="row">
@@ -737,7 +685,7 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="{{ asset('assets/images/partner/wide-open.png') }}" alt=""
+                                                    <img src="./images/partner/wide-open.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -748,7 +696,7 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="{{ asset('assets/images/partner/sollio.png') }}" alt=""
+                                                    <img src="./images/partner/sollio.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -759,7 +707,7 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="{{ asset('assets/images/partner/syngenta.png') }}" alt=""
+                                                    <img src="./images/partner/syngenta.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -771,7 +719,7 @@
                                             <div class="image">
                                                 <a href="#">
 
-                                                    <img src="{{ asset('assets/images/partner/strachan-valley.png') }}" alt=""
+                                                    <img src="./images/partner/strachan-valley.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -783,7 +731,7 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="{{ asset('assets/images/partner/new-holland.png') }}" alt=""
+                                                    <img src="./images/partner/new-holland.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -794,7 +742,7 @@
 
                                             <div class="image">
                                                 <a href="#">
-                                                    <img src="{{ asset('assets/images/partner/stony-field.png') }}" alt=""
+                                                    <img src="./images/partner/stony-field.png" alt=""
                                                         class="lazyload">
                                                 </a>
                                             </div>
@@ -807,9 +755,9 @@
                 </div>
             </div>
             <div class="s-img-item item-1">
-                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
+                <img src="./images/item/page-title-top.png" alt="" />
             </div>
-        </section><!-- /.Section partner -->
+        </section><!-- /.Section partner --> --}}
 
     </div><!-- /.Main-content -->
 @endsection

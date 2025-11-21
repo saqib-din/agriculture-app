@@ -724,15 +724,15 @@
                 </div>
             </div>
         </div>
-        <div class="s-img-item item-1">
+        {{-- <div class="s-img-item item-1">
             <img src="{{ asset('assets/images/item/page-title-top.png') }}"alt="">
-        </div>
-        <div class="s-img-item item-2 wow zoomIn">
+        </div> --}}
+        {{-- <div class="s-img-item item-2 wow zoomIn">
             <div class="nhapNhap">
 
                 <img src="{{ asset('assets/images/item/house-mountain-3.png') }}" alt="">
             </div>
-        </div>
+        </div> --}}
     </section><!-- /.Section shopping today  -->
 
     {{-- <!-- Section project -->
@@ -1778,7 +1778,7 @@
         </div>
     </section><!-- /.Section counter --> --}}
 
-    <!-- Section break page -->
+    {{-- <!-- Section break page -->
     <section class="s-break-page style-2">
         <div class="content">
             <h1 class="font-farmhouse text-center text-anime-style-1">
@@ -1787,7 +1787,7 @@
                 Noble Employment Of Man
             </h1>
         </div>
-    </section><!-- /.Section break page -->
+    </section><!-- /.Section break page --> --}}
 
 
 

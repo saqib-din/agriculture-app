@@ -12137,11 +12137,12 @@ i.fs-12 {
   margin-left: 22px;
 }
 
-.s-service {
-  background-color: var(--Bg-8);
-  position: relative;
-  padding-top: 117px;
-  z-index: 1;
+.s-service
+ {
+    background-color: var(--Bg-8);
+    position: relative;
+    padding-top: 60px;
+    z-index: 1;      
 }
 .s-service .s-img-item.item-2 {
   position: absolute;
@@ -12167,7 +12168,7 @@ i.fs-12 {
 
 .has-img-item {
   position: relative;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 .has-img-item.mt-0 {
   margin-top: 0px;
@@ -12492,7 +12493,7 @@ i.fs-12 {
 }
 .s-testimonial.style-2 {
   justify-content: center;
-  padding-top: 49px;
+  padding-top: 0px;
   padding-bottom: 124px;
 }
 .s-testimonial.style-2 .wrap {
@@ -12508,7 +12509,7 @@ i.fs-12 {
   padding-right: calc((1320px - 100%) / 2);
 }
 .s-testimonial.style-2 .image {
-  padding-top: 114px;
+  padding-top: 45px;
   height: 100%;
   position: relative;
 }
@@ -12570,7 +12571,7 @@ i.fs-12 {
 }
 .s-testimonial.style-2.type-2 .image img {
   position: relative;
-  top: -33px;
+  top: 50px;
   max-width: 800px;
 }
 .s-testimonial.style-2.type-2 .icon {
@@ -12693,6 +12694,7 @@ i.fs-12 {
   margin-bottom: -50px;
   background-color: var(--Bg-8);
   position: relative;
+  margin-top: 10em;
 }
 .s-contact-us .image {
   border-radius: 20px;
@@ -14017,7 +14019,7 @@ i.fs-12 {
 
 .s-shopping {
   background-color: var(--Bg-8);
-  margin-top: -20px;
+  margin-top: 65px;
   padding: 108px 0px 121px 0px;
   position: relative;
 }
@@ -14231,7 +14233,7 @@ i.fs-12 {
 }
 .s-welcome-to .s-content-wrap {
   position: relative;
-  padding-bottom: 293px;
+  padding-bottom: 120px;
 }
 .s-welcome-to .s-content-wrap .img-item {
   margin-bottom: 29px;
@@ -15075,8 +15077,9 @@ i.fs-12 {
 }
 
 .s-provide {
-  padding-top: 121px;
-  padding-bottom: 46px;
+    padding-top: 121px;
+    padding-bottom: 46px;
+    background: var(--Bg-8);
 }
 
 .s-review {

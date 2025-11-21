@@ -49,7 +49,7 @@
     <!-- Main-content -->
     <div class="main-content page-our-farmers pt-0 pb-0">
 
-        <!-- Section we are -->
+        {{-- <!-- Section we are -->
         <section class="s-we-are">
             <div class="tf-container">
                 <div class="row">
@@ -98,7 +98,7 @@
             <div class="s-img-item item-1">
                 <img src="{{ asset('assets/images/item/yellow-bottom.png') }}" alt="">
             </div>
-        </section><!-- /.Section we are -->
+        </section><!-- /.Section we are --> --}}
 
         <!-- Section testimonial -->
         <section class="s-testimonial style-2 type-2">

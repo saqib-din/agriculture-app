@@ -40,7 +40,7 @@
     </div>
     <div class="footer-inner">
         <div class="tf-container w-1290">
-            <div class="row">
+            <div class="row d-flex justify-content-between">
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-23">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 ">
+                {{-- <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-23">
                             News Posts
@@ -118,7 +118,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
@@ -186,7 +186,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                {{-- <div class="col-lg-3 col-md-6">
                     <div class="footer-inner-wrap">
                         <h4 class="footer-title fs-20">
                             Subscribe Newsletter
@@ -208,7 +208,7 @@
                             <div id="subscribe-msg"></div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

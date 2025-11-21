@@ -1,6 +1,45 @@
 @extends('layouts.landing')
 
 @section('hero')
+    <!-- Page-title -->
+    <div class="page-title page-our-service  ">
+        <div class="rellax" data-rellax-speed="5">
+            <img src="{{ asset('assets/images/page-title/our-service.jpg') }}" alt="">
+        </div>
+        <div class="content-wrap">
+            <div class="tf-container w-1290">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content">
+                            <p class="sub-title">
+                                What Services Do We Provide?
+                            </p>
+                            <h1 class="title">
+                                Our Services
+                            </h1>
+                            <div class="icon-img">
+                                <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
+                            </div>
+                            <div class="breadcrumb">
+                                <a href="{{ url('/') }}">Home</a>
+                                <div class="icon">
+                                    <i class="icon-arrow-right1"></i>
+                                </div>
+                                <a href="javascript:void(0)"> Our Services</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="img-item item-2">
+            <img src="{{ asset('assets/images/item/grass.png') }}" alt="">
+        </div>
+    </div><!-- /.Page-title -->
+@endsection
+
+@section('content')
     <!-- Main-content -->
     <div class="main-content page-our-service page-our-commitments pb-0">
 
@@ -88,7 +127,7 @@
             </div>
         </section><!-- /.Section our commitment 2 -->
 
-        <!-- Section benefit -->
+        {{-- <!-- Section benefit -->
         <section class="s-benefit style-2">
             <div class="tf-container">
                 <div class="row">
@@ -167,7 +206,7 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section benefit -->
+        </section><!-- /.Section benefit --> --}}
 
         <!-- Section provide -->
         <section class="s-provide">
@@ -492,7 +531,7 @@
             </div>
         </section><!-- /.Section pricing --> --}}
 
-        <!-- Section testimonial -->
+        {{-- <!-- Section testimonial -->
         <section class="s-testimonial-2 style-2">
             <div class="tf-container w-1290">
                 <div class="row">
@@ -647,9 +686,9 @@
             <div class="s-img-item item-2">
                 <img src="{{ asset('assets/images/images/item/page-title-top.png') }}"alt="" />
             </div>
-        </section><!-- /.Section testimonial -->
+        </section><!-- /.Section testimonial --> --}}
 
-        <!-- Section contact us -->
+        {{-- <!-- Section contact us -->
         <section class="s-contact-us style-3">
             <div class="section-wrap">
                 <div class="tf-container w-1290">
@@ -785,9 +824,9 @@
             </div>
 
 
-        </section><!-- /.Section contact us -->
+        </section><!-- /.Section contact us --> --}}
 
-        <!-- Section partner -->
+        {{-- <!-- Section partner -->
         <section class="s-partner bg-white style-4">
             <div class="tf-container w-1780">
                 <div class="row">
@@ -869,7 +908,7 @@
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section partner -->
+        </section><!-- /.Section partner --> --}}
 
     </div><!-- /.Main-content -->
 @endsection
