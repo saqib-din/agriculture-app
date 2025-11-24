@@ -122,7 +122,7 @@
                                 </div> --}}
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">File</label>
+                                        <label class="form-label">Product Image</label>
                                         <input class="form-control" type="file" />
                                     </div>
                                 </div>

@@ -6,8 +6,8 @@
                 <div class="footer-top">
                     <div class="footer-left">
                         <div class="logo">
-                            <a href="index.html">
-                                <img src="./images/logo/logo-2.png" alt="" />
+                            <a href="{{ url('/') }}">
+                                <img src="{{ asset('assets/images/logo/logo-2.png') }}" alt="" />
                             </a>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                         </ul>
                     </div>
                 </div> --}}
-                
+
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-28">
@@ -131,7 +131,7 @@
                         <ul class="link-list tf-collapse-content">
                             <li class="item">
 
-                                <a href="about-us.html">
+                                <a href="{{ url('/aboutus') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
                                         <path
@@ -143,7 +143,7 @@
                             </li>
                             <li class="item">
 
-                                <a href="our-services.html">
+                                <a href="{{ url('/services') }}">
 
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
@@ -154,7 +154,7 @@
                                     Services We Provide</a>
                             </li>
                             <li class="item">
-                                <a href="portfolio-style-1.html">
+                                <a href="{{ url('/products') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
                                         <path
@@ -164,7 +164,7 @@
                                     View Recent Projects</a>
                             </li>
                             <li class="item">
-                                <a href="our-farmers.html">
+                                <a href="{{ url('/teams') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
                                         <path
@@ -174,7 +174,7 @@
                                     Meet The Farmers</a>
                             </li>
                             <li class="item">
-                                <a href="coming-soon.html">
+                                <a href="{{ url('/not-found') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
                                         <path
@@ -218,10 +218,10 @@
             <div class="col-lg-12">
                 <div class="footer-bottom">
                     <p class="no-copy font-nunito">
-                        Copyright © 2024 Donal Farm by
+                        Copyright © 2025 Donal Farm
                         <span>
                             <a href="https://themeforest.net/user/themesflat/portfolio">
-                                Themesflat</a>.</span>
+                                </a>.</span>
                         All Rights Reserved.
                     </p>
                     <ul class="policy-list">
@@ -249,7 +249,8 @@
     <div class="img-item item-2">
 
         <div class="  scroll-element-3">
-            <img class="wow zoomIn" src="{{ asset('assets/images/item/silo.png') }}" alt="{{ asset('assets/images/item/silo.png') }}" />
+            <img class="wow zoomIn" src="{{ asset('assets/images/item/silo.png') }}"
+                alt="{{ asset('assets/images/item/silo.png') }}" />
         </div>
     </div>
 </footer>

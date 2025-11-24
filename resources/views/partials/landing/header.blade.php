@@ -12,232 +12,29 @@
                         </div>
                         <div class="main-nav">
                             <ul class="nav-list">
-                                <li class="item has-child current-menu">
+                                <li class="item has-child {{ request()->is('/') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/') }}">Home</a>
-                                    {{-- <ul class="sub-nav">
-                                        <li class="current-item">
-                                            <a href="index.html">
-                                                <span>
-                                                    Home 1
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="home-2.html"><span>
-                                                    Home 2
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="home-3.html"><span>
-                                                    Home 3
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> --}}
                                 </li>
-                                <li class="item has-child">
+                                <li class="item has-child {{ request()->is('products') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/products') }}">Products</a>
-                                    {{-- <ul class="sub-nav">
-                                        <li>
-                                            <a href="about-us.html">
-                                                <span>
-                                                    About Us
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="our-commitments.html">
-                                                <span>
-                                                    Our Commitments
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="our-events.html">
-                                                <span>
-                                                    Our Events
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="our-farmers.html">
-                                                <span>
-                                                    Our Farmers
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="our-history.html">
-                                                <span>
-                                                    Our History
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="coming-soon.html">
-                                                <span>
-                                                    Coming Soon
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="404.html">
-                                                <span>
-                                                    404
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="event-detail.html">
-                                                <span>
-                                                    Event Detail
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="faq.html">
-                                                <span>
-                                                    FAQs
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="gallery.html">
-                                                <span>
-                                                    Gallery
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="testimonial.html">
-                                                <span>
-                                                    Testimonial
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> --}}
                                 </li>
-                                <li class="item has-child">
-                                    <a href="{{url('/services')}}">Services</a>
-                                    {{-- <ul class="sub-nav">
-
-                                        <li>
-                                            <a href="portfolio-style-1.html">
-                                                <span>
-                                                    Portfolio Style
-                                                    1
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="portfolio-style-2.html">
-                                                <span>
-                                                    Portfolio Style
-                                                    2
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="portfolio-style-3.html">
-                                                <span>
-                                                    Portfolio Style
-                                                    3
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="portfolio-details.html">
-                                                <span>
-                                                    Portfolio
-                                                    Details
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> --}}
+                                <li class="item has-child {{ request()->is('services') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/services') }}">Services</a>
                                 </li>
-                                <li class="item has-child">
-                                    <a href="{{url('/teams')}}">Team</a>
-                                    {{-- <ul class="sub-nav">
-                                        <li><a href="shop-products.html"><span>Shop Products</span></a></li>
-                                        <li><a href="shop-details.html"><span>Shop Details</span></a></li>
-                                        <li><a href="shop-cart.html"><span>Shop Cart</span></a></li>
-                                        <li><a href="wishlist.html"><span>Wishlist</span></a></li>
-                                        <li><a href="checkout.html"><span>Checkout</span></a></li>
-                                        <li><a href="order-tracking.html"><span>Order Tracking</span></a></li>
-                                        <li><a href="my-account.html"><span>My Account</span></a></li>
-                                        <li><a href="order-details.html"><span>Order Detail</span></a></li>
-                                    </ul> --}}
+                                <li class="item has-child {{ request()->is('teams') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/teams') }}">Team</a>
                                 </li>
-                                <li class="item has-child">
+                                <li class="item has-child {{ request()->is('aboutus') ? 'current-menu' : '' }}">
                                     <a href="{{ url('aboutus') }}">About us</a>
-                                    {{-- <ul class="sub-nav">
-                                        <li>
-                                            <a href="our-services.html">
-                                                <span>
-                                                    Our Services
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="service-detail.html">
-                                                <span>
-                                                    Service Detail
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> --}}
                                 </li>
-                                <li class="item has-child">
-                                    <a href="{{ url('/contactus') }} ">Contact us</a>
-                                    {{-- <ul class="sub-nav">
-                                        <li>
-                                            <a href="blog-full-width.html">
-                                                <span>
-                                                    Blog Full Width
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-right-sidebar.html">
-                                                <span>
-                                                    Blog Right
-                                                    Sidebar
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-single.html">
-                                                <span>
-                                                    Blog Single
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul> --}}
+                                <li class="item has-child {{ request()->is('contactus') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/contactus') }}">Contact us</a>
                                 </li>
-                                {{-- <li class="item has-child">
-                                    <a href="contact-us.html">Contact</a>
-                                </li> --}}
                             </ul>
+
                         </div>
                     </div>
                     <div class="header-right">
-                        {{-- <a href="contact-us.html" class="tf-btn gap-30">
-                            <span class="text-style">
-                                Get In Touch!
-                            </span>
-                            <div class="icon">
-                                <i class="icon-arrow_right"></i>
-                            </div>
-                        </a> --}}
-                        {{-- <div class="icon-wrap">
-                            <a class="icon header-search" href="#canvasSearch" data-bs-toggle="offcanvas">
-                                <i class="icon-magnifying-glass fs-21"></i>
-                            </a>
-                            <a href="shop-products.html" class="icon wg-bag">
-                                <i class="icon-basket"></i>
-                            </a>
-                        </div> --}}
                         <div class="icon-wrap">
                             <a href="{{ route('login') }}" class="icon style-circle">
                                 <i class="icon-user"></i>
@@ -264,160 +61,57 @@
                             </div>
                             <nav id="mobile-main-nav" class="mobile-main-nav">
                                 <ul id="menu-mobile-menu" class="menu">
-                                    <li class="menu-item menu-item-has-children-mobile current-nav">
-                                        <a class="item-menu-mobile current" href="{{ url('/') }}">
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('/') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('/') ? 'current' : '' }}"
+                                            href="{{ url('/') }}">
                                             Home
-                                            <i class="icon-arrow_down"></i>
+                                            {{-- <i class="icon-arrow_down"></i> --}}
                                         </a>
-
-
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item current">
-                                                <a href="index.html">Home 1</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="home-2.html">Home 2</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="home-3.html">Home 3</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">
-                                            Page
-                                            <i class="icon-arrow_down"></i>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('products') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('products') ? 'current' : '' }}"
+                                            href="{{ url('/products') }}">
+                                            Products
+                                            {{-- <i class="icon-arrow_down"></i> --}}
                                         </a>
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item">
-                                                <a href="about-us.html">About Us</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="our-commitments.html">Our Commitments</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="our-events.html">Our Events</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="our-farmers.html">Our Farmers</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="our-history.html">Our History</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="coming-soon.html">Coming Soon</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="404.html">404</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="event-detail.html">Event Detail</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="faq.html">FAQs</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="gallery.html">Gallery</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="testimonial.html">Testimonial</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">
-                                            Portfolio
-                                            <i class="icon-arrow_down"></i>
-                                        </a>
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item">
-                                                <a href="portfolio-style-1.html">Portfolio Style
-                                                    1</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="portfolio-style-2.html">Portfolio Style
-                                                    2</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="portfolio-style-3.html">Portfolio Style
-                                                    3</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="portfolio-details.html">Portfolio Detail</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">
-                                            Shop
-                                            <i class="icon-arrow_down"></i>
-                                        </a>
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item"><a href="shop-products.html">Shop Product</a>
-                                            </li>
-                                            <li class="menu-item"><a href="shop-details.html">Shop Detail</a>
-                                            </li>
-                                            <li class="menu-item"><a href="shop-cart.html">Shop Cart</a>
-                                            </li>
-                                            <li class="menu-item"><a href="wishlist.html">Wishlist</a>
-                                            </li>
-                                            <li class="menu-item"><a href="checkout.html">Checkout</a>
-                                            </li>
-                                            <li class="menu-item"><a href="order-tracking.html">Order
-                                                    Tracking</a>
-                                            </li>
-                                            <li class="menu-item"><a href="my-account.html">My Account</a>
-                                            </li>
-                                            <li class="menu-item"><a href="order-details.html">Order Detail</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('services') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('services') ? 'current' : '' }}"
+                                            href="{{ url('/services') }}">
                                             Services
-                                            <i class="icon-arrow_down"></i>
+                                            {{-- <i class="icon-arrow_down"></i> --}}
                                         </a>
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item">
-                                                <a href="our-services.html">Our Services</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="service-detail.html">Service Detail</a>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="javascript:void(0)">Blog
-                                            <i class="icon-arrow_down"></i></a>
-                                        <ul class="sub-menu-mobile">
-                                            <li class="menu-item">
-                                                <a href="blog-full-width.html">Blog Full Width</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="blog-right-sidebar.html">Blog Right
-                                                    Sidebar</a>
-                                            </li>
-                                            <li class="menu-item">
-                                                <a href="blog-single.html">Blog Single</a>
-                                            </li>
-                                        </ul>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('teams') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('teams') ? 'current' : '' }}"
+                                            href="{{ url('/teams') }}">
+                                            Teams
+                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                        </a>
                                     </li>
-                                    <li class="menu-item menu-item-has-children-mobile">
-                                        <a class="item-menu-mobile" href="contact-us.html">Contact</a>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('aboutus') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('aboutus') ? 'current' : '' }}"
+                                            href="{{ url('/aboutus') }}">
+                                            About Us
+                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('contactus') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('contactus') ? 'current' : '' }}"
+                                            href="{{ url('/contactus') }}">
+                                            Contact Us
+                                            {{-- <i class="icon-arrow_down"></i> --}}
+                                        </a>
                                     </li>
                                 </ul>
+
                             </nav>
-                            <div class="group-icon">
-                                <a class="site-nav-icon header-search" href="#canvasSearch"
-                                    data-bs-toggle="offcanvas">
-                                    <i class="icon-magnifying-glass fs-21"> </i>
-                                    Search
-                                </a>
-                                <a href="shop-products.html" class="site-nav-icon wg-bag">
-                                    <i class="icon-basket"></i>
-                                    Shop
-                                </a>
-                            </div>
                         </div>
                         <div class="bottom">
                             <div class="infor-list">
@@ -486,208 +180,19 @@
                                 <ul class="nav-list">
                                     <li class="item has-child current-menu">
                                         <a href="{{ url('/') }}">Home</a>
-                                        {{-- <ul class="sub-nav">
-                                            <li class="current-item">
-                                                <a href="index.html">
-                                                    <span>
-                                                        Home 1
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="home-2.html"><span>
-                                                        Home 2
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="home-3.html"><span>
-                                                        Home 3
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
                                         <a href="{{ url('/products') }}">Products</a>
-                                        {{-- <ul class="sub-nav">
-                                            <li>
-                                                <a href="about-us.html">
-                                                    <span>
-                                                        About Us
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="our-commitments.html">
-                                                    <span>
-                                                        Our Commitments
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="our-events.html">
-                                                    <span>
-                                                        Our Events
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="our-farmers.html">
-                                                    <span>
-                                                        Our Farmers
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="our-history.html">
-                                                    <span>
-                                                        Our History
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="coming-soon.html">
-                                                    <span>
-                                                        Coming Soon
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="404.html">
-                                                    <span>
-                                                        404
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="event-detail.html">
-                                                    <span>
-                                                        Event Detail
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="faq.html">
-                                                    <span>
-                                                        FAQs
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="gallery.html">
-                                                    <span>
-                                                        Gallery
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="testimonial.html">
-                                                    <span>
-                                                        Testimonial
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
                                         <a href="{{ url('/services') }}">Services</a>
-                                        {{-- <ul class="sub-nav">
-
-                                            <li>
-                                                <a href="portfolio-style-1.html">
-                                                    <span>
-                                                        Portfolio Style
-                                                        1
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="portfolio-style-2.html">
-                                                    <span>
-                                                        Portfolio Style
-                                                        2
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="portfolio-style-3.html">
-                                                    <span>
-                                                        Portfolio Style
-                                                        3
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="portfolio-details.html">
-                                                    <span>
-                                                        Portfolio
-                                                        Details
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
                                         <a href="{{ url('/team') }}">Team</a>
-                                        {{-- <ul class="sub-nav">
-                                            <li><a href="shop-products.html"><span>Shop Products</span></a></li>
-                                            <li><a href="shop-details.html"><span>Shop Details</span></a></li>
-                                            <li><a href="shop-cart.html"><span>Shop Cart</span></a></li>
-                                            <li><a href="wishlist.html"><span>Wishlist</span></a></li>
-                                            <li><a href="checkout.html"><span>Checkout</span></a></li>
-                                            <li><a href="order-tracking.html"><span>Order Tracking</span></a>
-                                            </li>
-                                            <li><a href="my-account.html"><span>My Account</span></a></li>
-                                            <li><a href="order-details.html"><span>Order Detail</span></a></li>
-                                        </ul> --}}
                                     </li>
                                     <li class="item has-child">
                                         <a href="{{ url('/aboutus') }}">About Us</a>
-                                        {{-- <ul class="sub-nav">
-                                            <li>
-                                                <a href="service-detail.html">
-                                                    <span>
-                                                        Service Detail
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="our-services.html">
-                                                    <span>
-                                                        Our Service
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul> --}}
                                     </li>
-                                    {{-- <li class="item has-child">
-                                        <a href="javascript:void(0)">Blog</a>
-                                        <ul class="sub-nav">
-                                            <li>
-                                                <a href="blog-full-width.html">
-                                                    <span>
-                                                        Blog Full Width
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-right-sidebar.html">
-                                                    <span>
-                                                        Blog Right
-                                                        Sidebar
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-single.html">
-                                                    <span>
-                                                        Blog Single
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li> --}}
                                     <li class="item has-child">
                                         <a href="{{ url('/contactus') }}">Contact Us</a>
                                     </li>
@@ -695,22 +200,6 @@
                             </div>
                         </div>
                         <div class="header-right">
-                            {{-- <a href="contact-us.html" class="tf-btn gap-30">
-                                <span class="text-style">
-                                    Get In Touch!
-                                </span>
-                                <div class="icon">
-                                    <i class="icon-arrow_right"></i>
-                                </div>
-                            </a> --}}
-                            {{-- <div class="icon-wrap">
-                                <a class="icon header-search" href="#canvasSearch" data-bs-toggle="offcanvas">
-                                    <i class="icon-magnifying-glass fs-21"></i>
-                                </a>
-                                <a href="shop-products.html" class="icon wg-bag">
-                                    <i class="icon-basket"></i>
-                                </a>
-                            </div> --}}
                             <div class="icon-wrap">
                                 <a href="{{ route('login') }}" class="icon style-circle">
                                     <i class="icon-user"></i>

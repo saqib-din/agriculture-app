@@ -12,9 +12,8 @@
                         </div>
                         <div class="flex-grow-1 ms-3 me-2">
                             <h6 class="mb-0">
-                                Saqib Din
+                                {{ Auth::user()->name }}
                             </h6>
-                            <small class="text-muted">Admin</small>
                         </div>
                     </div>
                 </div>
@@ -34,7 +33,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('backend.products.create') }}" class="pc-link">
+                    <a href="{{ route('backend.products.list') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-user-add"></use>

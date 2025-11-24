@@ -48,58 +48,6 @@
 @section('content')
     <!-- Main-content -->
     <div class="main-content page-our-farmers pt-0 pb-0">
-
-        {{-- <!-- Section we are -->
-        <section class="s-we-are">
-            <div class="tf-container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="we-are-wrap img-hover pb-30">
-                            <div class="image hover-item wow zoomIn ">
-                                <img src="{{ asset('assets/images/widget/card-provide-3.jpg') }}"
-                                    data-src="{{ asset('assets/images/widget/card-provide-3.jpg') }}" alt=""
-                                    class="lazyload">
-                            </div>
-                            <div class="content">
-                                <a href="{{ url('/aboutus') }}" class="hover-text-primary title font-worksans">
-
-                                    We Are Family
-                                </a>
-                                <p class="text">
-                                    Mauris quam tellus, pellentesque ut faucibus
-                                    pretium, aliquet vitae est. Nullam non lorem
-                                    metus. Nulla pretium dui a diam.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="we-are-wrap img-hover  ">
-                            <div class="image hover-item wow zoomIn">
-                                <img src="{{ asset('assets/images/widget/tea.jpg') }}"
-                                    data-src="{{ asset('assets/images/widget/tea.jpg') }}" alt="" class="lazyload">
-
-                            </div>
-                            <div class="content">
-
-                                <a href="{{ url('/aboutus') }}" class="hover-text-primary title font-worksans">
-                                    We Love Nature
-                                </a>
-                                <p class="text">
-                                    Mauris quam tellus, pellentesque ut faucibus
-                                    pretium, aliquet vitae est. Nullam non lorem
-                                    metus. Nulla pretium dui a diam.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="s-img-item item-1">
-                <img src="{{ asset('assets/images/item/yellow-bottom.png') }}" alt="">
-            </div>
-        </section><!-- /.Section we are --> --}}
-
         <!-- Section testimonial -->
         <section class="s-testimonial style-2 type-2">
             <div class="wrap">
@@ -111,7 +59,7 @@
                 </div>
                 <div class="content-section">
                     <div class="heading-section ">
-                        <p class="title tf-animate-1">Creator Of Success</p>
+                        <p class="title text-anime-style-1">Creator Of Success</p>
                     </div>
                     <p class="quote font-snowfall fs-30 text-anime-style-1">
                         “Agriculture is our wisest pursuit, because it will in the end contribute most to real
@@ -139,7 +87,6 @@
                     </div>
                 </div>
             </div>
-
         </section><!-- /.Section testimonial -->
 
         <!-- Section meet farmer -->

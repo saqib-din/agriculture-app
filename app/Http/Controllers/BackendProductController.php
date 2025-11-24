@@ -10,4 +10,8 @@ class BackendProductController extends Controller
     {
         return view('pages.backend.products.product-add');
     }
+    public function productList()
+    {
+        return view('pages.backend.products.product-list');
+    }
 }

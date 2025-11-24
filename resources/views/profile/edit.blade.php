@@ -1,4 +1,20 @@
-<x-app-layout>
+@extends('layouts.admin')
+
+@section('content')
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+
+                    @include('profile.partials.update-profile-information-form')
+
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Profile') }}
@@ -26,4 +42,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}

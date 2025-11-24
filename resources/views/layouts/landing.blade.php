@@ -27,9 +27,9 @@
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/magnific-popup.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/odometer.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/drift-basic.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/swiper-bundle.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/styles.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/drift-basic.min.css') }}" />
 
     <!-- Animation Style -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.min.css') }}" />
