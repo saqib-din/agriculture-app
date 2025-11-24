@@ -1005,7 +1005,7 @@
     </section><!-- /.Section faq -->
 
     <!-- Section contact us -->
-    <section class="s-contact-us has-img-item pt-0">
+    <section class="s-contact-us has-img-item">
         <div class="section-wrap">
             <div class="tf-container w-1290">
                 <div class="row">

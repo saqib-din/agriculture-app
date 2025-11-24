@@ -42,7 +42,7 @@
      <div class="main-content pt-0 pb-0 page-contact-us">
 
          <!-- Section contact us -->
-         <section class="s-contact-us style-2 bg-white p-0">
+         <section class="s-contact-us style-2 bg-white">
              <div class="section-wrap">
                  <div class="tf-container w-1290">
                      <div class="row">
