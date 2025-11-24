@@ -54,7 +54,7 @@
                 <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
                     <img class="" src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
                     <div class="sign scroll-element-3">
-                        <img src="{{ asset('assets/images/item/sign.png') }}" alt="">
+                        {{-- <img src="{{ asset('assets/images/item/sign.png') }}" alt=""> --}}
                     </div>
                 </div>
                 <div class="content-section">
