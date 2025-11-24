@@ -12168,7 +12168,7 @@ i.fs-12 {
 
 .has-img-item {
   position: relative;
-  /* margin-top: 30px; */
+  margin-top: 30px;
 }
 .has-img-item.mt-0 {
   margin-top: 0px;
@@ -12609,7 +12609,7 @@ i.fs-12 {
 
 .s-faq {
   padding-top: 87px;
-  padding-bottom: 86px;
+  padding-bottom: 100px;
 }
 .s-faq .content-section {
   padding-top: 20px;
@@ -12696,7 +12696,7 @@ i.fs-12 {
   margin-bottom: -50px;
   background-color: var(--Bg-8);
   position: relative;
-  margin-top: 7em;
+  /* margin-top: 7em; */
 }
 .s-contact-us .image {
   border-radius: 20px;
@@ -12794,7 +12794,7 @@ i.fs-12 {
 }
 .s-contact-us .section-wrap {
   position: relative;
-  top: -136px;
+  /* top: -136px; */
   bottom: 0;
 }
 .s-contact-us .section-wrap .image {
@@ -12815,7 +12815,7 @@ i.fs-12 {
   padding-top: 200px;
   padding-bottom: 100px;
   margin-bottom: 0px;
-  background-image: url("./../images/item/grass-2.png");
+  /* background-image: url("./../images/item/grass-2.png"); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -12875,8 +12875,8 @@ i.fs-12 {
   padding-bottom: 57px;
 }
 .s-partner.pb-100 {
-  padding-bottom: 75px;
-  padding-top: 75px;
+  padding-bottom: 100px;
+  padding-top: 140px;
 }
 .s-partner.style-2 {
   padding: 50px 0px;
@@ -13734,7 +13734,7 @@ i.fs-12 {
   margin-top: -36px;
 }
 .s-our-expertise .s-slider {
-  margin-top: -566px;
+  /* margin-top: -566px; */
   position: relative;
 }
 .s-our-expertise .s-slider .btn-slider-provide {

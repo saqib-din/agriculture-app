@@ -1004,92 +1004,8 @@
         </div> --}}
     </section><!-- /.Section faq -->
 
-
-    <!-- Section partner -->
-    <section class="s-partner pb-100">
-        <div class="tf-container w-1780">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="slider-wrap">
-                        <div class="swiper-container slider-partner">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-                                        <div class="image">
-                                            <a href="#">
-
-                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt=""
-                                                    class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-                                        <div class="image">
-                                            <a href="#">
-
-                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-
-                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!-- /.Section partner -->
-    {{-- <!-- Section contact us -->
-    <section class="s-contact-us has-img-item">
+    <!-- Section contact us -->
+    <section class="s-contact-us has-img-item pt-0">
         <div class="section-wrap">
             <div class="tf-container w-1290">
                 <div class="row">
@@ -1227,8 +1143,92 @@
         <div class="s-img-item item-1">
             <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
-    </section><!-- /.Section contact us --> --}}
-    <!-- Section happy farm -->
+    </section><!-- /.Section contact us -->
+    <!-- Section partner -->
+    <section class="s-partner pb-100">
+        <div class="tf-container w-1780">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="slider-wrap">
+                        <div class="swiper-container slider-partner">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+                                        <div class="image">
+                                            <a href="#">
+
+                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt=""
+                                                    class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+                                        <div class="image">
+                                            <a href="#">
+
+                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+
+                                        <div class="image">
+                                            <a href="#">
+
+                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+
+
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="slide-partner">
+
+                                        <div class="image">
+                                            <a href="#">
+                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}"
+                                                    alt="" class="lazyload">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.Section partner -->
+
+    {{-- <!-- Section happy farm -->
     <section class="s-happy-farm-2 has-img-item tf-pt-0">
         <div class="tf-container w-1290">
             <div class="row">
@@ -1268,11 +1268,11 @@
             </div>
         </div>
 
-        {{-- <div class="s-img-item item-1">
+        <div class="s-img-item item-1">
             <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
-        </div> --}}
+        </div>
         <div class="s-img-item item-2 tf-animate__rotate-right ">
             <img class="up-down-move" src="{{ asset('assets/images/item/leaf-3.png') }}" alt="">
         </div>
-    </section><!-- /.Section happy farm -->
+    </section><!-- /.Section happy farm --> --}}
 @endsection
