@@ -33,10 +33,20 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('backend.products.list') }}" class="pc-link">
+                    <a href="{{ route('hero-section.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-user-add"></use>
+                                <use xlink:href="#custom-layer"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Hero">Hero Section</span>
+                    </a>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('products.list') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-element-plus"></use>
                             </svg>
                         </span>
                         <span class="pc-mtext" data-i18n="Products">Products</span>
@@ -46,7 +56,7 @@
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-profile-2user-outline"></use>
+                                <use xlink:href="#custom-mouse-circle"></use>
                             </svg>
                         </span>
                         <span class="pc-mtext" data-i18n="Categories">Categories</span>
@@ -63,7 +73,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('teams.list') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-story"></use>
@@ -97,7 +107,7 @@
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-dollar-square"></use>
+                                <use xlink:href="#custom-24-support"></use>
                             </svg>
                         </span>
                         <span class="pc-mtext" data-i18n="Contact Us">Contact Us</span><span class="pc-arrow"></span>

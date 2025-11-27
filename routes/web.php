@@ -6,15 +6,15 @@ use App\Http\Controllers\SingleController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\BackendProductController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\HeroSectionController;
 use Pest\Plugins\Only;
 
 // Welcome Page
-Route::get('/', function () {
-    return view('pages.landing.index');
-});
+Route::get('/', [HeroSectionController::class, 'index'])->name('welcome');
 
 // Products
 Route::get('/singleproduct', [SingleController::class, 'show'])->name('singleproduct');
@@ -47,9 +47,28 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/product/add', [BackendProductController::class, 'productadd'])->name('backend.products.create');
-    Route::get('/product/list', [BackendProductController::class, 'productlist'])->name('backend.products.list');
+    // Home Controller 
+    Route::get('/hero/section/list', [HomeController::class, 'index'])->name('hero-section.index');
 
+    // Hero Section
+    Route::get('/hero/create', [HeroSectionController::class, 'form'])->name('hero.create');
+    Route::get('/hero/edit/{id}', [HeroSectionController::class, 'form'])->name('hero.edit');
+    Route::post('/hero/save/{id?}', [HeroSectionController::class, 'save'])->name('hero.save');
+    Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
+
+    // Services
+    Route::get('/services/create', [ServicesController::class, 'form'])->name('services.create');
+    Route::get('/services/edit/{id}', [ServicesController::class, 'form'])->name('services.edit');
+    Route::post('/services/save/{id?}', [ServicesController::class, 'save'])->name('services.save');
+    Route::delete('/services/delete/{id}', [ServicesController::class, 'destroy'])->name('services.delete');
+
+    // Teams 
+    Route::get('/teams/createorupdate', [TeamController::class, 'createorupdate'])->name('teams.createorupdate');
+    Route::get('/teams/list', [TeamController::class, 'index'])->name('teams.list');
+
+    // Products
+    Route::get('/product/add', [ProductController::class, 'productAdd'])->name('products.create');
+    Route::get('/product/list', [ProductController::class, 'productList'])->name('products.list');
 });
 
 require __DIR__ . '/auth.php';

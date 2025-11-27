@@ -1,47 +1,32 @@
 <!-- Footer -->
 <footer class="footer" id="footer-main">
-    <div class="tf-container w-1290">
+    {{-- <div class="tf-container w-1290">
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer-top">
-                    <div class="footer-left">
-                        <div class="logo">
-                            <a href="{{ url('/') }}">
-                                <img src="{{ asset('assets/images/logo/logo-2.png') }}" alt="" />
-                            </a>
-                        </div>
-                    </div>
+
                     <div class="footer-center">
                         <p class="font-snowfall">
                             Farm of laughter and happiness!
                         </p>
                     </div>
-                    <div class="footer-right">
-                        <div class="wg-social">
-                            <ul class="list">
-                                <li class="item">
-                                    <a href="#"><i class="icon-facebook1"></i></a>
-                                </li>
-                                <li class="item">
-                                    <a href="#"><i class="icon-twitter"></i></a>
-                                </li>
-                                <li class="item">
-                                    <a href="#"><i class="icon-instagram2"></i></a>
-                                </li>
-                                <li class="item">
-                                    <a href="#"><i class="icon-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="footer-inner">
         <div class="tf-container w-1290">
+            {{-- <div class="footer-left">
+                <div class="logo">
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('assets/images/logo/logo-2.png') }}" alt="" />
+                    </a>
+                </div>
+            </div> --}}
             <div class="row d-flex justify-content-between">
                 <div class="col-lg-3 col-md-6 ">
+
                     <div class="footer-inner-wrap footer-col-block">
                         <h4 class="footer-title footer-title-desktop mb-23">
                             Contact Us!
@@ -221,24 +206,27 @@
                         Copyright © 2025 Donal Farm
                         <span>
                             <a href="https://themeforest.net/user/themesflat/portfolio">
-                                </a>.</span>
+                            </a>.</span>
                         All Rights Reserved.
                     </p>
-                    <ul class="policy-list">
-                        <li class="item">
-                            <a href="#">
-                                Confidentiality & Privacy
-                            </a>
-                        </li>
-                        <li class="item">
-                            <a href="#"> Legal Information </a>
-                        </li>
-                        <li class="item">
-                            <a href="#">
-                                Return and Refund Policy
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="footer-right">
+                        <div class="wg-social">
+                            <ul class="list">
+                                <li class="item">
+                                    <a href="#"><i class="icon-facebook1"></i></a>
+                                </li>
+                                <li class="item">
+                                    <a href="#"><i class="icon-twitter"></i></a>
+                                </li>
+                                <li class="item">
+                                    <a href="#"><i class="icon-instagram2"></i></a>
+                                </li>
+                                <li class="item">
+                                    <a href="#"><i class="icon-pinterest"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

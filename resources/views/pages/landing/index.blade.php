@@ -5,116 +5,104 @@
     <div class="page-title-home-3">
         <div class="swiper-container slider-home-3">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="slide-home-3 overflow-hidden">
-                        <div class="image tf-animate-zoom-in-out">
-                            <img src="{{ asset('assets/images/page-title/home-3-1.jpg') }}"
-                                data-src="{{ asset('assets/images/page-title/home-3-1.jpg') }}" alt=""
-                                class="lazyload">
-                        </div>
-                        <div class="content-wrap">
-                            <div class="content">
-                                <p class="sub-title font-snowfall ">
-                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
-                                    <span class="tf-fade-top fade-item-1">
-                                        Better Agriculture for Better Future
-                                    </span>
-                                </p>
-                                <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br>
-                                    Every Farmer Matters.
-                                </h1>
-                                <div class="img-item ">
-                                    <img class="tf-trainsition-draw-left access-trainsition"
-                                        src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
-                                </div>
-                                <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the economic and technological euphoria of recent <br>
-                                    decades has been that everything depends on innovation.
-                                </p>
-                                <a href="{{ url('/services') }}"
-                                    class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
-                                    <span class="text-style cl-primary">
-                                        See Our Services
-                                    </span>
 
-                                    <div class="icon">
-                                        <i class="icon-arrow_right"></i>
+                @forelse ($heroSections as $hero)
+                    <div class="swiper-slide">
+                        <div class="slide-home-3 overflow-hidden">
+
+                            <!-- Image -->
+                            <div class="image tf-animate-zoom-in-out">
+                                <img src="{{ $hero->image ? asset('uploads/hero/' . $hero->image) : asset('assets/images/page-title/home-3-1.jpg') }}"
+                                    data-src="{{ $hero->image ? asset('uploads/hero/' . $hero->image) : asset('assets/images/page-title/home-3-1.jpg') }}"
+                                    alt="" class="lazyload">
+                            </div>
+
+                            <div class="content-wrap">
+                                <div class="content">
+
+                                    <!-- Subtitle -->
+                                    <p class="sub-title font-snowfall">
+                                        <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
+                                            class="tf-trainsition-draw-left access-trainsition">
+                                        <span class="tf-fade-top fade-item-1">
+                                            {{ $hero->hero_subtitle ?? 'Better Agriculture for Better Future' }}
+                                        </span>
+                                    </p>
+
+                                    <!-- Title -->
+                                    <h1 class="title font-farmhouse tf-fade-right fade-item-2">
+                                        {!! nl2br(e($hero->hero_title ?? 'Every Crop Counts, <br> Every Farmer Matters.')) !!}
+                                    </h1>
+
+                                    <!-- Line under title -->
+                                    <div class="img-item">
+                                        <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
+                                            class="tf-trainsition-draw-left access-trainsition">
                                     </div>
-                                </a>
+
+                                    <!-- Description -->
+                                    <p class="text font-nunito tf-fade-left fade-item-4">
+                                        {!! nl2br(
+                                            e(
+                                                $hero->description ??
+                                                    'The paramount doctrine of the economic and technological euphoria of recent <br> decades has been that everything depends on innovation.',
+                                            ),
+                                        ) !!}
+                                    </p>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="slide-home-3 overflow-hidden">
-                        <div class="image tf-animate-zoom-in-out">
-                            <img src="{{ asset('assets/images/page-title/home-3-2.jpg') }}"
-                                data-src="{{ asset('assets/images/page-title/home-3-2.jpg') }}" alt=""
-                                class="lazyload">
-                        </div>
-                        <div class="content-wrap">
-                            <div class="content">
-                                <p class="sub-title font-snowfall ">
-                                    <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
-                                    <span class="tf-fade-top fade-item-1">
-                                        Better Agriculture for Better Future
-                                    </span>
-                                </p>
-                                <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                    Every Crop Counts, <br>
-                                    Every Farmer Matters.
-                                </h1>
-                                <div class="img-item ">
-                                    <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
-                                        class="tf-trainsition-draw-left access-trainsition">
-                                </div>
-                                <p class="text font-nunito tf-fade-left fade-item-4">
-                                    The paramount doctrine of the economic and technological euphoria of recent <br>
-                                    decades has been that everything depends on innovation.
-                                </p>
-                                <a href="{{ url('/services') }}"
-                                    class="tf-btn btn-view bg-white tf-fade-bottom fade-item-5">
-                                    <span class="text-style cl-primary">
-                                        See Our Services
-                                    </span>
-
-                                    <div class="icon">
-                                        <i class="icon-arrow_right"></i>
+                @empty
+                    <!-- Fallback if no hero slides exist -->
+                    <div class="swiper-slide">
+                        <div class="slide-home-3 overflow-hidden">
+                            <div class="image tf-animate-zoom-in-out">
+                                <img src="{{ asset('assets/images/page-title/home-3-1.jpg') }}"
+                                    data-src="{{ asset('assets/images/page-title/home-3-1.jpg') }}" alt=""
+                                    class="lazyload">
+                            </div>
+                            <div class="content-wrap">
+                                <div class="content">
+                                    <p class="sub-title font-snowfall">
+                                        <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
+                                            class="tf-trainsition-draw-left access-trainsition">
+                                        <span class="tf-fade-top fade-item-1">
+                                            Better Agriculture for Better Future
+                                        </span>
+                                    </p>
+                                    <h1 class="title font-farmhouse tf-fade-right fade-item-2">
+                                        Every Crop Counts, <br> Every Farmer Matters.
+                                    </h1>
+                                    <div class="img-item">
+                                        <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
+                                            class="tf-trainsition-draw-left access-trainsition">
                                     </div>
-                                </a>
+                                    <p class="text font-nunito tf-fade-left fade-item-4">
+                                        The paramount doctrine of the economic and technological euphoria of recent <br>
+                                        decades has been that everything depends on innovation.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforelse
+
             </div>
-            <div class=" btn-slide-home-3 btn-next">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
-                    preserveAspectRatio="xMidYMid meet">
-                    <g fill="#ffffff">
-                        <path
-                            d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                    </g>
-                </svg>
-            </div>
-            <div class=" btn-slide-home-3 btn-prev">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px" viewBox="0 0 80 20"
-                    preserveAspectRatio="xMidYMid meet">
-                    <g fill="#ffffff">
-                        <path
-                            d="M7 15.4 c-3.6 -2.4 -6.6 -5 -6.8 -5.7 -0.2 -1.2 13.8 -9.7 16 -9.7 2.4 0 0.2 2.4 -4.9 5.2 l-5.8 3.3 19.5 0.8 c11 0.5 27.1 0.5 37 -0.1 9.6 -0.5 17.7 -0.7 17.9 -0.5 2.4 1.9 -22 3.5 -48.6 3.1 l-25.2 -0.3 4.7 4.2 c6.1 5.5 4.4 5.3 -3.8 -0.3z" />
-                    </g>
-                </svg>
-            </div>
+
+            <!-- Slider navigation buttons -->
+            <div class="btn-slide-home-3 btn-next"> ... </div>
+            <div class="btn-slide-home-3 btn-prev"> ... </div>
+
         </div>
 
+        <!-- Extra decorative images -->
         <div class="img-item item-2">
             <img src="{{ asset('assets/images/item/rice-plant.png') }}" alt="">
         </div>
         <div class="img-item item-3">
-            <img src="{{ asset('assets/images/item/corn.png') }}"alt="">
+            <img src="{{ asset('assets/images/item/corn.png') }}" alt="">
         </div>
         <div class="img-item item-2">
             <img src="{{ asset('assets/images/item/grass-6.png') }}" alt="">
@@ -123,144 +111,6 @@
 @endsection
 
 @section('content')
-    {{-- <!-- Section service -->
-    <section class="s-service has-img-item">
-        <div class="tf-container w-1620">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="heading-section has-text text-center">
-                        <p class="sub-title">
-                            What Is Our Expertise?
-                        </p>
-                        <p class="title wow fadeInUp" data-wow-delay="0s">
-                            We Providing The <br />
-                            Best Agricultural Services
-                        </p>
-                        <p class="text wow fadeInUp" data-wow-delay="0s">
-                            Duis eleifend euismod arcu, nec faucibus
-                            mauris finibus id. Integer mattis,
-                            tellus non finibus rutrum.
-                        </p>
-                        <div class="img-item ">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                alt="" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box-icon style-6 ic-hover wow fadeInUp" data-wow-delay="0s">
-                        <div class="icon hover-icon style-circle">
-                            <i class="icon-salad"></i>
-                        </div>
-                        <a href="{{ url('/services') }}" class="caption fw-6 font-worksans hover-text-secondary">
-                            Clean Vegetables
-                        </a>
-                        <p class="text font-nunito">
-                            Ultrices sagittis orci a scelerisque
-                            purus<br /> semper eget duis at.
-                            Sollictudin nibh <br /> sit amet commodo nulla.
-                        </p>
-                        <a href="{{ url('/services') }}" class="btn-read">
-                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px"
-                                viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
-                                <g fill="#ffffff">
-                                    <path
-                                        d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box-icon style-6 ic-hover wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="icon hover-icon style-circle">
-                            <i class="icon-cow"></i>
-                        </div>
-                        <a href="{{ url('/services') }}" class="caption fw-6 font-worksans hover-text-secondary">
-                            Pure Cow's Milk
-                        </a>
-                        <p class="text font-nunito">
-                            Ultrices sagittis orci a scelerisque
-
-                            purus<br /> semper eget duis at.
-                            Sollictudin nibh <br /> sit amet commodo nulla.
-                        </p>
-                        <a href="{{ url('/services') }}" class="btn-read">
-                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px"
-                                viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
-                                <g fill="#ffffff">
-                                    <path
-                                        d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box-icon style-6 ic-hover wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="icon hover-icon style-circle">
-                            <i class="icon-chicken-2 fs-67"></i>
-                        </div>
-                        <a href="{{ url('/services') }}" class="caption fw-6 font-worksans hover-text-secondary">
-                            Clean Chicken And Eggs
-                        </a>
-                        <p class="text font-nunito">
-                            Ultrices sagittis orci a scelerisque
-
-                            purus<br /> semper eget duis at.
-                            Sollictudin nibh <br /> sit amet commodo nulla.
-                        </p>
-                        <a href="{{ url('/services') }}" class="btn-read">
-                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px"
-                                viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
-                                <g fill="#ffffff">
-                                    <path
-                                        d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="box-icon style-6 ic-hover wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="icon hover-icon style-circle">
-                            <i class="icon-seed-bag"></i>
-                        </div>
-                        <a href="{{ url('/services') }}" class="caption fw-6 font-worksans hover-text-secondary">
-                            Fertilizer Product
-                        </a>
-                        <p class="text font-nunito">
-                            Ultrices sagittis orci a scelerisque
-
-                            purus<br /> semper eget duis at.
-                            Sollictudin nibh <br /> sit amet commodo nulla.
-                        </p>
-                        <a href="{{ url('/services') }}" class="btn-read">
-                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="20px"
-                                viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
-                                <g fill="#ffffff">
-                                    <path
-                                        d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                                </g>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="s-img-item item-1">
-            <img src="{{ asset('assets/images/item/house-mountain.png') }}" alt="" />
-        </div>
-        <div class="s-img-item item-2 wow zoomIn">
-            <div class="scroll-element-3">
-
-                <img src="{{ asset('assets/images/item/house-mountain.png') }}" alt="" />
-            </div>
-        </div>
-        <div class="s-img-item item-3">
-            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-        </div>
-    </section><!-- /.Section service --> --}}
     <!-- Section our expertise -->
     <section class="s-our-expertise">
         <div class="heading-section text-center has-text has-img-item  mt-0">
@@ -272,15 +122,6 @@
                 Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non finibus
                 rutrum.
             </p>
-            {{-- <div class="img-item">
-                <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
-            </div>
-            <div class="image">
-                <img class="" src="{{ asset('assets/images/item/gree-field.jpg') }}" alt="" />
-            </div>
-            <div class="img-item item-2">
-                <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-            </div> --}}
         </div>
         <div class="s-slider">
             <div class="tf-container w-1290">
@@ -986,14 +827,14 @@
                                 You didn't find your question? See
                                 more questions and ask us today!
                             </p>
-                            <a href="faq.html" class="tf-btn bg-white">
+                            {{-- <a href="faq.html" class="tf-btn bg-white">
                                 <span class="text-style cl-primary">
                                     Read More
                                 </span>
                                 <div class="icon">
                                     <i class="icon-arrow_right"></i>
                                 </div>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -1085,19 +926,21 @@
                                 <div class="cols style-2 mb-15">
                                     <fieldset>
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Name*" aria-required="true" required class="name" />
+                                            placeholder="Enter a Full Name*" aria-required="true" required
+                                            class="name" />
                                     </fieldset>
-                                    <fieldset>
-                                        <input type="email" class="form-control email" id="mail" name="mail"
-                                            placeholder="Email*" required />
-                                    </fieldset>
+
                                 </div>
                                 <div class="cols style-2 mb-15">
                                     <fieldset>
-                                        <input type="text" class="form-control" id="phone" name="phone"
-                                            placeholder="Phone*" aria-required="true" required />
+                                        <input type="email" class="form-control email" id="mail" name="mail"
+                                            placeholder="Enter a Email*" required />
                                     </fieldset>
-                                    <fieldset class="dropdown">
+                                    <fieldset>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            placeholder="Enter a Phone*" aria-required="true" required />
+                                    </fieldset>
+                                    {{-- <fieldset class="dropdown">
                                         <select name="text" id="Support">
                                             <option value="You need support?" selected="">You need suport?
                                             </option>
@@ -1108,11 +951,11 @@
                                             <option value="You need support? 3">You need suport? 3
                                             </option>
                                         </select>
-                                    </fieldset>
+                                    </fieldset> --}}
                                 </div>
                                 <div class="cols mb-30">
                                     <fieldset>
-                                        <textarea name="message" id="message" placeholder="Message..."></textarea>
+                                        <textarea name="message" id="message" placeholder="Enter a Message..."></textarea>
                                     </fieldset>
                                 </div>
                                 <div class="checkbox-item send-wrap">
@@ -1144,6 +987,7 @@
             <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section contact us -->
+
     <!-- Section partner -->
     <section class="s-partner pb-100">
         <div class="tf-container w-1780">
@@ -1227,52 +1071,4 @@
             </div>
         </div>
     </section><!-- /.Section partner -->
-
-    {{-- <!-- Section happy farm -->
-    <section class="s-happy-farm-2 has-img-item tf-pt-0">
-        <div class="tf-container w-1290">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="content-section">
-                        <div class="heading-section style-3 has-text">
-                            <div class="top">
-                                <p class="sub-title tf-animate-1">Happy Farming!</p>
-                                <div class="img-item item-2 tf-heartBeat">
-                                    <img class="wow zoomIn" src="{{ asset('assets/images/item/happy.png') }}"
-                                        alt="" />
-                                </div>
-                            </div>
-                            <p class="title wow fadeInUp" data-wow-delay="0s">
-                                We Passionately Care About <br>
-                                Farmers, Consumers.
-
-
-                            </p>
-                            <p class="text wow fadeInUp" data-wow-delay="0s">
-                                If you need to buy clean agricultural products and learn about us, contact us
-                                now!
-                            </p>
-
-                            <a href="{{ route('contactus') }}" class="tf-btn bg-white scale-40 wow fadeInUp"
-                                data-wow-delay="0s">
-                                <span class="text-style cl-primary">
-                                    Contact Us Today
-                                </span>
-                                <div class="icon">
-                                    <i class="icon-arrow_right"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="s-img-item item-1">
-            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="">
-        </div>
-        <div class="s-img-item item-2 tf-animate__rotate-right ">
-            <img class="up-down-move" src="{{ asset('assets/images/item/leaf-3.png') }}" alt="">
-        </div>
-    </section><!-- /.Section happy farm --> --}}
 @endsection
