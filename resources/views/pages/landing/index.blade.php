@@ -695,6 +695,7 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="content-section">
+
                         <div class="heading-section style-2 has-text mb-43">
                             <div class="img-item">
                                 <div class="item mr-16">
@@ -707,108 +708,114 @@
                             </div>
 
                             <p class="title wow fadeInUp" data-wow-delay="0s">
-                                Most Frequently Asked Questions
-                                About The Farm.
+                                Most Frequently Asked Questions About The Farm.
                             </p>
                             <p class="text">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Donec sodales faucibus.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibus.
                             </p>
                         </div>
+
                         <div class="tf-accordion accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        What proof do you need for
-                                        Carer’s tickets?
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Under 2’s are free and will
-                                        need a ticket. Tickets are
-                                        free of charge but attract a
-                                        booking fee to cover the
-                                        cost of processing the
-                                        booking. If you book an
-                                        under 2 ticket please bring
-                                        with you proof of age.
+
+                            {{-- ******************** --}}
+                            {{-- If FAQs exist → show dynamic --}}
+                            {{-- Else → show static default --}}
+                            {{-- ******************** --}}
+
+                            @if (isset($faqs) && count($faqs) > 0)
+                                @foreach ($faqs as $index => $faq)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button {{ $index == 0 ? '' : 'collapsed' }}"
+                                                type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#faq{{ $faq->id }}"
+                                                aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
+                                                aria-controls="faq{{ $faq->id }}">
+                                                {{ $faq->title }}
+                                            </button>
+                                        </h2>
+
+                                        <div id="faq{{ $faq->id }}"
+                                            class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                {{ $faq->content }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                {{-- ******** STATIC DEFAULT TEMPLATE ******** --}}
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            What proof do you need for Carer’s tickets?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Under 2’s are free and need a ticket...
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Do I have to pay extra for
-                                        the shows?
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Under 2’s are free and will
-                                        need a ticket. Tickets are
-                                        free of charge but attract a
-                                        booking fee to cover the
-                                        cost of processing the
-                                        booking. If you book an
-                                        under 2 ticket please bring
-                                        with you proof of age.
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                            Do I have to pay extra for the shows?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Under 2’s are free and need a ticket...
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">
-                                        Can I bring my team or
-                                        friends?
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Under 2’s are free and will
-                                        need a ticket. Tickets are
-                                        free of charge but attract a
-                                        booking fee to cover the
-                                        cost of processing the
-                                        booking. If you book an
-                                        under 2 ticket please bring
-                                        with you proof of age.
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            Can I bring my team or friends?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Under 2’s are free and need a ticket...
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseFour" aria-expanded="false"
-                                        aria-controls="collapseFour">
-                                        Can I join the farm as a
-                                        permanent member?
-                                    </button>
-                                </h2>
-                                <div id="collapseFour" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Under 2’s are free and will
-                                        need a ticket. Tickets are
-                                        free of charge but attract a
-                                        booking fee to cover the
-                                        cost of processing the
-                                        booking. If you book an
-                                        under 2 ticket please bring
-                                        with you proof of age.
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="false" aria-controls="collapseFour">
+                                            Can I join the farm as a permanent member?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Under 2’s are free and need a ticket...
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-5">
                     <div class="s-right img-hover">
                         <div class="image-wrap hover-item">
@@ -818,32 +825,23 @@
                                     class="lazyload tf-animate-2" />
                             </div>
                         </div>
-                        <div class="img-item  tf-animate__box-2 ">
+
+                        <div class="img-item tf-animate__box-2">
                             <img class="up-down-move" src="{{ asset('assets/images/item/question.png') }}"
                                 alt="" />
                         </div>
+
                         <div class="content">
                             <p class="text fs-30 font-snowfall">
-                                You didn't find your question? See
-                                more questions and ask us today!
+                                You didn't find your question? See more questions and ask us today!
                             </p>
-                            {{-- <a href="faq.html" class="tf-btn bg-white">
-                                <span class="text-style cl-primary">
-                                    Read More
-                                </span>
-                                <div class="icon">
-                                    <i class="icon-arrow_right"></i>
-                                </div>
-                            </a> --}}
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="s-img-item item-1 t--40 z-3">
-            <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-        </div> --}}
-    </section><!-- /.Section faq -->
+    </section>
 
     <!-- Section contact us -->
     <section class="s-contact-us has-img-item">

@@ -125,6 +125,16 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('faqs.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-user-square"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Faqs">Faqs</span><span class="pc-arrow"></span>
+                    </a>
+                </li>
+                <li class="pc-item pc-hasmenu">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">

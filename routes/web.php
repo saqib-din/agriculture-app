@@ -11,6 +11,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\FaqsController;
+
 use Pest\Plugins\Only;
 
 // Welcome Page
@@ -65,6 +67,15 @@ Route::middleware('auth')->group(function () {
     // Teams 
     Route::get('/teams/createorupdate', [TeamController::class, 'createorupdate'])->name('teams.createorupdate');
     Route::get('/teams/list', [TeamController::class, 'index'])->name('teams.list');
+
+    //Faqs 
+    Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs.index');
+    Route::get('/faqs/create', [FaqsController::class, 'create'])->name('faqs.create');
+    Route::post('/faqs', [FaqsController::class, 'store'])->name('faqs.store');
+    Route::get('/faqs/{id}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
+    Route::put('/faqs/{id}', [FaqsController::class, 'update'])->name('faqs.update');
+    Route::delete('/faqs/{id}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
+
 
     // Products
     Route::get('/product/add', [ProductController::class, 'productAdd'])->name('products.create');

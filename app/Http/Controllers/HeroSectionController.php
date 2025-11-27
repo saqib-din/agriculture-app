@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HeroSection;
+use App\Models\Faq;
 
 class HeroSectionController extends Controller
 {
     public function index()
     {
-        $heroSections = HeroSection::all(); // fetch all for admin list
-        return view('pages.landing.index', compact('heroSections'));
+        $heroSections = HeroSection::all();
+        $faqs = Faq::all(); // Agar sirf active chahiye → Faq::where('status', 1)->get();
+
+        return view('pages.landing.index', compact('heroSections', 'faqs'));
     }
+
 
     // Combined create/update form
     public function form($id = null)
