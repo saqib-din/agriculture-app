@@ -44,7 +44,7 @@
                                             <th>Subtitle</th>
                                             <th>Description</th>
                                             <th>Status</th>
-                                            <th>Actions</th>
+                                            <th class="text-end">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -86,7 +86,7 @@
                                                         {{ $hero->status }}
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <td class="text-end">
                                                     {{-- <a href="{{ route('hero.show', $hero->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary" data-bs-hover="tooltip"
                                                         title="Edit">

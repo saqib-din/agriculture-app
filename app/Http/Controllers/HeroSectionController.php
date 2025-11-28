@@ -5,25 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HeroSection;
 use App\Models\Faq;
+use App\Models\Service;
 
 class HeroSectionController extends Controller
 {
+  
     public function index()
     {
+        // Get all hero sections from DB
         $heroSections = HeroSection::all();
-        $faqs = Faq::all(); // Agar sirf active chahiye → Faq::where('status', 1)->get();
 
-        return view('pages.landing.index', compact('heroSections', 'faqs'));
+        // Pass the data to your index view
+        return view('pages.admin-side.hero-section.index', compact('heroSections'));
     }
-
 
     // Combined create/update form
     public function form($id = null)
     {
         $hero = $id ? HeroSection::findOrFail($id) : null; // null for Add, existing record for Edit
-        return view('pages.admin-side.hero-section.create', compact('hero'));
+        return view('pages.admin-side.hero-section.createorupdate', compact('hero'));
     }
-
 
     public function save(Request $request, $id = null)
     {

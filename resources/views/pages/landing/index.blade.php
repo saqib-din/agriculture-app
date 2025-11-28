@@ -112,111 +112,62 @@
 
 @section('content')
     <!-- Section our expertise -->
-    <section class="s-our-expertise">
-        <div class="heading-section text-center has-text has-img-item  mt-0">
-            <p class="sub-title">What Is Our Expertise?
-            </p>
-            <p class="title text-anime-style-1 overflow-hidden">We Providing The <br>
-                Best Agricultural Services</p>
-            <p class=" text">
-                Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non finibus
-                rutrum.
-            </p>
-        </div>
-        <div class="s-slider">
-            <div class="tf-container w-1290">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="swiper-container slider-provide">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card-provide img-hover">
-                                        <div class="has-border ">
-
-                                            <div class="image hover-item ">
-                                                <img src="{{ asset('assets/images/widget/card-provide-1.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/card-provide-1.jpg') }}"
-                                                    alt="" class="lazyload">
+    @if ($services->where('featured_service', 1)->count() > 0)
+        <!-- Section our expertise -->
+        <section class="s-our-expertise">
+            <div class="heading-section text-center has-text has-img-item mt-0">
+                <p class="sub-title">What Is Our Expertise?</p>
+                <p class="title text-anime-style-1 overflow-hidden">
+                    We Providing The <br> Best Agricultural Services
+                </p>
+                <p class="text">
+                    Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non finibus rutrum.
+                </p>
+            </div>
+            <div class="s-slider">
+                <div class="tf-container w-1290">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="swiper-container slider-provide">
+                                <div class="swiper-wrapper">
+                                    @foreach ($services->where('featured_service', 1) as $service)
+                                        <div class="swiper-slide">
+                                            <div class="card-provide img-hover">
+                                                <div class="has-border">
+                                                    <div class="image hover-item"
+                                                        style="height:250px; width:65%; overflow:hidden;">
+                                                        <img src="{{ $service->image ? asset('uploads/services/' . $service->image) : asset('assets/images/widget/default.jpg') }}"
+                                                            alt="{{ $service->service_name }}" class="lazyload"
+                                                            style="width:100%; height:100%;">
+                                                    </div>
+                                                    <a href="{{ url('/services') }}"
+                                                        class="title text-upper font-worksans hover-text-secondary">
+                                                        {{ $service->service_name }}
+                                                    </a>
+                                                    <span class="break-line"></span>
+                                                    <p class="text" style="white-space: pre-line;">
+                                                        {!! nl2br(e($service->description)) !!}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <a href="{{ url('/services') }}"
-                                                class="title text-upper font-worksans hover-text-secondary">
-                                                Clean Vegetables
-                                            </a>
-                                            <span class="break-line"></span>
-                                            <p class="text">
-                                                Ultrices sagittis orci a scelerisque purus <br> semper eget duis at.
-                                                Sollicitudin
-                                                nibh sit <br> amet commodo nulla.
-                                            </p>
-                                            <a href="{{ url('/services') }}" class="tf-btn-read">
-                                                Read More
-                                            </a>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card-provide img-hover">
-                                        <div class="has-border ">
-
-                                            <div class="image hover-item">
-                                                <img src="{{ asset('assets/images/widget/card-provide-2.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/card-provide-2.jpg') }}"
-                                                    alt="" class="lazyload">
-                                            </div>
-                                            <a href="{{ url('/services') }}"
-                                                class="title text-upper font-worksans hover-text-secondary">
-                                                Pure Cow's milk
-                                            </a>
-                                            <span class="break-line"></span>
-                                            <p class="text">
-                                                Ultrices sagittis orci a scelerisque purus <br> semper eget duis at.
-                                                Sollicitudin
-                                                nibh sit <br> amet commodo nulla.
-                                            </p>
-                                            <a href="{{ url('/services') }}" class="tf-btn-read">
-                                                Read More
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card-provide img-hover">
-                                        <div class="has-border ">
-                                            <div class="image hover-item">
-                                                <img src="{{ asset('assets/images/widget/card-provide-3.jpg') }}"
-                                                    data-src="{{ asset('assets/images/widget/card-provide-3.jpg') }}"
-                                                    alt="" class="lazyload">
-                                            </div>
-                                            <a href="{{ url('/services') }}"
-                                                class="title text-upper font-worksans hover-text-secondary">
-                                                Chicken and eggs
-                                            </a>
-                                            <span class="break-line"></span>
-                                            <p class="text">
-                                                Ultrices sagittis orci a scelerisque purus <br> semper eget duis at.
-                                                Sollicitudin
-                                                nibh sit <br> amet commodo nulla.
-                                            </p>
-                                            <a href="{{ url('/services') }}" class="tf-btn-read">
-                                                Read More
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="swiper-pagination style-1 pagination-slider-provide"></div>
+                <div class="btn-slider-provide style-2 btn-next">
+                    <img src="{{ asset('assets/icons/slide-next-2.svg') }}" alt="">
+                </div>
+                <div class="btn-slider-provide style-2 btn-prev">
+                    <img src="{{ asset('assets/icons/slide-prev-2.svg') }}" alt="">
+                </div>
             </div>
-            <div class="swiper-pagination style-1 pagination-slider-provide"></div>
-            <div class=" btn-slider-provide style-2 btn-next">
-                <img src="{{ asset('assets/icons/slide-next-2.svg') }}" alt="">
-            </div>
-            <div class=" btn-slider-provide style-2 btn-prev">
-                <img src="{{ asset('assets/icons/slide-prev-2.svg') }}" alt="">
-            </div>
-        </div>
-    </section><!-- /.Section our expertise -->
+        </section><!-- /.Section our expertise -->
+    @endif
+    <!-- /.Section our expertise -->
 
     <!-- Section shopping today  -->
     <section class="s-shopping">
@@ -228,10 +179,8 @@
                             <div class="heading-section style-2 has-text">
                                 <div class="img-item">
                                     <div class="item">
-                                        <img class="tf-animate-1"
-                                            src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                            data-src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                            alt="" />
+                                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                            data-src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="" />
                                     </div>
                                     <p class="sub-title">
                                         Shopping Today
@@ -442,56 +391,95 @@
 
     <!-- Section testimonial -->
     <section class="s-testimonial style-2">
-        <div class="wrap">
-            <div class="image wow fadeInLeft" data-wow-delay="0s">
-                <div class="scroll-element-2">
-                    <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
-                </div>
-                {{-- <div class="sign ">
-                    <img src="{{ asset('assets/images/item/sign.png') }}" alt="">
-                </div> --}}
-            </div>
-            <div class="content-section">
-                <div class="heading-section has-text mb-35">
-                    <p class="sub-title">Meet The Farmer</p>
-                    <p class="title mb-18 text-anime-style-1">We Are Dedicated Farmers</p>
-                    <p class="text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibus commodo.
-                        Proin vehicula massa id congue rutrum, ex libero sodales ex, cursus euismod purus.
-                    </p>
-                    <div class="img-item">
-                        <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                            alt="" />
+        @php
+            $ceo = $teams->where('is_ceo', 1)->first();
+        @endphp
+
+        @if ($ceo)
+            {{-- CEO exists, show CEO data --}}
+            <div class="wrap">
+                <div class="image wow fadeInLeft" data-wow-delay="0s">
+                    <div class="scroll-element-2">
+                        @if ($ceo->image)
+                            <img src="{{ asset('uploads/teams/' . $ceo->image) }}" alt="{{ $ceo->name }}" />
+                        @else
+                            <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
+                        @endif
                     </div>
                 </div>
-                <p class="quote font-snowfall fs-30">
-                    “Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
-                    good
-                    morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.”
-                </p>
-                <div class="bot">
-                    <div class="author-wrap">
-                        <p class="author text-upper fw-6 font-worksans">
-                            <a href="#" class="">
-                                Donald Christopher
-                            </a>- Talk
+                <div class="content-section">
+                    <div class="heading-section has-text mb-35">
+                        <p class="sub-title">Meet The Farmer</p>
+                        <p class="title mb-18 text-anime-style-1">
+                            {{ $ceo->designation ?? 'We Are Dedicated Farmers' }}
                         </p>
-                        <p class="duty">
-                            Farm Owner Donald Farm Happiness
+                        <p class="quote font-snowfall fs-30">
+                            {{ $ceo->description ?? 'Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.' }}
                         </p>
-                    </div>
-                    <a href="{{ url('/teams') }}" class="tf-btn scale-40">
-                        <span class="text-style">
-                            View All The Farmers
-                        </span>
-                        <div class="icon">
-                            <i class="icon-arrow_right"></i>
+                        <div class="img-item">
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                alt="" />
                         </div>
-                    </a>
+                    </div>
+                    <div class="bot">
+                        <div class="author-wrap">
+                            <p class="author text-upper fw-6 font-worksans">
+                                <a href="#" target="_blank">{{ $ceo->name }}</a> - Talk
+                            </p>
+                            <p class="duty">
+                                {{ $ceo->designation }} CEO
+                            </p>
+                        </div>
+                        <a href="{{ url('/teams') }}" class="tf-btn scale-40">
+                            <span class="text-style">View All The Teams</span>
+                            <div class="icon">
+                                <i class="icon-arrow_right"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section><!-- /.Section testimonial -->
+        @else
+            {{-- CEO not found, show default/static data --}}
+            <div class="wrap">
+                <div class="image wow fadeInLeft" data-wow-delay="0s">
+                    <div class="scroll-element-2">
+                        <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
+                    </div>
+                </div>
+                <div class="content-section">
+                    <div class="heading-section has-text mb-35">
+                        <p class="sub-title">Meet The Farmer</p>
+                        <p class="title mb-18 text-anime-style-1">We Are Dedicated Farmers</p>
+                        <p class="quote font-snowfall fs-30">
+                            Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
+                            good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.
+                        </p>
+                        <div class="img-item">
+                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
+                                alt="" />
+                        </div>
+                    </div>
+                    <div class="bot">
+                        <div class="author-wrap">
+                            <p class="author text-upper fw-6 font-worksans">
+                                <a href="#" target="_blank">Donald Christopher</a> - Talk
+                            </p>
+                            <p class="duty">Farm Owner Donald Farm Happiness</p>
+                        </div>
+                        <a href="{{ url('/teams') }}" class="tf-btn scale-40">
+                            <span class="text-style">View All The Farmers</span>
+                            <div class="icon">
+                                <i class="icon-arrow_right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </section>
+
+
 
     <!-- Section testimonial 3 -->
     <section class="s-testimonial-3 overflow-hidden">

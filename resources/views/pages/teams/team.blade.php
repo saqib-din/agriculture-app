@@ -50,44 +50,74 @@
     <div class="main-content page-our-farmers pt-0 pb-0">
         <!-- Section testimonial -->
         <section class="s-testimonial style-2 type-2">
-            <div class="wrap">
-                <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
-                    <img class="" src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
-                    <div class="sign scroll-element-3">
-                        {{-- <img src="{{ asset('assets/images/item/sign.png') }}" alt=""> --}}
-                    </div>
-                </div>
-                <div class="content-section">
-                    <div class="heading-section ">
-                        <p class="title text-anime-style-1">Creator Of Success</p>
-                    </div>
-                    <p class="quote font-snowfall fs-30 text-anime-style-1">
-                        “Agriculture is our wisest pursuit, because it will in the end contribute most to real
-                        wealth,
-                        good
-                        morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.”
-                    </p>
-                    <div class="bot">
-                        <div class="author-wrap">
-                            <p class="author text-upper fw-6 font-worksans">
-                                <a href="#" class="">
-                                    Donald Christopher
-                                </a>- Talk
-                            </p>
-                            <p class="duty">
-                                Farm Owner Donald Farm Happiness
-                            </p>
+            @php
+                // CEO ko filter karo
+                $ceo = $teams->where('is_ceo', 1)->first();
+            @endphp
+
+            @if ($ceo)
+                <div class="wrap">
+                    <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
+                        <img src="{{ $ceo->image ? asset('uploads/teams/' . $ceo->image) : asset('assets/images/item/s-testi.png') }}"
+                            alt="{{ $ceo->name }}">
+                        <div class="sign scroll-element-3">
+                            {{-- Optional sign image --}}
                         </div>
-                        <a href="testimonial.html" class="tf-btn-read hover-text-4">
-                            Read About Donald Christoper
-                        </a>
                     </div>
-                    <div class="icon tf-animate__box-2 animate__slow">
-                        <i class="icon-quote "></i>
+                    <div class="content-section">
+                        <div class="heading-section">
+                            <p class="title text-anime-style-1">{{ $ceo->designation ?? 'Creator Of Success' }}</p>
+                        </div>
+                        <p class="quote font-snowfall fs-30 text-anime-style-1">
+                            {{ $ceo->description ?? '“Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.”' }}
+                        </p>
+                        <div class="bot">
+                            <div class="author-wrap">
+                                <p class="author text-upper fw-6 font-worksans">
+                                    <a href="#" target="_blank">{{ $ceo->name }}</a> - Talk
+                                </p>
+                                <p class="duty">{{ $ceo->designation ?? 'Farm Owner Donald Farm Happiness' }}</p>
+                            </div>
+                        </div>
+                        <div class="icon tf-animate__box-2 animate__slow">
+                            <i class="icon-quote"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section><!-- /.Section testimonial -->
+            @else
+                {{-- Agar CEO nahi hai, static content show karo --}}
+                <div class="wrap">
+                    <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
+                        <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="">
+                        <div class="sign scroll-element-3">
+                            {{-- Optional sign image --}}
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <div class="heading-section">
+                            <p class="title text-anime-style-1">Creator Of Success</p>
+                        </div>
+                        <p class="quote font-snowfall fs-30 text-anime-style-1">
+                            “Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
+                            good morals, and happiness. Farmers are the embodiment of hard work, dedication, and
+                            resilience.”
+                        </p>
+                        <div class="bot">
+                            <div class="author-wrap">
+                                <p class="author text-upper fw-6 font-worksans">
+                                    <a href="#">Donald Christopher</a> - Talk
+                                </p>
+                                <p class="duty">Farm Owner Donald Farm Happiness</p>
+                            </div>
+                        </div>
+                        <div class="icon tf-animate__box-2 animate__slow">
+                            <i class="icon-quote"></i>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </section>
+
 
         <!-- Section meet farmer -->
         <section class="s-meet-farm">
@@ -111,48 +141,54 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="box-farmer img-hover pb-30 wow fadeInUp" data-wow-delay="0s">
-                            <div class="image hover-item">
-                                <img src="{{ asset('assets/images/widget/farmer-1.jpg') }}"
-                                    data-src="{{ asset('assets/images/widget/farmer-1.jpg') }}" alt=""
-                                    class="lazyload">
-                            </div>
-                            <div class="content">
-                                <div class="author-wrap">
-                                    <div class="has-border">
-                                        <a href="#" class="name fw-7 fs-23 hover-text-4 font-worksans">
-                                            James Benjamin
-                                        </a>
-                                        <p class="duty">
-                                            Crop Specialist
-                                        </p>
+                    @foreach ($teams->where('is_ceo', 0) as $team)
+                        <div class="col-lg-4">
+                            <div class="box-farmer img-hover pb-30 wow fadeInUp" data-wow-delay="0s">
+                                <div class="image hover-item">
+                                    <img src="{{ $team->image ? asset('uploads/teams/' . $team->image) : asset('assets/images/widget/farmer-1.jpg') }}"
+                                        alt="{{ $team->name }}" class="lazyload" style="height: 353px;">
+                                </div>
+                                <div class="content">
+                                    <div class="author-wrap">
+                                        <div class="has-border">
+                                            <a href="#" class="name fw-7 fs-23 hover-text-4 font-worksans">
+                                                {{ $team->name }}
+                                            </a>
+                                            <p class="duty">
+                                                {{ $team->designation }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="text font-nunito">
+                                        {{ $team->description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibusrum ex libero sodales ex, cursus.' }}
+                                    </p>
+                                    <div class="wg-social style-2">
+                                        <ul class="list">
+                                            @if ($team->facebook)
+                                                <li><a href="{{ $team->facebook }}" target="_blank"><i
+                                                            class="icon-facebook1"></i></a></li>
+                                            @endif
+                                            @if ($team->linkedin)
+                                                <li><a href="{{ $team->linkedin }}" target="_blank"><i
+                                                            class="icon-twitter"></i></a></li>
+                                            @endif
+                                            @if ($team->instagram)
+                                                <li><a href="{{ $team->instagram }}" target="_blank"><i
+                                                            class="icon-instagram2"></i></a></li>
+                                            @endif
+                                        </ul>
                                     </div>
                                 </div>
-                                <p class="text font-nunito">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales
-                                    faucibusrum ex libero
-                                    sodales ex, cursus.
-                                </p>
-                                <div class="wg-social style-2">
-                                    <ul class="list">
-                                        <li><a href="#"><i class="icon-facebook1"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-instagram2"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-skype"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-telegram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="say-hi">
-                                <div class="img-item">
-                                    <img src="{{ asset('assets/images/item/say-hi.png') }}" alt="">
-                                    <p class="font-worksans fw-6 fs-30">Say Hi!</p>
+                                <div class="say-hi">
+                                    <div class="img-item">
+                                        <img src="{{ asset('assets/images/item/say-hi.png') }}" alt="">
+                                        <p class="font-worksans fw-6 fs-30">Say Hi!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
+                    @endforeach
+                    {{-- <div class="col-lg-4">
                         <div class="box-farmer img-hover pb-30 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="image hover-item">
                                 <img src="{{ asset('assets/images/widget/farmer-2.jpg') }}"
@@ -233,7 +269,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section><!-- /.Section meet farmer -->

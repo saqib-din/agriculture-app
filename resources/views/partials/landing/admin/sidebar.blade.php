@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('services.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-link"></use>
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('teams.list') }}" class="pc-link">
+                    <a href="{{ route('teams.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-story"></use>
@@ -82,15 +82,15 @@
                         <span class="pc-mtext" data-i18n="Teams">Teams</span>
                     </a>
                 </li>
+             
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('faqs.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-kanban"></use>
+                                <use xlink:href="#custom-user-square"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Testimonials">Testimonials</span><span
-                            class="pc-arrow"></span>
+                        <span class="pc-mtext" data-i18n="Faqs">Faqs</span><span class="pc-arrow"></span>
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
@@ -107,7 +107,7 @@
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-24-support"></use>
+                                <use xlink:href="#custom-graph"></use>
                             </svg>
                         </span>
                         <span class="pc-mtext" data-i18n="Contact Us">Contact Us</span><span class="pc-arrow"></span>
@@ -124,16 +124,7 @@
                         <span class="pc-mtext" data-i18n="Users">Users</span><span class="pc-arrow"></span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('faqs.index') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-user-square"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Faqs">Faqs</span><span class="pc-arrow"></span>
-                    </a>
-                </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">

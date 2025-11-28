@@ -11,12 +11,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\Testimonials;
 use App\Http\Controllers\FaqsController;
 
 use Pest\Plugins\Only;
 
 // Welcome Page
-Route::get('/', [HeroSectionController::class, 'index'])->name('welcome');
+Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
 
 // Products
 Route::get('/singleproduct', [SingleController::class, 'show'])->name('singleproduct');
@@ -49,24 +50,30 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Home Controller 
-    Route::get('/hero/section/list', [HomeController::class, 'index'])->name('hero-section.index');
-
     // Hero Section
+    Route::get('/hero/section/list', [HeroSectionController::class, 'index'])->name('hero-section.index');
     Route::get('/hero/create', [HeroSectionController::class, 'form'])->name('hero.create');
     Route::get('/hero/edit/{id}', [HeroSectionController::class, 'form'])->name('hero.edit');
     Route::post('/hero/save/{id?}', [HeroSectionController::class, 'save'])->name('hero.save');
     Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
 
     // Services
-    Route::get('/services/create', [ServicesController::class, 'form'])->name('services.create');
+    Route::get('/services/index', [ServicesController::class, 'index'])->name('services.index');
+    Route::get('/services/add', [ServicesController::class, 'form'])->name('services.add');
     Route::get('/services/edit/{id}', [ServicesController::class, 'form'])->name('services.edit');
     Route::post('/services/save/{id?}', [ServicesController::class, 'save'])->name('services.save');
     Route::delete('/services/delete/{id}', [ServicesController::class, 'destroy'])->name('services.delete');
 
     // Teams 
-    Route::get('/teams/createorupdate', [TeamController::class, 'createorupdate'])->name('teams.createorupdate');
-    Route::get('/teams/list', [TeamController::class, 'index'])->name('teams.list');
+    Route::get('/teams/list', [TeamController::class, 'index'])->name('teams.index');
+
+    Route::get('/create-or-update/{id?}', [TeamController::class, 'createorupdate'])->name('createorupdate');
+    Route::post('/save', [TeamController::class, 'save'])->name('save');
+
+    Route::post('/teams/save', [TeamController::class, 'save'])->name('teams.save');
+
+    Route::delete('/teams/delete/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
+
 
     //Faqs 
     Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs.index');
