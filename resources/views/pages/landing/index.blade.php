@@ -523,166 +523,147 @@
             <div class="tf-container w-1290">
                 <div class="row">
                     <div class="col-lg-12">
+
                         <div class="testimonial-thumbs">
                             <div class="swiper-container slider-testimonial-3-thumb">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="image-avt">
-                                            <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
-                                                alt="">
+
+                                    @if ($testimonials->count())
+                                        {{-- Dynamic Thumbs --}}
+                                        @foreach ($testimonials as $t)
+                                            <div class="swiper-slide">
+                                                <div class="image-avt">
+                                                    @if ($t->image)
+                                                        <img src="{{ asset('storage/' . $t->image) }}" width="60"
+                                                            class="rounded">
+                                                    @else
+                                                        No Image
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        {{-- Default Thumbs --}}
+                                        <div class="swiper-slide">
+                                            <div class="image-avt">
+                                                <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
+                                                    alt="">
+                                            </div>
                                         </div>
 
+                                        <div class="swiper-slide">
+                                            <div class="image-avt">
+                                                <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
+                                                    alt="">
+                                            </div>
+                                        </div>
 
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image-avt">
-                                            <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
-                                                alt="">
+                                        <div class="swiper-slide">
+                                            <div class="image-avt">
+                                                <img src="{{ asset('assets/images/section/customer-say-4.jpg') }}"
+                                                    alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image-avt">
-                                            <img src="{{ asset('assets/images/section/customer-say-4.jpg') }}"
-                                                alt="">
-                                        </div>
-                                    </div>
+                                    @endif
+
                                 </div>
                             </div>
+
+                            {{-- Main Slider --}}
                             <div class="swiper-container slider-testimonial-3">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="testimonial style-3">
 
-                                            <div class="comment">
-                                                <p class="caption fs-30 font-snowfall">
-                                                    Having been a host farmer for three seasons, we’ve seen
-                                                    firsthand
-                                                    the difference this
-                                                    internship makes in beginning <br>
-                                                    farmers and host farms alike. As a farmer it is difficult to
-                                                    weigh
-                                                    the benefits of
-                                                    hosting young farmers. Fresh energy <br>
-                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
-                                                    egestas.
-                                                </p>
-                                            </div>
-                                            <div class="infor">
-                                                <div class="name-wrap">
-                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
-                                                        CHRISTINE Rose
-                                                    </a>
-                                                    <div class="wg-rating">
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                </div>
-                                                <p class="duty">
-                                                    Director, Radical Orange Pty Ltd.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="testimonial style-3">
+                                    @if ($testimonials->count())
+                                        {{-- Dynamic Testimonials --}}
+                                        @foreach ($testimonials as $t)
+                                            <div class="swiper-slide">
+                                                <div class="testimonial style-3">
 
-                                            <div class="comment">
-                                                <p class="caption fs-30 font-snowfall">
-                                                    Having been a host farmer for three seasons, we’ve seen
-                                                    firsthand
-                                                    the difference this
-                                                    internship makes in beginning
-                                                    farmers and host farms alike. As a farmer it is difficult to
-                                                    weigh
-                                                    the benefits of
-                                                    hosting young farmers. Fresh energy
-                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
-                                                    egestas.
-                                                </p>
-                                            </div>
-                                            <div class="infor">
-                                                <div class="name-wrap">
-                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
-                                                        CHRISTINE Rose
-                                                    </a>
-                                                    <div class="wg-rating">
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
+                                                    <div class="comment">
+                                                        <p class="caption fs-30 font-snowfall">
+                                                            {{ $t->review }}
+                                                        </p>
                                                     </div>
-                                                </div>
-                                                <p class="duty">
-                                                    Director, Radical Orange Pty Ltd.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="testimonial style-3">
 
-                                            <div class="comment">
-                                                <p class="caption fs-30 font-snowfall">
-                                                    Having been a host farmer for three seasons, we’ve seen
-                                                    firsthand
-                                                    the difference this
-                                                    internship makes in beginning
-                                                    farmers and host farms alike. As a farmer it is difficult to
-                                                    weigh
-                                                    the benefits of
-                                                    hosting young farmers. Fresh energy
-                                                    and enthusiasm. Mauris id lorem facilisis lectus facilisis
-                                                    egestas.
-                                                </p>
-                                            </div>
-                                            <div class="infor">
-                                                <div class="name-wrap">
-                                                    <a href="#" class="name fs-18 fw-6 text-upper hover-text-4">
-                                                        CHRISTINE Rose
-                                                    </a>
-                                                    <div class="wg-rating">
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
-                                                        <i class="fa-solid fa-star"></i>
+                                                    <div class="infor">
+                                                        <div class="name-wrap">
+                                                            <span class="name fs-18 fw-6 text-upper">
+                                                                {{ strtoupper($t->name) }}
+                                                            </span>
+
+                                                            <div class="wg-rating">
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    <i
+                                                                        class="fa-solid fa-star {{ $i <= $t->rating ? '' : 'text-muted' }}"></i>
+                                                                @endfor
+                                                            </div>
+                                                        </div>
+
+                                                        <p class="duty">
+                                                            {{ $t->design }}{{ $t->company ? ', ' . $t->company : '' }}
+                                                        </p>
                                                     </div>
+
                                                 </div>
-                                                <p class="duty">
-                                                    Director, Radical Orange Pty Ltd.
-                                                </p>
                                             </div>
-                                        </div>
-                                    </div>
+                                        @endforeach
+                                    @else
+                                        {{-- Default Testimonials --}}
+                                        @for ($i = 0; $i < 3; $i++)
+                                            <div class="swiper-slide">
+                                                <div class="testimonial style-3">
+
+                                                    <div class="comment">
+                                                        <p class="caption fs-30 font-snowfall">
+                                                            Having been a host farmer for three seasons, we’ve seen
+                                                            firsthand
+                                                            the difference this internship makes...
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="infor">
+                                                        <div class="name-wrap">
+                                                            <span class="name fs-18 fw-6 text-upper">
+                                                                CHRISTINE ROSE
+                                                            </span>
+
+                                                            <div class="wg-rating">
+                                                                <i class="fa-solid fa-star"></i>
+                                                                <i class="fa-solid fa-star"></i>
+                                                                <i class="fa-solid fa-star"></i>
+                                                                <i class="fa-solid fa-star"></i>
+                                                                <i class="fa-solid fa-star"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <p class="duty">Director, Radical Orange Pty Ltd.</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    @endif
+
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
-            </div>
-            <div class="btn-slide-testimonial-3 btn-prev">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50px" height="15px"
-                    viewBox="0 0 68 18" preserveAspectRatio="xMidYMid meet">
-                    <g fill="#0d401c">
-                        <path
-                            d="M6.3 14.3 c-3.5 -2.1 -6.3 -4.2 -6.3 -4.9 0 -0.6 2.7 -3 6 -5.3 6.4 -4.5 8.3 -4.1 2.6 0.6 l-3.5 2.8 24.7 0 c23.6 0 38.2 0.9 38.2 2.3 0 0.4 -7.3 0.3 -16.3 -0.1 -9 -0.5 -23.3 -0.5 -31.8 0 l-15.4 0.8 5.3 2.9 c5 2.8 6.6 4.6 4 4.6 -0.7 0 -4.1 -1.7 -7.5 -3.7z" />
-                    </g>
-                </svg>
-            </div>
-            <div class="btn-slide-testimonial-3 btn-next">
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="50px" height="15px"
-                    viewBox="0 0 80 20" preserveAspectRatio="xMidYMid meet">
-                    <g fill="#0d401c">
-                        <path
-                            d="M63 19 c0 -0.5 2.6 -2.4 5.8 -4.2 l5.7 -3.3 -19.5 -0.8 c-11 -0.5 -27.1 -0.5 -37 0.1 -9.6 0.5 -17.7 0.7 -17.9 0.5 -2.4 -1.9 22 -3.5 48.7 -3.1 l25.2 0.3 -4.6 -3.9 c-2.5 -2.1 -4.3 -4 -4 -4.3 0.7 -0.7 14.6 8.9 14.6 10.2 0 1.1 -14.3 9.5 -16.2 9.5 -0.4 0 -0.8 -0.4 -0.8 -1z" />
-                    </g>
-                </svg>
-            </div>
+
+                {{-- Navigation buttons !!}
+        <div class="btn-slide-testimonial-3 btn-prev">
+            ... (same SVG)
         </div>
+
+        <div class="btn-slide-testimonial-3 btn-next">
+            ... (same SVG)
+        </div>
+
+    </div>
+</div>
+
         {{-- <div class="s-img-item scroll-element-3">
             <img class="scale-1-1 lazyload" src="./images/section/yellow-f.png"
                 data-src="{{ asset('assets/images/section/yellow-f.png') }}" alt="">

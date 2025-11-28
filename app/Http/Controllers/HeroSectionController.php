@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HeroSection;
 use App\Models\Faq;
+use App\Models\Testimonial;
+
 
 class HeroSectionController extends Controller
 {
     public function index()
     {
         $heroSections = HeroSection::all();
-        $faqs = Faq::all(); // Agar sirf active chahiye → Faq::where('status', 1)->get();
+        $faqs = Faq::all(); // or Faq::where('status', 1)->get() for active only
+        $testimonials = Testimonial::where('status', 1)->get(); // only active testimonials
 
-        return view('pages.landing.index', compact('heroSections', 'faqs'));
+        return view('pages.landing.index', compact('heroSections', 'faqs', 'testimonials'));
     }
+
 
 
     // Combined create/update form

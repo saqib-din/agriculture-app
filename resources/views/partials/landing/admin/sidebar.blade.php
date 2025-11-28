@@ -83,16 +83,18 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('testimonials.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-kanban"></use>
+                                <use xlink:href="#custom-setting-2"></use>
+                                <!-- icon FAQs ke jaisa, ya alag change kar sakte ho -->
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Testimonials">Testimonials</span><span
-                            class="pc-arrow"></span>
+                        <span class="pc-mtext" data-i18n="Testimonials">Testimonials</span>
+                        <span class="pc-arrow"></span>
                     </a>
                 </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">

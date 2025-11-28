@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HeroSection;
 use App\Models\Faq;
-
-
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,15 +16,15 @@ class HomeController extends Controller
 
     public function index()
     {
-        // Get all hero sections from DB
         $heroSections = HeroSection::all();
+        $testimonials = Testimonial::all();
 
-        // Pass the data to your index view
-        return view('pages.admin-side.hero-section.index', compact('heroSections'));
+        return view('pages.admin-side.hero-section.index', compact('heroSections', 'testimonials'));
     }
+
     public function faqs()
     {
-        $faqs = Faq::all(); 
+        $faqs = Faq::all();
 
         return view('pages.landing.index', compact('faqs'));
     }
