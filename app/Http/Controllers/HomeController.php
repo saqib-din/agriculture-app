@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\HeroSection;
 use App\Models\Faq;
-use App\Models\Service;
-use App\Models\Team;
+use App\Models\Testimonial;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function welcome()
     {
-        $heroSections = HeroSection::all();
-        $faqs = Faq::all();
-        $services = Service::all();
-        $teams = Team::all();
+        return view('pages.admin-side.hero-section.createorupdate');
+    }
 
-        return view('pages.landing.index', compact('heroSections', 'faqs', 'services', 'teams'));
+    public function index()
+    {
+        $heroSections = HeroSection::all();
+        $testimonials = Testimonial::all();
+
+        return view('pages.admin-side.hero-section.index', compact('heroSections', 'testimonials'));
+    }
+
+    public function faqs()
+    {
+        $faqs = Faq::all();
+
+        return view('pages.landing.index', compact('faqs'));
     }
 }

@@ -11,17 +11,16 @@
                         <div class="col-md-12">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">FAQ</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0)">Testimonials</a></li>
                                 <li class="breadcrumb-item" aria-current="page">List</li>
                             </ul>
                         </div>
 
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h2 class="mb-0">FAQ List</h2>
+                                <h2 class="mb-0">Testimonials List</h2>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -31,72 +30,77 @@
             <!-- Table -->
             <div class="row">
                 <div class="col-12">
-
                     <div class="card table-card">
-                        <div class="card-header">
-                            <div class="d-sm-flex align-items-center justify-content-between">
-                                <h5 class="mb-3 mb-sm-0">FAQ List</h5>
-
-                                <div>
-                                    <a href="{{ route('faqs.create') }}" class="btn btn-primary">Add FAQ</a>
-                                </div>
-                            </div>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Testimonials List</h5>
+                            <a href="{{ route('testimonials.create') }}" class="btn btn-primary">Add Testimonial</a>
                         </div>
 
                         <div class="card-body pt-3">
                             <div class="table-responsive">
-
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Content</th>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Company</th>
+                                            <th>Rating</th>
+                                            <th>Image</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th width="150px">Actions</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($faqs as $faq)
+                                        @foreach ($testimonials as $key => $item)
                                             <tr>
-                                                <td>{{ $faq->title }}</td>
-                                                <td>{{ Str::limit($faq->content, 40) }}</td>
-
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->company }}</td>
+                                                <td>{{ $item->rating }} ⭐</td>
                                                 <td>
-                                                    @if ($faq->status == 1)
+                                                    @if ($item->image)
+                                                        <img src="{{ asset('storage/' . $item->image) }}" width="60"
+                                                            class="rounded">
+                                                    @else
+                                                        No Image
+                                                    @endif
+
+                                                </td>
+                                                <td>
+                                                    @if ($item->status)
                                                         <span class="badge bg-success">Active</span>
                                                     @else
                                                         <span class="badge bg-danger">Inactive</span>
                                                     @endif
                                                 </td>
-
-                                                <td>
-                                                    <a href="{{ route('faqs.edit', $faq->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary">
-                                                        <i class="ti ti-edit f-20"></i>
+                                                <td class="d-flex">
+                                                    <a href="{{ route('testimonials.edit', $item->id) }}"
+                                                        class="avtar avtar-xs btn-link-secondary"> <i
+                                                            class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                    <form action="{{ route('faqs.destroy', $faq->id) }}" method="POST"
-                                                        class="d-inline">
+                                                    <form action="{{ route('testimonials.destroy', $item->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="avtar avtar-xs btn-link-secondary"
-                                                            onclick="return confirm('Delete this FAQ?')">
-                                                            <i class="ti ti-trash f-20"></i>
+                                                        <button class="avtar avtar-xs btn-link-secondary"
+                                                            onclick="return confirm('Are you sure?')"> <i
+                                                                class="ti ti-trash f-20"></i>
                                                         </button>
                                                     </form>
+
+
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
 
                                 </table>
-
                             </div>
                         </div>
 
                     </div>
-
                 </div>
             </div>
 

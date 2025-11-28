@@ -13,6 +13,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\Testimonials;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\TestimonialsController;
 
 use Pest\Plugins\Only;
 
@@ -82,6 +83,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/faqs/{id}/edit', [FaqsController::class, 'edit'])->name('faqs.edit');
     Route::put('/faqs/{id}', [FaqsController::class, 'update'])->name('faqs.update');
     Route::delete('/faqs/{id}', [FaqsController::class, 'destroy'])->name('faqs.destroy');
+
+    //Testimonial
+    Route::get('/testimonials', [TestimonialsController::class, 'index'])->name('testimonials.index');
+
+    Route::get('/testimonials/create', [TestimonialsController::class, 'create'])->name('testimonials.create');
+
+    Route::post('/testimonials/store', [TestimonialsController::class, 'store'])->name('testimonials.store');
+
+    Route::get('/testimonials/edit/{id}', [TestimonialsController::class, 'edit'])->name('testimonials.edit');
+
+    Route::post('/testimonials/update/{id}', [TestimonialsController::class, 'update'])->name('testimonials.update');
+
+    Route::delete('/testimonials/delete/{id}', [TestimonialsController::class, 'destroy'])
+    ->name('testimonials.destroy');
+
 
 
     // Products

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HeroSection;
 use App\Models\Faq;
-use App\Models\Service;
+use App\Models\Testimonial;
+
 
 class HeroSectionController extends Controller
 {
@@ -14,10 +15,13 @@ class HeroSectionController extends Controller
     {
         // Get all hero sections from DB
         $heroSections = HeroSection::all();
+        $faqs = Faq::all(); // or Faq::where('status', 1)->get() for active only
+        $testimonials = Testimonial::where('status', 1)->get(); // only active testimonials
 
-        // Pass the data to your index view
-        return view('pages.admin-side.hero-section.index', compact('heroSections'));
+        return view('pages.landing.index', compact('heroSections', 'faqs', 'testimonials'));
     }
+
+
 
     // Combined create/update form
     public function form($id = null)

@@ -35,14 +35,14 @@ class FaqsController extends Controller
             'status'  => $request->status,
         ]);
 
-        return redirect()->back()->with('success', 'FAQ added successfully!');
+       return redirect()->route('faqs.index')->with('success', 'FAQ added successfully!');
     }
 
     // Edit form
     public function edit($id)
     {
         $faq = Faq::findOrFail($id);
-        return view('pages.admin-side.edit', compact('faq'));
+        return view('pages.admin-side.faqs.edit', compact('faq'));
     }
 
     // Update FAQ
@@ -62,7 +62,7 @@ class FaqsController extends Controller
             'status'  => $request->status,
         ]);
 
-        return redirect()->back()->with('success', 'FAQ updated successfully!');
+        return redirect()->route('faqs.index')->with('success', 'FAQ updated successfully!');
     }
 
     // Delete FAQ
