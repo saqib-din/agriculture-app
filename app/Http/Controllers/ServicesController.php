@@ -32,7 +32,6 @@ class ServicesController extends Controller
     {
         $service = $id ? Service::findOrFail($id) : new Service();
 
-        // ===== VALIDATION =====
         $request->validate([
             'service_name'     => 'required|string|max:255',
             'description'      => 'nullable|string',
@@ -42,14 +41,12 @@ class ServicesController extends Controller
             'status'           => 'required',
         ]);
 
-        // ===== ONLY ONE MAIN SERVICE =====
         if ($request->main_service == 1) {
             Service::where('main_service', 1)
                 ->where('id', '!=', $id)
                 ->update(['main_service' => 0]);
         }
 
-        // ===== ONLY 3 FEATURED SERVICES =====
         if ($request->featured_service == 1) {
             $alreadyFeatured = Service::where('featured_service', 1)
                 ->where('id', '!=', $id)
@@ -60,10 +57,8 @@ class ServicesController extends Controller
             }
         }
 
-        // ===== IMAGE UPLOAD =====
         if ($request->hasFile('image')) {
 
-            // Delete old image when updating
             if ($id && $service->image && file_exists(public_path('uploads/services/' . $service->image))) {
                 unlink(public_path('uploads/services/' . $service->image));
             }
@@ -73,7 +68,6 @@ class ServicesController extends Controller
             $service->image = $imageName;
         }
 
-        // ===== SAVE DATA =====
         $service->service_name     = $request->service_name;
         $service->description      = $request->description;
         $service->status           = $request->status;

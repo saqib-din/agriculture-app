@@ -4,29 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HeroSection;
-use App\Models\Faq;
-use App\Models\Testimonial;
-
 
 class HeroSectionController extends Controller
 {
-  
+
     public function index()
     {
-        // Get all hero sections from DB
-        $heroSections = HeroSection::all();
-        $faqs = Faq::all(); // or Faq::where('status', 1)->get() for active only
-        $testimonials = Testimonial::where('status', 1)->get(); // only active testimonials
-
-        return view('pages.landing.index', compact('heroSections', 'faqs', 'testimonials'));
+        return view('pages.admin-side.hero-section.index', compact('heroSections'));
     }
 
-
-
-    // Combined create/update form
     public function form($id = null)
     {
-        $hero = $id ? HeroSection::findOrFail($id) : null; // null for Add, existing record for Edit
+        $hero = $id ? HeroSection::findOrFail($id) : null;
         return view('pages.admin-side.hero-section.createorupdate', compact('hero'));
     }
 
@@ -41,7 +30,6 @@ class HeroSectionController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // delete old image if updating
             if ($id && $hero->image && file_exists(public_path('uploads/hero/' . $hero->image))) {
                 unlink(public_path('uploads/hero/' . $hero->image));
             }
@@ -64,12 +52,10 @@ class HeroSectionController extends Controller
     {
         $hero = HeroSection::findOrFail($id);
 
-        // Delete image from server if exists
         if ($hero->image && file_exists(public_path('uploads/hero/' . $hero->image))) {
             unlink(public_path('uploads/hero/' . $hero->image));
         }
 
-        // Delete the record
         $hero->delete();
 
         return redirect()->route('hero-section.index')->with('success', 'Hero Section Deleted Successfully');
