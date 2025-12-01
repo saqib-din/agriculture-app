@@ -7,6 +7,7 @@ use App\Models\Faq;
 use App\Models\Testimonial;
 use App\Models\Service;
 use App\Models\Team;
+use App\Models\Partner; // ✅ Add this
 
 class HomeController extends Controller
 {
@@ -17,7 +18,15 @@ class HomeController extends Controller
         $faqs = Faq::all();
         $services = Service::all();
         $teams = Team::all();
+        $partners = Partner::where('status', 1)->orderBy('id', 'desc')->get(); // ✅ Add this
 
-        return view('pages.landing.index', compact('heroSections', 'testimonials', 'faqs', 'services', 'teams'));
+        return view('pages.landing.index', compact(
+            'heroSections',
+            'testimonials',
+            'faqs',
+            'services',
+            'teams',
+            'partners'
+        ));
     }
 }

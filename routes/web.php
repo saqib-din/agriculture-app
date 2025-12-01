@@ -14,6 +14,7 @@ use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\VariablesController;
+use App\Http\Controllers\PartnerController;
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
@@ -92,6 +93,14 @@ Route::middleware('auth')->group(function () {
     // Products
     Route::get('/product/add', [ProductController::class, 'productAdd'])->name('products.create');
     Route::get('/product/list', [ProductController::class, 'productList'])->name('products.list');
+
+    // Partners
+    Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
+    Route::get('/partners/create', [PartnerController::class, 'create'])->name('partners.create');
+    Route::post('/partners/store', [PartnerController::class, 'store'])->name('partners.store');
+    Route::get('/partners/edit/{id}', [PartnerController::class, 'edit'])->name('partners.edit');
+    Route::post('/partners/update/{id}', [PartnerController::class, 'update'])->name('partners.update');
+    Route::get('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
     // Variables
     Route::get('/variables', [VariablesController::class, 'index'])->name('variables.index');

@@ -978,79 +978,39 @@
                     <div class="slider-wrap">
                         <div class="swiper-container slider-partner">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-                                        <div class="image">
-                                            <a href="#">
 
-                                                <img src="{{ asset('assets/images/partner/wide-open.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
+                                @forelse ($partners as $partner)
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('storage/' . $partner->image) }}"
+                                                        alt="{{ $partner->name }}" class="lazyload">
+                                                    <p class="text-center mt-2">{{ $partner->name }}</p>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/sollio.png') }}" alt=""
-                                                    class="lazyload">
-                                            </a>
+                                @empty
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/default.png') }}"
+                                                        alt="Default Partner" class="lazyload">
+                                                    <p class="text-center mt-2">No Partner</p>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-                                        <div class="image">
-                                            <a href="#">
+                                @endforelse
 
-                                                <img src="{{ asset('assets/images/partner/syngenta.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-
-                                                <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/new-holland.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="slide-partner">
-
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="{{ asset('assets/images/partner/stony-field.png') }}"
-                                                    alt="" class="lazyload">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- /.Section partner -->
+    </section>
+
 @endsection
