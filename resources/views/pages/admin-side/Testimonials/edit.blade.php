@@ -122,17 +122,12 @@
                                     <div class="col-md-12 text-end">
                                         <button class="btn btn-primary">Update</button>
                                     </div>
-
                                 </div>
-
                             </form>
-
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

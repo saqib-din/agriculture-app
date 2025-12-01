@@ -30,9 +30,9 @@
 
             <!-- [ Main Content ] start -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-sm-12">
 
-                    <div class="card table-card">
+                    <div class="card">
                         <div class="card-header">
                             <div class="d-sm-flex align-items-center justify-content-between">
                                 <h5 class="mb-3 mb-sm-0">Services List</h5>
@@ -42,7 +42,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body pt-3">
+                        <div class="card-body table-card">
                             <div class="table-responsive">
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
@@ -151,12 +151,9 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
             <!-- [ Main Content ] end -->
         </div>
     </div>

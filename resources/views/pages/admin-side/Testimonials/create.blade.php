@@ -55,17 +55,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Review -->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Review <span class="text-danger">*</span></label>
-                                            <textarea name="review" class="form-control" rows="3"
-                                                placeholder="Enter review" required>{{ old('review') }}</textarea>
-                                            @error('review')
-                                                <small class="text-danger">{{ $message }}</small>
-                                            @enderror
-                                        </div>
-                                    </div>
 
                                     <!-- Designation -->
                                     <div class="col-md-6">
@@ -94,10 +83,28 @@
                                     <!-- Rating -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Rating (1–5) <span class="text-danger">*</span></label>
-                                            <input type="number" name="rating" min="1" max="5" class="form-control"
-                                                placeholder="Enter rating" value="{{ old('rating') }}" required>
+                                            <label class="form-label">Rating (1–5) <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="number" name="rating" min="1" max="5"
+                                                class="form-control" placeholder="Enter rating" value="{{ old('rating') }}"
+                                                required>
                                             @error('rating')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status <span class="text-danger">*</span></label>
+                                            <select name="status" class="form-select" required>
+                                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active
+                                                </option>
+                                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
+                                            @error('status')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -114,15 +121,12 @@
                                         </div>
                                     </div>
 
-                                    <!-- Status -->
-                                    <div class="col-md-6">
+                                    <!-- Review -->
+                                    <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" class="form-select" required>
-                                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
-                                            </select>
-                                            @error('status')
+                                            <label class="form-label">Review <span class="text-danger">*</span></label>
+                                            <textarea name="review" class="form-control" rows="3" placeholder="Enter review" required>{{ old('review') }}</textarea>
+                                            @error('review')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -135,13 +139,10 @@
 
                                 </div>
                             </form>
-
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

@@ -479,8 +479,6 @@
         @endif
     </section>
 
-
-
     <!-- Section testimonial 3 -->
     <section class="s-testimonial-3 overflow-hidden">
         <div class="tf-container w-1290">
@@ -614,7 +612,6 @@
                                                             <span class="name fs-18 fw-6 text-upper">
                                                                 CHRISTINE ROSE
                                                             </span>
-
                                                             <div class="wg-rating">
                                                                 <i class="fa-solid fa-star"></i>
                                                                 <i class="fa-solid fa-star"></i>
@@ -623,34 +620,19 @@
                                                                 <i class="fa-solid fa-star"></i>
                                                             </div>
                                                         </div>
-
                                                         <p class="duty">Director, Radical Orange Pty Ltd.</p>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         @endfor
                                     @endif
-
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-                {{-- Navigation buttons !!}
-        <div class="btn-slide-testimonial-3 btn-prev">
-            ... (same SVG)
+            </div>
         </div>
-
-        <div class="btn-slide-testimonial-3 btn-next">
-            ... (same SVG)
-        </div>
-
-    </div>
-</div>
 
         {{-- <div class="s-img-item scroll-element-3">
             <img class="scale-1-1 lazyload" src="./images/section/yellow-f.png"
@@ -789,8 +771,8 @@
                     <div class="s-right img-hover">
                         <div class="image-wrap hover-item">
                             <div class="image">
-                                <img src="{{ asset('assets/images/section/s-faq.jpg') }}"
-                                    data-src="{{ asset('assets/images/section/s-faq.jpg') }}" alt=""
+                                <img src="{{ asset('assets/images/item/fas.jpg') }}"
+                                    data-src="{{ asset('assets/images/item/fas.jpg') }}" alt=""
                                     class="lazyload tf-animate-2" />
                             </div>
                         </div>
@@ -820,11 +802,10 @@
                     <div class="col-lg-5">
                         <div class="content-left">
                             <div class="image mb-30 mh-unset">
-                                <img src="{{ asset('assets/images/section/s-contact.jpg') }}"
-                                    alt="{{ asset('assets/images/section/s-contact.jpg') }}" class="lazyload" />
-                                <img src="{{ asset('assets/images/item/leaf.png') }}"
-                                    alt="{{ asset('assets/images/item/leaf.png') }}"
-                                    class="img-item tf-animate__rotate-left" />
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3626.524427001235!2d55.35405677500817!3d25.17354777773219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d9a62f1a7a3%3A0xf7f6c8656b5f7b0b!2sRas%20Al%20Khor%20Industrial%20Area%201%20-%20Dubai!5e0!3m2!1sen!2sae!4v1697642345678!5m2!1sen!2sae"
+                                    width="520" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                             <ul class="contact-list">
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
@@ -880,68 +861,102 @@
                                 <p class="title tf-animate-1 transition-1s">
                                     Contact Us Today!
                                 </p>
-                                <p class="text">
-                                    We will reply you within 24 hours via email, thank you for contacting
-                                </p>
+
+                                @if (session('success'))
+                                    <p class="text" id="msg">
+                                        We will reply you within 24 hours via email, thank you for contacting
+                                    </p>
+                                @endif
+
+                                <script>
+                                    setTimeout(function() {
+                                        $("#msg").fadeOut();
+                                    }, 5000);
+                                </script>
+
                                 <div class="img-item">
                                     <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
                                         alt="" />
                                 </div>
                             </div>
-                            <form id="contactform" method="post" action="./contact/contact-process.php"
+                            <form id="contactform" method="post" action="{{ url('/contact-submit') }}"
                                 novalidate="novalidate" class="form-send-message">
+                                @csrf
+
                                 <div class="cols style-2 mb-15">
                                     <fieldset>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter a Full Name*" aria-required="true" required
-                                            class="name" />
+                                        <input type="text" class="form-control" id="full_name" name="name"
+                                            placeholder="Enter Full Name*" required />
                                     </fieldset>
 
+                                    <fieldset>
+                                        <input type="text" class="form-control" id="subject" name="subject"
+                                            placeholder="Enter Subject*" required />
+                                    </fieldset>
                                 </div>
+
                                 <div class="cols style-2 mb-15">
                                     <fieldset>
-                                        <input type="email" class="form-control email" id="mail" name="mail"
-                                            placeholder="Enter a Email*" required />
+                                        <input type="email" class="form-control email" id="email" name="email"
+                                            placeholder="Enter Email*" required />
                                     </fieldset>
+
                                     <fieldset>
                                         <input type="text" class="form-control" id="phone" name="phone"
-                                            placeholder="Enter a Phone*" aria-required="true" required />
+                                            placeholder="Enter Phone*" required />
                                     </fieldset>
-                                    {{-- <fieldset class="dropdown">
-                                        <select name="text" id="Support">
-                                            <option value="You need support?" selected="">You need suport?
-                                            </option>
-                                            <option value="You need support? 1">You need suport? 1
-                                            </option>
-                                            <option value="You need support? 2">You need suport? 2
-                                            </option>
-                                            <option value="You need support? 3">You need suport? 3
-                                            </option>
-                                        </select>
-                                    </fieldset> --}}
                                 </div>
+
                                 <div class="cols mb-30">
                                     <fieldset>
-                                        <textarea name="message" id="message" placeholder="Enter a Message..."></textarea>
+                                        <textarea name="message" id="message" placeholder="Enter Message..." required></textarea>
                                     </fieldset>
                                 </div>
+
                                 <div class="checkbox-item send-wrap">
                                     <label class="mb-0">
-                                        <span class="text font-nunito">Agree to our terms and
-                                            conditions</span>
-                                        <input type="checkbox" class="checkbox-item" checked>
+                                        <span class="text font-nunito">Agree to our terms and conditions</span>
+                                        <input type="checkbox" name="terms" class="checkbox-item" checked required>
                                         <span class="btn-checkbox"></span>
                                     </label>
+
                                     <button type="submit" class="tf-btn bg-white">
-                                        <span class="text-style cl-primary">
-                                            Send Message
-                                        </span>
-                                        <span class="icon">
-                                            <i class="icon-arrow_right"></i>
-                                        </span>
+                                        <span class="text-style cl-primary">Send Message</span>
+                                        <span class="icon"><i class="icon-arrow_right"></i></span>
                                     </button>
                                 </div>
+
+                                <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
+                                @error('recaptcha_token')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </form>
+
+                            <!-- reCAPTCHA v3 Script -->
+                            <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+
+                            <script>
+                                document.getElementById('contactform').addEventListener('submit', function(e) {
+                                    e.preventDefault();
+
+                                    grecaptcha.ready(function() {
+                                        grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                                            action: 'contact_form'
+                                        }).then(function(token) {
+                                            document.getElementById('recaptcha_token').value = token;
+                                            document.getElementById('contactform').submit();
+                                        });
+                                    });
+                                });
+                            </script>
+
+                            <style>
+                                .grecaptcha-badge {
+                                    visibility: hidden !important;
+                                }
+                            </style>
+
                             <div class="img-item item-1 up-down-move">
                                 <img src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
                             </div>

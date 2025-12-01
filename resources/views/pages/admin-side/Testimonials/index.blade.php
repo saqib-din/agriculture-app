@@ -27,21 +27,20 @@
 
             @include('components.alerts')
 
-            <!-- Table -->
             <div class="row">
-                <div class="col-12">
-                    <div class="card table-card">
+                <div class="col-sm-12">
+                    <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Testimonials List</h5>
                             <a href="{{ route('testimonials.create') }}" class="btn btn-primary">Add Testimonial</a>
                         </div>
 
-                        <div class="card-body pt-3">
+                        <div class="card-body table-card">
                             <div class="table-responsive">
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Company</th>
                                             <th>Rating</th>
@@ -80,30 +79,28 @@
                                                             class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                    <form action="{{ route('testimonials.destroy', $item->id) }}"
-                                                        method="POST">
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $item->id }}" title="Delete">
+                                                        <i class="ti ti-trash f-20"></i>
+                                                    </a>
+
+                                                    <!-- Hidden form -->
+                                                    <form id="delete-form-{{ $item->id }}"
+                                                        action="{{ route('testimonials.destroy', $item->id) }}"
+                                                        method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="avtar avtar-xs btn-link-secondary"
-                                                            onclick="return confirm('Are you sure?')"> <i
-                                                                class="ti ti-trash f-20"></i>
-                                                        </button>
                                                     </form>
-
-
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

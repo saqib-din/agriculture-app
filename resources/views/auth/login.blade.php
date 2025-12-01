@@ -6,8 +6,11 @@
             <div class="auth-form">
                 <div class="card my-5">
                     <div class="card-body">
+                        <div class="pt-0 pb-4 d-flex justify-content-center">
+                            <img src="{{ asset('assets/images/logo/logo3x.png') }}" class="img-fluid" alt="Agriculture App Logo" />
+                        </div>
 
-                        <h4 class="text-center f-w-500 mb-3">Login with your email</h4>
+                        <h4 class="text-center f-w-500 mb-4">Login with your email</h4>
 
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -44,7 +47,7 @@
 
                             <!-- Submit -->
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-light-primary">Login</button>
                             </div>
                         </form>
 

@@ -82,13 +82,12 @@
                         <span class="pc-mtext" data-i18n="Teams">Teams</span>
                     </a>
                 </li>
-             
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('testimonials.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
-                                <use xlink:href="#custom-setting-2"></use>
-                                <!-- icon FAQs ke jaisa, ya alag change kar sakte ho -->
+                                <use xlink:href="#custom-box-1"></use>
                             </svg>
                         </span>
                         <span class="pc-mtext" data-i18n="Testimonials">Testimonials</span>
@@ -97,28 +96,40 @@
                 </li>
 
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-keyboard"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="About Us">About Us</span><span class="pc-arrow"></span>
-                    </a>
-                </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('faqs.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-graph"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Contact Us">Contact Us</span><span class="pc-arrow"></span>
+                        <span class="pc-mtext" data-i18n="Faqs">Faqs</span>
+                        <span class="pc-arrow"></span>
                     </a>
                 </li>
 
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('variables.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-keyboard"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Variables">Variables</span><span class="pc-arrow"></span>
+                    </a>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('admin.contacts.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-24-support"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Contacts">Contacts</span><span class="pc-arrow"></span>
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('users.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-user-square"></use>

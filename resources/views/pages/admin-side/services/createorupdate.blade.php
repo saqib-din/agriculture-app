@@ -116,10 +116,6 @@
                                             <input class="form-control" type="file" name="image">
                                         </div>
 
-                                        {{-- @if (isset($service) && $service->image)
-                                            <img src="{{ asset('uploads/services/' . $service->image) }}" width="120"
-                                                class="rounded">
-                                        @endif --}}
                                     </div>
 
                                     <!-- Submit -->

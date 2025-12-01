@@ -17,6 +17,7 @@
     {{-- Icon Agriculture App --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/logo3x.png') }}" />
     <link rel="apple-touch-icon-precomposed" href="{{ asset('assets/images/logo/logo3x.png') }}" />
+
     {{-- [CSS Files] --}}
     <link rel="stylesheet" href="{{ asset('admin/assets/css/plugins/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin/assets/fonts/inter/inter.css') }}" id="main-font-link" />
@@ -29,9 +30,6 @@
     <script src="{{ asset('admin/assets/js/tech-stack.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style-preset.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset(path: 'admin/assets/css/plugins/animate.min.css') }}" />
-
-    <!-- DataTables CSS -->
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> --}}
 
 </head>
 
@@ -77,11 +75,12 @@
     @endif --}}
 
     <!-- jQuery + DataTables JS -->
-    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    {{-- <script src="{{ asset('admin/assets/js/plugins/simple-datatables.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> --}}
 
-    {{-- @stack('scripts') this will load yajra datatable script --}}
+    @stack('scripts')
 
     {{-- Stats Counter --}}
 

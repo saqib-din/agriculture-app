@@ -30,9 +30,9 @@
 
             <!-- Table -->
             <div class="row">
-                <div class="col-12">
+                <div class="col-sm-12">
 
-                    <div class="card table-card">
+                    <div class="card">
                         <div class="card-header">
                             <div class="d-sm-flex align-items-center justify-content-between">
                                 <h5 class="mb-3 mb-sm-0">FAQ List</h5>
@@ -43,16 +43,15 @@
                             </div>
                         </div>
 
-                        <div class="card-body pt-3">
+                        <div class="card-body table-card">
                             <div class="table-responsive">
-
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
                                             <th>Title</th>
                                             <th>Content</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
 
@@ -70,36 +69,34 @@
                                                     @endif
                                                 </td>
 
-                                                <td>
+                                                <td class="text-end">
                                                     <a href="{{ route('faqs.edit', $faq->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary">
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                    <form action="{{ route('faqs.destroy', $faq->id) }}" method="POST"
-                                                        class="d-inline">
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $faq->id }}" title="Delete">
+                                                        <i class="ti ti-trash f-20"></i>
+                                                    </a>
+
+                                                    <!-- Hidden form -->
+                                                    <form id="delete-form-{{ $faq->id }}"
+                                                        action="{{ route('faqs.destroy', $faq->id) }}" method="POST"
+                                                        style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="avtar avtar-xs btn-link-secondary"
-                                                            onclick="return confirm('Delete this FAQ?')">
-                                                            <i class="ti ti-trash f-20"></i>
-                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-
                                 </table>
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

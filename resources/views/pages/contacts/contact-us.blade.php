@@ -106,56 +106,61 @@
                                  <div class="heading-section has-text mb-50">
                                      <p class="sub-title">Let's Cooperate Together</p>
                                      <p class="title wow fadeInUp" data-wow-delay="0s">Contact Us Today!</p>
-                                     <p class="text">
-                                         We will reply you within 24 hours via email, thank you for contacting
 
-                                     </p>
+                                     @if (session('success'))
+                                         <p class="text" id="msg">
+                                             We will reply you within 24 hours via email, thank you for contacting
+                                         </p>
+                                     @endif
+
+                                     <script>
+                                         setTimeout(function() {
+                                             $("#msg").fadeOut();
+                                         }, 5000);
+                                     </script>
+
                                      <div class="img-item">
                                          <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
                                              alt="" />
                                      </div>
                                  </div>
-                                 <form id="contactform" method="post" action="./contact/contact-process.php"
-                                     novalidate="novalidate" class="form-send-message style-2">
+
+                                 <form id="contactform" method="post" action="{{ url('/contact-submit') }}"
+                                     class="form-send-message style-2">
+                                     @csrf
+
                                      <div class="cols style-2 mb-15">
                                          <fieldset>
-                                             <input type="text" class="form-control" id="name" name="name"
-                                                 placeholder="Name*" aria-required="true" required />
+                                             <input type="text" class="form-control" name="name" placeholder="Name*"
+                                                 required />
                                          </fieldset>
                                          <fieldset>
-                                             <input type="email" class="form-control email" id="mail" name="mail"
-                                                 placeholder="Email*" required />
+                                             <input type="text" class="form-control" name="subject"
+                                                 placeholder="Subject*" required />
                                          </fieldset>
                                      </div>
+
                                      <div class="cols style-2 mb-15">
                                          <fieldset>
-                                             <input type="text" class="form-control" id="phone" name="phone"
-                                                 placeholder="Phone*" aria-required="true" required />
+                                             <input type="email" class="form-control" name="email" placeholder="Email*"
+                                                 required />
                                          </fieldset>
-                                         <fieldset class="dropdown">
-                                             <select name="text" id="Support">
-                                                 <option value="You need to suport?" selected="">You need to
-                                                     suport?
-                                                 </option>
-                                                 <option value="You need to suport? 1">You need to suport? 1
-                                                 </option>
-                                                 <option value="You need to suport? 2">You need to suport? 2
-                                                 </option>
-                                                 <option value="You need to suport? 3">You need to suport? 3
-                                                 </option>
-                                             </select>
+                                         <fieldset>
+                                             <input type="text" class="form-control" name="phone" placeholder="Phone*"
+                                                 required />
                                          </fieldset>
                                      </div>
+
                                      <div class="cols mb-30">
                                          <fieldset>
-                                             <textarea name="message" id="message" placeholder="Message..."></textarea>
+                                             <textarea name="message" placeholder="Message..." required></textarea>
                                          </fieldset>
                                      </div>
-                                     <div class="checkbox-item send-wrap">
+
+                                     <div class="checkbox-item send-wrap mb-3">
                                          <label class="mb-0">
-                                             <span class="text font-nunito">Agree to our terms and
-                                                 conditions</span>
-                                             <input type="checkbox" class="checkbox-item" checked>
+                                             <span class="text font-nunito">Agree to our terms and conditions</span>
+                                             <input type="checkbox" name="terms" class="checkbox-item" required>
                                              <span class="btn-checkbox"></span>
                                          </label>
                                          <button type="submit" class="tf-btn ">
@@ -167,7 +172,39 @@
                                              </span>
                                          </button>
                                      </div>
+
+                                     <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+
+                                     @error('recaptcha_token')
+                                         <span class="text-danger">{{ $message }}</span>
+                                     @enderror
+
+
                                  </form>
+
+                                 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+
+                                 <script>
+                                     document.getElementById('contactform').addEventListener('submit', function(e) {
+                                         e.preventDefault();
+
+                                         grecaptcha.ready(function() {
+                                             grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                                                 action: 'contact_form'
+                                             }).then(function(token) {
+                                                 document.getElementById('recaptcha_token').value = token;
+                                                 document.getElementById('contactform').submit();
+                                             });
+                                         });
+                                     });
+                                 </script>
+
+                                 <style>
+                                     .grecaptcha-badge {
+                                         visibility: visible !important;
+                                     }
+                                 </style>
+
                              </div>
                          </div>
                      </div>
@@ -177,7 +214,10 @@
 
          <!-- Section map -->
          <div class="box-map">
-             <div id="map" class="map"></div>
+             <iframe src="https://www.google.com/maps?q=33.5261858,73.1330973&hl=en&z=18&output=embed" width="1530"
+                 height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                 referrerpolicy="no-referrer-when-downgrade">
+             </iframe>
          </div><!-- Section map -->
 
      </div><!-- /.Main-content -->

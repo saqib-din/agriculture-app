@@ -29,8 +29,8 @@
 
             <!-- [ Main Content ] start -->
             <div class="row">
-                <div class="col-12">
-                    <div class="card table-card">
+                <div class="col-sm-12">
+                    <div class="card">
                         <div class="card-header">
                             <div class="d-sm-flex align-items-center justify-content-between">
                                 <h5 class="mb-3 mb-sm-0">Teams list</h5>
@@ -40,11 +40,12 @@
                             </div>
                         </div>
 
-                        <div class="card-body pt-3">
+                        <div class="card-body table-card">
                             <div class="table-responsive">
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Designation</th>
                                             <th>Description</th>
@@ -58,6 +59,7 @@
                                     <tbody>
                                         @foreach ($teams as $team)
                                             <tr>
+                                                <td>{{ $team->id }}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-shrink-0">
@@ -73,7 +75,7 @@
 
                                                 <td>{{ $team->designation }}</td>
 
-                                                <td style="max-width: 200px;">
+                                                <td style="max-width: 220px;">
                                                     @php
                                                         $words = explode(' ', $team->description ?? '');
                                                         $chunks = array_chunk($words, 5); // Split into arrays of 5 words each
@@ -84,15 +86,15 @@
                                                     @endforeach
                                                 </td>
 
-                                                <td>
+                                                <td class="d-flex">
                                                     @if ($team->linkedin)
-                                                        <a href="{{ $team->linkedin }}" target="_blank">LinkedIn</a><br>
+                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->linkedin }}" target="_blank"><i class="ti ti-brand-linkedin f-20"></i></a><br>
                                                     @endif
                                                     @if ($team->facebook)
-                                                        <a href="{{ $team->facebook }}" target="_blank">Facebook</a><br>
+                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->facebook }}" target="_blank"><i class="ti ti-brand-facebook f-20"></i></a><br>
                                                     @endif
                                                     @if ($team->instagram)
-                                                        <a href="{{ $team->instagram }}" target="_blank">Instagram</a>
+                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->instagram }}" target="_blank"><i class="ti ti-brand-instagram f-20"></i></a>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -112,14 +114,17 @@
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                    <form action="{{ route('teams.destroy', $team->id) }}" method="POST"
-                                                        style="display:inline;">
+                                                   <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $team->id }}" title="Delete">
+                                                        <i class="ti ti-trash f-20"></i>
+                                                    </a>
+
+                                                    <!-- Hidden form -->
+                                                    <form id="delete-form-{{ $team->id }}"
+                                                        action="{{ route('teams.destroy', $team->id) }}" method="POST"
+                                                        style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="avtar avtar-xs btn-link-secondary"
-                                                            onclick="return confirm('Are you sure?')">
-                                                            <i class="ti ti-trash f-20"></i>
-                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>

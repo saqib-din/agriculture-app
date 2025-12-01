@@ -10,6 +10,7 @@ class HeroSectionController extends Controller
 
     public function index()
     {
+        $heroSections = HeroSection::all();
         return view('pages.admin-side.hero-section.index', compact('heroSections'));
     }
 

@@ -237,6 +237,15 @@
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
                                     </a>
+                                    <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card-product style-2 wow fadeInUp" data-wow-delay="0.1s">
@@ -304,6 +313,15 @@
                                             </p>
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
+                                    </a>
+                                      <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
                                     </a>
                                 </div>
                             </div>
@@ -374,6 +392,15 @@
                                             </p>
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
+                                    </a>
+                                      <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
                                     </a>
                                 </div>
                             </div>
@@ -446,6 +473,15 @@
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
                                     </a>
+                                      <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card-product style-2 wow fadeInUp" data-wow-delay="0.1s">
@@ -507,6 +543,15 @@
                                             </p>
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
+                                    </a>
+                                      <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
                                     </a>
                                 </div>
                             </div>
@@ -577,6 +622,15 @@
                                             </p>
                                         </div>
                                         <i class="fa-solid fa-repeat"></i>
+                                    </a>
+                                      <a href="#" class="icon">
+                                        <div class="tt-text">
+
+                                            <p>
+                                                Check
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-check"></i>
                                     </a>
                                 </div>
                             </div>

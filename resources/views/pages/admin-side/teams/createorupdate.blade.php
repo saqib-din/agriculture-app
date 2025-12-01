@@ -129,9 +129,11 @@
                                             <label class="form-label">Is CEO</label>
                                             <select name="is_ceo" class="form-select" required>
                                                 <option value="0"
-                                                    {{ old('is_ceo', $team->is_ceo ?? 0) == 0 ? 'selected' : '' }}>No</option>
+                                                    {{ old('is_ceo', $team->is_ceo ?? 0) == 0 ? 'selected' : '' }}>No
+                                                </option>
                                                 <option value="1"
-                                                    {{ old('is_ceo', $team->is_ceo ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+                                                    {{ old('is_ceo', $team->is_ceo ?? 0) == 1 ? 'selected' : '' }}>Yes
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -141,10 +143,6 @@
                                             <label class="form-label">Profile Image</label>
                                             <input class="form-control" type="file" name="image" />
 
-                                            @if (isset($team) && $team->image)
-                                                <img src="{{ asset('storage/' . $team->image) }}" width="100"
-                                                    class="mt-2">
-                                            @endif
                                         </div>
                                     </div>
 
@@ -156,13 +154,10 @@
 
                                 </div>
                             </div>
-
                         </div>
                     </form>
-
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

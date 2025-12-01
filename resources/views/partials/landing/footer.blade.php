@@ -1,29 +1,21 @@
 <!-- Footer -->
 <footer class="footer" id="footer-main">
-    {{-- <div class="tf-container w-1290">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="footer-top">
 
-                    <div class="footer-center">
-                        <p class="font-snowfall">
-                            Farm of laughter and happiness!
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="footer-inner">
         <div class="tf-container w-1290">
-            {{-- <div class="footer-left">
-                <div class="logo">
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('assets/images/logo/logo-2.png') }}" alt="" />
-                    </a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-top">
+                        <div class="footer-left">
+                            <div class="logo">
+                                <a href="{{ url('/') }}">
+                                    <img src="{{ asset('assets/images/logo/logo-2.png') }}" alt="" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div> --}}
+            </div>
             <div class="row d-flex justify-content-between">
                 <div class="col-lg-3 col-md-6 ">
 
@@ -63,47 +55,6 @@
                         </ul>
                     </div>
                 </div>
-
-                {{-- <div class="col-lg-3 col-md-6 ">
-                    <div class="footer-inner-wrap footer-col-block">
-                        <h4 class="footer-title footer-title-desktop mb-23">
-                            News Posts
-                        </h4>
-                        <h4 class="footer-title footer-title-mobile mb-23">
-                            News Posts
-                        </h4>
-                        <ul class="new-post-list tf-collapse-content">
-                            <li class="item img-hover">
-                                <div class="image hover-item">
-                                    <img src="./images/section/f-new-post-1.jpg" alt="" />
-                                </div>
-                                <div class="content">
-                                    <a href="#" class="title-post hover-text-secondary">
-                                        Learn 10 Best Tips for New
-                                        Formers
-                                    </a>
-                                    <p class="date-release">
-                                        30 Oct, 2024
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="item img-hover">
-                                <div class="image hover-item">
-                                    <img src="./images/section/f-new-post--2.jpg" alt="" />
-                                </div>
-                                <div class="content">
-                                    <a href="#" class="title-post hover-text-secondary">
-                                        Farmer Sentiment Darkens
-                                        Hopes Fade
-                                    </a>
-                                    <p class="date-release">
-                                        30 Oct, 2024
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div> --}}
 
                 <div class="col-lg-3 col-md-6 ">
                     <div class="footer-inner-wrap footer-col-block">
@@ -171,29 +122,6 @@
                         </ul>
                     </div>
                 </div>
-                {{-- <div class="col-lg-3 col-md-6">
-                    <div class="footer-inner-wrap">
-                        <h4 class="footer-title fs-20">
-                            Subscribe Newsletter
-                        </h4>
-                        <form id="subscribe-form" method="post" accept-charset="utf-8" data-mailchimp="true"
-                            action="#" class=" form-newsletter form-email style-2">
-                            <div id="subscribe-content" class="w-100">
-                                <input id="subscribe-email" type="email" name="email-form" class="email style-2"
-                                    placeholder="Email address*" aria-required=" true" required>
-                                <button id="subscribe-button" type="button" class="tf-btn full bg-white scale-40">
-                                    <span class="text-style cl-primary">
-                                        Subscribe Now!
-                                    </span>
-                                    <span class="icon">
-                                        <i class="fa-solid fa-paper-plane fs-14"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <div id="subscribe-msg"></div>
-                        </form>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>

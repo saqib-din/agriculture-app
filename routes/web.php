@@ -11,11 +11,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\HeroSectionController;
-use App\Http\Controllers\Testimonials;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\TestimonialsController;
-
-use Pest\Plugins\Only;
+use App\Http\Controllers\VariablesController;
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
@@ -35,6 +33,7 @@ Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
 
 // Contact Us
 Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
+Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.submit');
 
 // 404 error page
 Route::get('/not-found', function () {
@@ -50,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/users', [ProfileController::class, 'index'])->name('users.index');
 
     // Hero Section
     Route::get('/hero/section/list', [HeroSectionController::class, 'index'])->name('hero-section.index');
@@ -67,14 +67,10 @@ Route::middleware('auth')->group(function () {
 
     // Teams 
     Route::get('/teams/list', [TeamController::class, 'index'])->name('teams.index');
-
     Route::get('/create-or-update/{id?}', [TeamController::class, 'createorupdate'])->name('createorupdate');
     Route::post('/save', [TeamController::class, 'save'])->name('save');
-
     Route::post('/teams/save', [TeamController::class, 'save'])->name('teams.save');
-
     Route::delete('/teams/delete/{id}', [TeamController::class, 'destroy'])->name('teams.destroy');
-
 
     //Faqs 
     Route::get('/faqs', [FaqsController::class, 'index'])->name('faqs.index');
@@ -86,23 +82,26 @@ Route::middleware('auth')->group(function () {
 
     //Testimonial
     Route::get('/testimonials', [TestimonialsController::class, 'index'])->name('testimonials.index');
-
     Route::get('/testimonials/create', [TestimonialsController::class, 'create'])->name('testimonials.create');
-
     Route::post('/testimonials/store', [TestimonialsController::class, 'store'])->name('testimonials.store');
-
     Route::get('/testimonials/edit/{id}', [TestimonialsController::class, 'edit'])->name('testimonials.edit');
-
     Route::post('/testimonials/update/{id}', [TestimonialsController::class, 'update'])->name('testimonials.update');
-
     Route::delete('/testimonials/delete/{id}', [TestimonialsController::class, 'destroy'])
-    ->name('testimonials.destroy');
-
-
+        ->name('testimonials.destroy');
 
     // Products
     Route::get('/product/add', [ProductController::class, 'productAdd'])->name('products.create');
     Route::get('/product/list', [ProductController::class, 'productList'])->name('products.list');
+
+    // Variables
+    Route::get('/variables', [VariablesController::class, 'index'])->name('variables.index');
+    Route::get('/variables/create-or-update/{id?}', [VariablesController::class, 'createorupdate'])->name('variables.createorupdate');
+
+    // Contact Messages - Admin Side
+    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('/admin/contacts/{id}/view', [ContactController::class, 'showMessage'])->name('admin.contacts.view');
+    Route::post('/admin/contacts/{id}/reply', [ContactController::class, 'reply'])->name('admin.contacts.reply');
+    Route::delete('/admin/contacts/{id}', [ContactController::class, 'destroy'])->name('admin.contacts.delete');
 });
 
 require __DIR__ . '/auth.php';
