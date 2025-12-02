@@ -50,16 +50,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" class="form-control"
+                                            <input type="text" name="name" class="form-control" placeholder="Enter name"
                                                 value="{{ $testimonial->name }}" required>
-                                        </div>
-                                    </div>
-
-                                    <!-- Review -->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Review <span class="text-danger">*</span></label>
-                                            <textarea name="review" class="form-control" rows="3" required>{{ $testimonial->review }}</textarea>
                                         </div>
                                     </div>
 
@@ -67,7 +59,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Designation</label>
-                                            <input type="text" name="design" class="form-control"
+                                            <input type="text" name="design" class="form-control" placeholder="Enter designation"
                                                 value="{{ $testimonial->design }}">
                                         </div>
                                     </div>
@@ -76,7 +68,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Company</label>
-                                            <input type="text" name="company" class="form-control"
+                                            <input type="text" name="company" class="form-control" placeholder="Enter company"
                                                 value="{{ $testimonial->company }}">
                                         </div>
                                     </div>
@@ -86,8 +78,21 @@
                                         <div class="mb-3">
                                             <label class="form-label">Rating (1–5) <span
                                                     class="text-danger">*</span></label>
-                                            <input type="number" name="rating" min="1" max="5"
+                                            <input type="number" name="rating" min="1" max="5" placeholder="Enter rating"
                                                 value="{{ $testimonial->rating }}" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status</label>
+                                            <select name="status" class="form-select" required>
+                                                <option value="1" {{ $testimonial->status ? 'selected' : '' }}>Active
+                                                </option>
+                                                <option value="0" {{ !$testimonial->status ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -105,16 +110,11 @@
                                         </div>
                                     </div>
 
-                                    <!-- Status -->
-                                    <div class="col-md-6">
+                                    <!-- Review -->
+                                    <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Status</label>
-                                            <select name="status" class="form-select" required>
-                                                <option value="1" {{ $testimonial->status ? 'selected' : '' }}>Active
-                                                </option>
-                                                <option value="0" {{ !$testimonial->status ? 'selected' : '' }}>
-                                                    Inactive</option>
-                                            </select>
+                                            <label class="form-label">Review <span class="text-danger">*</span></label>
+                                            <textarea name="review" class="form-control" placeholder="Enter review" rows="3" required>{{ $testimonial->review }}</textarea>
                                         </div>
                                     </div>
 

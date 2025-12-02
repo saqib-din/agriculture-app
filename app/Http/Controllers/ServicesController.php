@@ -9,7 +9,7 @@ class ServicesController extends Controller
 {
     public function show()
     {
-        $services = Service::all();
+        $services = Service::where('status', 'active')->get();
         return view('pages.services.services', compact('services'));
     }
 
@@ -41,6 +41,10 @@ class ServicesController extends Controller
             'status'           => 'required',
         ]);
 
+        if ($request->main_service == 1 && $request->featured_service == 1) {
+            return back()->with('error', 'A service cannot be both Main and Featured at the same time.');
+        }
+
         if ($request->main_service == 1) {
             Service::where('main_service', 1)
                 ->where('id', '!=', $id)
@@ -58,7 +62,6 @@ class ServicesController extends Controller
         }
 
         if ($request->hasFile('image')) {
-
             if ($id && $service->image && file_exists(public_path('uploads/services/' . $service->image))) {
                 unlink(public_path('uploads/services/' . $service->image));
             }
@@ -71,8 +74,8 @@ class ServicesController extends Controller
         $service->service_name     = $request->service_name;
         $service->description      = $request->description;
         $service->status           = $request->status;
-        $service->main_service     = $request->main_service ?? 0;          // default 0
-        $service->featured_service = $request->featured_service ?? 0;      // default 0
+        $service->main_service     = $request->main_service ?? 0;
+        $service->featured_service = $request->featured_service ?? 0;
 
         $service->save();
 
@@ -81,12 +84,11 @@ class ServicesController extends Controller
         return redirect()->route('services.index')->with('success', $msg);
     }
 
-    // ===== DELETE SERVICE =====
+
     public function destroy($id)
     {
         $service = Service::findOrFail($id);
 
-        // delete image
         if ($service->image && file_exists(public_path('uploads/services/' . $service->image))) {
             unlink(public_path('uploads/services/' . $service->image));
         }

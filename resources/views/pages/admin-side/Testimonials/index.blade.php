@@ -44,9 +44,8 @@
                                             <th>Name</th>
                                             <th>Company</th>
                                             <th>Rating</th>
-                                            <th>Image</th>
                                             <th>Status</th>
-                                            <th width="150px">Actions</th>
+                                            <th class="text-end">Actions</th>
                                         </tr>
                                     </thead>
 
@@ -54,26 +53,34 @@
                                         @foreach ($testimonials as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->name }}</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto pe-0">
+                                                            @if ($item->image)
+                                                                <img src="{{ asset('storage/' . $item->image) }}"
+                                                                    alt="testimonial image" style="width: 40px; height: 40px;"
+                                                                    class="img-radius wid-40">
+                                                            @else
+                                                                <img src="{{ asset('admin/assets/images/user/sms.png') }}"
+                                                                    alt="img" class="img-radius wid-40"
+                                                                    style="width: 40px; height: 40px;">
+                                                            @endif
+                                                        </div>
+                                                        <div class="col justify-content-center">
+                                                            <h6 class="mb-0">{{ $item->name }}</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>{{ $item->company }}</td>
                                                 <td>{{ $item->rating }} ⭐</td>
                                                 <td>
-                                                    @if ($item->image)
-                                                        <img src="{{ asset('storage/' . $item->image) }}" width="60"
-                                                            class="rounded">
-                                                    @else
-                                                        No Image
-                                                    @endif
-
-                                                </td>
-                                                <td>
                                                     @if ($item->status)
-                                                        <span class="badge bg-success">Active</span>
+                                                        <span class="badge bg-light-success">Active</span>
                                                     @else
-                                                        <span class="badge bg-danger">Inactive</span>
+                                                        <span class="badge bg-light-danger">Inactive</span>
                                                     @endif
                                                 </td>
-                                                <td class="d-flex">
+                                                <td class="text-end">
                                                     <a href="{{ route('testimonials.edit', $item->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary"> <i
                                                             class="ti ti-edit f-20"></i>
