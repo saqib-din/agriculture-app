@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Models\Variable;
 
 class TeamController extends Controller
 {
     public function show()
     {
+        $variables = Variable::all();
         $teams = Team::where('status', 'active')->get();
-        return view('pages.teams.team', compact('teams'));
+        return view('pages.teams.team', compact('teams', 'variables'));
     }
 
     public function index()

@@ -12,13 +12,13 @@ class TestimonialsController extends Controller
     public function index()
     {
         $testimonials = Testimonial::orderBy('id', 'desc')->get();
-        return view('pages.admin-side.testimonials.index', compact('testimonials'));
+        return view('pages.admin-side.Testimonials.index', compact('testimonials'));
     }
 
     // Show create form
     public function create()
     {
-        return view('pages.admin-side.testimonials.create');
+        return view('pages.admin-side.Testimonials.create');
     }
 
     // Store new testimonial

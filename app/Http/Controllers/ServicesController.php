@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Variable;
 
 class ServicesController extends Controller
 {
     public function show()
     {
+        $variables = Variable::all();
         $services = Service::where('status', 'active')->get();
-        return view('pages.services.services', compact('services'));
+        return view('pages.services.services', compact('services', 'variables'));
     }
 
     // Show services list

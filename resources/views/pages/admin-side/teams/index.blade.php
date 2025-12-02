@@ -86,19 +86,28 @@
                                                     @endforeach
                                                 </td>
 
-                                                <td class="d-flex">
-                                                    @if ($team->linkedin)
-                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->linkedin }}" target="_blank"><i class="ti ti-brand-linkedin f-20"></i></a><br>
-                                                    @endif
-                                                    @if ($team->facebook)
-                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->facebook }}" target="_blank"><i class="ti ti-brand-facebook f-20"></i></a><br>
-                                                    @endif
-                                                    @if ($team->instagram)
-                                                        <a class="avtar avtar-xs btn-link-secondary" href="{{ $team->instagram }}" target="_blank"><i class="ti ti-brand-instagram f-20"></i></a>
-                                                    @endif
+                                                <td>
+                                                    <div class="d-flex">
+                                                        @if ($team->linkedin)
+                                                            <a class="avtar avtar-xs btn-link-secondary"
+                                                                href="{{ $team->linkedin }}" target="_blank"><i
+                                                                    class="ti ti-brand-linkedin f-20"></i></a><br>
+                                                        @endif
+                                                        @if ($team->facebook)
+                                                            <a class="avtar avtar-xs btn-link-secondary"
+                                                                href="{{ $team->facebook }}" target="_blank"><i
+                                                                    class="ti ti-brand-facebook f-20"></i></a><br>
+                                                        @endif
+                                                        @if ($team->instagram)
+                                                            <a class="avtar avtar-xs btn-link-secondary"
+                                                                href="{{ $team->instagram }}" target="_blank"><i
+                                                                    class="ti ti-brand-instagram f-20"></i></a>
+                                                        @endif
+                                                    </div>
                                                 </td>
                                                 <td>
-                                                    <span class="badge {{ $team->is_ceo ? 'bg-light-info' : 'bg-light-secondary' }}">{{ $team->is_ceo ? 'Yes' : 'No' }}</span>
+                                                    <span
+                                                        class="badge {{ $team->is_ceo ? 'bg-light-info' : 'bg-light-secondary' }}">{{ $team->is_ceo ? 'Yes' : 'No' }}</span>
                                                 </td>
                                                 <td>
                                                     @if ($team->status == 'Active')
@@ -114,7 +123,7 @@
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                   <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
                                                         data-id="{{ $team->id }}" title="Delete">
                                                         <i class="ti ti-trash f-20"></i>
                                                     </a>

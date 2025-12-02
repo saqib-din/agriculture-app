@@ -103,8 +103,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
     // Variables
-    Route::get('/variables', [VariablesController::class, 'index'])->name('variables.index');
-    Route::get('/variables/create-or-update/{id?}', [VariablesController::class, 'createorupdate'])->name('variables.createorupdate');
+    Route::get('variables', [VariablesController::class, 'index'])->name('variables.index');
+    Route::get('variables/create', [VariablesController::class, 'create'])->name('variables.create');
+    Route::get('variables/{id}/edit', [VariablesController::class, 'edit'])->name('variables.edit');
+    Route::post('variables/save/{id?}', [VariablesController::class, 'storeOrUpdate'])->name('variables.save');
+    Route::get('variables/{id}', [VariablesController::class, 'show'])->name('variables.show');
+    // DELETE always last
+    Route::delete('variables/{id}', [VariablesController::class, 'destroy'])->name('variables.destroy');
+
+
 
     // Contact Messages - Admin Side
     Route::get('/admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');

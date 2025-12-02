@@ -816,10 +816,16 @@
                                         <p class="title">
                                             Farm Address
                                         </p>
-                                        <p class="text">
-                                            Prinsengracht 250, 2501016 PM <br>
-                                            Amsterdam Netherlands
-                                        </p>
+                                        @if ($variables->isNotEmpty())
+                                            <p class="text">
+                                                {{ $variables->first()->map }}
+                                            </p>
+                                        @else
+                                            <p class="text">
+                                                Prinsengracht 250, 2501016 PM <br>
+                                                Amsterdam Netherlands
+                                            </p>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
@@ -830,10 +836,17 @@
                                         <p class="title">
                                             Contact Us
                                         </p>
-                                        <p class="text">
-                                            Donalfarms@gmail.com <br>
-                                            Call Us 24/7: +1 987 654 3210
-                                        </p>
+                                        @if ($variables->isNotEmpty())
+                                            <p class="text">
+                                                {{ $variables->first()->email }} <br>
+                                                Call Us 24/7: {{ $variables->first()->phone }}
+                                            </p>
+                                        @else
+                                            <p class="text">
+                                                Donalfarms@gmail.com <br>
+                                                Call Us 24/7: +1 987 654 3210
+                                            </p>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
@@ -845,10 +858,17 @@
                                         <p class="title">
                                             Working Hours
                                         </p>
-                                        <p class="text">
-                                            Mon - Fri: 8.00am - 18.00pm <br>
-                                            Sat: 9.00am - 17.00pm Holidays: Closes
-                                        </p>
+                                        @if ($variables->isNotEmpty())
+                                            <p class="text">
+                                                Mon - Fri: {{ $variables->first()->working_hours }}
+                                                {{-- <br> Sat: {{ $variables->first()->working_hours}} Holidays: Closes --}}
+                                            </p>
+                                        @else
+                                            <p class="text">
+                                                Mon - Fri: 8.00am - 18.00pm <br>
+                                                Sat: 9.00am - 17.00pm Holidays: Closes
+                                            </p>
+                                        @endif
                                     </div>
                                 </li>
                             </ul>
@@ -970,47 +990,120 @@
         </div>
     </section><!-- /.Section contact us -->
 
-    <!-- Section partner -->
-    <section class="s-partner pb-100">
-        <div class="tf-container w-1780">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="slider-wrap">
-                        <div class="swiper-container slider-partner">
-                            <div class="swiper-wrapper">
+    @if ($partners->count() > 0)
+        {{-- DYNAMIC PARTNERS SECTION --}}
+        <section class="s-partner pb-100">
+            <div class="tf-container w-1780">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider-wrap">
+                            <div class="swiper-container slider-partner">
+                                <div class="swiper-wrapper">
 
-                                @forelse ($partners as $partner)
-                                    <div class="swiper-slide">
-                                        <div class="slide-partner">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="{{ asset('storage/' . $partner->image) }}"
-                                                        alt="{{ $partner->name }}" class="lazyload">
-                                                    <p class="text-center mt-2">{{ $partner->name }}</p>
-                                                </a>
+                                    @foreach ($partners as $partner)
+                                        <div class="swiper-slide">
+                                            <div class="slide-partner">
+                                                <div class="image">
+                                                    <a href="#">
+                                                        <img src="{{ asset('storage/' . $partner->image) }}"
+                                                            alt="{{ $partner->name }}" class="lazyload">
+                                                        <p class="text-center mt-2">{{ $partner->name }}</p>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @empty
-                                    <div class="swiper-slide">
-                                        <div class="slide-partner">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="{{ asset('assets/images/partner/default.png') }}"
-                                                        alt="Default Partner" class="lazyload">
-                                                    <p class="text-center mt-2">No Partner</p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforelse
+                                    @endforeach
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+        {{-- STATIC PARTNERS SECTION --}}
+        <section class="s-partner pb-100">
+            <div class="tf-container w-1780">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider-wrap">
+                            <div class="swiper-container slider-partner">
+                                <div class="swiper-wrapper">
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/wide-open.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/sollio.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/syngenta.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/strachan-valley.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/new-holland.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <div class="slide-partner">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="{{ asset('assets/images/partner/stony-field.png') }}"
+                                                        alt="" class="lazyload">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
 @endsection

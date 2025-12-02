@@ -72,19 +72,28 @@
                         </div>
                         <div class="col-lg-7">
                             <div class="text-wrap">
-                                <p class="text-1 wow fadeInUp" data-wow-delay="0s">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacus odio,
-                                    egestas vitae augue sed, vulputate viverra velit. Quisque fringilla viverra
-                                    turpis, at condimentum arcu convallis sit amet. Class aptent taciti sociosqu ad
-                                    litora torquent per conubia nostra, per inceptos himenaeos. Fusce laoreet lectus
-                                    in velit euismod.
-                                </p>
-                                <p class="text-2 wow fadeInUp" data-wow-delay="0s">
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                    himenaeos. Fusce laoreet lectus in velit euismod. Praesent fermentum dignissim
-                                    sapien ornare sagittis. Cras erat lorem, vulputate non magna ac, molestie
-                                    bibendum felis.
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="text-1 wow fadeInUp" data-wow-delay="0s">
+                                        {{ $variables->first()->about_us }}
+                                    </p>
+                                    <p class="text-2 wow fadeInUp" data-wow-delay="0s">
+                                        {{ $variables->first()->about_us }}
+                                    </p>
+                                @else
+                                    <p class="text-1 wow fadeInUp" data-wow-delay="0s">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacus odio,
+                                        egestas vitae augue sed, vulputate viverra velit. Quisque fringilla viverra
+                                        turpis, at condimentum arcu convallis sit amet. Class aptent taciti sociosqu ad
+                                        litora torquent per conubia nostra, per inceptos himenaeos. Fusce laoreet lectus
+                                        in velit euismod.
+                                    </p>
+                                    <p class="text-2 wow fadeInUp" data-wow-delay="0s">
+                                        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                        himenaeos. Fusce laoreet lectus in velit euismod. Praesent fermentum dignissim
+                                        sapien ornare sagittis. Cras erat lorem, vulputate non magna ac, molestie
+                                        bibendum felis.
+                                    </p>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -103,11 +112,17 @@
                                 <p class="title font-worksans fw-7">
                                     Our Mission
                                 </p>
-                                <p class="text font-snowfall">
-                                    Our mission is to contribute to the promotion of agricultural products in
-                                    Vietnam with a commitment to produce sustainable values that meet international
-                                    standards and thereby create a fair and competitive market
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="text font-snowfall">
+                                        {{ $variables->first()->company_mission }}
+                                    </p>
+                                @else
+                                    <p class="text font-snowfall">
+                                        Our mission is to contribute to the promotion of agricultural products in
+                                        Vietnam with a commitment to produce sustainable values that meet international
+                                        standards and thereby create a fair and competitive market
+                                    </p>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -115,11 +130,17 @@
                                 <p class="title font-worksans fw-7">
                                     Our Vision
                                 </p>
-                                <p class="text font-snowfall">
-                                    Our mission is to contribute to the promotion of agricultural products in
-                                    Vietnam with a commitment to produce sustainable values that meet international
-                                    standards and thereby create a fair and competitive market
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="text font-snowfall">
+                                        {{ $variables->first()->company_vision }}
+                                    </p>
+                                @else
+                                    <p class="text font-snowfall">
+                                        Our mission is to contribute to the promotion of agricultural products in
+                                        Vietnam with a commitment to produce sustainable values that meet international
+                                        standards and thereby create a fair and competitive market
+                                    </p>
+                                @endif
                             </div>
                         </div>
                     </div>

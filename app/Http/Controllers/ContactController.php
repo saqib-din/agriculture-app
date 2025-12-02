@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Models\Variable;
 
 class ContactController extends Controller
 {
     // Contact form view
     public function show()
     {
-        return view('pages.contacts.contact-us');
+        $variables = Variable::all();
+        return view('pages.contacts.contact-us', compact('variables'));
     }
 
     // Admin contact list

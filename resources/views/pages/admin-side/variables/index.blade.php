@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Variables List</h5>
-                            <a href="{{ route('variables.createorupdate') }}" class="btn btn-primary">Add Variable</a>
+                            <a href="{{ route('variables.create') }}" class="btn btn-primary">Add Variable</a>
                         </div>
 
                         <div class="card-body table-card">
@@ -47,16 +47,51 @@
                                             <th>Phone</th>
                                             <th>Fax</th>
                                             <th>Slogan</th>
-                                            <th>Address</th>
                                             <th>Working Hours</th>
-                                            <th></th>
                                             <th class="text-end">Actions</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
+                                        @foreach ($variables as $variable)
+                                            <tr>
+                                                <td>{{ $variable->id }}</td>
+                                                <td>{{ $variable->name }}</td>
+                                                <td>{{ $variable->email }}</td>
+                                                <td>{{ $variable->phone }}</td>
+                                                <td>{{ $variable->fax }}</td>
+                                                <td>{{ $variable->slogan }}</td>
+                                                <td>{{ $variable->working_hours }}</td>
 
+
+                                                <td class="text-end">
+                                                    <a href="{{ route('variables.show', $variable->id) }}"
+                                                        class="avtar avtar-xs btn-link-secondary">
+                                                        <i class="ti ti-eye f-20"></i>
+                                                    </a>
+
+                                                    <a href="{{ route('variables.edit', $variable->id) }}"
+                                                        class="avtar avtar-xs btn-link-secondary">
+                                                        <i class="ti ti-edit f-20"></i>
+                                                    </a>
+
+                                                   <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $variable->id }}" title="Delete">
+                                                        <i class="ti ti-trash f-20"></i>
+                                                    </a>
+
+                                                    <!-- Hidden form -->
+                                                    <form id="delete-form-{{ $variable->id }}"
+                                                        action="{{ route('variables.destroy', $variable->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
+
 
                                 </table>
                             </div>

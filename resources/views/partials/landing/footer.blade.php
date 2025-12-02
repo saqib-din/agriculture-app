@@ -29,28 +29,53 @@
                         <ul class="contact-list tf-collapse-content">
                             <li>
                                 <i class="fa-solid fa-location-dot fs-17"></i>
-                                <p class="address">
-                                    Prinsengracht 250, 2501016 PM
-                                    Amsterdam Netherlands
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="address">
+                                        {{ $variables->first()->map ?? 'N/A' }}
+                                    </p>
+                                @else
+                                    <p class="address">
+                                        Prinsengracht 250, 2501016 PM
+                                        Amsterdam Netherlands
+                                    </p>
+                                @endif
+
                             </li>
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                <p class="phone-number fs-15">
-                                    Call us: (234) 109-6666
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="phone-number fs-15">
+                                        Call us: {{ $variables->first()->phone ?? 'N/A' }}
+                                    </p>
+                                @else
+                                    <p class="phone-number fs-15">
+                                        Call us: (234) 109-6666
+                                    </p>
+                                @endif
                             </li>
                             <li>
                                 <i class="icon-package-box"></i>
-                                <p class="email fs-15">
-                                    Mail: Donalfarms@gmail.com
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="email fs-15">
+                                        Mail: {{ $variables->first()->email ?? 'N/A' }}
+                                    </p>
+                                @else
+                                    <p class="email fs-15">
+                                        Mail: Donalfarms@gmail.com
+                                    </p>
+                                @endif
                             </li>
                             <li>
                                 <i class="fa-solid fa-clock"></i>
-                                <p class="time-open fs-15">
-                                    Mon - Sat: 8.00am - 18.00pm
-                                </p>
+                                @if ($variables->isNotEmpty())
+                                    <p class="time-open fs-15">
+                                        Mon - Sat: {{ $variables->first()->working_hours ?? 'N/A' }}
+                                    </p>
+                                @else
+                                    <p class="time-open fs-15">
+                                        Mon - Sat: 8.00am - 18.00pm
+                                    </p>
+                                @endif
                             </li>
                         </ul>
                     </div>

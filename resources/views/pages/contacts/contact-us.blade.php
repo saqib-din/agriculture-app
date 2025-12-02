@@ -63,10 +63,16 @@
                                              <p class="title">
                                                  Farm Address
                                              </p>
-                                             <p class="text">
-                                                 Prinsengracht 250, 2501016 PM
-                                                 Amsterdam Netherlands
-                                             </p>
+                                             @if ($variables->isNotEmpty())
+                                                 <p class="text">
+                                                     {{ $variables->first()->map }}
+                                                 </p>
+                                             @else
+                                                 <p class="text">
+                                                     Prinsengracht 250, 2501016 PM <br>
+                                                     Amsterdam Netherlands
+                                                 </p>
+                                             @endif
                                          </div>
                                      </li>
                                      <li class="wow fadeInUp" data-wow-duration="1.4s">
@@ -77,10 +83,17 @@
                                              <p class="title">
                                                  Contact Us
                                              </p>
-                                             <p class="text">
-                                                 Donalfarms@gmail.com <br>
-                                                 Call Us 24/7: +1 987 654 3210
-                                             </p>
+                                             @if ($variables->isNotEmpty())
+                                                 <p class="text">
+                                                     {{ $variables->first()->email }} <br>
+                                                     Call Us 24/7: {{ $variables->first()->phone }}
+                                                 </p>
+                                             @else
+                                                 <p class="text">
+                                                     Donalfarms@gmail.com <br>
+                                                     Call Us 24/7: +1 987 654 3210
+                                                 </p>
+                                             @endif
                                          </div>
                                      </li>
                                      <li class="wow fadeInUp" data-wow-duration="1.4s">
@@ -92,10 +105,17 @@
                                              <p class="title">
                                                  Working Hours
                                              </p>
-                                             <p class="text">
-                                                 Mon - Fri: 8.00am - 18.00pm <br>
-                                                 Sat: 9.00am - 17.00pm Holidays: Closes
-                                             </p>
+                                             @if ($variables->isNotEmpty())
+                                                 <p class="text">
+                                                     Mon - Fri: {{ $variables->first()->working_hours }}
+                                                     {{-- <br> Sat: {{ $variables->first()->working_hours}} Holidays: Closes --}}
+                                                 </p>
+                                             @else
+                                                 <p class="text">
+                                                     Mon - Fri: 8.00am - 18.00pm <br>
+                                                     Sat: 9.00am - 17.00pm Holidays: Closes
+                                                 </p>
+                                             @endif
                                          </div>
                                      </li>
                                  </ul>

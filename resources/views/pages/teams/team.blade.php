@@ -85,7 +85,6 @@
                     </div>
                 </div>
             @else
-                {{-- Agar CEO nahi hai, static content show karo --}}
                 <div class="wrap">
                     <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
                         <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="">
@@ -188,88 +187,6 @@
                             </div>
                         </div>
                     @endforeach
-                    {{-- <div class="col-lg-4">
-                        <div class="box-farmer img-hover pb-30 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="image hover-item">
-                                <img src="{{ asset('assets/images/widget/farmer-2.jpg') }}"
-                                    data-src="{{ asset('assets/images/widget/farmer-2.jpg') }}" alt=""
-                                    class="lazyload">
-                            </div>
-                            <div class="content">
-                                <div class="author-wrap">
-                                    <div class="has-border">
-                                        <a href="#" class="name fw-7 fs-23 hover-text-4 font-worksans">
-                                            Alexander Ethan
-                                        </a>
-                                        <p class="duty">
-                                            Crop Specialist
-                                        </p>
-                                    </div>
-                                </div>
-                                <p class="text font-nunito">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales
-                                    faucibusrum ex libero
-                                    sodales ex, cursus.
-                                </p>
-                                <div class="wg-social style-2">
-                                    <ul class="list">
-                                        <li><a href="#"><i class="icon-facebook1"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-instagram2"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-skype"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-telegram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="say-hi">
-                                <div class="img-item">
-                                    <img src="{{ asset('assets/images/item/say-hi.png') }}" alt="">
-                                    <p class="font-worksans fw-6 fs-30">Say Hi!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="box-farmer img-hover  wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="image hover-item">
-                                <img src="{{ asset('assets/images/widget/farmer-3.jpg') }}"
-                                    data-src="{{ asset('assets/images/widget/farmer-3.jpg') }}" alt=""
-                                    class="lazyload">
-                            </div>
-                            <div class="content">
-                                <div class="author-wrap">
-                                    <div class="has-border">
-                                        <a href="#" class="name fw-7 fs-23 hover-text-4 font-worksans">
-                                            Isabella Camila
-                                        </a>
-                                        <p class="duty">
-                                            Crop Specialist
-                                        </p>
-                                    </div>
-                                </div>
-                                <p class="text font-nunito">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales
-                                    faucibusrum ex libero
-                                    sodales ex, cursus.
-                                </p>
-                                <div class="wg-social style-2">
-                                    <ul class="list">
-                                        <li><a href="#"><i class="icon-facebook1"></i></a></li>
-                                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                        <li><a href="#"><i class="icon-instagram2"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-skype"></i></a></li>
-                                        <li><a href="#"><i class="fa-brands fa-telegram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="say-hi">
-                                <div class="img-item">
-                                    <img src="{{ asset('assets/images/item/say-hi.png') }}" alt="">
-                                    <p class="font-worksans fw-6 fs-30">Say Hi!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </section><!-- /.Section meet farmer -->
