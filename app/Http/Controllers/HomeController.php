@@ -12,11 +12,11 @@ class HomeController extends Controller
 {
     public function welcome()
     {
-        $heroSections = HeroSection::all();
-        $testimonials = Testimonial::all();
-        $faqs = Faq::all();
-        $services = Service::all();
-        $teams = Team::all();
+        $heroSections = HeroSection::where('status', 'active')->get();
+        $testimonials = Testimonial::where('status', 'active')->get();
+        $faqs = Faq::where('status', 'active')->get();
+        $services = Service::where('status', 'active')->get();
+        $teams = Team::where('status', 'active')->get();
 
         return view('pages.landing.index', compact('heroSections', 'testimonials', 'faqs', 'services', 'teams'));
     }

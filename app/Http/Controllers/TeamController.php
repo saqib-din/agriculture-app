@@ -9,10 +9,9 @@ class TeamController extends Controller
 {
     public function show()
     {
-        $teams = Team::all();
+        $teams = Team::where('status', 'active')->get();
         return view('pages.teams.team', compact('teams'));
     }
-
 
     public function index()
     {
