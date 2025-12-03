@@ -62,7 +62,7 @@
                     <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
                         <a href="{{ route('profile.update') }}" class="dropdown-item">
                             <i class="ti ti-user"></i>
-                            <span>User</span>
+                            <span>Profile</span>
                         </a>
                         <form method="POST" action="{{ route('logout') }}" id="logout-form">
                             @csrf

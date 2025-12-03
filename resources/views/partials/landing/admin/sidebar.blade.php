@@ -4,24 +4,29 @@
             <div class="card pc-user-card">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
+
                         <div class="flex-shrink-0">
                             <a href="{{ route('dashboard') }}">
                                 <img src="{{ asset('admin/assets/images/user/avatar-1.jpg') }}" alt="user"
                                     class="user-avtar rounded-circle" style="width: 50px; height: 50px;" />
                             </a>
                         </div>
+
                         <div class="flex-grow-1 ms-3 me-2">
                             <h6 class="mb-0">
                                 {{ Auth::user()->name }}
                             </h6>
                         </div>
+
                     </div>
                 </div>
             </div>
             <ul class="pc-navbar">
+
                 <li class="pc-item pc-caption">
                     <label data-i18n="Navigation">Navigation</label>
                 </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('dashboard') }}" class="pc-link">
                         <span class="pc-micon">
@@ -32,6 +37,7 @@
                         <span class="pc-mtext" data-i18n="Dashboard">Dashboard</span>
                     </a>
                 </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('hero-section.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -42,26 +48,7 @@
                         <span class="pc-mtext" data-i18n="Hero">Hero Section</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('products.list') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-element-plus"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Products">Products</span>
-                    </a>
-                </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-mouse-circle"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Categories">Categories</span>
-                    </a>
-                </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('services.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -72,6 +59,29 @@
                         <span class="pc-mtext" data-i18n="Services">Services</span>
                     </a>
                 </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('products.list') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-element-plus"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Products">Products</span>
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-mouse-circle"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Categories">Categories</span>
+                    </a>
+                </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('teams.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -117,6 +127,18 @@
                         <span class="pc-mtext" data-i18n="Variables">Variables</span><span class="pc-arrow"></span>
                     </a>
                 </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('pages.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-crop"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Pages">Pages</span><span class="pc-arrow"></span>
+                    </a>
+                </li>
+
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('admin.contacts.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -140,8 +162,6 @@
                     </a>
                 </li>
 
-
-
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('users.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -153,7 +173,7 @@
                     </a>
                 </li>
 
-                <li class="pc-item pc-hasmenu">
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
@@ -163,7 +183,8 @@
                         <span class="pc-mtext" data-i18n="Application">App Settings</span><span
                             class="pc-arrow"></span>
                     </a>
-                </li>
+                </li> --}}
+
             </ul>
         </div>
     </div>

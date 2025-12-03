@@ -401,7 +401,7 @@
                 <div class="image wow fadeInLeft" data-wow-delay="0s">
                     <div class="scroll-element-2">
                         @if ($ceo->image)
-                            <img src="{{ asset('uploads/teams/' . $ceo->image) }}" alt="{{ $ceo->name }}" />
+                            <img src="{{ asset('uploads/teams/' . $ceo->image) }}" alt="{{ $ceo->name }}" style="height: 10em; left: 50px; width: 55em;" />
                         @else
                             <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
                         @endif
@@ -468,7 +468,7 @@
                             <p class="duty">Farm Owner Donald Farm Happiness</p>
                         </div>
                         <a href="{{ url('/teams') }}" class="tf-btn scale-40">
-                            <span class="text-style">View All The Farmers</span>
+                            <span class="text-style">View All The Teams</span>
                             <div class="icon">
                                 <i class="icon-arrow_right"></i>
                             </div>
@@ -520,10 +520,10 @@
                                             <div class="swiper-slide">
                                                 <div class="image-avt">
                                                     @if ($t->image)
-                                                        <img src="{{ asset('storage/' . $t->image) }}" width="60"
-                                                            class="rounded">
+                                                        <img src="{{ asset('storage/' . $t->image) }}" class="rounded">
                                                     @else
-                                                        No Image
+                                                        <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
+                                                            alt="">
                                                     @endif
                                                 </div>
                                             </div>

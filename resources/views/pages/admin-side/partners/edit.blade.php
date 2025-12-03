@@ -60,14 +60,11 @@
                                     <!-- Image -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Image</label>
+                                            <label class="form-label">Image <span class="text-danger">*</span></label>
                                             <input type="file" name="image" class="form-control">
                                             @error('image')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
-                                            <br>
-                                            <img src="{{ asset('storage/' . $partner->image) }}" width="80"
-                                                alt="Partner Image">
                                         </div>
                                     </div>
 
@@ -89,7 +86,7 @@
 
                                     <!-- Submit -->
                                     <div class="col-md-12 text-end">
-                                        <button class="btn btn-primary">Update Partner</button>
+                                        <button class="btn btn-primary">Update</button>
                                     </div>
 
                                 </div>

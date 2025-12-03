@@ -74,13 +74,13 @@
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <x-input-label for="name" :value="__('Name')" />
-                                                    <x-text-input id="name" name="name" type="text"
+                                                    <x-text-input id="name" name="name" type="text" placeholder="Enter your name"
                                                         class="form-control mt-1" :value="old('name', $user->name)" required />
                                                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <x-input-label for="email" :value="__('Email')" />
-                                                    <x-text-input id="email" name="email" type="email"
+                                                    <x-text-input id="email" name="email" type="email" placeholder="Enter your email"
                                                         class="form-control mt-1" :value="old('email', $user->email)" required />
                                                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                                                 </div>
@@ -110,20 +110,20 @@
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <x-input-label for="current_password" :value="__('Current Password')" />
-                                                    <x-text-input id="current_password" name="current_password"
+                                                    <x-text-input id="current_password" name="current_password" placeholder="Enter current password"
                                                         type="password" class="form-control mt-1"
                                                         autocomplete="current-password" />
                                                     <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <x-input-label for="password" :value="__('New Password')" />
-                                                    <x-text-input id="password" name="password" type="password"
+                                                    <x-text-input id="password" name="password" type="password" placeholder="Enter new password"
                                                         class="form-control mt-1" autocomplete="new-password" />
                                                     <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-                                                    <x-text-input id="password_confirmation" name="password_confirmation"
+                                                    <x-text-input id="password_confirmation" name="password_confirmation" placeholder="Confirm new password"
                                                         type="password" class="form-control mt-1"
                                                         autocomplete="new-password" />
                                                     <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />

@@ -9,6 +9,7 @@ use App\Models\Service;
 use App\Models\Team;
 use App\Models\Partner; // ✅ Add this
 use App\Models\Variable;
+use App\Models\Page;
 
 class HomeController extends Controller
 {
@@ -19,9 +20,12 @@ class HomeController extends Controller
         $faqs = Faq::all();
         $services = Service::all();
         $teams = Team::all();
-        $partners = Partner::where('status', 1)->orderBy('id', 'desc')->get(); // ✅ Add this
+        $partners = Partner::where('status', 1)->orderBy('id', 'desc')->get();
         $variables = Variable::all();
-        
+        $pages = Page::where('status', 'Active')
+            ->where('display_in_footer', 'yes')
+            ->get();
+
         return view('pages.landing.index', compact(
             'heroSections',
             'testimonials',
@@ -29,7 +33,8 @@ class HomeController extends Controller
             'services',
             'teams',
             'partners',
-            'variables'
+            'variables',
+            'pages'
         ));
     }
 }

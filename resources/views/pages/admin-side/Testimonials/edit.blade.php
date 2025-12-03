@@ -50,8 +50,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" class="form-control" placeholder="Enter name"
-                                                value="{{ $testimonial->name }}" required>
+                                            <input type="text" name="name" class="form-control"
+                                                placeholder="Enter name" value="{{ $testimonial->name }}" required>
                                         </div>
                                     </div>
 
@@ -59,8 +59,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Designation</label>
-                                            <input type="text" name="design" class="form-control" placeholder="Enter designation"
-                                                value="{{ $testimonial->design }}">
+                                            <input type="text" name="design" class="form-control"
+                                                placeholder="Enter designation" value="{{ $testimonial->design }}">
                                         </div>
                                     </div>
 
@@ -68,8 +68,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Company</label>
-                                            <input type="text" name="company" class="form-control" placeholder="Enter company"
-                                                value="{{ $testimonial->company }}">
+                                            <input type="text" name="company" class="form-control"
+                                                placeholder="Enter company" value="{{ $testimonial->company }}">
                                         </div>
                                     </div>
 
@@ -78,8 +78,9 @@
                                         <div class="mb-3">
                                             <label class="form-label">Rating (1–5) <span
                                                     class="text-danger">*</span></label>
-                                            <input type="number" name="rating" min="1" max="5" placeholder="Enter rating"
-                                                value="{{ $testimonial->rating }}" class="form-control" required>
+                                            <input type="number" name="rating" min="1" max="5"
+                                                placeholder="Enter rating" value="{{ $testimonial->rating }}"
+                                                class="form-control" required>
                                         </div>
                                     </div>
 
@@ -100,12 +101,6 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Current Image</label><br>
-
-                                            @if ($testimonial->image)
-                                                <img src="{{ asset('storage/' . $testimonial->image) }}" width="80"
-                                                    class="rounded mb-2">
-                                            @endif
-
                                             <input type="file" name="image" class="form-control">
                                         </div>
                                     </div>

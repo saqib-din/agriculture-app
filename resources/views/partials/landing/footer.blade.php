@@ -31,7 +31,7 @@
                                 <i class="fa-solid fa-location-dot fs-17"></i>
                                 @if ($variables->isNotEmpty())
                                     <p class="address">
-                                        {{ $variables->first()->map ?? 'N/A' }}
+                                        {{ $variables->first()->address ?? 'N/A' }}
                                     </p>
                                 @else
                                     <p class="address">
@@ -175,7 +175,11 @@
                                     <a href="#"><i class="icon-instagram2"></i></a>
                                 </li>
                                 <li class="item">
-                                    <a href="#"><i class="icon-pinterest"></i></a>
+                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                                </li>
+
+                                <li class="item">
+                                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                                 </li>
                             </ul>
                         </div>

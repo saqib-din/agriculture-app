@@ -95,7 +95,6 @@
                                                 </span>
                                             </td>
                                             <td class="text-end">
-                                                {{-- Edit --}}
                                                 <a data-bs-toggle="modal" href="#"
                                                     class="avtar avtar-xs btn-link-secondary">
                                                     <i class="ti ti-eye f-20"></i>

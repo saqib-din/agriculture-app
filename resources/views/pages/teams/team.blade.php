@@ -59,7 +59,7 @@
                 <div class="wrap">
                     <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
                         <img src="{{ $ceo->image ? asset('uploads/teams/' . $ceo->image) : asset('assets/images/item/s-testi.png') }}"
-                            alt="{{ $ceo->name }}">
+                            style="height: 30em !important; width: 61em;" alt="{{ $ceo->name }}">
                         <div class="sign scroll-element-3">
                             {{-- Optional sign image --}}
                         </div>

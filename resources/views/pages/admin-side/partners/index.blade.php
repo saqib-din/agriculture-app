@@ -42,8 +42,7 @@
                                 <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Image</th>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Status</th>
                                             <th class="text-end">Action</th>
@@ -56,21 +55,29 @@
                                                 <td>{{ $loop->iteration }}</td>
 
                                                 <td>
-                                                    @if ($item->image)
-                                                        <img src="{{ asset('storage/' . $item->image) }}" width="60"
-                                                            class="rounded">
-                                                    @else
-                                                        No Image
-                                                    @endif
+                                                     <div class="row">
+                                                        <div class="col-auto pe-0">
+                                                            @if ($item->image)
+                                                                <img src="{{ asset('storage/' . $item->image) }}"
+                                                                    style="width: 40px; height: 40px;"
+                                                                    class="rounded-circle" alt="Partner Image">
+                                                            @else
+                                                                <img src="{{ asset('admin/assets/images/user/sms.png') }}"
+                                                                    alt="img" class="rounded-circle"
+                                                                    style="width: 40px; height: 40px;" />
+                                                            @endif
+                                                        </div>
+                                                        <div class="col justify-content-center">
+                                                            {{ $item->name }}
+                                                        </div>
+                                                    </div>
                                                 </td>
-
-                                                <td>{{ $item->name ?? '-' }}</td>
 
                                                 <td>
                                                     @if ($item->status == 1)
-                                                        <span class="badge bg-success">Active</span>
+                                                        <span class="badge bg-light-success">Active</span>
                                                     @else
-                                                        <span class="badge bg-danger">Inactive</span>
+                                                        <span class="badge bg-light-danger">Inactive</span>
                                                     @endif
                                                 </td>
 

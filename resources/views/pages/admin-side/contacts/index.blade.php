@@ -169,7 +169,7 @@
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Message</label>
-                                                                        <textarea name="reply_message" class="form-control" rows="5" required>{{ $contact->reply_message ?? '' }}</textarea>
+                                                                        <textarea name="reply_message" class="form-control" rows="4" required>{{ $contact->reply_message ?? '' }}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">

@@ -15,6 +15,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\VariablesController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PageController;
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
@@ -35,6 +36,9 @@ Route::get('/aboutus', [AboutController::class, 'show'])->name('aboutus');
 // Contact Us
 Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.submit');
+
+// Frontend route (public)
+Route::get('/page/{slug}', [PageController::class, 'show'])->name('page.show');
 
 // 404 error page
 Route::get('/not-found', function () {
@@ -100,7 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/partners/store', [PartnerController::class, 'store'])->name('partners.store');
     Route::get('/partners/edit/{id}', [PartnerController::class, 'edit'])->name('partners.edit');
     Route::post('/partners/update/{id}', [PartnerController::class, 'update'])->name('partners.update');
-    Route::get('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
+    Route::delete('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
     // Variables
     Route::get('variables', [VariablesController::class, 'index'])->name('variables.index');
@@ -108,10 +112,14 @@ Route::middleware('auth')->group(function () {
     Route::get('variables/{id}/edit', [VariablesController::class, 'edit'])->name('variables.edit');
     Route::post('variables/save/{id?}', [VariablesController::class, 'storeOrUpdate'])->name('variables.save');
     Route::get('variables/{id}', [VariablesController::class, 'show'])->name('variables.show');
-    // DELETE always last
     Route::delete('variables/{id}', [VariablesController::class, 'destroy'])->name('variables.destroy');
 
-
+    // Pages
+    Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
+    Route::get('/pages/create', [PageController::class, 'createOrUpdate'])->name('pages.create');
+    Route::get('/pages/edit/{id}', [PageController::class, 'createOrUpdate'])->name('pages.edit');
+    Route::post('/pages/save/{id?}', [PageController::class, 'save'])->name('pages.save');
+    Route::delete('/pages/{id}', [PageController::class, 'destroy'])->name('pages.destroy');
 
     // Contact Messages - Admin Side
     Route::get('/admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
