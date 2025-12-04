@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->longText('content');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
-            $table->enum('display_in_footer', ['yes', 'no'])->default('no');
+            $table->boolean('display_in_footer')->default(0);
             $table->timestamps();
         });
     }

@@ -59,7 +59,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Content <span class="text-danger">*</span></label>
-                                            <textarea name="content" class="form-control" rows="5" placeholder="Enter content" required>{{ old('content', $page->content ?? '') }}</textarea>
+                                            <textarea name="content" id="content-editor" class="form-control" rows="10">{{ old('content', $page->content ?? '') }}</textarea>
                                             @error('content')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -85,13 +85,14 @@
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Display In Footer</label>
+                                            <label class="form-label">Display In Footer <span
+                                                    class="text-danger">*</span></label>
                                             <select name="display_in_footer" class="form-select" required>
-                                                <option value="yes"
-                                                    {{ old('display_in_footer', $page->display_in_footer ?? '') == 'yes' ? 'selected' : '' }}>
+                                                <option value="1"
+                                                    {{ old('display_in_footer', $page->display_in_footer ?? 0) == 1 ? 'selected' : '' }}>
                                                     Yes</option>
-                                                <option value="no"
-                                                    {{ old('display_in_footer', $page->display_in_footer ?? '') == 'no' ? 'selected' : '' }}>
+                                                <option value="0"
+                                                    {{ old('display_in_footer', $page->display_in_footer ?? 0) == 0 ? 'selected' : '' }}>
                                                     No</option>
                                             </select>
                                             @error('display_in_footer')
@@ -106,22 +107,6 @@
                                     </div>
                                 </div>
                             </form>
-
-                            @push('scripts')
-                                <script>
-                                    // Auto-generate slug from name
-                                    document.getElementById('page-name').addEventListener('input', function() {
-                                        let name = this.value;
-                                        let slug = name.toLowerCase()
-                                            .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
-                                            .replace(/\s+/g, '-') // Replace spaces with hyphens
-                                            .replace(/-+/g, '-'); // Replace multiple hyphens with single
-
-                                        document.getElementById('page-slug').value = slug;
-                                    });
-                                </script>
-                            @endpush
-                         
                         </div>
                     </div>
                 </div>
@@ -129,3 +114,37 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.tiny.cloud/1/3qaqbgyxgk401lk8tn5xj7qotutnfngz5o9vmds2n6b6s9yz/tinymce/6/tinymce.min.js">
+    </script>
+    <script>
+        document.getElementById('page-name').addEventListener('input', function() {
+            let name = this.value;
+            let slug = name.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+
+            document.getElementById('page-slug').value = slug;
+        });
+
+        tinymce.init({
+            selector: '#content-editor',
+            height: 500,
+            menubar: false,
+
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
+            ],
+
+            toolbar: 'undo redo | blocks | bold italic forecolor backcolor | ' +
+                'alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | removeformat | help',
+
+            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; }'
+        });
+    </script>
+@endpush

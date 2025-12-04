@@ -29,55 +29,42 @@
                         <ul class="contact-list tf-collapse-content">
                             <li>
                                 <i class="fa-solid fa-location-dot fs-17"></i>
-                                @if ($variables->isNotEmpty())
-                                    <p class="address">
-                                        {{ $variables->first()->address ?? 'N/A' }}
-                                    </p>
+                                @if (isset($variables) && $variables->isNotEmpty())
+                                    <p class="address">{{ $variables->first()->address ?? 'N/A' }}</p>
                                 @else
-                                    <p class="address">
-                                        Prinsengracht 250, 2501016 PM
-                                        Amsterdam Netherlands
-                                    </p>
+                                    <p class="address">Prinsengracht 250, 2501016 PM Amsterdam Netherlands</p>
                                 @endif
-
                             </li>
+
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                @if ($variables->isNotEmpty())
-                                    <p class="phone-number fs-15">
-                                        Call us: {{ $variables->first()->phone ?? 'N/A' }}
-                                    </p>
+                                @if (isset($variables) && $variables->isNotEmpty())
+                                    <p class="phone-number fs-15">Call us: {{ $variables->first()->phone ?? 'N/A' }}</p>
                                 @else
-                                    <p class="phone-number fs-15">
-                                        Call us: (234) 109-6666
-                                    </p>
+                                    <p class="phone-number fs-15">Call us: (234) 109-6666</p>
                                 @endif
                             </li>
+
                             <li>
                                 <i class="icon-package-box"></i>
-                                @if ($variables->isNotEmpty())
-                                    <p class="email fs-15">
-                                        Mail: {{ $variables->first()->email ?? 'N/A' }}
-                                    </p>
+                                @if (isset($variables) && $variables->isNotEmpty())
+                                    <p class="email fs-15">Mail: {{ $variables->first()->email ?? 'N/A' }}</p>
                                 @else
-                                    <p class="email fs-15">
-                                        Mail: Donalfarms@gmail.com
-                                    </p>
+                                    <p class="email fs-15">Mail: Donalfarms@gmail.com</p>
                                 @endif
                             </li>
+
                             <li>
                                 <i class="fa-solid fa-clock"></i>
-                                @if ($variables->isNotEmpty())
-                                    <p class="time-open fs-15">
-                                        Mon - Sat: {{ $variables->first()->working_hours ?? 'N/A' }}
-                                    </p>
+                                @if (isset($variables) && $variables->isNotEmpty())
+                                    <p class="time-open fs-15">Mon - Sat:
+                                        {{ $variables->first()->working_hours ?? 'N/A' }}</p>
                                 @else
-                                    <p class="time-open fs-15">
-                                        Mon - Sat: 8.00am - 18.00pm
-                                    </p>
+                                    <p class="time-open fs-15">Mon - Sat: 8.00am - 18.00pm</p>
                                 @endif
                             </li>
                         </ul>
+
                     </div>
                 </div>
 
@@ -90,8 +77,7 @@
                             Quick Links
                         </h4>
                         <ul class="link-list tf-collapse-content">
-                            <li class="item">
-
+                            {{-- <li class="item">
                                 <a href="{{ url('/aboutus') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
@@ -103,9 +89,7 @@
                                 </a>
                             </li>
                             <li class="item">
-
                                 <a href="{{ url('/services') }}">
-
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
                                         height="16">
                                         <path
@@ -143,7 +127,20 @@
                                         </path>
                                     </svg>
                                     Up Coming Events</a>
-                            </li>
+                            </li> --}}
+                            @foreach (\App\Models\Page::where('display_in_footer', 1)->where('status', 'Active')->get() as $footerPage)
+                                <li class="item">
+                                    <a href="{{ route('page.show', $footerPage->slug) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14"
+                                            height="16">
+                                            <path
+                                                d="M264.547 70.633L440.547 238.633C445.297 243.164 447.984 249.445 447.984 256.008S445.297 268.852 440.547 273.383L264.547 441.383C254.953 450.508 239.766 450.164 230.609 440.57C221.453 431.07 221.797 415.82 231.422 406.633L364.09 280.008H24C10.75 280.008 0 269.258 0 256.008S10.75 232.008 24 232.008H364.09L231.422 105.383C221.797 96.227 221.453 80.977 230.609 71.445C239.766 61.852 254.953 61.508 264.547 70.633Z">
+                                            </path>
+                                        </svg>
+                                        {{ $footerPage->name }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -181,6 +178,8 @@
                                 <li class="item">
                                     <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                                 </li>
+
+
                             </ul>
                         </div>
                     </div>

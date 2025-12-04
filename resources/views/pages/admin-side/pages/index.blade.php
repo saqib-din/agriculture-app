@@ -44,7 +44,6 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Slug</th>
-                                            <th>Content</th>
                                             <th>Display in Footer</th>
                                             <th>Status</th>
                                             <th class="text-end">Actions</th>
@@ -58,15 +57,11 @@
                                                     <h6 class="mb-0">{{ $page->name }}</h6>
                                                 </td>
                                                 <td>
-                                                    <span class="badge bg-light-secondary">{{ $page->slug }}</span>
+                                                    <span class="badge bg-light-warning">{{ $page->slug }}</span>
                                                 </td>
+
                                                 <td>
-                                                    <span class="text-muted">
-                                                        {{ Str::limit($page->content, 50) }}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    @if ($page->display_in_footer == 'yes')
+                                                    @if ($page->display_in_footer == 1)
                                                         <span class="badge bg-light-info">Yes</span>
                                                     @else
                                                         <span class="badge bg-light-secondary">No</span>
@@ -80,6 +75,13 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-end">
+
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#viewPageModal{{ $page->id }}">
+                                                        <i class="ti ti-eye f-20"></i>
+                                                    </a>
+
                                                     <a href="{{ route('pages.edit', $page->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary" title="Edit">
                                                         <i class="ti ti-edit f-20"></i>
@@ -97,6 +99,30 @@
                                                         @method('DELETE')
                                                     </form>
                                                 </td>
+
+                                                <!-- View Modal -->
+                                                <div class="modal fade" id="viewPageModal{{ $page->id }}"
+                                                    tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">{{ $page->name }} - Content
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                {!! $page->content !!}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    Close
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </tr>
                                         @empty
                                             <tr>

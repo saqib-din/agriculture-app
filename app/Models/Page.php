@@ -18,7 +18,10 @@ class Page extends Model
         'display_in_footer'
     ];
 
-    // Automatically generate slug from name
+    protected $casts = [
+        'display_in_footer' => 'boolean'
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -36,15 +39,13 @@ class Page extends Model
         });
     }
 
-    // Scope for active pages
     public function scopeActive($query)
     {
         return $query->where('status', 'Active');
     }
 
-    // Scope for footer pages
     public function scopeFooter($query)
     {
-        return $query->where('display_in_footer', 'yes');
+        return $query->where('display_in_footer', 1);
     }
 }

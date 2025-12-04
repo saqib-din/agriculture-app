@@ -23,8 +23,9 @@ class HomeController extends Controller
         $partners = Partner::where('status', 1)->orderBy('id', 'desc')->get();
         $variables = Variable::all();
         $pages = Page::where('status', 'Active')
-            ->where('display_in_footer', 'yes')
+            ->where('display_in_footer', 1)
             ->get();
+
 
         return view('pages.landing.index', compact(
             'heroSections',

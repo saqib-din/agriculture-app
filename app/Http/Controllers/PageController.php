@@ -30,10 +30,9 @@ class PageController extends Controller
             'slug' => 'required|string|max:255|unique:pages,slug,' . $id,
             'content' => 'required',
             'status' => 'required|in:Active,Inactive',
-            'display_in_footer' => 'required|in:yes,no'
+            'display_in_footer' => 'required|boolean'
         ]);
 
-        // Auto-generate slug if empty
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['name']);
         }
@@ -63,6 +62,6 @@ class PageController extends Controller
     public function show($slug)
     {
         $page = Page::where('slug', $slug)->where('status', 'Active')->firstOrFail();
-        return view('pages.landing.index', compact('page'));
+        return view('pages.content.show', compact('page'));
     }
 }
