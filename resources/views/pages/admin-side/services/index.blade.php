@@ -129,11 +129,13 @@
                                                     </a> --}}
 
                                                     <a href="{{ route('services.edit', $service->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
+                                                        title="Edit">
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
-                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
-                                                        data-id="{{ $service->id }}" title="Delete">
+                                                    <a href="#" class="avtar avtar-xs btn-link-danger bs-pass-para"
+                                                        data-id="{{ $service->id }}" data-bs-toggle="tooltip"
+                                                        title="Delete">
                                                         <i class="ti ti-trash f-20"></i>
                                                     </a>
                                                     <form id="delete-form-{{ $service->id }}"

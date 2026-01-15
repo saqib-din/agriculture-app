@@ -47,119 +47,55 @@
             $mainService = $services->firstWhere('main_service', 1);
         @endphp
 
-        <section class="s-commitment-2">
-            <div class="tf-container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="image-wrap">
-                            <div class="image">
-                                @if ($mainService && $mainService->image)
-                                    <img src="{{ asset('uploads/services/' . $mainService->image) }}" alt=""
-                                        class="lazyload">
-                                @else
-                                    <img src="{{ asset('assets/images/widget/commitment.jpg') }}" alt=""
-                                        class="lazyload">
-                                @endif
+        @if ($mainService)
+            <section class="s-commitment-2">
+                <div class="tf-container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="image-wrap">
+                                <div class="image">
+                                    @if ($mainService->image)
+                                        <img src="{{ asset('uploads/services/' . $mainService->image) }}" alt=""
+                                            class="lazyload">
+                                    @else
+                                        <img src="{{ asset('assets/images/widget/commitment.jpg') }}" alt=""
+                                            class="lazyload">
+                                    @endif
+                                </div>
+                                {{-- <div class="img-item item-1 tf-animate__box">
+                                    <img class="up-down-move" src="{{ asset('assets/images/item/notice-2.png') }}"
+                                        alt="">
+                                </div> --}}
                             </div>
-                            @if ($mainService)
-                                <!-- Agar main service hai to koi extra decorative image optional -->
-                                <div class="img-item item-1 tf-animate__box">
-                                    <img class="up-down-move" src="{{ asset('assets/images/item/notice-2.png') }}"
-                                        alt="">
-                                </div>
-                            @else
-                                <div class="img-item item-1 tf-animate__box">
-                                    <img class="up-down-move" src="{{ asset('assets/images/item/notice-2.png') }}"
-                                        alt="">
-                                </div>
-                            @endif
                         </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="content-section">
-                            <div class="heading-section style-2 ">
-                                <div class="img-item">
-                                    <div class="item">
-                                        <img class="tf-animate-1 active-animate"
-                                            src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
+                        <div class="col-lg-7">
+                            <div class="content-section">
+                                <div class="heading-section style-2 ">
+                                    <div class="img-item">
+                                        <div class="item">
+                                            <img class="tf-animate-1 active-animate"
+                                                src="{{ asset('assets/images/item/rice-plant-2.png') }}" alt="">
+                                        </div>
+                                        <p class="sub-title">
+                                            Our Commitment To Freshness
+                                        </p>
                                     </div>
-                                    <p class="sub-title">
-                                        Our Commitment To Freshness
-
+                                    <p class="title text-anime-style-1">
+                                        {{ $mainService->service_name }}
                                     </p>
                                 </div>
-                                <p class="title text-anime-style-1">
-                                    {{ $mainService ? $mainService->service_name : 'Our Commitment To Freshness' }}
+                                <p class="text">
+                                    {{ $mainService->description }}
                                 </p>
                             </div>
-                            <p class="text">
-                                {{ $mainService ? $mainService->description : 'We Always Bring The Best Products To Consumers' }}
-                            </p>
-                            <ul class="benefit-list">
-                                <li>
-                                    <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <p>We are committed to not using pesticides</p>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <p>Do not use preservatives</p>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <p>Fresh Fruits & Vegetables</p>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <p>Low price guaranteed with quality</p>
-                                </li>
-                                <li>
-                                    <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                    <p>Environmental protection is the focus</p>
-                                </li>
-                            </ul>
-                            @if (!$mainService)
-                                <p class="text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio nunc, egestas
-                                    quis efficitur eu, tempus ut nisi. Suspendisse dignissim ut massa ac bibendum.
-                                    Vivamus sit amet felis odio. Phasellus a nisi eleifend.
-                                </p>
-                                {{-- <ul class="benefit-list">
-                                    <li>
-                                        <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                        <p>We are committed to not using pesticides</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                        <p>Do not use preservatives</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                        <p>Fresh Fruits & Vegetables</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                        <p>Low price guaranteed with quality</p>
-                                    </li>
-                                    <li>
-                                        <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-                                        <p>Environmental protection is the focus</p>
-                                    </li>
-                                </ul> --}}
-                            @endif
-
-                            {{-- <a href="{{ url('/products') }}" class="tf-btn">
-                                <span class="text-style">View Shop Product</span>
-                                <div class="icon"><i class="icon-arrow_right"></i></div>
-                            </a> --}}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="s-img-item item-1 scroll-element-4">
-                {{-- <img src="{{ $mainService ? asset('uploads/services/' . $mainService->image) : asset('assets/images/item/tructor.png') }}"
-                    alt=""> --}}
-            </div>
-        </section>
+                <div class="s-img-item item-1 scroll-element-4">
+                    {{-- <img src="{{ asset('uploads/services/' . $mainService->image) }}" alt=""> --}}
+                </div>
+            </section>
+        @endif
 
 
         <!-- Section provide -->

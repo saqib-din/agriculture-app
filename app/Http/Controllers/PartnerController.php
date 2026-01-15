@@ -25,7 +25,7 @@ class PartnerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'nullable|string|max:255',
+            'name'   => 'nullable|string|max:50',
             'status' => 'required|boolean',
             'image'  => 'required|image|mimes:jpg,png,jpeg,webp|max:2048',
         ]);
@@ -54,7 +54,7 @@ class PartnerController extends Controller
         $partner = Partner::findOrFail($id);
 
         $request->validate([
-            'name'   => 'nullable|string|max:255',
+            'name'   => 'nullable|string|max:50',
             'status' => 'required|boolean',
             'image'  => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
         ]);

@@ -49,7 +49,7 @@ class TestimonialsController extends Controller
     public function edit($id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        return view('pages.admin-side.testimonials.edit', compact('testimonial'));
+        return view('pages.admin-side.Testimonials.edit', compact('testimonial'));
     }
 
     // Update testimonial

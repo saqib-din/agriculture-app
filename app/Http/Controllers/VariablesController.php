@@ -7,10 +7,25 @@ use Illuminate\Http\Request;
 
 class VariablesController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $variables = Variable::orderBy('id', 'desc')->get();
+    //     return view('pages.admin-side.variables.index', compact('variables'));
+    // }
+
+    // Quick access method - toggle between create and edit
+    public function quickAccess()
     {
-        $variables = Variable::orderBy('id', 'desc')->get();
-        return view('pages.admin-side.variables.index', compact('variables'));
+        // Check if any variable exists
+        $latestVariable = Variable::latest()->first();
+
+        if ($latestVariable) {
+            // If variable exists, redirect to edit
+            return redirect()->route('variables.edit', $latestVariable->id);
+        } else {
+            // If no variable exists, redirect to create
+            return redirect()->route('variables.create');
+        }
     }
 
     public function create()
@@ -48,27 +63,28 @@ class VariablesController extends Controller
             'address'        => 'nullable|string|max:500',
         ]);
 
-        Variable::updateOrCreate(
+        $variable = Variable::updateOrCreate(
             ['id' => $request->id],
             $validated
         );
 
-        return redirect()->route('variables.index')
+        // After save, redirect to edit page of this variable
+        return redirect()->route('variables.edit', $variable->id)
             ->with('success', $request->id ? 'Variable Updated!' : 'Variable Added!');
     }
 
-    public function show($id)
-    {
-        $variable = Variable::findOrFail($id);
-        return view('pages.admin-side.variables.show', compact('variable'));
-    }
+    // public function show($id)
+    // {
+    //     $variable = Variable::findOrFail($id);
+    //     return view('pages.admin-side.variables.show', compact('variable'));
+    // }
 
-    public function destroy($id)
-    {
-        $variable = Variable::findOrFail($id);
-        $variable->delete();
+    // public function destroy($id)
+    // {
+    //     $variable = Variable::findOrFail($id);
+    //     $variable->delete();
 
-        return redirect()->route('variables.index')
-            ->with('success', 'Variable Deleted!');
-    }
+    //     return redirect()->route('variables.index')
+    //         ->with('success', 'Variable Deleted!');
+    // }
 }

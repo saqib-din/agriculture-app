@@ -7,7 +7,8 @@
                 <div class="card my-5">
                     <div class="card-body">
                         <div class="pt-0 pb-4 d-flex justify-content-center">
-                            <img src="{{ asset('assets/images/logo/logo3x.png') }}" class="img-fluid" alt="Agriculture App Logo" />
+                            <img src="{{ asset('assets/images/logo/logo3x.png') }}" class="img-fluid"
+                                alt="Agriculture App Logo" />
                         </div>
 
                         <h4 class="text-center f-w-500 mb-4">Login with your email</h4>

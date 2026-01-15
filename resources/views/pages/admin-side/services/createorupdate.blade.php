@@ -47,20 +47,26 @@
                                     <!-- Service Name -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Service Name <span class="text-danger">*</span></label>
+                                            <label class="form-label">Service Name <span
+                                                    class="text-danger">*</span></label>
                                             <input type="text" name="service_name" class="form-control"
                                                 placeholder="Enter service name"
                                                 value="{{ old('service_name', $service->service_name ?? '') }}" required>
                                         </div>
                                     </div>
 
-                                    <!-- Description -->
+                                    <!-- Status -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Description</label>
-                                            <input type="text" name="description" class="form-control"
-                                                placeholder="Enter description"
-                                                value="{{ old('description', $service->description ?? '') }}">
+                                            <label class="form-label">Status <span class="text-danger">*</span></label>
+                                            <select name="status" class="form-select">
+                                                <option value="Active"
+                                                    {{ old('status', $service->status ?? '') == 'Active' ? 'selected' : '' }}>
+                                                    Active</option>
+                                                <option value="Inactive"
+                                                    {{ old('status', $service->status ?? '') == 'Inactive' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -94,18 +100,12 @@
                                         </div>
                                     </div>
 
-                                    <!-- Status -->
+                                    <!-- Description -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" class="form-select">
-                                                <option value="Active"
-                                                    {{ old('status', $service->status ?? '') == 'Active' ? 'selected' : '' }}>
-                                                    Active</option>
-                                                <option value="Inactive"
-                                                    {{ old('status', $service->status ?? '') == 'Inactive' ? 'selected' : '' }}>
-                                                    Inactive</option>
-                                            </select>
+                                            <label class="form-label">Description</label>
+                                            <textarea type="text" name="description" class="form-control" rows="1" placeholder="Enter description"
+                                                value="{{ old('description', $service->description ?? '') }}"></textarea>
                                         </div>
                                     </div>
 

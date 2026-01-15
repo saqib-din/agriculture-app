@@ -49,17 +49,18 @@
     <!-- Main-content -->
     <div class="main-content page-our-farmers pt-0 pb-0">
         <!-- Section testimonial -->
-        <section class="s-testimonial style-2 type-2">
-            @php
-                // CEO ko filter karo
-                $ceo = $teams->where('is_ceo', 1)->first();
-            @endphp
+        @php
+            // CEO ko filter karo
+            $ceo = $teams->where('is_ceo', 1)->first();
+        @endphp
 
-            @if ($ceo)
+        @if ($ceo)
+            <section class="s-testimonial style-2 type-2">
                 <div class="wrap">
                     <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
                         <img src="{{ $ceo->image ? asset('uploads/teams/' . $ceo->image) : asset('assets/images/item/s-testi.png') }}"
-                            style="height: 30em !important; width: 61em;" alt="{{ $ceo->name }}">
+                            class="img-fluid ceo-image" style="max-height: 30em; width: 100%; object-fit: cover;"
+                            alt="{{ $ceo->name }}">
                         <div class="sign scroll-element-3">
                             {{-- Optional sign image --}}
                         </div>
@@ -69,7 +70,7 @@
                             <p class="title text-anime-style-1">{{ $ceo->designation ?? 'Creator Of Success' }}</p>
                         </div>
                         <p class="quote font-snowfall fs-30 text-anime-style-1">
-                            {{ $ceo->description ?? '“Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.”' }}
+                            {{ $ceo->description ?? '"Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience."' }}
                         </p>
                         <div class="bot">
                             <div class="author-wrap">
@@ -84,38 +85,8 @@
                         </div>
                     </div>
                 </div>
-            @else
-                <div class="wrap">
-                    <div class="image scroll-element wow fadeInLeft" data-wow-delay="0s">
-                        <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="">
-                        <div class="sign scroll-element-3">
-                            {{-- Optional sign image --}}
-                        </div>
-                    </div>
-                    <div class="content-section">
-                        <div class="heading-section">
-                            <p class="title text-anime-style-1">Creator Of Success</p>
-                        </div>
-                        <p class="quote font-snowfall fs-30 text-anime-style-1">
-                            “Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
-                            good morals, and happiness. Farmers are the embodiment of hard work, dedication, and
-                            resilience.”
-                        </p>
-                        <div class="bot">
-                            <div class="author-wrap">
-                                <p class="author text-upper fw-6 font-worksans">
-                                    <a href="#">Donald Christopher</a> - Talk
-                                </p>
-                                <p class="duty">Farm Owner Donald Farm Happiness</p>
-                            </div>
-                        </div>
-                        <div class="icon tf-animate__box-2 animate__slow">
-                            <i class="icon-quote"></i>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        </section>
+            </section>
+        @endif
 
 
         <!-- Section meet farmer -->
@@ -168,8 +139,7 @@
                                                             class="icon-facebook1"></i></a></li>
                                             @endif
                                             @if ($team->linkedin)
-                                                <li><a href="{{ $team->linkedin }}" target="_blank"><i
-                                                            class="icon-twitter"></i></a></li>
+                                                <li><a href="{{ $team->linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
                                             @endif
                                             @if ($team->instagram)
                                                 <li><a href="{{ $team->instagram }}" target="_blank"><i

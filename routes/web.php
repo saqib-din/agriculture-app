@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SingleController;
-use App\Http\Controllers\CategoriesController;
+// use App\Http\Controllers\SingleController;
+// use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProductController;
@@ -18,13 +18,23 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\QuoteRequestController;
+use App\Http\Controllers\CategoryController;
+
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
 
 // Products
-Route::get('/singleproduct', [SingleController::class, 'show'])->name('singleproduct');
-Route::get('/products', [CategoriesController::class, 'show'])->name('products');
+// Public product list
+Route::get('/products', [ProductController::class, 'list'])
+    ->name('products.public.list');
+
+// Public single product
+Route::get('products/{slug}', [ProductController::class, 'showBySlug'])->name('products.show');
+
+Route::post('/quote-request', [QuoteRequestController::class, 'store'])->name('quote.store');
+
 
 // Services
 Route::get('/services', [ServicesController::class, 'show'])->name('services');
@@ -119,9 +129,34 @@ Route::middleware('auth')->group(function () {
     Route::delete('/testimonials/delete/{id}', [TestimonialsController::class, 'destroy'])
         ->name('testimonials.destroy');
 
-    // Products
-    Route::get('/product/add', [ProductController::class, 'productAdd'])->name('products.create');
-    Route::get('/product/list', [ProductController::class, 'productList'])->name('products.list');
+    // Categories 
+    Route::get('/index', [CategoryController::class, 'index'])->name('index');
+    Route::post('/store', [CategoryController::class, 'store'])->name('store');
+    Route::put('/update/{id}', [CategoryController::class, 'update'])->name('update');
+    Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+
+    // Product Management
+    Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/admin/products/store-update/{product?}', [ProductController::class, 'storeOrUpdate'])->name('admin.products.storeUpdate');
+    Route::get('admin/product/list', [ProductController::class, 'index'])->name('products.list');
+    Route::get('/admin/products/edit/{product}', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::delete('/admin/products/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::delete('/admin/products/image-destroy/{image}', [ProductController::class, 'imageDestroy'])->name('admin.products.imageDestroy');
+
+    // AJAX Routes for Product Updates
+    Route::post('/admin/products/bulk-update', [ProductController::class, 'bulkUpdate'])->name('admin.products.bulk-update');
+    Route::post('/admin/products/quantity-display/{product}', [ProductController::class, 'updateQuantityDisplay'])->name('admin.products.quantityDisplay');
+    Route::post('/admin/products/price-display/{product}', [ProductController::class, 'updatePriceDisplay'])->name('admin.products.priceDisplay');
+    Route::post('/admin/products/status/{product}', [ProductController::class, 'updateStatus'])->name('admin.products.status');
+
+    // Quote a Request 
+    Route::get('/quotes', [QuoteRequestController::class, 'index'])->name('admin.quotes.index');
+    Route::get('/quotes/{id}', [QuoteRequestController::class, 'show'])->name('admin.quotes.show');
+    Route::post('/admin/quotes/update-status', [QuoteRequestController::class, 'updateStatus'])
+        ->name('admin.quotes.updateStatus');
+    Route::post('admin/quotes/reply/{id}', [QuoteRequestController::class, 'reply'])
+        ->name('admin.quotes.reply');
+    Route::delete('/quotes/{id}', [QuoteRequestController::class, 'destroy'])->name('admin.quotes.destroy');
 
     // Partners
     Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
@@ -131,13 +166,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/partners/update/{id}', [PartnerController::class, 'update'])->name('partners.update');
     Route::delete('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
-    // Variables
-    Route::get('variables', [VariablesController::class, 'index'])->name('variables.index');
+    // Variables - Quick Access
+    Route::get('variables', [VariablesController::class, 'quickAccess'])->name('variables.quick');
     Route::get('variables/create', [VariablesController::class, 'create'])->name('variables.create');
     Route::get('variables/{id}/edit', [VariablesController::class, 'edit'])->name('variables.edit');
     Route::post('variables/save/{id?}', [VariablesController::class, 'storeOrUpdate'])->name('variables.save');
-    Route::get('variables/{id}', [VariablesController::class, 'show'])->name('variables.show');
-    Route::delete('variables/{id}', [VariablesController::class, 'destroy'])->name('variables.destroy');
+
+    // Commented out routes
+    // Route::get('variables', [VariablesController::class, 'index'])->name('variables.index');
+    // Route::get('variables/{id}', [VariablesController::class, 'show'])->name('variables.show');
+    // Route::delete('variables/{id}', [VariablesController::class, 'destroy'])->name('variables.destroy');
 
     // Pages
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
