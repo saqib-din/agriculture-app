@@ -116,7 +116,8 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.tiny.cloud/1/3qaqbgyxgk401lk8tn5xj7qotutnfngz5o9vmds2n6b6s9yz/tinymce/6/tinymce.min.js">
+    <script src="https://cdn.tiny.cloud/1/91onpdgfkxk2hp4uuwikyy2x6vi4k99nh52dljysybkrxyjq/tinymce/8/tinymce.min.js" referrerpolicy="origin"
+        crossorigin="anonymous"></script>
     </script>
     <script>
         document.getElementById('page-name').addEventListener('input', function() {

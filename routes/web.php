@@ -16,6 +16,8 @@ use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\VariablesController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\OrderController;
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
@@ -62,6 +64,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/hero/edit/{id}', [HeroSectionController::class, 'form'])->name('hero.edit');
     Route::post('/hero/save/{id?}', [HeroSectionController::class, 'save'])->name('hero.save');
     Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
+
+    // Client
+    Route::get('clients', [ClientsController::class, 'index'])->name('clients.index');          // List all clients
+    Route::get('clients/create', [ClientsController::class, 'create'])->name('clients.create');  // Show create form
+    Route::post('clients', [ClientsController::class, 'store'])->name('clients.store');          // Save new client
+    Route::get('clients/{id}/edit', [ClientsController::class, 'edit'])->name('clients.edit');   // Edit form
+    Route::put('clients/{id}', [ClientsController::class, 'update'])->name('clients.update');    // Update client
+    Route::delete('clients/{id}', [ClientsController::class, 'destroy'])->name('clients.destroy'); // Delete client
+    Route::post('clients/quick-store', [ClientsController::class, 'quickStore'])->name('clients.quick.store');
+
+    // Order
+    Route::get('/orders', [OrderController::class, 'index'])
+        ->name('orders.index');
+    Route::get('/orders/create', [OrderController::class, 'create'])
+        ->name('orders.create');
+    Route::post('/orders', [OrderController::class, 'store'])
+        ->name('orders.store');
+    Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])
+        ->name('orders.edit');
+    Route::put('/orders/{id}', [OrderController::class, 'update'])
+        ->name('orders.update');
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])
+        ->name('orders.destroy');
 
     // Services
     Route::get('/services/index', [ServicesController::class, 'index'])->name('services.index');
