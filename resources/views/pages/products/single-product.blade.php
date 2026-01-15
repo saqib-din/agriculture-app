@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page-title -->
-    <div class="page-title page-portfolio-details  ">
+    <div class="page-title page-portfolio-details">
         <div class="rellax" data-rellax-speed="5">
             <img src="{{ asset('assets/images/page-title/shop-detail.jpg') }}" alt="">
         </div>
@@ -11,12 +11,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content center">
-                            <p class="sub-title">
-                                Buy Health Foods At Our Store
-                            </p>
-                            <h1 class="title">
-                                products detail
-                            </h1>
+                            <p class="sub-title">Buy Health Foods At Our Store</p>
+                            <h1 class="title">products detail</h1>
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
@@ -25,27 +21,122 @@
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="{{ url('products') }}"> Shop Products </a>
+                                <a href="{{ url('products') }}">Products</a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="javascript:void(0)">Products Detail</a>
+                                <a href="javascript:void(0)">Detail</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="img-item item-2">
             <img src="{{ asset('assets/images/item/grass-6.png') }}" alt="">
         </div>
-    </div><!-- /.Page-title -->
+    </div>
 
+    <!-- Success Message Box (Same as products listing page) -->
+    <div id="msg" class="success-message-box" style="display: none;">
+        <div class="success-content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div>
+                <strong>Request Sent Successfully!</strong>
+                <p>Thank you for contacting us. Our team will review your request and respond within 24 hours via email.</p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .success-message-box {
+            position: fixed;
+            top: 20px;
+            right: -400px;
+            max-width: 450px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-left: 5px solid #28a745;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .success-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #ffffff;
+        }
+
+        .success-icon {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 50%;
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .success-icon svg {
+            color: #28a745;
+            stroke: #28a745;
+        }
+
+        .success-content strong {
+            font-size: 18px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .success-content p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                right: -400px;
+                opacity: 0;
+            }
+
+            100% {
+                right: 20px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            0% {
+                right: 20px;
+                opacity: 1;
+            }
+
+            100% {
+                right: -400px;
+                opacity: 0;
+            }
+        }
+    </style>
 
     <!-- Main-content -->
     <div class="main-content page-shop-detail pt-0">
-
         <!-- Section product detail -->
         <section class="s-product-detail section-image-zoom zoom-active">
             <div class="tf-container w-1290">
@@ -54,71 +145,55 @@
                         <div class="thumbs-slider sticky-top">
                             <div class="swiper-container tf-product-media-main">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                alt="" class="lazyload tf-image-zoom">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item ">
-                                            <img src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                alt="" class="lazyload  tf-image-zoom">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item ">
-                                            <img src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                alt="" class="lazyload tf-image-zoom">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                data-zoom="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                alt="" class="lazyload tf-image-zoom">
-                                        </div>
-                                    </div>
+                                    @if ($product->images->count())
+                                        @foreach ($product->images as $image)
+                                            <div class="swiper-slide">
+                                                <div class="image item">
+                                                    <img src="{{ asset('storage/' . $image->image) }}"
+                                                        data-src="{{ asset('storage/' . $image->image) }}"
+                                                        data-zoom="{{ asset('storage/' . $image->image) }}" alt=""
+                                                        class="lazyload tf-image-zoom">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        @for ($i = 1; $i <= 4; $i++)
+                                            <div class="swiper-slide">
+                                                <div class="image item">
+                                                    <img src="{{ asset('assets/images/section/shop-detail-' . $i . '.jpg') }}"
+                                                        data-src="{{ asset('assets/images/section/shop-detail-' . $i . '.jpg') }}"
+                                                        data-zoom="{{ asset('assets/images/section/shop-detail-' . $i . '.jpg') }}"
+                                                        alt="" class="lazyload tf-image-zoom">
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="swiper-container tf-product-media-thumbs" data-direction="horizontal">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-1.jpg') }}"
-                                                alt="" class="lazyload">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-2.jpg') }}"
-                                                alt="" class="lazyload">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-3.jpg') }}"
-                                                alt="" class="lazyload">
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="image item">
-                                            <img src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                data-src="{{ asset('assets/images/section/shop-detail-4.jpg') }}"
-                                                alt="" class="lazyload">
-                                        </div>
-                                    </div>
+                                    @if ($product->images->count())
+                                        @foreach ($product->images as $image)
+                                            <div class="swiper-slide">
+                                                <div class="image item">
+                                                    <img src="{{ asset('storage/' . $image->image) }}"
+                                                        data-src="{{ asset('storage/' . $image->image) }}" alt=""
+                                                        class="lazyload">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        @for ($i = 1; $i <= 4; $i++)
+                                            <div class="swiper-slide">
+                                                <div class="image item">
+                                                    <img src="{{ asset('assets/images/section/shop-detail-' . $i . '.jpg') }}"
+                                                        data-src="{{ asset('assets/images/section/shop-detail-' . $i . '.jpg') }}"
+                                                        alt="" class="lazyload">
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -127,34 +202,17 @@
                     <div class="col-md-6">
                         <div class="tf-zoom-main"></div>
                         <div class="content-inner">
-                            <h3 class="fw-6 name font-worksans title">
-                                Bag Of Succulent Oranges
-                            </h3>
-                            <div class="rating-wrap">
-                                <div class="wg-rating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <p class="font-nunito">
-                                    5.00(1 customer review)
-                                </p>
-                            </div>
+                            <h3 class="fw-6 name font-worksans title">{{ $product->name }}</h3>
                             <div class="price-wrap price-left">
-                                <span class=" price-1">$5.25</span>
-
-                                <span class=" price-2">$3.00</span>
+                                <span class="price-2">
+                                    @if ($product->price)
+                                        PKR {{ number_format($product->price, 2) }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </span>
                             </div>
-                            <p class="sub font-nunito">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut aliquam
-                                mauris.
-                                Maecenas porta odio lorem, in aliquet
-                                diam pellentesque vel. Donec pulvinar mi ipsum, a eleifend est porta id. Laboris
-                                nisi ut aliquip ex ea commodo
-                                consequat.
-                            </p>
+                            <p class="sub font-nunito">{{ $product->brief_details }}</p>
                             <ul class="notice-list">
                                 <li>
                                     <svg id="Layer_1" height="24" viewBox="0 0 512 512" width="24"
@@ -179,186 +237,50 @@
                                             fill="#eaeff0" />
                                     </svg>
                                     <p>
-                                        Available: 12 in stock
-                                    </p>
-                                </li>
-                                <li>
-                                    <svg height="18" viewBox="0 0 58 44" width="24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g id="Page-1" fill="none" fill-rule="evenodd">
-                                            <g>
-                                                <ellipse cx="14.5" cy="22" fill="#ecf0f1" rx="14.5"
-                                                    ry="22" />
-                                                <ellipse cx="43.5" cy="22" fill="#ecf0f1" rx="14.5"
-                                                    ry="22" />
-                                                <ellipse cx="12" cy="22" fill="#2fa8cc" rx="10"
-                                                    ry="15" />
-                                                <ellipse cx="41" cy="22" fill="#2fa8cc" rx="10"
-                                                    ry="15" />
-                                                <ellipse cx="11" cy="22" fill="#35495e" rx="7"
-                                                    ry="10" />
-                                                <ellipse cx="40" cy="22" fill="#35495e" rx="7"
-                                                    ry="10" />
-                                                <g fill="#ecf0f1">
-                                                    <circle cx="16" cy="15" r="3" />
-                                                    <circle cx="45" cy="15" r="3" />
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                    <p>
-                                        9 people currently viewing this item
-                                    </p>
-                                </li>
-                                <li>
-                                    <svg height="21" preserveAspectRatio="xMidYMid" viewBox="-33 0 255 255"
-                                        width="24" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink">
-                                        <linearGradient id="linear-gradient-1" gradientUnits="userSpaceOnUse"
-                                            x1="94.141" x2="94.141" y1="255" y2=".188">
-                                            <stop offset="0" stop-color="#ff4c0d" />
-                                            <stop offset="1" stop-color="#fc9502" />
-                                        </linearGradient>
-                                        <g id="fire" fill-rule="evenodd">
-                                            <path id="path-1"
-                                                d="m187.899 164.809c-2.096 50.059-43.325 90.003-93.899 90.003-51.915 0-94-43.5-94-94 0-6.75-.121-20.24 10-43 6.057-13.621 9.856-22.178 12-30 1.178-4.299 3.469-11.129 10 0 3.851 6.562 4 16 4 16s14.328-10.995 24-32c14.179-30.793 2.866-49.2-1-62-1.338-4.428-2.178-12.386 7-9 9.352 3.451 34.076 20.758 47 39 18.445 26.035 25 51 25 51s5.906-7.33 8-15c2.365-8.661 2.4-17.239 9.999-7.999 7.227 8.787 17.96 25.3 24.001 40.999 10.969 28.509 7.899 55.997 7.899 55.997z"
-                                                fill="url(#linear-gradient-1)" />
-                                            <path id="path-2"
-                                                d="m94 254.812c-35.899 0-65-29.101-65-65 0-21.661 8.729-34.812 26.896-52.646 11.632-11.419 22.519-25.444 27.146-34.994.911-1.88 2.984-11.677 10.977-.206 4.193 6.016 10.766 16.715 14.981 25.846 7.266 15.743 9 31 9 31s7.121-4.196 12-15c1.573-3.482 4.753-16.664 13.643-3.484 6.523 9.672 15.484 27.062 15.357 49.484 0 35.899-29.102 65-65 65z"
-                                                fill="#fc9502" />
-                                            <path id="path-3"
-                                                d="m95 183.812c9.25 0 9.25 17.129 21 40 7.824 15.229-3.879 31-21 31s-26-13.879-26-31c0-17.12 16.75-40 26-40z"
-                                                fill="#fce202" />
-                                        </g>
-                                    </svg>
-                                    <p>
-                                        4 items sold in last 3 hours
+                                        @if (!$product->quantity || $product->quantity == 0)
+                                            Out of stock
+                                        @elseif($product->quantity == 1)
+                                            Available
+                                        @else
+                                            {{ $product->quantity }} in stock
+                                        @endif
                                     </p>
                                 </li>
                             </ul>
                             <div class="wrap-quantity">
-                                <div class="wg-quantity">
-                                    <span class="btn-quantity plus-btn"> <i class="icon-arrow_up"></i></span>
-                                    <input class="font-worksans fw-5" type="text" name="number" value="1">
-                                    <span class="btn-quantity minus-btn"><i class="icon-arrow_down"></i></span>
-                                </div>
-                                <button type="submit" class="tf-btn btn-add-cart">
-                                    <span class="text-style">
-                                        Request A Quote
-                                    </span>
+                                <button type="button" class="tf-btn btn-add-cart" data-bs-toggle="modal"
+                                    data-bs-target="#quoteModal" id="singleProductQuoteBtn"
+                                    data-product-id="{{ $product->id }}">
+                                    <span class="text-style">Request A Quote</span>
                                     <span class="icon">
-                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <i class="fa-solid fa-file-lines"></i>
                                     </span>
                                 </button>
-                                <div class="white-list-wrap">
-                                    <a href="#wishlist" class="icon style-circle" data-bs-toggle="modal">
-                                        <i class="fa-solid fa-heart"></i>
-                                        <span class="tt-text">
-                                            Add Wishlist
-                                        </span>
-                                    </a>
-                                    <a href="#" class="icon style-circle">
-                                        <i class="fa-solid fa-repeat"></i>
-                                        <span class="tt-text">
-                                            Compare
-                                        </span>
-                                    </a>
-                                </div>
                             </div>
                             <ul class="more-infor">
                                 <li>
-                                    <p>SKU:0282</p>
+                                    <p>SKU: {{ $product->sku }}</p>
                                 </li>
                                 <li>
-                                    <p>Category:<a href="#">Jam & Jelly
+                                    <p>Brand: {{ $product->brand }}</p>
+                                </li>
+                                <li>
+                                    <p>Modal: {{ $product->model }}</p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Category:
+                                        <a href="#">
+                                            {{ $product->category?->name ?? 'Jam & Jelly' }}
                                         </a>
                                     </p>
                                 </li>
-                                <li>
-                                    <p>Tags:<a href="#">FOOD</a>/<a href="#">NUTS</a>/<a
-                                            href="#">ORGANIC</a>
-                                    </p>
-                                </li>
-
                             </ul>
-                            <div class="bot">
-                                <p class="font-worksans fw-5 text">Share:</p>
-                                <div class="wg-social style-3">
-                                    <ul class="list">
-                                        <li class="item">
-                                            <a href="#"><i class="icon-facebook1"></i></a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="#"><i class="icon-twitter"></i></a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="#"><i class="icon-instagram2"></i></a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="#"><i class="icon-pinterest"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="tf-sticky-btn">
-                <div class="tf-container">
-                    <div class="row">
-                        <div class="col-12">
-
-                            <div class="content w-100 flex item-center">
-
-                                <div class="tf-atc-product">
-                                    <div class="img-product">
-                                        <img src="{{ asset('assets/images/section/shop-detail-1.jpg') }}" alt="">
-                                    </div>
-                                    <span class="name-product">
-                                        Bag Of Succulent Oranges
-                                    </span>
-                                </div>
-                                <div class="tf-atc-btn">
-                                    <div class="wrap-quantity">
-                                        <div class="wg-quantity">
-                                            <span class="btn-quantity plus-btn"> <i class="icon-arrow_up"></i></span>
-                                            <input class="font-worksans fw-5" type="text" name="number"
-                                                value="1">
-                                            <span class="btn-quantity minus-btn"><i class="icon-arrow_down"></i></span>
-                                        </div>
-                                        <button type="submit" class="tf-btn btn-add-cart">
-                                            <span class="text-style">
-                                                Request A Quote
-                                            </span>
-                                            <span class="icon">
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </span>
-                                        </button>
-                                        <div class="white-list-wrap">
-                                            <a href="#wishlist" class="icon style-circle" data-bs-toggle="modal">
-                                                <i class="fa-solid fa-heart"></i>
-                                                <span class="tt-text">
-                                                    Add Wishlist
-                                                </span>
-                                            </a>
-                                            <a href="#" class="icon style-circle">
-                                                <i class="fa-solid fa-repeat"></i>
-                                                <span class="tt-text">
-                                                    Compare
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!-- Section product detail -->
+        </section>
 
         <!-- Section tab -->
         <section class="s-tab">
@@ -371,433 +293,243 @@
                                     <li class="item active"><a href="javascript:void(0)" class="btn-tab">Description</a>
                                     </li>
                                     <li class="item"><a href="javascript:void(0)" class="btn-tab">Additional
-                                            information</a>
-                                    </li>
-                                    <li class="item"><a href="javascript:void(0)" class="btn-tab">Review ( 1
-                                            )</a>
-                                    </li>
+                                            information</a></li>
                                 </ul>
                             </div>
-
                             <div class="widget-content-tab">
                                 <div class="widget-content-inner active">
-                                    <p class="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Vivamus lacus
-                                        odio, egestas
-                                        vitae augue sed, vulputate viverra
-                                        velit. Quisque fringilla viverra turpis, at condimentum arcu convallis
-                                        sit
-                                        amet. Class
-                                        aptent taciti sociosqu ad litora
-                                        torquent per conubia nostra, per inceptos himenaeos. Fusce laoreet
-                                        lectus in
-                                        velit
-                                        euismod.
-                                    </p>
-                                    <p class="text-2">
-                                        Nulla accumsan sapien purus, at ultrices eros sagittis at. Duis leo
-                                        purus,
-                                        gravida ut
-                                        consequat in, hendrerit a neque.
-                                        Sed nec placerat odio, ut ultrices magna. Etiam in ligula pulvinar,
-                                        semper
-                                        dolor eu,
-                                        commodo lorem. In interdum neque
-                                        libero. eget volutpat nibh commodo et. Aenean sem erat, viverra in
-                                        condimentum in,
-                                        efficitur id massa.
-                                    </p>
+                                    {{-- <p class="text-1">{{ $product->brief_details }}</p> --}}
+                                    <p class="text-2">{{ $product->description }}</p>
                                 </div>
                                 <div class="widget-content-inner">
                                     <div class="table-infor">
                                         <table>
-                                            <tbody>
+                                            <thead>
                                                 <tr>
-                                                    <th>Color</th>
-                                                    <td>
-                                                        <p>Orange</p>
-                                                    </td>
+                                                    <th>Specifications Name</th>
+                                                    <th>Value</th>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($product->specifications && $product->specifications->count() > 0)
+                                                    @foreach ($product->specifications as $specification)
+                                                        <tr>
+
+                                                            <th>{{ $specification->name }}</th>
+                                                            <td>
+                                                                <p>{{ $specification->value }}</p>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="2" class="text-center text-muted">
+                                                            <i class="ti ti-info-circle me-2"></i>
+                                                            No specifications available for this product.
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="widget-content-inner">
-                                    <div class="comment-wrap text-left">
-                                        <h2 class=" fw-bold font-worksans">
-                                            Comments
-                                        </h2>
-                                        <div class="author-wrap">
-                                            <div class="author">
-                                                <div class="image-avt">
-                                                    <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="entry">
-                                                    <a href="#"
-                                                        class="entry-name font-worksans fw-6 text-upper hover-text-secondary">Christine
-                                                        Rose</a>
-                                                    <p class=" font-nunito">
-                                                        July 29, 2024 at 7:35 am
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="tf-btn btn-reply style-2 type-2 font-nunito">
-                                                <i class="fa-solid fa-reply"></i>
-                                                Reply
-                                            </a>
-                                        </div>
-                                        <p class="comment font-nunito">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc odio nunc,
-                                            egestas
-                                            quis efficitur eu, tempus ut nisi.
-                                            Suspendisse dignissim ut massa ac bibendum. Vivamus sit amet felis odio
-                                            o.
-                                            Phasellus a nisi eleifend, rhoncus massa
-                                            vitae, sodales lacus.
-                                        </p>
-                                    </div>
-                                    <div class="post-comment-wrap text-left">
-                                        <h2 class="fw-bold font-worksans">
-                                            Leave a Review
-                                        </h2>
-
-                                        <p class="sub-title font-nunito">
-                                            Your rating of this product *
-                                        </p>
-
-                                        <form action="#" class="form-post-comment">
-                                            <div class="cols ">
-                                                <fieldset>
-                                                    <input type="text" placeholder="Name*" required>
-                                                </fieldset>
-                                                <fieldset>
-                                                    <input type="email" placeholder="Email*" required>
-                                                </fieldset>
-                                            </div>
-                                            <div class="cols field-text">
-                                                <textarea name="message" id="message" placeholder="Your Review..." required></textarea>
-                                            </div>
-                                            <div class="flex justify-center">
-                                                <button type="submit" class="tf-btn">
-                                                    <span class="text-style">
-                                                        Post Review
-                                                    </span>
-                                                    <span class="icon">
-                                                        <i class="icon-arrow_right"></i>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section><!-- /.Section tab -->
-
-        <!-- Section relate product  -->
-        <section class="s-relate-product">
-            <div class="tf-container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h2 class="title fw-7 fs-45 text-center">
-                            Related Products
-                        </h2>
-                        <div class="swiper-container slider-relate-product">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card-product style-2 mw-unset">
-                                        <ul class="trendy-list">
-                                            <li class="trendy-item ">
-                                                <p class="color-2">New</p>
-                                            </li>
-                                            <li class="trendy-item ">
-                                                <p class="color-3">Hot</p>
-                                            </li>
-                                        </ul>
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/item/macaroni.png') }}"
-                                                data-src="{{ asset('assets/images/item/macaroni.png') }}" alt=""
-                                                class="lazyload">
-                                        </div>
-                                        <a href="#" class="name-product font-worksans hover-text-4">
-                                            Iceland Macaroni Cheese
-                                        </a>
-                                        <div class="pricing-star">
-                                            <div class="price-wrap">
-
-                                                <span class=" price-2">$3.00</span>
-                                            </div>
-                                            <div class="wg-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-btn-list">
-                                            <a href="#" class="icon shoping">
-
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add to card
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add Wishlist
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                            <a href="#" class="icon view-product">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Quick View
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Compare
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card-product style-2 mw-unset">
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/item/extre-budweiser.png') }}"
-                                                data-src="{{ asset('assets/images/item/extre-budweiser.png') }}"
-                                                alt="" class="lazyload">
-                                        </div>
-                                        <a href="#" class="name-product font-worksans hover-text-4">
-                                            Extreme Budweiser
-                                        </a>
-                                        <div class="pricing-star">
-                                            <div class="price-wrap">
-
-                                                <span class=" price-2">$2.87</span>
-                                            </div>
-                                            <div class="wg-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-btn-list">
-                                            <a href="#" class="icon shoping">
-
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add to card
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add Wishlist
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                            <a href="#" class="icon view-product">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Quick View
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Compare
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide ">
-                                    <div class="card-product style-2 mw-unset">
-                                        <ul class="trendy-list">
-
-                                            <li class="trendy-item ">
-                                                <p class="color-4">Sesonal</p>
-                                            </li>
-                                            <li class="trendy-item ">
-                                                <p class="color-2">New</p>
-                                            </li>
-                                        </ul>
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/item/sitema.png') }}"
-                                                data-src="{{ asset('assets/images/item/sitema.png') }}" alt=""
-                                                class="lazyload">
-                                        </div>
-                                        <a href="#" class="name-product font-worksans hover-text-4">
-                                            Sitema BakeIT Plastic Box
-                                        </a>
-                                        <div class="pricing-star">
-                                            <div class="price-wrap">
-
-                                                <span class=" price-2">$3.00</span>
-                                            </div>
-                                            <div class="wg-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-btn-list">
-                                            <a href="#" class="icon shoping">
-
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add to card
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add Wishlist
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                            <a href="#" class="icon view-product">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Quick View
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Compare
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="card-product style-2 mw-unset">
-
-                                        <div class="image">
-                                            <img src="{{ asset('assets/images/item/avocado.png') }}"
-                                                data-src="{{ asset('assets/images/item/avocado.png') }}" alt=""
-                                                class="lazyload">
-                                        </div>
-                                        <a href="#" class="name-product font-worksans hover-text-4">
-                                            Avocado, Hass Large
-                                        </a>
-                                        <div class="pricing-star">
-                                            <div class="price-wrap">
-
-                                                <span class=" price-2">$2.87</span>
-                                            </div>
-                                            <div class="wg-rating">
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="product-btn-list">
-                                            <a href="#" class="icon shoping">
-
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add to card
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-cart-shopping"></i>
-                                            </a>
-                                            <a href="#wishlist" class="icon white-list" data-bs-toggle="modal">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Add Wishlist
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-heart"></i>
-                                            </a>
-                                            <a href="#" class="icon view-product">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Quick View
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="icon">
-                                                <div class="tt-text">
-
-                                                    <p>
-                                                        Compare
-                                                    </p>
-                                                </div>
-                                                <i class="fa-solid fa-repeat"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn-slide-product btn-next">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                        <div class="btn-slide-product btn-prev">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </section><!-- /.Section relate product  -->
-
+        </section>
     </div>
-    <!-- /.Main-content -->
+
+    <!-- Quotation Modal -->
+    <div class="modal modalCentered fade modal-log" id="quoteModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
+                <div class="modal-log-wrap list-file-delete">
+                    <div class="box-title">
+                        <h2 class="title fw-bold">Quotation Request</h2>
+                        <p class="fw-normal font-nunito h6 fs-18 text-main">
+                            Request a quote for this product
+                        </p>
+                    </div>
+                    <form id="quoteRequestForm" class="form-log">
+                        @csrf
+                        <input type="hidden" name="single_product_id" id="singleProductId"
+                            value="{{ $product->id }}">
+
+                        <div class="form-content">
+                            <!-- Row 1: Name and Email -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="customer_name" class="text-uppercase">Name *</label>
+                                        <input type="text" name="customer_name" id="customer_name"
+                                            placeholder="Enter Name" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="customer_email" class="text-uppercase">Email *</label>
+                                        <input type="email" name="customer_email" id="customer_email"
+                                            placeholder="Enter Email" required>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Phone and Quantity -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="customer_phone" class="text-uppercase">Phone</label>
+                                        <input type="tel" name="customer_phone" id="customer_phone"
+                                            placeholder="Enter Phone Number">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="total_quantity" class="text-uppercase">Quantity</label>
+                                        <input type="number" name="total_quantity" id="total_quantity"
+                                            placeholder="Enter quantity">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Message -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <fieldset>
+                                        <label for="customer_message" class="text-uppercase">Message</label>
+                                        <textarea name="customer_message" id="customer_message" rows="4">Hello,
+
+I would like to request a quotation for the selected product(s).
+Please provide pricing, availability, and any additional details at your earliest convenience.
+
+Thank you.</textarea>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-submit">
+                            <button type="submit" class="tf-btn-nor w-100">
+                                <span class="submit-text">Send Request</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quoteForm = document.getElementById('quoteRequestForm');
+            const singleProductId = document.getElementById('singleProductId').value;
+
+            // Handle form submission for single product
+            quoteForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const submitText = submitBtn.querySelector('.submit-text');
+                const spinner = submitBtn.querySelector('.spinner-border');
+
+                // Disable button and show spinner
+                submitBtn.disabled = true;
+                submitText.classList.add('d-none');
+                spinner.classList.remove('d-none');
+
+                const formData = new FormData(this);
+
+                // Add single product ID
+                formData.append('products[]', singleProductId);
+
+                // Add quantity
+                const quantity = document.getElementById('total_quantity').value || 1;
+                formData.append('quantities[]', quantity);
+
+                fetch('/quote-request', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitText.classList.remove('d-none');
+                        spinner.classList.add('d-none');
+
+                        if (data.success) {
+                            // Show left-side slide-in message (same as products listing page)
+                            showSuccessMessage();
+
+                            // Reset form
+                            quoteForm.reset();
+                            document.getElementById('total_quantity').value = 1;
+
+                            // Restore default message
+                            document.getElementById('customer_message').value = `Hello,
+
+I would like to request a quotation for the selected product(s).
+Please provide pricing, availability, and any additional details at your earliest convenience.
+
+Thank you.`;
+
+                            // Close modal
+                            const modalElement = document.getElementById('quoteModal');
+                            const modal = bootstrap.Modal.getInstance(modalElement);
+                            if (modal) {
+                                modal.hide();
+                            }
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message ||
+                                    'Failed to submit quote request. Please try again.',
+                                confirmButtonColor: '#235130'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        submitText.classList.remove('d-none');
+                        spinner.classList.add('d-none');
+
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred. Please try again later.',
+                            confirmButtonColor: '#235130'
+                        });
+                    });
+            });
+        });
+
+        // Success message function (same as products listing page)
+        function showSuccessMessage() {
+            const msgBox = document.getElementById('msg');
+
+            // Reset position and display
+            msgBox.style.display = 'flex';
+            msgBox.style.right = '-400px'; // start off-screen
+            msgBox.style.animation = 'slideInRight 0.5s forwards';
+
+            // Auto hide after 4 seconds
+            setTimeout(() => {
+                msgBox.style.animation = 'slideOutRight 0.5s forwards';
+                setTimeout(() => {
+                    msgBox.style.display = 'none';
+                }, 500);
+            }, 4000);
+        }
+    </script>
 @endsection

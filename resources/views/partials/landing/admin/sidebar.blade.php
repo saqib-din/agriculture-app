@@ -61,27 +61,73 @@
                 </li>
 
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('products.list') }}" class="pc-link">
+                    <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-element-plus"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Products">Products</span>
+                        <span class="pc-mtext" data-i18n="List">List</span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="{{ route('products.list') }}"
+                                data-i18n="Products">Products</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('index') }}"
+                                data-i18n="Categories">Categories</a></li>
+                    </ul>
                 </li>
 
+                {{-- <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-status-up"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Dashboard">Dashboard</span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        <span class="pc-badge">2</span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item"><a class="pc-link" href="../dashboard/index.html"
+                                data-i18n="Default">Default</a></li>
+                        <li class="pc-item"><a class="pc-link" href="../dashboard/analytics.html"
+                                data-i18n="Analytics">Analytics</a></li>
+                        <li class="pc-item"><a class="pc-link" href="../dashboard/finance.html"
+                                data-i18n="Finance">Finance</a></li>
+                    </ul>
+                </li> --}}
+
                 <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
+                    <a href="{{ route('admin.quotes.index') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-mouse-circle"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Categories">Categories</span>
+                        <span class="pc-mtext" data-i18n="Quotations">Quotations</span>
                     </a>
                 </li>
-
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon"><i class="ti ti-users"></i></span>
+                        <span class="pc-mtext">Clients & Orders</span>
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item">
+                            <a class="pc-link" href="#">
+                                <i class="ti ti-users"></i> Clients
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="#">
+                                <i class="ti ti-shopping-cart"></i> Orders
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('teams.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -117,14 +163,14 @@
                     </a>
                 </li>
 
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('variables.index') }}" class="pc-link">
+                <li class="pc-item">
+                    <a href="{{ route('variables.quick') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-keyboard"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Variables">Variables</span><span class="pc-arrow"></span>
+                        <span class="pc-mtext" data-i18n="Variables">Variables</span>
                     </a>
                 </li>
 

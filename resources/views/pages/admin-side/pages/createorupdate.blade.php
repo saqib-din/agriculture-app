@@ -59,7 +59,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Content <span class="text-danger">*</span></label>
-                                            <textarea name="content" id="content-editor" class="form-control" rows="10">{{ old('content', $page->content ?? '') }}</textarea>
+                                            <textarea name="content" id="content-editor" class="form-control">{{ old('content', $page->content ?? '') }}</textarea>
                                             @error('content')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -131,7 +131,7 @@
 
         tinymce.init({
             selector: '#content-editor',
-            height: 500,
+            height: 300,
             menubar: false,
 
             plugins: [

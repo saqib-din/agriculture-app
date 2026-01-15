@@ -275,3 +275,318 @@
         @endif
     </body>
 </html>
+@extends('layouts.admin')
+
+@section('content')
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">Products</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Add</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h2 class="mb-0">{{ isset($product) ? 'Edit Product' : 'Add Product' }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            @include('components.alerts')
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Product Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('admin.products.storeUpdate', $product->id ?? null) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+
+                                <div class="row">
+                                    <!-- Product Name -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Product Name <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" name="name" id="productName" class="form-control"
+                                                placeholder="Enter product name"
+                                                value="{{ old('name', $product->name ?? '') }}" required />
+                                        </div>
+                                    </div>
+
+                                    <!-- Slug (Auto-generated) -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">
+                                                Slug <span class="text-danger">*</span>
+                                                <small class="text-muted">(Auto-generated from product name)</small>
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="text" name="slug" id="productSlug" class="form-control"
+                                                    placeholder="product-slug"
+                                                    value="{{ old('slug', $product->slug ?? '') }}" readonly />
+                                                <button type="button" class="btn btn-outline-secondary" id="editSlugBtn">
+                                                    <i class="ti ti-edit"></i> Edit
+                                                </button>
+                                            </div>
+                                            <small class="text-muted">
+                                                Click "Edit" to customize the slug manually
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Brand -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Brand</label>
+                                            <input type="text" name="brand" class="form-control"
+                                                placeholder="Enter brand name"
+                                                value="{{ old('brand', $product->brand ?? '') }}" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Model -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Model</label>
+                                            <input type="text" name="model" class="form-control"
+                                                placeholder="Enter model name"
+                                                value="{{ old('model', $product->model ?? '') }}" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Price -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Price</label>
+                                            <input type="number" name="price" class="form-control"
+                                                placeholder="Enter price" step="0.01"
+                                                value="{{ old('price', $product->price ?? '') }}" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Quantity -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Quantity</label>
+                                            <input type="number" name="quantity" class="form-control"
+                                                placeholder="Enter quantity"
+                                                value="{{ old('quantity', $product->quantity ?? '') }}" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Brief Details -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Brief Details</label>
+                                            <textarea name="brief_details" class="form-control" rows="3" placeholder="Enter brief details">{{ old('brief_details', $product->brief_details ?? '') }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea name="description" class="form-control" rows="3" placeholder="Enter description">{{ old('description', $product->description ?? '') }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status</label>
+                                            <select name="status" class="form-select">
+                                                <option value="1"
+                                                    {{ old('status', $product->status ?? 1) == 1 ? 'selected' : '' }}>
+                                                    Active
+                                                </option>
+                                                <option value="0"
+                                                    {{ old('status', $product->status ?? 1) == 0 ? 'selected' : '' }}>
+                                                    Inactive
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Images -->
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Product Images (Multiple)</label>
+                                            <input class="form-control" type="file" name="images[]" multiple
+                                                accept="image/*" />
+                                            <small class="text-muted">Allowed: JPG, JPEG, PNG, WEBP. Max size: 2MB per
+                                                image.</small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Existing Images -->
+                                    @if (isset($product) && $product->images->count())
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label">Existing Images</label>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                @foreach ($product->images as $img)
+                                                    <div class="position-relative image-wrapper"
+                                                        style="width:100px; height:100px;">
+                                                        <img src="{{ asset('storage/' . $img->image) }}"
+                                                            alt="Product Image" class="img-thumbnail w-100 h-100"
+                                                            style="object-fit:cover;" />
+
+                                                        <a href="#"
+                                                            class="avtar avtar-xs btn-link-danger bs-pass-para"
+                                                            data-id="{{ $img->id }}" title="Delete">
+                                                            <i class="ti ti-trash f-20"></i>
+                                                        </a>
+
+                                                        <form id="delete-form-{{ $img->id }}"
+                                                            action="{{ route('admin.products.imageDestroy', $img->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <!-- Submit Button -->
+                                    <div class="col-md-12 text-end">
+                                        <a href="{{ route('products.list') }}" class="btn btn-secondary me-2">
+                                            Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            {{-- <i class="ti ti-device-floppy me-1"></i> --}}
+                                            {{ isset($product) ? 'Update Product' : 'Save Product' }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+    <style>
+        .image-wrapper {
+            position: relative;
+        }
+
+        .avtar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background-color: rgba(220, 53, 69, 0.9);
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+        }
+
+        .avtar i {
+            color: white;
+            font-size: 18px;
+        }
+
+        .image-wrapper:hover .avtar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-wrapper:hover img {
+            opacity: 0.7;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productNameInput = document.getElementById('productName');
+            const productSlugInput = document.getElementById('productSlug');
+            const editSlugBtn = document.getElementById('editSlugBtn');
+            let slugEditable = false;
+            let isEditMode = {{ isset($product) ? 'true' : 'false' }};
+
+            // Function to generate slug from name
+            function generateSlug(text) {
+                return text
+                    .toString()
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, '-') // Replace spaces with -
+                    .replace(/[^\w\-]+/g, '') // Remove non-word chars
+                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                    .replace(/^-+/, '') // Trim - from start
+                    .replace(/-+$/, ''); // Trim - from end
+            }
+
+            // Auto-generate slug when typing product name (only for new products)
+            if (!isEditMode) {
+                productNameInput.addEventListener('input', function() {
+                    if (!slugEditable) {
+                        productSlugInput.value = generateSlug(this.value);
+                    }
+                });
+            }
+
+            // Edit slug manually
+            editSlugBtn.addEventListener('click', function() {
+                slugEditable = !slugEditable;
+
+                if (slugEditable) {
+                    productSlugInput.removeAttribute('readonly');
+                    productSlugInput.focus();
+                    editSlugBtn.innerHTML = '<i class="ti ti-check"></i> Done';
+                    editSlugBtn.classList.remove('btn-outline-secondary');
+                    editSlugBtn.classList.add('btn-success');
+                } else {
+                    productSlugInput.setAttribute('readonly', true);
+                    editSlugBtn.innerHTML = '<i class="ti ti-edit"></i> Edit';
+                    editSlugBtn.classList.remove('btn-success');
+                    editSlugBtn.classList.add('btn-outline-secondary');
+
+                    // Re-generate slug from current input value
+                    productSlugInput.value = generateSlug(productSlugInput.value);
+                }
+            });
+
+            // Handle slug input
+            productSlugInput.addEventListener('input', function() {
+                if (slugEditable) {
+                    this.value = generateSlug(this.value);
+                }
+            });
+
+            // // Handle image delete
+            // document.querySelectorAll('.bs-pass-para').forEach(btn => {
+            //     btn.addEventListener('click', function(e) {
+            //         e.preventDefault();
+            //         const imageId = this.dataset.id;
+
+            //         if (confirm('Are you sure you want to delete this image?')) {
+            //             document.getElementById(`delete-form-${imageId}`).submit();
+            //         }
+            //     });
+            // });
+        });
+    </script>
+@endsection

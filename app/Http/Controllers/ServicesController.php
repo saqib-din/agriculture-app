@@ -43,25 +43,32 @@ class ServicesController extends Controller
             'status'           => 'required',
         ]);
 
-        if ($request->main_service == 1 && $request->featured_service == 1) {
-            return back()->with('error', 'A service cannot be both Main and Featured at the same time.');
-        }
+        // Commented out: A service can now be both Main and Featured
+        // if ($request->main_service == 1 && $request->featured_service == 1) {
+        //     return back()->with('error', 'A service cannot be both Main and Featured at the same time.');
+        // }
 
+        // Only one Main Service allowed - user must manually unset the existing one first
         if ($request->main_service == 1) {
-            Service::where('main_service', 1)
+            $existingMainService = Service::where('main_service', 1)
                 ->where('id', '!=', $id)
-                ->update(['main_service' => 0]);
-        }
+                ->first();
 
-        if ($request->featured_service == 1) {
-            $alreadyFeatured = Service::where('featured_service', 1)
-                ->where('id', '!=', $id)
-                ->count();
-
-            if ($alreadyFeatured >= 3) {
-                return back()->with('error', 'Only 3 Featured Services are allowed.');
+            if ($existingMainService) {
+                return back()->with('error', 'A Main Service already exists. Please remove it first before setting a new one.');
             }
         }
+
+        // Removed: Featured service limit - now unlimited featured services allowed
+        // if ($request->featured_service == 1) {
+        //     $alreadyFeatured = Service::where('featured_service', 1)
+        //         ->where('id', '!=', $id)
+        //         ->count();
+        //
+        //     if ($alreadyFeatured >= 3) {
+        //         return back()->with('error', 'Only 3 Featured Services are allowed.');
+        //     }
+        // }
 
         if ($request->hasFile('image')) {
             if ($id && $service->image && file_exists(public_path('uploads/services/' . $service->image))) {

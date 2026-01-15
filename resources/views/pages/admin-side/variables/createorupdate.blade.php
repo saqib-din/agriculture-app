@@ -11,7 +11,7 @@
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:void(0)">Variables</a></li>
-                                <li class="breadcrumb-item">{{ isset($team) ? 'Edit' : 'Add' }}</li>
+                                <li class="breadcrumb-item">{{ isset($variable) ? 'Edit' : 'Add' }}</li>
                             </ul>
                         </div>
                         <div class="col-md-12">
@@ -22,6 +22,9 @@
                     </div>
                 </div>
             </div>
+
+            @include('components.alerts')
+
 
             <div class="row">
                 <div class="col-12">
@@ -154,9 +157,9 @@
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Company Map</label>
+                                            <label class="form-label">Company Map URL</label>
                                             <input type="text" name="map" class="form-control"
-                                                placeholder="Enter company map"
+                                                placeholder="Enter company map URL"
                                                 value="{{ old('map', $variable->map ?? '') }}">
                                         </div>
                                     </div>
@@ -197,7 +200,7 @@
 
                                     <div class="col-md-12 text-end mt-3">
                                         <div class="mb-3">
-                                            <button class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 {{ isset($variable) ? 'Update' : 'Submit' }}
                                             </button>
                                         </div>

@@ -142,7 +142,6 @@
                                         <div class="mb-3">
                                             <label class="form-label">Profile Image</label>
                                             <input class="form-control" type="file" name="image" />
-
                                         </div>
                                     </div>
 

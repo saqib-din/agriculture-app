@@ -35,7 +35,7 @@ class ContactController extends Controller
             'phone'   => ['required', 'string', 'max:50'],
             'message' => ['required', 'string', 'max:2000'],
             'terms'   => ['accepted'],
-            'recaptcha_token' => ['required']  // v3 ke liye
+            'recaptcha_token' => ['required']
         ], [
             'recaptcha_token.required' => 'reCAPTCHA verification failed.'
         ]);
@@ -48,6 +48,14 @@ class ContactController extends Controller
         ]);
 
         if ($response->failed()) {
+            // AJAX Response
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unable to verify reCAPTCHA. Please try again.'
+                ], 422);
+            }
+
             return back()
                 ->with('error', 'Unable to verify reCAPTCHA. Please try again.')
                 ->withInput();
@@ -61,6 +69,14 @@ class ContactController extends Controller
                 'error_codes' => $recaptchaData['error-codes'] ?? [],
                 'ip' => $request->ip()
             ]);
+
+            // AJAX Response
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'reCAPTCHA verification failed. Please try again.'
+                ], 422);
+            }
 
             return back()
                 ->with('error', 'reCAPTCHA verification failed. Please try again.')
@@ -77,6 +93,14 @@ class ContactController extends Controller
                 'ip' => $request->ip(),
                 'email' => $validated['email']
             ]);
+
+            // AJAX Response
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Suspicious activity detected. Please try again.'
+                ], 422);
+            }
 
             return back()
                 ->with('error', 'Suspicious activity detected. Please try again.')
@@ -120,6 +144,16 @@ class ContactController extends Controller
             }
         }
 
+        // AJAX Response for successful submission
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you! Your message has been sent successfully.',
+                'contact_id' => $contact->id
+            ], 200);
+        }
+
+        // Normal redirect (fallback)
         return back()->with('success', 'Thank you! Your message has been sent successfully.');
     }
 
