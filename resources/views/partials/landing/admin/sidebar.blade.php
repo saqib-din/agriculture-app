@@ -78,24 +78,6 @@
                     </ul>
                 </li>
 
-                <li class="pc-item">
-                    <a href="{{ route('clients.index') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="ti ti-users"></i>
-                        </span>
-                        <span class="pc-mtext">Clients</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="{{ route('orders.index') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="ti ti-shopping-cart"></i>
-                        </span>
-                        <span class="pc-mtext">Orders</span>
-                    </a>
-                </li>
-            
-
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('admin.quotes.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -106,7 +88,26 @@
                         <span class="pc-mtext" data-i18n="Quotations">Quotations</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
+
+                <li class="pc-item">
+                    <a href="{{ route('admin.clients.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="pc-mtext">Clients</span>
+                    </a>
+                </li>
+                <li class="pc-item">
+                    <a href="{{ route('admin.orders.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="ti ti-shopping-cart"></i>
+                        </span>
+                        <span class="pc-mtext">Orders</span>
+                    </a>
+                </li>
+
+
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon"><i class="ti ti-users"></i></span>
                         <span class="pc-mtext">Clients & Orders</span>
@@ -124,7 +125,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('teams.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -161,7 +162,7 @@
                 </li>
 
                 <li class="pc-item">
-                    <a href="{{ route('variables.quick') }}" class="pc-link">
+                    <a href="{{ route('variables.create') }}" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
                                 <use xlink:href="#custom-keyboard"></use>

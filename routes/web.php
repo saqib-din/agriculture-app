@@ -76,27 +76,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
 
     // Client
-    Route::get('clients', [ClientsController::class, 'index'])->name('clients.index');          // List all clients
-    Route::get('clients/create', [ClientsController::class, 'create'])->name('clients.create');  // Show create form
-    Route::post('clients', [ClientsController::class, 'store'])->name('clients.store');          // Save new client
-    Route::get('clients/{id}/edit', [ClientsController::class, 'edit'])->name('clients.edit');   // Edit form
-    Route::put('clients/{id}', [ClientsController::class, 'update'])->name('clients.update');    // Update client
-    Route::delete('clients/{id}', [ClientsController::class, 'destroy'])->name('clients.destroy'); // Delete client
-    Route::post('clients/quick-store', [ClientsController::class, 'quickStore'])->name('clients.quick.store');
-
+    Route::get('/clients', [ClientsController::class, 'index'])
+        ->name('admin.clients.index');
+    Route::get('/clients/create', [ClientsController::class, 'create'])
+        ->name('admin.clients.create');
+    Route::post('/clients', [ClientsController::class, 'store'])
+        ->name('admin.clients.store');
+    Route::get('/clients/{client}', [ClientsController::class, 'show'])
+        ->name('admin.clients.show');
+    Route::get('/clients/{client}/edit', [ClientsController::class, 'edit'])
+        ->name('admin.clients.edit');
+    Route::put('/clients/{client}', [ClientsController::class, 'update'])
+        ->name('admin.clients.update');
+    Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])
+        ->name('admin.clients.destroy');
     // Order
-    Route::get('/orders', [OrderController::class, 'index'])
-        ->name('orders.index');
-    Route::get('/orders/create', [OrderController::class, 'create'])
-        ->name('orders.create');
-    Route::post('/orders', [OrderController::class, 'store'])
-        ->name('orders.store');
-    Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])
-        ->name('orders.edit');
-    Route::put('/orders/{id}', [OrderController::class, 'update'])
-        ->name('orders.update');
-    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])
-        ->name('orders.destroy');
+    Route::prefix('orders')->name('admin.orders.')->group(function () {
+
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/create', [OrderController::class, 'create'])->name('create');
+        Route::post('/store', [OrderController::class, 'store'])->name('store');
+
+        Route::get('/{order}', [OrderController::class, 'show'])->name('show');
+        Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/{order}/activity', [OrderController::class, 'storeActivity'])->name('storeActivity');
+        Route::get('/{order}/print', [OrderController::class, 'print'])->name('print');
+        Route::delete('/{order}', [OrderController::class, 'destroy'])->name('destroy');
+    });
 
     // Services
     Route::get('/services/index', [ServicesController::class, 'index'])->name('services.index');

@@ -2,102 +2,135 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderActivity;
+use App\Models\QuoteActivity;
 use App\Models\Client;
+use App\Models\Product;
+use App\Models\QuoteRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the orders.
-     */
     public function index()
     {
-        $orders = Order::with('client')->latest()->get();
+        $orders = Order::with(['client', 'products'])
+            ->latest()
+            ->paginate(20);
         return view('pages.admin-side.orders.index', compact('orders'));
     }
-
-    /**
-     * Show the form for creating a new order.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        $clients = Client::orderBy('name')->get();
-        return view('pages.admin-side.orders.create', compact('clients'));
+        $clients = Client::where('status', true)->get();
+        $products = Product::where('status', true)->get();
+        $quoteRequestId = $request->quote_request_id;
+        return view('pages.admin-side.orders.create', compact('clients', 'products', 'quoteRequestId'));
     }
-
-    /**
-     * Store a newly created order in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'client_id'     => 'required|exists:clients,id',
-            'order_date'    => 'required|date',
-            'total_amount'  => 'required|numeric',
-            'status'        => 'nullable',
-            'notes'         => 'nullable',
+            'client_id' => 'required|exists:clients,id',
+            'products' => 'required|array|min:1',
+            'products.*.id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
+            'products.*.price' => 'required|numeric|min:0',
+            'discount' => 'nullable|numeric|min:0',
+            'notes' => 'nullable|string'
         ]);
-
-        Order::create([
-            'client_id'     => $request->client_id,
-            'order_no'      => 'ORD-' . time(),
-            'order_date'    => $request->order_date,
-            'total_amount'  => $request->total_amount,
-            'status'        => $request->status ?? 'pending',
-            'notes'         => $request->notes,
-        ]);
-
-        return redirect()->route('orders.index')
-            ->with('success', 'Order added successfully');
+        DB::beginTransaction();
+        try {
+            $subtotal = 0;
+            foreach ($request->products as $product) {
+                $subtotal += $product['price'] * $product['quantity'];
+            }
+            $taxAmount = ($subtotal - ($request->discount ?? 0)) * (17 / 100);
+            $total = $subtotal + $taxAmount - ($request->discount ?? 0);
+            $order = Order::create([
+                'client_id' => $request->client_id,
+                'quote_request_id' => $request->quote_request_id,
+                'subtotal' => $subtotal,
+                'tax_rate' => 17.00,
+                'tax_amount' => $taxAmount,
+                'discount' => $request->discount ?? 0,
+                'total' => $total,
+                'status' => 'pending',
+                'notes' => $request->notes
+            ]);
+            foreach ($request->products as $product) {
+                $order->products()->attach($product['id'], [
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'subtotal' => $product['price'] * $product['quantity']
+                ]);
+            }
+            OrderActivity::create([
+                'order_id' => $order->id,
+                'type' => 'other',
+                'details' => 'Order created'
+            ]);
+            if ($request->quote_request_id) {
+                $quoteRequest = QuoteRequest::find($request->quote_request_id);
+                if ($quoteRequest) {
+                    QuoteActivity::create([
+                        'quote_request_id' => $quoteRequest->id,
+                        'type' => 'other',
+                        'details' => "Order created: {$order->order_number}"
+                    ]);
+                }
+            }
+            DB::commit();
+            return redirect()->route('admin.orders.index', $order)
+                ->with('success', 'Order created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to create order: ' . $e->getMessage());
+        }
     }
-
-    /**
-     * Show the form for editing the specified order.
-     */
-    public function edit(string $id)
+    public function show(Order $order)
     {
-        $order = Order::findOrFail($id);
-        $clients = Client::orderBy('name')->get();
-
-        return view('pages.admin-side.orders.edit', compact('order', 'clients'));
+        $order->load(['client', 'products.images', 'activities', 'quoteRequest']);
+        return view('pages.admin-side.orders.show', compact('order'));
     }
-
-    /**
-     * Update the specified order in storage.
-     */
-    public function update(Request $request, string $id)
+    public function updateStatus(Request $request, Order $order)
     {
-        $order = Order::findOrFail($id);
-
         $request->validate([
-            'client_id'     => 'required|exists:clients,id',
-            'order_date'    => 'required|date',
-            'total_amount'  => 'required|numeric',
-            'status'        => 'required',
-            'notes'         => 'nullable',
+            'status' => 'required|in:pending,in_progress,delivered,installed,completed,cancelled'
         ]);
-
-        $order->update([
-            'client_id'     => $request->client_id,
-            'order_date'    => $request->order_date,
-            'total_amount'  => $request->total_amount,
-            'status'        => $request->status,
-            'notes'         => $request->notes,
+        $oldStatus = $order->status;
+        $order->update(['status' => $request->status]);
+        OrderActivity::create([
+            'order_id' => $order->id,
+            'type' => 'status_change',
+            'details' => "Status changed from {$oldStatus} to {$request->status}"
         ]);
-
-        return redirect()->route('orders.index')
-            ->with('success', 'Order updated successfully');
+        return response()->json(['success' => true]);
     }
-
-    /**
-     * Remove the specified order from storage.
-     */
-    public function destroy(string $id)
+    public function storeActivity(Request $request, Order $order)
     {
-        Order::findOrFail($id)->delete();
-
-        return redirect()->route('orders.index')
-            ->with('success', 'Order deleted successfully');
+        $request->validate([
+            'type' => 'required|in:call,message,meeting,email,payment,other',
+            'details' => 'required|string'
+        ]);
+        OrderActivity::create([
+            'order_id' => $order->id,
+            'type' => $request->type,
+            'details' => $request->details
+        ]);
+        return redirect()->back()->with('success', 'Activity added successfully.');
+    }
+    public function print(Order $order)
+    {
+        $order->load(['client', 'products']);
+        return view('pages.admin-side.orders.print', compact('order'));
+    }
+    public function destroy(Order $order)
+    {
+        $order->delete();
+        return redirect()->route('admin.orders.index')
+            ->with('success', 'Order deleted successfully.');
     }
 }
