@@ -76,8 +76,34 @@ Route::middleware('auth')->group(function () {
     Route::post('/hero/save/{id?}', [HeroSectionController::class, 'save'])->name('hero.save');
     Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
 
-   
+    // Client
+    Route::get('/clients', [ClientsController::class, 'index'])
+        ->name('admin.clients.index');
+    Route::get('/clients/create', [ClientsController::class, 'create'])
+        ->name('admin.clients.create');
+    Route::post('/clients', [ClientsController::class, 'store'])
+        ->name('admin.clients.store');
+    Route::get('/clients/{client}', [ClientsController::class, 'show'])
+        ->name('admin.clients.show');
+    Route::get('/clients/{client}/edit', [ClientsController::class, 'edit'])
+        ->name('admin.clients.edit');
+    Route::put('/clients/{client}', [ClientsController::class, 'update'])
+        ->name('admin.clients.update');
+    Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])
+        ->name('admin.clients.destroy');
+    // Order
+    Route::prefix('orders')->name('admin.orders.')->group(function () {
 
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/create', [OrderController::class, 'create'])->name('create');
+        Route::post('/store', [OrderController::class, 'store'])->name('store');
+
+        Route::get('/{order}', [OrderController::class, 'show'])->name('show');
+        Route::patch('/{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/{order}/activity', [OrderController::class, 'storeActivity'])->name('storeActivity');
+        Route::get('/{order}/print', [OrderController::class, 'print'])->name('print');
+        Route::delete('/{order}', [OrderController::class, 'destroy'])->name('destroy');
+    });
 
     // Services
     Route::get('/services/index', [ServicesController::class, 'index'])->name('services.index');
