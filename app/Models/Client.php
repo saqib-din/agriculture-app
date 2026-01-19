@@ -2,29 +2,39 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'email',
         'phone',
         'company',
-        'status',
-
-        'street',
+        'address',
         'city',
         'state',
+        'zip',
         'country',
-        'zip_code',
-        'ntn_gst',
         'image',
+        'status',
+        'notes'
     ];
 
-    // ✅ Client has many orders
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function quoteRequests()
+    {
+        return $this->hasMany(QuoteRequest::class);
     }
 }

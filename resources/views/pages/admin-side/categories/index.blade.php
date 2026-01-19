@@ -142,8 +142,8 @@
 
                     {{-- Category Name --}}
                     <div class="mb-3">
-                        <label class="form-label">Category Name</label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                        <label class="form-label">Category Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter category name" value="{{ old('name') }}" required>
                     </div>
 
                 </div>
@@ -174,7 +174,7 @@
 
                         {{-- Category Name --}}
                         <div class="mb-3">
-                            <label class="form-label">Category Name</label>
+                            <label class="form-label">Category Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control"
                                 value="{{ old('name', $category->name) }}" required>
                         </div>

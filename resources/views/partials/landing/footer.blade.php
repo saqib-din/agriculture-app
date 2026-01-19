@@ -1,6 +1,10 @@
 <!-- Footer -->
 <footer class="footer" id="footer-main">
 
+    @php
+        $variables = \App\Models\Variable::pluck('value', 'key');
+    @endphp
+
     <div class="footer-inner">
         <div class="tf-container w-1290">
             <div class="row">
@@ -15,14 +19,12 @@
                                                 alt="" />
                                         </div>
                                         <div class="flex-grow-1 ms-3">
-                                            @if (isset($variables) && $variables->isNotEmpty())
-                                                <h5 class="text-light mb-0 fw-5">{{ $variables->first()->name ?? 'N/A' }}
-                                                </h5>
-                                                {{-- <span
-                                                    class="text-light">{{ $variables->first()->slogan ?? 'N/A' }}</span> --}}
-                                            @else
-                                                <h5 class="text-light mb-0 fw-5">Scrumad</h5>
-                                            @endif
+                                            <h5 class="text-light mb-0 fw-5">
+                                                {{ $variables['company_name'] ?? 'Scrumad' }}
+                                            </h5>
+                                            <span class="text-light">
+                                                {{ $variables['company_slogan'] ?? '' }}
+                                            </span>
                                         </div>
                                     </div>
                                 </a>
@@ -31,68 +33,43 @@
                     </div>
                 </div>
             </div>
-            <div class="row d-flex justify-content-between">
-                <div class="col-lg-3 col-md-6 ">
 
+            <div class="row d-flex justify-content-between">
+
+                {{-- Contact Info --}}
+                <div class="col-lg-3 col-md-6">
                     <div class="footer-inner-wrap footer-col-block">
-                        <h4 class="footer-title footer-title-desktop mb-23">
-                            Contact Us!
-                        </h4>
-                        <h4 class="footer-title footer-title-mobile mb-23">
-                            Contact Us!
-                        </h4>
+                        <h4 class="footer-title mb-23">Contact Us!</h4>
                         <ul class="contact-list tf-collapse-content">
                             <li>
                                 <i class="fa-solid fa-location-dot fs-17"></i>
-                                @if (isset($variables) && $variables->isNotEmpty())
-                                    <p class="address">{{ $variables->first()->address ?? 'N/A' }}</p>
-                                @else
-                                    <p class="address">N/A</p>
-                                @endif
+                                <p class="address">{{ $variables['company_address'] ?? 'N/A' }}</p>
                             </li>
-
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                @if (isset($variables) && $variables->isNotEmpty())
-                                    <p class="phone-number fs-15">Call us: {{ $variables->first()->phone ?? 'N/A' }}</p>
-                                @else
-                                    <p class="phone-number fs-15">N/A</p>
-                                @endif
+                                <p class="phone-number fs-15">Call us: {{ $variables['company_phone'] ?? 'N/A' }}</p>
                             </li>
-
                             <li>
                                 <i class="icon-package-box"></i>
-                                @if (isset($variables) && $variables->isNotEmpty())
-                                    <p class="email fs-15">Mail: {{ $variables->first()->email ?? 'N/A' }}</p>
-                                @else
-                                    <p class="email fs-15">N/A</p>
-                                @endif
+                                <p class="email fs-15">Mail: {{ $variables['company_email'] ?? 'N/A' }}</p>
                             </li>
-
                             <li>
                                 <i class="fa-solid fa-clock"></i>
-                                @if (isset($variables) && $variables->isNotEmpty())
-                                    <p class="time-open fs-15">Mon - Sat:
-                                        {{ $variables->first()->working_hours ?? 'N/A' }}</p>
-                                @else
-                                    <p class="time-open fs-15">N/A</p>
-                                @endif
+                                <p class="time-open fs-15">Mon - Sat: {{ $variables['working_hours'] ?? 'N/A' }}</p>
                             </li>
                         </ul>
-
                     </div>
                 </div>
 
+                {{-- Quick Links --}}
                 @php
                     $footerPages = \App\Models\Page::where('display_in_footer', 1)->where('status', 'Active')->get();
                 @endphp
 
-                @if ($footerPages->count() > 0)
+                @if ($footerPages->count())
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-inner-wrap footer-col-block">
-                            <h4 class="footer-title footer-title-desktop mb-28">Quick Links</h4>
-                            <h4 class="footer-title footer-title-mobile mb-28">Quick Links</h4>
-
+                            <h4 class="footer-title mb-28">Quick Links</h4>
                             <ul class="link-list tf-collapse-content">
                                 @foreach ($footerPages as $footerPage)
                                     <li class="item">
@@ -124,73 +101,38 @@
                         Copyright &copy; {{ date('Y') }} {{ config('app.name', 'Donal Farm') }}. All Rights
                         Reserved.
                     </p>
-                    @php
-                        $settings = isset($variables) && $variables->isNotEmpty() ? $variables->first() : null;
-                    @endphp
 
-                    @if ($settings)
-                        <div class="footer-right">
-                            <div class="wg-social">
-                                <ul class="list">
-
-                                    @if (!empty($settings->facebook))
+                    {{-- Social Icons --}}
+                    <div class="footer-right">
+                        <div class="wg-social">
+                            <ul class="list">
+                                @foreach (['facebook', 'twitter', 'instagram', 'youtube', 'linkedin'] as $social)
+                                    @if (!empty($variables[$social]))
                                         <li class="item">
-                                            <a href="{{ $settings->facebook }}" target="_blank">
-                                                <i class="icon-facebook1"></i>
+                                            <a href="{{ $variables[$social] }}" target="_blank">
+                                                <i class="icon-{{ $social }}"></i>
                                             </a>
                                         </li>
                                     @endif
-
-                                    @if (!empty($settings->twitter))
-                                        <li class="item">
-                                            <a href="{{ $settings->twitter }}" target="_blank">
-                                                <i class="icon-twitter"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (!empty($settings->instagram))
-                                        <li class="item">
-                                            <a href="{{ $settings->instagram }}" target="_blank">
-                                                <i class="icon-instagram2"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (!empty($settings->youtube))
-                                        <li class="item">
-                                            <a href="{{ $settings->youtube }}" target="_blank">
-                                                <i class="fa-brands fa-youtube"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (!empty($settings->linkedin))
-                                        <li class="item">
-                                            <a href="{{ $settings->linkedin }}" target="_blank">
-                                                <i class="fa-brands fa-linkedin"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                </ul>
-                            </div>
+                                @endforeach
+                            </ul>
                         </div>
-                    @endif
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- Decorative Images --}}
     <div class="img-item item-1">
         <img src="{{ asset('assets/images/item/grass-2.png') }}" alt="" />
     </div>
     <div class="img-item item-2">
-
-        <div class="  scroll-element-3">
-            <img class="wow zoomIn" src="{{ asset('assets/images/item/silo.png') }}"
-                alt="{{ asset('assets/images/item/silo.png') }}" />
+        <div class="scroll-element-3">
+            <img class="wow zoomIn" src="{{ asset('assets/images/item/silo.png') }}" alt="silo" />
         </div>
     </div>
+
 </footer>
 <!-- /.Footer -->

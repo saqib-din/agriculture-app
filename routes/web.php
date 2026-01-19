@@ -63,6 +63,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -75,28 +76,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/hero/save/{id?}', [HeroSectionController::class, 'save'])->name('hero.save');
     Route::delete('/hero/delete/{id}', [HeroSectionController::class, 'destroy'])->name('hero.delete');
 
-    // Client
-    Route::get('clients', [ClientsController::class, 'index'])->name('clients.index');          // List all clients
-    Route::get('clients/create', [ClientsController::class, 'create'])->name('clients.create');  // Show create form
-    Route::post('clients', [ClientsController::class, 'store'])->name('clients.store');          // Save new client
-    Route::get('clients/{id}/edit', [ClientsController::class, 'edit'])->name('clients.edit');   // Edit form
-    Route::put('clients/{id}', [ClientsController::class, 'update'])->name('clients.update');    // Update client
-    Route::delete('clients/{id}', [ClientsController::class, 'destroy'])->name('clients.destroy'); // Delete client
-    Route::post('clients/quick-store', [ClientsController::class, 'quickStore'])->name('clients.quick.store');
+   
 
-    // Order
-    Route::get('/orders', [OrderController::class, 'index'])
-        ->name('orders.index');
-    Route::get('/orders/create', [OrderController::class, 'create'])
-        ->name('orders.create');
-    Route::post('/orders', [OrderController::class, 'store'])
-        ->name('orders.store');
-    Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])
-        ->name('orders.edit');
-    Route::put('/orders/{id}', [OrderController::class, 'update'])
-        ->name('orders.update');
-    Route::delete('/orders/{id}', [OrderController::class, 'destroy'])
-        ->name('orders.destroy');
 
     // Services
     Route::get('/services/index', [ServicesController::class, 'index'])->name('services.index');
@@ -140,7 +121,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/products/store-update/{product?}', [ProductController::class, 'storeOrUpdate'])->name('admin.products.storeUpdate');
     Route::get('admin/product/list', [ProductController::class, 'index'])->name('products.list');
     Route::get('/admin/products/edit/{product}', [ProductController::class, 'edit'])->name('admin.products.edit');
-    Route::delete('/admin/products/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])
+        ->name('admin.products.destroy');
     Route::delete('/admin/products/image-destroy/{image}', [ProductController::class, 'imageDestroy'])->name('admin.products.imageDestroy');
 
     // AJAX Routes for Product Updates
@@ -149,14 +131,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/products/price-display/{product}', [ProductController::class, 'updatePriceDisplay'])->name('admin.products.priceDisplay');
     Route::post('/admin/products/status/{product}', [ProductController::class, 'updateStatus'])->name('admin.products.status');
 
-    // Quote a Request 
-    Route::get('/quotes', [QuoteRequestController::class, 'index'])->name('admin.quotes.index');
-    Route::get('/quotes/{id}', [QuoteRequestController::class, 'show'])->name('admin.quotes.show');
-    Route::post('/admin/quotes/update-status', [QuoteRequestController::class, 'updateStatus'])
-        ->name('admin.quotes.updateStatus');
-    Route::post('admin/quotes/reply/{id}', [QuoteRequestController::class, 'reply'])
-        ->name('admin.quotes.reply');
-    Route::delete('/quotes/{id}', [QuoteRequestController::class, 'destroy'])->name('admin.quotes.destroy');
+    // Quote Requests Routes
+    Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+
+        Route::prefix('quotes')->name('quotes.')->group(function () {
+            Route::get('/', [QuoteRequestController::class, 'index'])->name('index');
+            Route::get('/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('show');
+            Route::post('/update-status', [QuoteRequestController::class, 'updateStatus'])->name('updateStatus');
+            Route::patch('/{quoteRequest}/status', [QuoteRequestController::class, 'updateStatus'])->name('updateStatusPatch');
+            Route::patch('/{quoteRequest}/update-quantity', [QuoteRequestController::class, 'updateQuantity'])->name('updateQuantity');
+            Route::post('/{quoteRequest}/reply', [QuoteRequestController::class, 'reply'])->name('reply');
+            Route::post('/{quoteRequest}/convert-to-client', [QuoteRequestController::class, 'convertToClient'])->name('convertToClient');
+            Route::post('/{quoteRequest}/reject', [QuoteRequestController::class, 'reject'])->name('reject');
+            Route::post('/{quoteRequest}/reopen', [QuoteRequestController::class, 'reopen'])->name('reopen');
+            Route::post('/{quoteRequest}/activity', [QuoteRequestController::class, 'storeActivity'])->name('storeActivity');
+            Route::delete('/{quoteRequest}', [QuoteRequestController::class, 'destroy'])->name('destroy');
+        });
+    });
 
     // Partners
     Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
@@ -167,10 +158,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/partners/delete/{id}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
     // Variables - Quick Access
-    Route::get('variables', [VariablesController::class, 'quickAccess'])->name('variables.quick');
-    Route::get('variables/create', [VariablesController::class, 'create'])->name('variables.create');
-    Route::get('variables/{id}/edit', [VariablesController::class, 'edit'])->name('variables.edit');
-    Route::post('variables/save/{id?}', [VariablesController::class, 'storeOrUpdate'])->name('variables.save');
+    // Route::get('variables', [VariablesController::class, 'quickAccess'])->name('variables.quick');
+    Route::get('/variables', [VariablesController::class, 'create'])->name('variables.create');
+    Route::post('/variables', [VariablesController::class, 'storeOrUpdate'])->name('variables.save');
+
 
     // Commented out routes
     // Route::get('variables', [VariablesController::class, 'index'])->name('variables.index');

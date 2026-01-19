@@ -205,46 +205,65 @@
                             <h3 class="fw-6 name font-worksans title">{{ $product->name }}</h3>
                             <div class="price-wrap price-left">
                                 <span class="price-2">
-                                    @if ($product->price)
-                                        PKR {{ number_format($product->price, 2) }}
+                                    @if ($product->price_display === 'hide')
+                                        {{-- Don't show anything --}}
+                                    @elseif ($product->price_display === 'call')
+                                        Email for Price
                                     @else
-                                        N/A
+                                        {{-- 'price' or default - show price --}}
+                                        @if ($product->price)
+                                            PKR {{ number_format($product->price, 2) }}
+                                        @else
+                                            N/A
+                                        @endif
                                     @endif
                                 </span>
                             </div>
                             <p class="sub font-nunito">{{ $product->brief_details }}</p>
                             <ul class="notice-list">
                                 <li>
-                                    <svg id="Layer_1" height="24" viewBox="0 0 512 512" width="24"
-                                        xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
-                                        <path
-                                            d="m441.667 118.253-192-85.333a10.687 10.687 0 0 0 -8.667 0l-192 85.333a10.669 10.669 0 0 0 -6.333 9.747v234.667a10.669 10.669 0 0 0 6.333 9.747l192 85.333a10.673 10.673 0 0 0 8.667 0l192-85.333a10.669 10.669 0 0 0 6.333-9.747v-234.667a10.669 10.669 0 0 0 -6.333-9.747z"
-                                            fill="#ff9500" />
-                                        <path
-                                            d="m249.667 457.747 192-85.333a10.669 10.669 0 0 0 6.333-9.747v-234.667a10.669 10.669 0 0 0 -6.333-9.747l-192-85.333a10.687 10.687 0 0 0 -4.334-.92v426.667a10.7 10.7 0 0 0 4.334-.92z"
-                                            fill="#fbab01" />
-                                        <path
-                                            d="m245.333 213.333 201.65-89.622a10.572 10.572 0 0 0 -5.316-5.459l-192-85.333a10.687 10.687 0 0 0 -8.667 0l-192 85.334a10.572 10.572 0 0 0 -5.316 5.459z"
-                                            fill="#fac100" />
-                                        <path d="m156.467 173.837 205.133-91.17-26.265-11.673-205.133 91.17z"
-                                            fill="#fbab01" />
-                                        <circle cx="373.333" cy="362.667" fill="#00cf66" r="96" />
-                                        <path
-                                            d="m389.333 437.333a90.608 90.608 0 0 1 -56.1-161.807 95.949 95.949 0 1 0 127.241 127.238 90.434 90.434 0 0 1 -71.141 34.569z"
-                                            fill="#00b157" />
-                                        <path
-                                            d="m362.667 405.333a10.632 10.632 0 0 1 -7.542-3.125l-26.667-26.667a10.666 10.666 0 0 1 15.083-15.083l19.125 19.122 45.792-45.789a10.666 10.666 0 1 1 15.083 15.083l-53.333 53.333a10.632 10.632 0 0 1 -7.541 3.126z"
-                                            fill="#eaeff0" />
-                                    </svg>
-                                    <p>
-                                        @if (!$product->quantity || $product->quantity == 0)
-                                            Out of stock
-                                        @elseif($product->quantity == 1)
-                                            Available
-                                        @else
-                                            {{ $product->quantity }} in stock
-                                        @endif
-                                    </p>
+                                    @if ($product->quantity_display !== 'hide')
+
+                                        <!-- SVG ICON -->
+                                        <svg id="Layer_1" width="24" height="24" viewBox="0 0 512 512"
+                                            xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+                                            <path
+                                                d="m441.667 118.253-192-85.333a10.687 10.687 0 0 0 -8.667 0l-192 85.333a10.669 10.669 0 0 0 -6.333 9.747v234.667a10.669 10.669 0 0 0 6.333 9.747l192 85.333a10.673 10.673 0 0 0 8.667 0l192-85.333a10.669 10.669 0 0 0 6.333-9.747v-234.667a10.669 10.669 0 0 0 -6.333-9.747z"
+                                                fill="#ff9500" />
+                                            <path
+                                                d="m249.667 457.747 192-85.333a10.669 10.669 0 0 0 6.333-9.747v-234.667a10.669 10.669 0 0 0 -6.333-9.747l-192-85.333a10.687 10.687 0 0 0 -4.334-.92v426.667a10.7 10.7 0 0 0 4.334-.92z"
+                                                fill="#fbab01" />
+                                            <path
+                                                d="m245.333 213.333 201.65-89.622a10.572 10.572 0 0 0 -5.316-5.459l-192-85.333a10.687 10.687 0 0 0 -8.667 0l-192 85.334a10.572 10.572 0 0 0 -5.316 5.459z"
+                                                fill="#fac100" />
+                                            <path d="m156.467 173.837 205.133-91.17-26.265-11.673-205.133 91.17z"
+                                                fill="#fbab01" />
+                                            <circle cx="373.333" cy="362.667" r="96" fill="#00cf66" />
+                                            <path
+                                                d="m389.333 437.333a90.608 90.608 0 0 1 -56.1-161.807 95.949 95.949 0 1 0 127.241 127.238 90.434 90.434 0 0 1 -71.141 34.569z"
+                                                fill="#00b157" />
+                                            <path
+                                                d="m362.667 405.333a10.632 10.632 0 0 1 -7.542-3.125l-26.667-26.667a10.666 10.666 0 0 1 15.083-15.083l19.125 19.122 45.792-45.789a10.666 10.666 0 1 1 15.083 15.083l-53.333 53.333a10.632 10.632 0 0 1 -7.541 3.126z"
+                                                fill="#eaeff0" />
+                                        </svg>
+
+                                        <!-- TEXT -->
+                                        <p class="mb-0">
+                                            @if ($product->quantity_display === 'availability')
+                                                {{ $product->quantity > 0 ? 'Available' : 'Out of stock' }}
+                                            @else
+                                                @if (!$product->quantity || $product->quantity == 0)
+                                                    Out of stock
+                                                @elseif ($product->quantity == 1)
+                                                    Available
+                                                @else
+                                                    {{ $product->quantity }} in stock
+                                                @endif
+                                            @endif
+                                        </p>
+
+                                    @endif
+
                                 </li>
                             </ul>
                             <div class="wrap-quantity">

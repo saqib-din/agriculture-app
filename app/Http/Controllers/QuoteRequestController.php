@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\QuoteRequest;
+use App\Models\QuoteActivity;
+use App\Models\Client;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 
-
 class QuoteRequestController extends Controller
 {
-    // Store quote request (single or bulk)
+    // Store quote request (single or bulk) - Frontend
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -30,14 +32,19 @@ class QuoteRequestController extends Controller
         try {
             DB::beginTransaction();
 
+            // Check if customer email exists in clients table
+            $client = Client::where('email', $validated['customer_email'])->first();
+
             // Create quote request
             $quoteRequest = QuoteRequest::create([
+                'client_id' => $client ? $client->id : null,
                 'customer_name' => $validated['customer_name'],
                 'customer_email' => $validated['customer_email'],
                 'customer_phone' => $validated['customer_phone'] ?? null,
                 'customer_message' => $validated['customer_message'] ?? null,
                 'total_quantity' => $validated['total_quantity'] ?? null,
-                'status' => 'pending'
+                'status' => 'pending',
+                'quote_status' => 'pending'
             ]);
 
             // Attach products with quantities
@@ -46,6 +53,22 @@ class QuoteRequestController extends Controller
 
                 $quoteRequest->products()->attach($productId, [
                     'quantity' => $quantity
+                ]);
+            }
+
+            // Create initial activity
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => 'Quote request submitted by customer'
+            ]);
+
+            // If client exists, log that too
+            if ($client) {
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote linked to existing client: ' . $client->name
                 ]);
             }
 
@@ -73,18 +96,17 @@ class QuoteRequestController extends Controller
     // Admin: View all quote requests
     public function index()
     {
-        $quoteRequests = QuoteRequest::with('products')
-            ->orderBy('created_at', 'desc')
+        $quoteRequests = QuoteRequest::with(['client', 'products'])
+            ->latest()
             ->paginate(20);
 
         return view('pages.admin-side.quotes.index', compact('quoteRequests'));
     }
 
     // Admin: View single quote request
-    public function show($id)
+    public function show(QuoteRequest $quoteRequest)
     {
-        $quoteRequest = QuoteRequest::with('products')->findOrFail($id);
-
+        $quoteRequest->load(['client', 'products.images', 'activities']);
         return view('pages.admin-side.quotes.show', compact('quoteRequest'));
     }
 
@@ -97,8 +119,16 @@ class QuoteRequestController extends Controller
         ]);
 
         $quote = QuoteRequest::findOrFail($request->id);
+        $oldStatus = $quote->status;
         $quote->status = $request->status;
         $quote->save();
+
+        // Log activity
+        QuoteActivity::create([
+            'quote_request_id' => $quote->id,
+            'type' => 'other',
+            'details' => "Status changed from {$oldStatus} to {$request->status}"
+        ]);
 
         return response()->json([
             'success' => true,
@@ -106,21 +136,154 @@ class QuoteRequestController extends Controller
         ]);
     }
 
-    // Admin: Delete quote request
-    public function destroy($id)
+    // Admin: Update quantity
+    public function updateQuantity(Request $request, QuoteRequest $quoteRequest)
     {
-        try {
-            $quoteRequest = QuoteRequest::findOrFail($id);
-            $quoteRequest->delete();
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
 
-            return redirect()->route('admin.quotes.index')
-                ->with('success', 'Quote request deleted successfully!');
+        $quoteRequest->products()->updateExistingPivot(
+            $request->product_id,
+            ['quantity' => $request->quantity]
+        );
+
+        return response()->json(['success' => true]);
+    }
+
+    // Admin: Convert to client
+    public function convertToClient(QuoteRequest $quoteRequest)
+    {
+        if ($quoteRequest->isExistingClient()) {
+            return redirect()->back()->with('error', 'Quote is already linked to a client.');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $client = Client::create([
+                'name' => $quoteRequest->customer_name,
+                'email' => $quoteRequest->customer_email,
+                'phone' => $quoteRequest->customer_phone,
+                'status' => true
+            ]);
+
+            $quoteRequest->update([
+                'client_id' => $client->id,
+                'quote_status' => 'converted'
+            ]);
+
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => "Converted to client: {$client->name}"
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.quotes.show', $quoteRequest)
+                ->with('success', 'Quote converted to client successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.quotes.index')
-                ->with('error', 'Failed to delete quote request.');
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Failed to convert to client: ' . $e->getMessage());
         }
     }
 
+    public function convertToOrder(QuoteRequest $quoteRequest)
+    {
+        if ($quoteRequest->order) {
+            return back()->with('error', 'Order already exists for this quote.');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Create order
+            $order = \App\Models\Order::create([
+                'quote_request_id' => $quoteRequest->id,
+                'client_id' => $quoteRequest->client_id,
+                'order_no' => 'ORD-' . now()->timestamp,
+                'status' => 'pending',
+                'total' => null, // calculate later if needed
+            ]);
+
+            // Copy products from quote to order
+            foreach ($quoteRequest->products as $product) {
+                $order->products()->attach($product->id, [
+                    'quantity' => $product->pivot->quantity
+                ]);
+            }
+
+            // Update quote status
+            $quoteRequest->update([
+                'quote_status' => 'converted'
+            ]);
+
+            // Activity log
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => 'Quote converted to order #' . $order->order_no
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'Quote converted to order successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+
+    // Admin: Reject quote
+    public function reject(QuoteRequest $quoteRequest)
+    {
+        $quoteRequest->update(['quote_status' => 'rejected']);
+
+        QuoteActivity::create([
+            'quote_request_id' => $quoteRequest->id,
+            'type' => 'other',
+            'details' => 'Quote rejected'
+        ]);
+
+        return redirect()->back()->with('success', 'Quote rejected successfully.');
+    }
+
+    // Admin: Reopen quote
+    // public function reopen(QuoteRequest $quoteRequest)
+    // {
+    //     $quoteRequest->update(['quote_status' => 'reopened']);
+
+    //     QuoteActivity::create([
+    //         'quote_request_id' => $quoteRequest->id,
+    //         'type' => 'other',
+    //         'details' => 'Quote reopened'
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Quote reopened successfully.');
+    // }
+
+    // Admin: Store activity
+    public function storeActivity(Request $request, QuoteRequest $quoteRequest)
+    {
+        $request->validate([
+            'type' => 'required|in:call,message,meeting,email,other',
+            'details' => 'required|string'
+        ]);
+
+        QuoteActivity::create([
+            'quote_request_id' => $quoteRequest->id,
+            'type' => $request->type,
+            'details' => $request->details
+        ]);
+
+        return redirect()->back()->with('success', 'Activity added successfully.');
+    }
+
+    // Admin: Reply to customer
     public function reply(Request $request, $id)
     {
         $quoteRequest = QuoteRequest::findOrFail($id);
@@ -140,15 +303,29 @@ class QuoteRequestController extends Controller
                     ->subject('Reply from ' . config('app.name'));
             });
 
-            // Optionally mark as replied
-            $quoteRequest->update([
-                'is_replied' => true,
-                'replied_at' => now(),
+            // Log activity
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'email',
+                'details' => 'Email sent to customer: ' . substr($request->reply_message, 0, 100) . '...'
             ]);
 
             return back()->with('success', 'Reply sent successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to send reply: ' . $e->getMessage());
+        }
+    }
+
+    // Admin: Delete quote request
+    public function destroy(QuoteRequest $quoteRequest)
+    {
+        try {
+            $quoteRequest->delete();
+            return redirect()->route('admin.quotes.index')
+                ->with('success', 'Quote request deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.quotes.index')
+                ->with('error', 'Failed to delete quote request.');
         }
     }
 
@@ -172,4 +349,3 @@ class QuoteRequestController extends Controller
         }
     }
 }
-    

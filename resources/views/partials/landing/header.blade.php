@@ -1,5 +1,11 @@
 <!-- Header  -->
 <header class="header has-item-bot" id="header-main">
+
+    @php
+        // Fetch all variables as key => value for easy access
+        $variables = \App\Models\Variable::pluck('value', 'key');
+    @endphp
+
     <div class="tf-container w-1780">
         <div class="row">
             <div class="col-lg-12">
@@ -13,13 +19,11 @@
                                             alt="" />
                                     </div>
                                     <div class="flex-grow-1 ms-3">
-                                        @if (isset($variables) && $variables->isNotEmpty())
-                                            <h5 class="text-dark mb-0 fw-5">{{ $variables->first()->name ?? 'N/A' }}
-                                            </h5>
-                                            {{-- <span class="text-dark">{{ $variables->first()->slogan ?? 'N/A' }}</span> --}}
-                                        @else
-                                            <h5 class="text-dark mb-0 fw-5">Scrumad</h5>
-                                        @endif
+                                        <h5 class="text-dark mb-0 fw-5">
+                                            {{ $variables['company_name'] ?? 'Scrumad' }}
+                                        </h5>
+                                        {{-- Optional slogan --}}
+                                        <span class="text-dark">{{ $variables['company_slogan'] ?? '' }}</span>
                                     </div>
                                 </div>
                             </a>
@@ -30,19 +34,19 @@
                                     <a href="{{ url('/') }}">Home</a>
                                 </li>
                                 {{-- @if (isset($products) && $products->isNotEmpty()) --}}
-                                    <li class="item has-child {{ request()->is('products') ? 'current-menu' : '' }}">
-                                        <a href="{{ url('/products') }}">Products</a>
-                                    </li>
+                                <li class="item has-child {{ request()->is('products') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/products') }}">Products</a>
+                                </li>
                                 {{-- @endif --}}
                                 {{-- @if (isset($services) && $services->isNotEmpty()) --}}
-                                    <li class="item has-child {{ request()->is('services') ? 'current-menu' : '' }}">
-                                        <a href="{{ url('/services') }}">Services</a>
-                                    </li>
+                                <li class="item has-child {{ request()->is('services') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/services') }}">Services</a>
+                                </li>
                                 {{-- @endif --}}
                                 {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
-                                    <li class="item has-child {{ request()->is('teams') ? 'current-menu' : '' }}">
-                                        <a href="{{ url('/teams') }}">Team</a>
-                                    </li>
+                                <li class="item has-child {{ request()->is('teams') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('/teams') }}">Team</a>
+                                </li>
                                 {{-- @endif --}}
                                 @if ($hasAboutData)
                                     <li class="item has-child {{ request()->is('aboutus') ? 'current-menu' : '' }}">
@@ -90,31 +94,31 @@
                                         </a>
                                     </li>
                                     {{-- @if (isset($products) && $products->isNotEmpty()) --}}
-                                        <li
-                                            class="menu-item menu-item-has-children-mobile {{ request()->is('products') ? 'current-nav' : '' }}">
-                                            <a class="item-menu-mobile {{ request()->is('products') ? 'current' : '' }}"
-                                                href="{{ url('/products') }}">
-                                                Products
-                                            </a>
-                                        </li>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('products') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('products') ? 'current' : '' }}"
+                                            href="{{ url('/products') }}">
+                                            Products
+                                        </a>
+                                    </li>
                                     {{-- @endif --}}
                                     {{-- @if (isset($services) && $services->isNotEmpty()) --}}
-                                        <li
-                                            class="menu-item menu-item-has-children-mobile {{ request()->is('services') ? 'current-nav' : '' }}">
-                                            <a class="item-menu-mobile {{ request()->is('services') ? 'current' : '' }}"
-                                                href="{{ url('/services') }}">
-                                                Services
-                                            </a>
-                                        </li>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('services') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('services') ? 'current' : '' }}"
+                                            href="{{ url('/services') }}">
+                                            Services
+                                        </a>
+                                    </li>
                                     {{-- @endif --}}
                                     {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
-                                        <li
-                                            class="menu-item menu-item-has-children-mobile {{ request()->is('teams') ? 'current-nav' : '' }}">
-                                            <a class="item-menu-mobile {{ request()->is('teams') ? 'current' : '' }}"
-                                                href="{{ url('/teams') }}">
-                                                Teams
-                                            </a>
-                                        </li>
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('teams') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('teams') ? 'current' : '' }}"
+                                            href="{{ url('/teams') }}">
+                                            Teams
+                                        </a>
+                                    </li>
                                     {{-- @endif --}}
                                     @if ($hasAboutData)
                                         <li
@@ -143,66 +147,36 @@
                                         <h5 class="title">
                                             Address:
                                         </h5>
-                                        <p>
-                                            @if (isset($variables) && $variables->isNotEmpty())
-                                                {{ $variables->first()->address ?? 'Prinsengracht 250, Amsterdam Netherlands' }}
-                                            @else
-                                                Prinsengracht 250, Amsterdam Netherlands
-                                            @endif
+                                        <p>{{ $variables['company_address'] ?? 'Prinsengracht 250, Amsterdam Netherlands' }}
                                         </p>
+
                                     </li>
                                     <li>
                                         <h5 class="title">
                                             Phone:
                                         </h5>
-                                        <p>
-                                            @if (isset($variables) && $variables->isNotEmpty())
-                                                {{ $variables->first()->phone ?? '+1 987 654 3210' }}
-                                            @else
-                                                +1 987 654 3210
-                                            @endif
-                                        </p>
+                                        <p>{{ $variables['company_phone'] ?? '+1 987 654 3210' }}</p>
+
                                     </li>
                                     <li>
                                         <h5 class="title">
                                             Email:
                                         </h5>
-                                        <p>
-                                            @if (isset($variables) && $variables->isNotEmpty())
-                                                {{ $variables->first()->email ?? 'Donalfarms@gmail.com' }}
-                                            @else
-                                                Donalfarms@gmail.com
-                                            @endif
-                                        </p>
+                                        <p>{{ $variables['company_email'] ?? 'Donalfarms@gmail.com' }}</p>
+
                                     </li>
                                 </ul>
                             </div>
                             <div class="wg-social">
                                 <ul class="list">
-                                    @if (isset($variables) && $variables->isNotEmpty() && $variables->first()->facebook)
-                                        <li class="item">
-                                            <a href="{{ $variables->first()->facebook }}"><i
-                                                    class="icon-facebook1"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (isset($variables) && $variables->isNotEmpty() && $variables->first()->twitter)
-                                        <li class="item">
-                                            <a href="{{ $variables->first()->twitter }}"><i
-                                                    class="icon-twitter"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (isset($variables) && $variables->isNotEmpty() && $variables->first()->instagram)
-                                        <li class="item">
-                                            <a href="{{ $variables->first()->instagram }}"><i
-                                                    class="icon-instagram2"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (isset($variables) && $variables->isNotEmpty() && $variables->first()->pinterest)
-                                        <li class="item">
-                                            <a href="{{ $variables->first()->pinterest }}"><i
-                                                    class="icon-pinterest"></i></a>
-                                        </li>
-                                    @endif
+                                    @foreach (['facebook', 'twitter', 'instagram', 'pinterest'] as $social)
+                                        @if (!empty($variables[$social]))
+                                            <li class="item">
+                                                <a href="{{ $variables[$social] }}"><i
+                                                        class="icon-{{ $social }}"></i></a>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -228,19 +202,19 @@
                                         <a href="{{ url('/') }}">Home</a>
                                     </li>
                                     {{-- @if (isset($products) && $products->isNotEmpty()) --}}
-                                        <li class="item has-child">
-                                            <a href="{{ url('/products') }}">Products</a>
-                                        </li>
+                                    <li class="item has-child">
+                                        <a href="{{ url('/products') }}">Products</a>
+                                    </li>
                                     {{-- @endif --}}
                                     {{-- @if (isset($services) && $services->isNotEmpty()) --}}
-                                        <li class="item has-child">
-                                            <a href="{{ url('/services') }}">Services</a>
-                                        </li>
+                                    <li class="item has-child">
+                                        <a href="{{ url('/services') }}">Services</a>
+                                    </li>
                                     {{-- @endif --}}
                                     {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
-                                        <li class="item has-child">
-                                            <a href="{{ url('/team') }}">Team</a>
-                                        </li>
+                                    <li class="item has-child">
+                                        <a href="{{ url('/team') }}">Team</a>
+                                    </li>
                                     {{-- @endif --}}
                                     @if ($hasAboutData)
                                         <li class="item has-child">

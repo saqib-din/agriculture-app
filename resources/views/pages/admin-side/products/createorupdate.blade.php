@@ -310,17 +310,18 @@
                                                                     style="object-fit:cover;" />
 
                                                                 <button type="button"
-                                                                    class="btn btn-danger btn-sm delete-image-btn"
-                                                                    data-id="{{ $img->id }}">
+                                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"
+                                                                    onclick="document.getElementById('delete-form-{{ $img->id }}').submit();">
                                                                     <i class="ti ti-trash"></i>
                                                                 </button>
 
                                                                 <form id="delete-form-{{ $img->id }}"
                                                                     action="{{ route('admin.products.imageDestroy', $img->id) }}"
-                                                                    method="POST" style="display: none;">
+                                                                    method="POST" style="display:none;">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                 </form>
+
                                                             </div>
                                                         @endforeach
                                                     </div>

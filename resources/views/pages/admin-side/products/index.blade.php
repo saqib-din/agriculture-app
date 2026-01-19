@@ -180,7 +180,7 @@
                                                             @if ($product->price_display === 'hide')
                                                                 <i class="ti ti-lock text-muted"></i> Hidden
                                                             @elseif ($product->price_display === 'call')
-                                                                <i class="ti ti-phone text-primary"></i> Call for Price
+                                                                <i class="ti ti-mail text-primary"></i> Email for Price
                                                             @else
                                                                 <i class="ti ti-currency-rupee"></i> PKR
                                                                 {{ number_format($product->price ?? 0) }}
@@ -196,7 +196,7 @@
                                                                 <i class="ti ti-currency-rupee"></i> Show Price
                                                             </div>
                                                             <div class="dropdown-item-custom" data-value="call">
-                                                                <i class="ti ti-phone"></i> Call for Price
+                                                                <i class="ti ti-mail"></i> Email for Price
                                                             </div>
                                                         </div>
                                                     </div>

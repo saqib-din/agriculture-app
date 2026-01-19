@@ -250,12 +250,21 @@
                                                     <div class="pricing-star">
                                                         <div class="price-wrap">
 
-                                                            @if ($product->sale_price)
-                                                                <span class="price-1">PKR {{ $product->price }}</span>
-                                                                <span class="price-2">PKR
-                                                                    {{ $product->sale_price }}</span>
+                                                            @if ($product->price_display === 'hide')
+                                                                {{-- Don't show anything --}}
+                                                            @elseif ($product->price_display === 'call')
+                                                                <span class="price-2">Email for Price</span>
                                                             @else
-                                                                <span class="price-2">PKR {{ $product->price }}</span>
+                                                                {{-- 'price' or default - show price --}}
+                                                                @if ($product->sale_price)
+                                                                    <span class="price-1">PKR
+                                                                        {{ number_format($product->price) }}</span>
+                                                                    <span class="price-2">PKR
+                                                                        {{ number_format($product->sale_price) }}</span>
+                                                                @else
+                                                                    <span class="price-2">PKR
+                                                                        {{ number_format($product->price) }}</span>
+                                                                @endif
                                                             @endif
 
                                                         </div>
@@ -284,7 +293,7 @@
             </div>
         </section><!-- /.Section shopping today  -->
     @endif
-    
+
     <!-- Section testimonial -->
     @php
         $ceo = $teams->where('is_ceo', 1)->first();
