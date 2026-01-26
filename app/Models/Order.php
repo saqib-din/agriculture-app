@@ -36,6 +36,11 @@ class Order extends Model
 
         static::creating(function ($order) {
             $order->order_number = 'ORD-' . date('Y') . '-' . str_pad(Order::count() + 1, 5, '0', STR_PAD_LEFT);
+
+            // Default status is 'new'
+            if (empty($order->status)) {
+                $order->status = 'new';
+            }
         });
     }
 
@@ -59,5 +64,36 @@ class Order extends Model
     public function activities()
     {
         return $this->hasMany(OrderActivity::class)->orderBy('created_at', 'desc');
+    }
+
+    // Helper methods
+    public function isNew()
+    {
+        return $this->status === 'new';
+    }
+
+    public function isProcessing()
+    {
+        return $this->status === 'processing';
+    }
+
+    public function isCompleted()
+    {
+        return $this->status === 'completed';
+    }
+
+    public function isCancelled()
+    {
+        return $this->status === 'cancelled';
+    }
+
+    public function canBeReopened()
+    {
+        return in_array($this->status, ['completed', 'cancelled']);
+    }
+
+    public function canGenerateInvoice()
+    {
+        return !$this->isCancelled();
     }
 }

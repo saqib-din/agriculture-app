@@ -61,6 +61,28 @@
                 </li>
 
                 <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('products.list') }}" class="pc-link">
+                        <span class="pc-micon">
+                             <svg class="pc-icon">
+                                <use xlink:href="#custom-element-plus"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Products">Products</span>
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-cpu-charge"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Categories">Categories</span>
+                    </a>
+                </li>
+
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="#" class="pc-link">
                         <span class="pc-micon">
                             <svg class="pc-icon">
@@ -76,7 +98,7 @@
                         <li class="pc-item"><a class="pc-link" href="{{ route('index') }}"
                                 data-i18n="Categories">Categories</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('admin.quotes.index') }}" class="pc-link">

@@ -39,7 +39,6 @@
                                     <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
                                         Add Product
                                     </a>
-                                    {{-- <i class="ti ti-plus me-1"></i> --}}
                                 </div>
                             </div>
                         </div>
@@ -126,20 +125,17 @@
                                                         value="{{ $product->id }}">
                                                 </td>
 
-                                                {{-- Product Info --}}
                                                 <td>
                                                     <h6 class="mb-0">{{ $product->name }}</h6>
                                                     <small class="text-muted">{{ $product->brand ?? 'N/A' }}</small>
                                                 </td>
 
-                                                {{-- SKU / Model --}}
                                                 <td>
                                                     <span class="badge bg-light-secondary">{{ $product->sku }}</span>
                                                     <div><small class="text-muted">{{ $product->model ?? 'N/A' }}</small>
                                                     </div>
                                                 </td>
 
-                                                {{-- QUANTITY with Dropdown --}}
                                                 <td>
                                                     <div class="dropdown-container">
                                                         <button class="status-btn quantity-btn" data-type="quantity"
@@ -171,7 +167,6 @@
                                                     </div>
                                                 </td>
 
-                                                {{-- PRICE with Dropdown --}}
                                                 <td>
                                                     <div class="dropdown-container">
                                                         <button class="status-btn price-btn" data-type="price"
@@ -202,7 +197,6 @@
                                                     </div>
                                                 </td>
 
-                                                {{-- STATUS Toggle --}}
                                                 <td class="text-center">
                                                     <span
                                                         class="badge toggle-status {{ $product->status ? 'bg-light-success' : 'bg-light-danger' }}"
@@ -211,7 +205,6 @@
                                                     </span>
                                                 </td>
 
-                                                {{-- ACTIONS --}}
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.products.edit', $product->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
@@ -231,7 +224,6 @@
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
-
                                                 </td>
                                             </tr>
                                         @empty
@@ -252,15 +244,12 @@
         </div>
     </div>
 
-    {{-- STYLES --}}
     <style>
-        /* Dropdown Container */
         .dropdown-container {
             position: relative;
             display: inline-block;
         }
 
-        /* Status Button */
         .status-btn {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -287,7 +276,6 @@
             font-size: 14px;
         }
 
-        /* Dropdown Menu */
         .dropdown-menu-custom {
             position: absolute;
             top: calc(100% + 4px);
@@ -319,7 +307,6 @@
             }
         }
 
-        /* Dropdown Items */
         .dropdown-item-custom {
             padding: 8px 12px;
             font-size: 13px;
@@ -342,7 +329,6 @@
             width: 16px;
         }
 
-        /* Status Badge */
         .toggle-status {
             padding: 6px 12px;
             font-size: 12px;
@@ -355,19 +341,12 @@
             transform: scale(1.05);
         }
 
-        /* Table Hover Effect */
-        /* .table-hover tbody tr:hover {
-                                background-color: #f8f9fa;
-                            } */
-
-        /* Checkbox Styling */
         .form-check-input {
             cursor: pointer;
             width: 18px;
             height: 18px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .status-btn {
                 font-size: 12px;
@@ -380,15 +359,12 @@
         }
     </style>
 
-    {{-- SCRIPTS --}}
     <script>
-        // Select All Checkbox
         document.getElementById('selectAll').addEventListener('change', function() {
             document.querySelectorAll('.product-checkbox')
                 .forEach(cb => cb.checked = this.checked);
         });
 
-        // Bulk Update
         document.getElementById('applyBulk').addEventListener('click', function() {
             let ids = [];
             document.querySelectorAll('.product-checkbox:checked')
@@ -420,13 +396,11 @@
                     alert('Error updating products');
                     console.error(error);
                     this.disabled = false;
-                    this.innerHTML = '<i class="ti ti-check me-1"></i> Apply Changes';
+                    this.innerHTML = 'Apply Changes';
                 });
         });
 
-        // Dropdown Toggle Logic
         document.addEventListener('click', function(e) {
-            // Open dropdown
             if (e.target.closest('.status-btn')) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -434,17 +408,14 @@
                 let btn = e.target.closest('.status-btn');
                 let menu = btn.nextElementSibling;
 
-                // Close all other dropdowns
                 document.querySelectorAll('.dropdown-menu-custom').forEach(m => {
                     if (m !== menu) m.classList.remove('show');
                 });
 
-                // Toggle current dropdown
                 menu.classList.toggle('show');
                 return;
             }
 
-            // Select dropdown item
             if (e.target.closest('.dropdown-item-custom')) {
                 let item = e.target.closest('.dropdown-item-custom');
                 let menu = item.closest('.dropdown-menu-custom');
@@ -454,7 +425,6 @@
                 let type = btn.dataset.type;
                 let value = item.dataset.value;
 
-                // Update UI immediately
                 btn.disabled = true;
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
 
@@ -485,19 +455,16 @@
                 menu.classList.remove('show');
             }
 
-            // Close dropdowns on outside click
             if (!e.target.closest('.dropdown-container')) {
                 document.querySelectorAll('.dropdown-menu-custom').forEach(m => m.classList.remove('show'));
             }
         });
 
-        // Toggle Status
         document.querySelectorAll('.toggle-status').forEach(badge => {
             badge.addEventListener('click', function() {
                 let id = this.dataset.id;
                 const currentBadge = this;
 
-                // Show spinner while processing
                 currentBadge.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
 
                 fetch(`/admin/products/status/${id}`, {
@@ -509,44 +476,54 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        // Update badge text and color
                         currentBadge.textContent = data.status ? 'Active' : 'Inactive';
                         currentBadge.classList.remove('bg-light-success', 'bg-light-danger');
                         currentBadge.classList.add(data.status ? 'bg-light-success' :
                             'bg-light-danger');
-
-                        // Show success message
                         showSuccessMessage(`Status updated to ${data.status ? 'Active' : 'Inactive'}`);
                     })
                     .catch(error => {
                         alert('Error updating status');
                         console.error(error);
+                        location.reload();
                     });
             });
         });
 
-        // Function to show temporary success message
         function showSuccessMessage(message) {
+
+            // Remove old message if exists
             let existingMsg = document.querySelector('.ajax-success-msg');
             if (existingMsg) existingMsg.remove();
 
             const msgBox = document.createElement('div');
-            msgBox.className = 'alert alert-success ajax-success-msg';
-            msgBox.style.position = 'fixed';
-            msgBox.style.bottom = '20px';
-            msgBox.style.right = '20px';
-            msgBox.style.zIndex = '9999';
-            msgBox.style.minWidth = '250px';
-            msgBox.style.textAlign = 'center';
-            msgBox.style.padding = '10px 20px';
-            msgBox.style.borderRadius = '8px';
-            msgBox.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
-            msgBox.textContent = message;
+            msgBox.className = 'alert alert-success ajax-success-msg fade show';
+
+            msgBox.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 280px;
+        max-width: 350px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+
+            msgBox.innerHTML = `
+        <i class="ti-check text-success fs-5"></i>
+        <span class="flex-grow-1">${message}</span>
+    `;
 
             document.body.appendChild(msgBox);
 
             setTimeout(() => {
-                msgBox.remove();
+                msgBox.classList.remove('show');
+                setTimeout(() => msgBox.remove(), 300);
             }, 3000);
         }
     </script>

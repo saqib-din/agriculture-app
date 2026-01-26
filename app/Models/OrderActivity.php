@@ -13,6 +13,7 @@ class OrderActivity extends Model
     protected $fillable = [
         'order_id',
         'type',
+        'title',
         'details'
     ];
 

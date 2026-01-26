@@ -2,33 +2,174 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\OrderActivity;
-use App\Models\QuoteActivity;
 use App\Models\Client;
 use App\Models\Product;
 use App\Models\QuoteRequest;
+use App\Http\Controllers\VariablesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['client', 'products'])
+        $orders = Order::with('client')
             ->latest()
             ->paginate(20);
+
         return view('pages.admin-side.orders.index', compact('orders'));
     }
+
     public function create(Request $request)
     {
-        $clients = Client::where('status', true)->get();
-        $products = Product::where('status', true)->get();
-        $quoteRequestId = $request->quote_request_id;
-        return view('pages.admin-side.orders.create', compact('clients', 'products', 'quoteRequestId'));
+        $clients = Client::orderBy('name')->get();
+        $products = Product::with('images')->where('status', 1)->get();
+
+        // Get GST rate from variables
+        $gstRate = VariablesController::getGstRate();
+
+        $quoteRequestId = $request->query('quote_request_id');
+        $quoteProducts = [];
+        $selectedClientId = null;
+
+        if ($quoteRequestId) {
+            $quoteRequest = QuoteRequest::with(['products'])->findOrFail($quoteRequestId);
+            $selectedClientId = $quoteRequest->client_id;
+
+            // Map products with pivot price
+            $quoteProducts = $quoteRequest->products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'sku' => $product->sku,
+                    'price' => $product->pivot->price ?? $product->price,
+                    'pivot' => [
+                        'quantity' => $product->pivot->quantity,
+                        'price' => $product->pivot->price ?? $product->price
+                    ]
+                ];
+            });
+        }
+
+        return view('pages.admin-side.orders.createorupdate', compact('clients', 'products', 'quoteProducts', 'quoteRequestId', 'selectedClientId', 'gstRate'));
     }
+
     public function store(Request $request)
+    {
+        $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'products' => 'required|array|min:1',
+            'products.*.id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
+            'products.*.price' => 'required|numeric|min:0',
+            'discount' => 'nullable|numeric|min:0',
+            'notes' => 'nullable|string',
+            'quote_request_id' => 'nullable|exists:quote_requests,id'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // Get GST rate from variables
+            $gstRate = VariablesController::getGstRate();
+
+            // Calculate totals
+            $subtotal = 0;
+            foreach ($request->products as $product) {
+                $quantity = $product['quantity'];
+                $price = $product['price'];
+                $subtotal += $quantity * $price;
+            }
+
+            // Calculate GST on subtotal
+            $gstAmount = round($subtotal * ($gstRate / 100), 2);
+
+            // Get discount
+            $discount = $request->discount ?? 0;
+
+            // Calculate total: Subtotal + GST - Discount
+            $total = round($subtotal + $gstAmount - $discount, 2);
+
+            // Generate order number
+            $orderNumber = 'ORD-' . now()->format('Ymd') . '-' . str_pad(Order::count() + 1, 5, '0', STR_PAD_LEFT);
+
+            // Create order with status 'new'
+            $order = Order::create([
+                'client_id' => $request->client_id,
+                'quote_request_id' => $request->quote_request_id,
+                'order_number' => $orderNumber,
+                'status' => 'new',
+                'subtotal' => $subtotal,
+                'tax_rate' => $gstRate,
+                'tax_amount' => $gstAmount,
+                'discount' => $discount,
+                'total' => $total,
+                'notes' => $request->notes
+            ]);
+
+            // Attach products
+            foreach ($request->products as $product) {
+                $productId = $product['id'];
+                $quantity = $product['quantity'];
+                $price = $product['price'];
+                $productSubtotal = $quantity * $price;
+
+                $order->products()->attach($productId, [
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'subtotal' => $productSubtotal
+                ]);
+            }
+
+            // If created from quote, update quote status
+            if ($request->quote_request_id) {
+                QuoteRequest::where('id', $request->quote_request_id)
+                    ->update(['quote_status' => 'pending']);
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'Order created successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Order Create Error: ' . $e->getMessage());
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to create order: ' . $e->getMessage());
+        }
+    }
+
+    public function show(Order $order)
+    {
+        $order->load(['client', 'products', 'quoteRequest', 'activities']);
+
+        // Get GST rate for display
+        $gstRate = $order->tax_rate ?? VariablesController::getGstRate();
+
+        return view('pages.admin-side.orders.show', compact('order', 'gstRate'));
+    }
+
+    public function edit(Order $order)
+    {
+        $clients = Client::orderBy('name')->get();
+        $products = Product::with('images')->where('status', 1)->get();
+
+        // Get GST rate
+        $gstRate = $order->tax_rate ?? VariablesController::getGstRate();
+
+        $order->load('products');
+
+        return view('pages.admin-side.orders.createorupdate', compact('order', 'clients', 'products', 'gstRate'));
+    }
+
+    public function update(Request $request, Order $order)
     {
         $request->validate([
             'client_id' => 'required|exists:clients,id',
@@ -39,98 +180,211 @@ class OrderController extends Controller
             'discount' => 'nullable|numeric|min:0',
             'notes' => 'nullable|string'
         ]);
-        DB::beginTransaction();
+
         try {
+            DB::beginTransaction();
+
+            // Get GST rate (use existing order rate or get from variables)
+            $gstRate = $order->tax_rate ?? VariablesController::getGstRate();
+
+            // Calculate totals
             $subtotal = 0;
             foreach ($request->products as $product) {
-                $subtotal += $product['price'] * $product['quantity'];
+                $quantity = $product['quantity'];
+                $price = $product['price'];
+                $subtotal += $quantity * $price;
             }
-            $taxAmount = ($subtotal - ($request->discount ?? 0)) * (17 / 100);
-            $total = $subtotal + $taxAmount - ($request->discount ?? 0);
-            $order = Order::create([
+
+            // Calculate GST on subtotal
+            $gstAmount = round($subtotal * ($gstRate / 100), 2);
+
+            // Get discount
+            $discount = $request->discount ?? 0;
+
+            // Calculate total: Subtotal + GST - Discount
+            $total = round($subtotal + $gstAmount - $discount, 2);
+
+            // Update order
+            $order->update([
                 'client_id' => $request->client_id,
-                'quote_request_id' => $request->quote_request_id,
                 'subtotal' => $subtotal,
-                'tax_rate' => 17.00,
-                'tax_amount' => $taxAmount,
-                'discount' => $request->discount ?? 0,
+                'tax_rate' => $gstRate,
+                'tax_amount' => $gstAmount,
+                'discount' => $discount,
                 'total' => $total,
-                'status' => 'pending',
                 'notes' => $request->notes
             ]);
+
+            // Sync products
+            $order->products()->detach();
             foreach ($request->products as $product) {
-                $order->products()->attach($product['id'], [
-                    'quantity' => $product['quantity'],
-                    'price' => $product['price'],
-                    'subtotal' => $product['price'] * $product['quantity']
+                $productId = $product['id'];
+                $quantity = $product['quantity'];
+                $price = $product['price'];
+                $productSubtotal = $quantity * $price;
+
+                $order->products()->attach($productId, [
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'subtotal' => $productSubtotal
                 ]);
             }
-            OrderActivity::create([
-                'order_id' => $order->id,
-                'type' => 'other',
-                'details' => 'Order created'
-            ]);
-            if ($request->quote_request_id) {
-                $quoteRequest = QuoteRequest::find($request->quote_request_id);
-                if ($quoteRequest) {
-                    QuoteActivity::create([
-                        'quote_request_id' => $quoteRequest->id,
-                        'type' => 'other',
-                        'details' => "Order created: {$order->order_number}"
-                    ]);
-                }
-            }
+
             DB::commit();
-            return redirect()->route('admin.orders.index', $order)
-                ->with('success', 'Order created successfully.');
+
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'Order updated successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Order Update Error: ' . $e->getMessage());
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create order: ' . $e->getMessage());
+                ->with('error', 'Failed to update order: ' . $e->getMessage());
         }
     }
-    public function show(Order $order)
+
+    public function destroy(Order $order)
     {
-        $order->load(['client', 'products.images', 'activities', 'quoteRequest']);
-        return view('pages.admin-side.orders.show', compact('order'));
+        try {
+            $order->delete();
+
+            return redirect()->route('admin.orders.index')
+                ->with('success', 'Order deleted successfully!');
+        } catch (\Exception $e) {
+            Log::error('Order Delete Error: ' . $e->getMessage());
+
+            return redirect()->back()
+                ->with('error', 'Failed to delete order: ' . $e->getMessage());
+        }
     }
-    public function updateStatus(Request $request, Order $order)
-    {
-        $request->validate([
-            'status' => 'required|in:pending,in_progress,delivered,installed,completed,cancelled'
-        ]);
-        $oldStatus = $order->status;
-        $order->update(['status' => $request->status]);
-        OrderActivity::create([
-            'order_id' => $order->id,
-            'type' => 'status_change',
-            'details' => "Status changed from {$oldStatus} to {$request->status}"
-        ]);
-        return response()->json(['success' => true]);
-    }
+
     public function storeActivity(Request $request, Order $order)
     {
         $request->validate([
             'type' => 'required|in:call,message,meeting,email,payment,other',
-            'details' => 'required|string'
+            'title' => 'nullable|string|max:255',
+            'details' => 'nullable|string'
         ]);
-        OrderActivity::create([
-            'order_id' => $order->id,
-            'type' => $request->type,
-            'details' => $request->details
-        ]);
-        return redirect()->back()->with('success', 'Activity added successfully.');
+
+        try {
+            // Create activity
+            $order->activities()->create([
+                'type' => $request->type,
+                'title' => $request->title,
+                'details' => $request->details
+            ]);
+
+            // Change status to processing only if current status is 'new'
+            if ($order->status === 'new') {
+                $order->update(['status' => 'processing']);
+            }
+
+            return redirect()->back()->with('success', 'Activity added successfully!');
+        } catch (\Exception $e) {
+            Log::error('Activity Store Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add activity');
+        }
     }
+
     public function print(Order $order)
     {
         $order->load(['client', 'products']);
+
+        // Change status to processing only if current status is 'new'
+        if ($order->status === 'new') {
+            $order->update(['status' => 'processing']);
+        }
+
         return view('pages.admin-side.orders.print', compact('order'));
     }
-    public function destroy(Order $order)
+
+    public function sendInvoice(Order $order)
     {
-        $order->delete();
-        return redirect()->route('admin.orders.index')
-            ->with('success', 'Order deleted successfully.');
+        try {
+            // Change status to processing only if current status is 'new'
+            if ($order->status === 'new') {
+                $order->update(['status' => 'processing']);
+            }
+
+            $order->load(['client', 'products']);
+
+            // Generate PDF from print view
+            $pdf = PDF::loadView('pages.admin-side.orders.print', compact('order'));
+
+            // Send email with PDF attachment
+            Mail::send('emails.invoice', ['order' => $order], function ($message) use ($order, $pdf) {
+                $message->to($order->client->email, $order->client->name)
+                    ->subject('Invoice - Order #' . $order->id)
+                    ->attachData($pdf->output(), 'invoice-' . $order->id . '.pdf');
+            });
+
+            return redirect()->back()->with('success', 'Invoice sent successfully!');
+        } catch (\Exception $e) {
+            Log::error('Send Invoice Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to send invoice: ' . $e->getMessage());
+        }
+    }
+
+    public function markCompleted(Order $order)
+    {
+        try {
+            $order->update(['status' => 'completed']);
+
+            // Log activity
+            $order->activities()->create([
+                'type' => 'other',
+                'title' => 'Order Completed',
+                'details' => 'Order marked as completed'
+            ]);
+
+            return redirect()->back()->with('success', 'Order marked as completed!');
+        } catch (\Exception $e) {
+            Log::error('Mark Completed Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to mark order as completed');
+        }
+    }
+
+    public function markCancelled(Order $order)
+    {
+        try {
+            $order->update(['status' => 'cancelled']);
+
+            // Log activity
+            $order->activities()->create([
+                'type' => 'other',
+                'title' => 'Order Cancelled',
+                'details' => 'Order marked as cancelled'
+            ]);
+
+            return redirect()->back()->with('success', 'Order marked as cancelled!');
+        } catch (\Exception $e) {
+            Log::error('Mark Cancelled Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to mark order as cancelled');
+        }
+    }
+
+    public function reopenOrder(Order $order)
+    {
+        try {
+            // Only allow reopening if order is completed or cancelled
+            if (in_array($order->status, ['completed', 'cancelled'])) {
+                $order->update(['status' => 'processing']);
+
+                // Log activity
+                $order->activities()->create([
+                    'type' => 'other',
+                    'title' => 'Order Reopened',
+                    'details' => 'Order reopened and moved back to processing'
+                ]);
+
+                return redirect()->back()->with('success', 'Order reopened successfully!');
+            }
+
+            return redirect()->back()->with('error', 'Only completed or cancelled orders can be reopened');
+        } catch (\Exception $e) {
+            Log::error('Reopen Order Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to reopen order');
+        }
     }
 }

@@ -25,8 +25,8 @@ class TestimonialsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'review'   => 'required|string',
+            'name'     => 'required|string|max:25',
+            'review'   => 'required|string|max:100',
             'design'   => 'nullable|string|max:255',
             'company'  => 'nullable|string|max:255',
             'rating'   => 'required|integer|min:1|max:5',
@@ -58,8 +58,8 @@ class TestimonialsController extends Controller
         $testimonial = Testimonial::findOrFail($id);
 
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'review'   => 'required|string',
+            'name'     => 'required|string|max:25',
+            'review'   => 'required|string|max:100',
             'design'   => 'nullable|string|max:255',
             'company'  => 'nullable|string|max:255',
             'rating'   => 'required|integer|min:1|max:5',

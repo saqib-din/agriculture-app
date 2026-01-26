@@ -4,30 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductImage;
-// use App\Models\ProductSpecification;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Variable;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function list()
     {
         $variables = Variable::all();
-
         $categories = Category::withCount('products')->get();
-
         $products = Product::where('status', 1)
             ->with(['images', 'category'])
             ->latest()
             ->paginate(9);
 
-        return view('pages.products.product-list', compact(
-            'products',
-            'variables',
-            'categories'
-        ));
+        return view('pages.products.product-list', compact('products', 'variables', 'categories'));
     }
 
     public function showBySlug($slug)
@@ -38,29 +32,26 @@ class ProductController extends Controller
             ->firstOrFail();
 
         $variables = Variable::all();
-
         return view('pages.products.single-product', compact('product', 'variables'));
     }
 
     public function create()
     {
-        $product = null;
         $categories = Category::all();
-
-        return view('pages.admin-side.products.createorupdate', compact('product', 'categories'));
+        return view('pages.admin-side.products.createorupdate', compact('categories'));
     }
 
     public function edit(Product $product)
     {
         $product->load(['images', 'specifications', 'category']);
         $categories = Category::all();
-
         return view('pages.admin-side.products.createorupdate', compact('product', 'categories'));
     }
 
-    public function storeOrUpdate(Request $request, Product $product = null)
+    public function storeOrUpdate(Request $request, $id = null)
     {
-        $isUpdate = $product && $product->exists;
+        $product = $id ? Product::findOrFail($id) : null;
+        $isUpdate = $product !== null;
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -79,9 +70,10 @@ class ProductController extends Controller
         ]);
 
         // Generate SKU only on create
-        if (!$product) {
+        $sku = $product?->sku;
+        if (!$isUpdate) {
             do {
-                $sku = 'SKU-' . strtoupper(Str::random(4));
+                $sku = 'SKU-' . strtoupper(Str::random(8)) . time();
             } while (Product::where('sku', $sku)->exists());
         }
 
@@ -89,27 +81,23 @@ class ProductController extends Controller
         $slug = $request->slug;
         if (empty($slug)) {
             $slug = Str::slug($request->name);
-            $originalSlug = $slug;
-            $count = 1;
-            while (
-                Product::where('slug', $slug)
-                ->where('id', '!=', $product?->id)
-                ->exists()
-            ) {
-                $slug = $originalSlug . '-' . $count;
-                $count++;
-            }
         } else {
             $slug = Str::slug($slug);
         }
 
+        // Ensure unique slug
+        $originalSlug = $slug;
+        $count = 1;
+        while (Product::where('slug', $slug)->where('id', '!=', $product?->id)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+
         // Create or update product
-        $product = Product::updateOrCreate(
-            ['id' => $product?->id],
-            [
+        if ($isUpdate) {
+            $product->update([
                 'name' => $request->name,
                 'slug' => $slug,
-                'sku' => $product?->sku ?? $sku,
                 'category_id' => $request->category_id,
                 'model' => $request->model,
                 'brand' => $request->brand,
@@ -118,14 +106,29 @@ class ProductController extends Controller
                 'brief_details' => $request->brief_details,
                 'description' => $request->description,
                 'status' => $request->status ?? 1,
-            ]
-        );
+            ]);
+        } else {
+            $product = Product::create([
+                'name' => $request->name,
+                'slug' => $slug,
+                'sku' => $sku,
+                'category_id' => $request->category_id,
+                'model' => $request->model,
+                'brand' => $request->brand,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'brief_details' => $request->brief_details,
+                'description' => $request->description,
+                'status' => $request->status ?? 1,
+            ]);
+        }
 
         // Handle multiple images upload
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('products', 'public');
                 $product->images()->create([
-                    'image' => $image->store('products', 'public'),
+                    'image' => $imagePath,
                 ]);
             }
         }
@@ -149,10 +152,7 @@ class ProductController extends Controller
             }
         }
 
-        $msg = $isUpdate
-            ? 'Product Updated Successfully'
-            : 'Product Added Successfully';
-
+        $msg = $isUpdate ? 'Product Updated Successfully' : 'Product Added Successfully';
         return redirect()->route('products.list')->with('success', $msg);
     }
 
@@ -177,11 +177,9 @@ class ProductController extends Controller
         if ($request->filled('quantity_display')) {
             $updateData['quantity_display'] = $request->quantity_display;
         }
-
         if ($request->filled('price_display')) {
             $updateData['price_display'] = $request->price_display;
         }
-
         if ($request->filled('status')) {
             $updateData['status'] = $request->status;
         }
@@ -199,10 +197,7 @@ class ProductController extends Controller
 
     public function updateQuantityDisplay(Request $request, Product $product)
     {
-        $request->validate([
-            'type' => 'required|in:hide,availability,full'
-        ]);
-
+        $request->validate(['type' => 'required|in:hide,availability,full']);
         $product->update(['quantity_display' => $request->type]);
 
         return response()->json([
@@ -214,10 +209,7 @@ class ProductController extends Controller
 
     public function updatePriceDisplay(Request $request, Product $product)
     {
-        $request->validate([
-            'type' => 'required|in:hide,price,call'
-        ]);
-
+        $request->validate(['type' => 'required|in:hide,price,call']);
         $product->update(['price_display' => $request->type]);
 
         return response()->json([
@@ -241,30 +233,49 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        // Delete all images
-        foreach ($product->images as $image) {
-            if (file_exists(storage_path('app/public/' . $image->image))) {
-                unlink(storage_path('app/public/' . $image->image));
+        try {
+            // Delete all images from storage
+            foreach ($product->images as $image) {
+                if (Storage::disk('public')->exists($image->image)) {
+                    Storage::disk('public')->delete($image->image);
+                }
+                $image->delete();
             }
+
+            // Delete specifications
+            $product->specifications()->delete();
+
+            // Delete product
+            $product->delete();
+
+            return redirect()->back()->with('success', 'Product deleted successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting product: ' . $e->getMessage());
         }
-
-        // Delete specifications
-        $product->specifications()->delete();
-
-        // Delete product
-        $product->delete();
-
-        return redirect()->back()->with('success', 'Product deleted successfully');
     }
 
-    public function imageDestroy(ProductImage $image)
+    public function imageDestroy($id)
     {
-        if (file_exists(storage_path('app/public/' . $image->image))) {
-            unlink(storage_path('app/public/' . $image->image));
+        try {
+            $image = ProductImage::findOrFail($id);
+
+            // Delete image file from storage
+            if (Storage::disk('public')->exists($image->image)) {
+                Storage::disk('public')->delete($image->image);
+            }
+
+            // Delete image record
+            $image->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Image deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting image: ' . $e->getMessage()
+            ], 500);
         }
-
-        $image->delete();
-
-        return back()->with('success', 'Image deleted successfully');
     }
 }

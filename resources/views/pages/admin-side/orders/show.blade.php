@@ -9,26 +9,225 @@
                         <div class="col-md-12">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Orders</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Orders</a></li>
                                 <li class="breadcrumb-item">{{ $order->order_number }}</li>
                             </ul>
                         </div>
-                        <div class="col-md-12">
-                            <div class="page-header-title d-flex justify-content-between align-items-center">
-                                <h2 class="mb-0">Order {{ $order->order_number }}</h2>
-                                <div class="btn-group">
-                                    <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
-                                        class="btn btn-outline-primary">
-                                        <i class="ti ti-printer me-1"></i> Print
-                                    </a>
-                                </div>
+
+                        {{-- <div class="d-print-none card mb-3">
+                            <div class="card-body p-3">
+                                <ul class="list-inline ms-auto mb-0 d-flex justify-content-end flex-wrap">
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-pencil-simple-line f-22"></i></a></li>
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-eye f-22"></i></a></li>
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-download-simple f-22"></i></a></li>
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-printer f-22"></i></a></li>
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-paper-plane-tilt f-22"></i></a></li>
+                                    <li class="list-inline-item align-bottom me-2"><a href="#"
+                                            class="avtar avtar-s btn-link-secondary"><i
+                                                class="ph-duotone ph-share-network f-22"></i></a></li>
+                                </ul>
                             </div>
-                        </div>
+                        </div> --}}
+
                     </div>
                 </div>
             </div>
 
             @include('components.alerts')
+
+            <div class="col-md-12">
+                <div class="page-header-title d-flex justify-content-between align-items-center flex-wrap">
+
+                    <div class="d-print-none card mb-3 w-100">
+                        <div class="card-body p-3">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                {{-- Order Number --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <h2 class="mb-0">{{ $order->order_number }}</h2>
+                                    @php
+                                        $statusColors = [
+                                            'new' => 'info',
+                                            'processing' => 'warning',
+                                            'completed' => 'success',
+                                            'cancelled' => 'danger',
+                                        ];
+                                    @endphp
+                                    {{-- <span class="badge bg-{{ $statusColors[$order->status] ?? 'secondary' }}">
+                                        {{ ucfirst($order->status) }}
+                                    </span> --}}
+                                </div>
+
+                                {{-- Action Buttons --}}
+                                <ul class="list-inline mb-0 d-flex justify-content-end flex-wrap gap-2">
+
+                                    {{-- Reopen Order Button --}}
+                                    @if ($order->canBeReopened())
+                                        <li class="list-inline-item">
+                                            <form action="{{ route('admin.orders.reopenOrder', $order->id) }}"
+                                                method="POST" class="d-inline reopen-form">
+                                                @csrf
+                                                <button type="submit" class="avtar avtar-s btn-link-warning reopen-btn"
+                                                    data-bs-toggle="tooltip" title="Reopen Order">
+                                                    <span class="btn-icon">
+                                                        <i class="ti ti-refresh f-22"></i>
+                                                    </span>
+                                                    <span class="btn-loading d-none">
+                                                        <span class="spinner-border spinner-border-sm"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endif
+
+                                    {{-- Generate Invoice Button - Only show if status is completed --}}
+                                    @if ($order->canGenerateInvoice() && $order->status === 'completed')
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
+                                                class="avtar avtar-s btn-link-primary" data-bs-toggle="tooltip"
+                                                title="Generate Invoice">
+                                                <i class="ti ti-printer f-22"></i>
+                                            </a>
+                                        </li>
+
+                                        {{-- Send Invoice Button - Only show if status is completed --}}
+                                        <li class="list-inline-item">
+                                            <form action="{{ route('admin.orders.sendInvoice', $order->id) }}"
+                                                method="POST" class="d-inline send-invoice-form">
+                                                @csrf
+                                                <button type="submit" class="avtar avtar-s btn-link-info send-invoice-btn"
+                                                    data-bs-toggle="tooltip" title="Send Invoice">
+                                                    <span class="btn-icon">
+                                                        <i class="ti ti-mail f-22"></i>
+                                                    </span>
+                                                    <span class="btn-loading d-none">
+                                                        <span class="spinner-border spinner-border-sm"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endif
+
+                                    {{-- Edit Button --}}
+                                    @if (!in_array($order->status, ['completed', 'cancelled']))
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('admin.orders.edit', $order->id) }}"
+                                                class="avtar avtar-s btn-link-secondary" data-bs-toggle="tooltip"
+                                                title="Edit Order">
+                                                <i class="ti ti-edit f-22"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Mark Completed Button --}}
+                                    @if (!in_array($order->status, ['completed', 'cancelled']))
+                                        <li class="list-inline-item">
+                                            <form action="{{ route('admin.orders.markCompleted', $order->id) }}"
+                                                method="POST" class="d-inline complete-form">
+                                                @csrf
+                                                <button type="submit" class="avtar avtar-s btn-link-success complete-btn"
+                                                    data-bs-toggle="tooltip" title="Mark Completed">
+                                                    <span class="btn-icon">
+                                                        <i class="ti ti-check f-22"></i>
+                                                    </span>
+                                                    <span class="btn-loading d-none">
+                                                        <span class="spinner-border spinner-border-sm"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+
+                                        {{-- Cancel Order Button --}}
+                                        <li class="list-inline-item">
+                                            <form action="{{ route('admin.orders.markCancelled', $order->id) }}"
+                                                method="POST" class="d-inline cancel-form">
+                                                @csrf
+                                                <button type="submit" class="avtar avtar-s btn-link-danger cancel-btn"
+                                                    data-bs-toggle="tooltip" title="Cancel Order">
+                                                    <span class="btn-icon">
+                                                        <i class="ti ti-x f-22"></i>
+                                                    </span>
+                                                    <span class="btn-loading d-none">
+                                                        <span class="spinner-border spinner-border-sm"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    {{-- <div class="btn-group flex-wrap gap-2">
+                        @if ($order->canBeReopened())
+                            <form action="{{ route('admin.orders.reopenOrder', $order->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-warning"
+                                    onclick="return confirm('Are you sure you want to reopen this order?')">
+                                    <i class="ti ti-refresh me-1"></i> Reopen Order
+                                </button>
+                            </form>
+                        @endif
+
+                        @if ($order->canGenerateInvoice())
+                            <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
+                                class="btn btn-outline-primary">
+                                <i class="ti ti-printer me-1"></i> Generate Invoice
+                            </a>
+
+                            <form action="{{ route('admin.orders.sendInvoice', $order->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-info">
+                                    <i class="ti ti-mail me-1"></i> Send Invoice
+                                </button>
+                            </form>
+                        @endif
+
+                        @if (!in_array($order->status, ['completed', 'cancelled']))
+                            <a href="{{ route('admin.orders.edit', $order->id) }}"
+                                class="btn btn-outline-secondary">
+                                <i class="ti ti-edit me-1"></i> Edit
+                            </a>
+                        @endif
+
+                        @if (!in_array($order->status, ['completed', 'cancelled']))
+                            <form action="{{ route('admin.orders.markCompleted', $order->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-success"
+                                    onclick="return confirm('Mark this order as completed?')">
+                                    <i class="ti ti-check me-1"></i> Mark Completed
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.orders.markCancelled', $order->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to cancel this order?')">
+                                    <i class="ti ti-x me-1"></i> Cancel Order
+                                </button>
+                            </form>
+                        @endif
+                    </div> --}}
+                </div>
+            </div>
 
             <div class="row">
                 <!-- Client Information -->
@@ -123,19 +322,9 @@
                                         <div class="ms-2">
                                             <p class="mb-0 text-muted small">Status</p>
                                             <h6 class="mb-0">
-                                                @php
-                                                    $statusColors = [
-                                                        'pending' => 'warning',
-                                                        'in_progress' => 'primary',
-                                                        'delivered' => 'info',
-                                                        'installed' => 'success',
-                                                        'completed' => 'success',
-                                                        'cancelled' => 'danger',
-                                                    ];
-                                                @endphp
                                                 <span
                                                     class="badge bg-light-{{ $statusColors[$order->status] ?? 'secondary' }}">
-                                                    {{ ucfirst(str_replace('_', ' ', $order->status)) }}
+                                                    {{ ucfirst($order->status) }}
                                                 </span>
                                             </h6>
                                         </div>
@@ -146,17 +335,21 @@
                             <hr>
 
                             <div class="d-grid gap-2">
+                                {{-- <form action="{{ route('admin.orders.sendInvoice', $order->id) }}" method="POST"
+                                    class="d-inline">
+                                    @csrf
+                                    <button type="submit"
+                                        class="btn btn-light-warning d-flex justify-content-center w-100">
+                                        <i class="ti ti-mail me-1"></i> Send Invoice By Email
+                                    </button>
+                                </form> --}}
+
                                 <a href="{{ route('admin.clients.show', $order->client->id) }}"
-                                    class="btn btn-light-info d-flex justify-content-center">
+                                    class="btn btn-light-success d-flex justify-content-center">
                                     <i class="ti ti-external-link me-1"></i> View Client Profile
                                 </a>
 
-                                <button type="button" class="btn btn-light-success d-flex justify-content-center"
-                                    data-bs-toggle="offcanvas" data-bs-target="#activityOffcanvas">
-                                    <i class="ti ti-history me-1"></i> Activity Log
-                                </button>
-
-                                <a href="{{ route('index') }}"
+                                <a href="{{ route('admin.orders.index') }}"
                                     class="btn btn-outline-secondary d-flex justify-content-center">
                                     <i class="ti ti-arrow-left me-1"></i> Back to Orders
                                 </a>
@@ -169,8 +362,12 @@
                 <div class="col-md-8">
                     <!-- Products -->
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Order Items</h5>
+                            <button type="button" class="btn btn-light-info btn-sm" data-bs-toggle="offcanvas"
+                                data-bs-target="#activityOffcanvas">
+                                <i class="ti ti-history me-1"></i> Activity Log
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -254,43 +451,6 @@
                         </div>
                     </div>
 
-                    <!-- Order Status Update -->
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h5 class="mb-0">Update Order Status</h5>
-                        </div>
-                        <div class="card-body">
-                            <form id="statusUpdateForm">
-                                @csrf
-                                <div class="row align-items-end">
-                                    <div class="col-md-8">
-                                        <label class="form-label">Change Order Status</label>
-                                        <select class="form-select" id="statusSelect" name="status">
-                                            <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
-                                                Pending</option>
-                                            <option value="in_progress"
-                                                {{ $order->status == 'in_progress' ? 'selected' : '' }}>In Progress
-                                            </option>
-                                            <option value="delivered"
-                                                {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                                            <option value="installed"
-                                                {{ $order->status == 'installed' ? 'selected' : '' }}>Installed</option>
-                                            <option value="completed"
-                                                {{ $order->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                            <option value="cancelled"
-                                                {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="ti ti-check me-1"></i> Update Status
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
                     <!-- Notes -->
                     @if ($order->notes)
                         <div class="card mt-3">
@@ -317,17 +477,22 @@
         </div>
         <div class="offcanvas-body p-0">
             <!-- Add Activity Form -->
-            <div class="p-3 bg-light border-bottom">
-                <button type="button" class="btn btn-sm btn-primary w-100" data-bs-toggle="collapse"
-                    data-bs-target="#addActivityForm">
-                    <i class="ti ti-plus me-1"></i> Add Activity
-                </button>
+            <div class="p-3 bg-body border-bottom">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="collapse"
+                        data-bs-target="#addActivityForm">
+                        <i class="ti ti-plus me-1"></i> Add Activity
+                    </button>
+                </div>
 
                 <div class="collapse mt-3" id="addActivityForm">
-                    <form action="{{ route('admin.orders.storeActivity', $order->id) }}" method="POST">
+                    <form action="{{ route('admin.orders.storeActivity', $order->id) }}" method="POST" class="bg-body">
                         @csrf
+
                         <div class="mb-2">
-                            <label class="form-label small">Activity Type</label>
+                            <label class="form-label small text-body">
+                                Activity Type <span class="text-danger">*</span>
+                            </label>
                             <select name="type" class="form-select form-select-sm" required>
                                 <option value="call">Call</option>
                                 <option value="message">Message</option>
@@ -337,16 +502,25 @@
                                 <option value="other" selected>Other</option>
                             </select>
                         </div>
+
                         <div class="mb-2">
-                            <label class="form-label small">Details</label>
-                            <textarea name="details" class="form-control form-control-sm" rows="3" placeholder="Enter activity details..."
-                                required></textarea>
+                            <label class="form-label small text-body">Title</label>
+                            <input name="title" class="form-control form-control-sm" placeholder="Enter Title">
                         </div>
-                        <button type="submit" class="btn btn-sm btn-success w-100">
-                            <i class="ti ti-check me-1"></i> Save Activity
-                        </button>
+
+                        <div class="mb-2">
+                            <label class="form-label small text-body">Details</label>
+                            <textarea name="details" class="form-control form-control-sm" rows="3" placeholder="Enter details"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-sm btn-light-success mt-2">
+                                <i class="ti ti-check me-1"></i> Save Activity
+                            </button>
+                        </div>
                     </form>
                 </div>
+
             </div>
 
             <!-- Activities Timeline -->
@@ -362,14 +536,19 @@
                             <div class="flex-grow-1 ms-3">
                                 <div class="d-flex justify-content-between align-items-start mb-1">
                                     <h6 class="mb-0 text-sm text-capitalize">
-                                        {{ str_replace('_', ' ', $activity->type) }}
+                                        {{ $activity->title ?? 'Activity' }}
                                     </h6>
+                                    <span class="badge bg-light-{{ $activity->type_color }} ms-1 text-capitalize">
+                                        {{ str_replace('_', ' ', $activity->type) }}
+                                    </span>
+                                </div>
+                                <p class="text-muted mb-1" style="font-size: 0.80rem;">{{ $activity->details }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">
+                                        {{ $activity->created_at->format('d M, Y h:i A') }}
+                                    </small>
                                     <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
                                 </div>
-                                <p class="text-muted mb-1 small">{{ $activity->details }}</p>
-                                <small class="text-muted" style="font-size: 0.75rem;">
-                                    {{ $activity->created_at->format('d M, Y h:i A') }}
-                                </small>
                             </div>
                         </div>
                     </div>
@@ -402,46 +581,70 @@
         }
     </style>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const statusForm = document.getElementById('statusUpdateForm');
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
 
-            statusForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const status = document.getElementById('statusSelect').value;
-
-                fetch(`/admin/orders/{{ $order->id }}/status`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                        },
-                        body: JSON.stringify({
-                            status: status
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: 'Status updated successfully',
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                            setTimeout(() => location.reload(), 1500);
-                        }
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to update status'
-                        });
+                // Send Invoice Form
+                const sendInvoiceForm = document.querySelector('.send-invoice-form');
+                if (sendInvoiceForm) {
+                    const sendBtn = sendInvoiceForm.querySelector('.send-invoice-btn');
+                    sendInvoiceForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        toggleButtonLoading(sendBtn, true);
+                        this.submit();
                     });
+                }
+
+                // Reopen Order Form
+                const reopenForm = document.querySelector('.reopen-form');
+                if (reopenForm) {
+                    const reopenBtn = reopenForm.querySelector('.reopen-btn');
+                    reopenForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        toggleButtonLoading(reopenBtn, true);
+                        this.submit();
+                    });
+                }
+
+                // Complete Order Form
+                const completeForm = document.querySelector('.complete-form');
+                if (completeForm) {
+                    const completeBtn = completeForm.querySelector('.complete-btn');
+                    completeForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        toggleButtonLoading(completeBtn, true);
+                        this.submit();
+                    });
+                }
+
+                // Cancel Order Form
+                const cancelForm = document.querySelector('.cancel-form');
+                if (cancelForm) {
+                    const cancelBtn = cancelForm.querySelector('.cancel-btn');
+                    cancelForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        toggleButtonLoading(cancelBtn, true);
+                        this.submit();
+                    });
+                }
+
+                // Toggle button loading state
+                function toggleButtonLoading(button, isLoading) {
+                    const btnIcon = button.querySelector('.btn-icon');
+                    const btnLoading = button.querySelector('.btn-loading');
+
+                    if (isLoading) {
+                        btnIcon.classList.add('d-none');
+                        btnLoading.classList.remove('d-none');
+                        button.disabled = true;
+                    } else {
+                        btnIcon.classList.remove('d-none');
+                        btnLoading.classList.add('d-none');
+                        button.disabled = false;
+                    }
+                }
             });
-        });
-    </script>
+        </script>
+    @endpush
 @endsection

@@ -230,7 +230,7 @@
                                                     @endif
 
                                                     {{-- Image --}}
-                                                    <div class="image">
+                                                    <div class="image" style="height:14em;">
                                                         <img src="{{ $product->images->first()
                                                             ? asset('storage/' . $product->images->first()->image)
                                                             : asset('assets/images/item/eggs.png') }}"
@@ -917,65 +917,63 @@
                                     referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                             <ul class="contact-list">
+
+                                <!-- Address -->
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
                                     <div class="icon style-circle">
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <div class="infor">
-                                        <p class="title">
-                                            Farm Address
-                                        </p>
-                                        @if ($variables->isNotEmpty())
-                                            <p class="text">
-                                                {{ $variables->first()->map }}
-                                            </p>
+                                        <p class="title">Farm Address</p>
+
+                                        @if (!empty($company['company_address']))
+                                            <p class="text">{{ $company['company_address'] }}</p>
                                         @else
-                                            <p class="text">
-                                                N/A
-                                            </p>
+                                            <p class="text">N/A</p>
                                         @endif
                                     </div>
                                 </li>
+
+                                <!-- Contact -->
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
                                     <div class="icon style-circle">
                                         <i class="fa-solid fa-address-book"></i>
                                     </div>
                                     <div class="infor">
-                                        <p class="title">
-                                            Contact Us
-                                        </p>
-                                        @if ($variables->isNotEmpty())
+                                        <p class="title">Contact Us</p>
+
+                                        @if (!empty($company))
                                             <p class="text">
-                                                {{ $variables->first()->email }} <br>
-                                                Call Us 24/7: {{ $variables->first()->phone }}
+                                                {{ $company['company_email'] ?? 'N/A' }} <br>
+                                                Call Us 24/7: {{ $company['company_phone'] ?? 'N/A' }}
                                             </p>
                                         @else
-                                            <p class="text">
-                                                N/A
-                                            </p>
+                                            <p class="text">N/A</p>
                                         @endif
                                     </div>
                                 </li>
+
+                                <!-- Working Hours -->
                                 <li class="wow fadeInUp" data-wow-duration="1.4s">
                                     <div class="icon style-circle">
                                         <i class="fa-solid fa-clock"></i>
                                     </div>
                                     <div class="infor">
+                                        <p class="title">Working Hours</p>
 
-                                        <p class="title">
-                                            Working Hours
-                                        </p>
-                                        @if ($variables->isNotEmpty())
+                                        @if (!empty($company['working_hours']))
                                             <p class="text">
-                                                Mon - Fri: {{ $variables->first()->working_hours }}
-                                                {{-- <br> Sat: {{ $variables->first()->working_hours}} Holidays: Closes --}}
+                                                Mon - Fri: {{ $company['working_hours'] }}
                                             </p>
                                         @else
-                                            N/A
+                                            <p class="text">N/A</p>
                                         @endif
+
                                     </div>
                                 </li>
+
                             </ul>
+
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -1403,7 +1401,7 @@
                                     @foreach ($partners as $partner)
                                         <div class="swiper-slide">
                                             <div class="slide-partner">
-                                                <div class="image">
+                                                <div class="image" style="height:4em;">
                                                     <a href="#">
                                                         <img src="{{ asset('storage/' . $partner->image) }}"
                                                             alt="{{ $partner->name }}" class="lazyload">

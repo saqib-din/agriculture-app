@@ -760,7 +760,7 @@
                 setTimeout(() => {
                     msgBox.style.display = 'none';
                 }, 500);
-            }, 4000);
+            }, 5000);
         }
     </script>
 @endsection

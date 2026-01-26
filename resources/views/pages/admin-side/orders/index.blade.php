@@ -30,7 +30,6 @@
                             <div class="d-sm-flex align-items-center justify-content-between">
                                 <h5 class="mb-3 mb-sm-0">Orders List</h5>
                                 <div class="d-flex gap-2">
-                                    {{-- <span class="badge bg-light-primary">Total: {{ $orders->total() }}</span> --}}
                                     <a href="{{ route('admin.orders.create') }}" class="btn btn-primary btn-md">
                                         New Order
                                     </a>
@@ -90,34 +89,18 @@
                                                     </small>
                                                 </td>
                                                 <td>
-                                                    <select class="form-select form-select-sm status-select fw-semibold"
-                                                        data-id="{{ $order->id }}"
-                                                        style="width: 140px; border-radius: 20px;">
-                                                        <option value="pending"
-                                                            {{ $order->status == 'pending' ? 'selected' : '' }}>
-                                                            Pending
-                                                        </option>
-                                                        <option value="in_progress"
-                                                            {{ $order->status == 'in_progress' ? 'selected' : '' }}>
-                                                            In Progress
-                                                        </option>
-                                                        <option value="delivered"
-                                                            {{ $order->status == 'delivered' ? 'selected' : '' }}>
-                                                            Delivered
-                                                        </option>
-                                                        <option value="installed"
-                                                            {{ $order->status == 'installed' ? 'selected' : '' }}>
-                                                            Installed
-                                                        </option>
-                                                        <option value="completed"
-                                                            {{ $order->status == 'completed' ? 'selected' : '' }}>
-                                                            Completed
-                                                        </option>
-                                                        <option value="cancelled"
-                                                            {{ $order->status == 'cancelled' ? 'selected' : '' }}>
-                                                            Cancelled
-                                                        </option>
-                                                    </select>
+                                                    @php
+                                                        $statusColors = [
+                                                            'new' => 'info',
+                                                            'processing' => 'warning',
+                                                            'completed' => 'success',
+                                                            'cancelled' => 'danger',
+                                                        ];
+                                                    @endphp
+                                                    <span
+                                                        class="badge bg-light-{{ $statusColors[$order->status] ?? 'secondary' }}">
+                                                        {{ ucfirst($order->status) }}
+                                                    </span>
                                                 </td>
                                                 <td>
                                                     <small>{{ $order->created_at->format('d M, Y') }}</small>
@@ -127,17 +110,31 @@
                                                 </td>
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.orders.show', $order->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary" title="View Details">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
+                                                        title="View Details">
                                                         <i class="ti ti-eye f-20"></i>
                                                     </a>
 
-                                                    <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
-                                                        class="avtar avtar-xs btn-link-secondary" title="Print Order">
-                                                        <i class="ti ti-printer f-20"></i>
-                                                    </a>
+                                                    @if ($order->canGenerateInvoice() && $order->status === 'completed')
+                                                        <a href="{{ route('admin.orders.print', $order->id) }}"
+                                                            target="_blank" class="avtar avtar-xs btn-link-secondary"
+                                                            data-bs-toggle="tooltip" title="Print Order">
+                                                            <i class="ti ti-printer f-20"></i>
+                                                        </a>
+                                                    @endif
 
-                                                    <a href="#" class="avtar avtar-xs btn-link-secondary"
-                                                        onclick="deleteOrder({{ $order->id }})" title="Delete">
+                                                    @if (!in_array($order->status, ['completed', 'cancelled']))
+                                                        <a href="{{ route('admin.orders.edit', $order->id) }}"
+                                                            class="avtar avtar-xs btn-link-secondary"
+                                                            data-bs-toggle="tooltip" title="Edit">
+                                                            <i class="ti ti-edit f-20"></i>
+                                                        </a>
+                                                    @endif
+
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $order->id }}" data-bs-toggle="tooltip"
+                                                        title="Delete"
+                                                        onclick="deleteOrder({{ $order->id }}); return false;">
                                                         <i class="ti ti-trash f-20"></i>
                                                     </a>
 
@@ -155,10 +152,6 @@
                                                     <div class="py-4">
                                                         <i class="ti ti-shopping-cart-off f-40 text-muted"></i>
                                                         <p class="text-muted mt-2">No orders found</p>
-                                                        {{-- <a href="{{ route('admin.orders.create') }}"
-                                                            class="btn btn-primary btn-sm mt-2">
-                                                            <i class="ti ti-plus me-1"></i> Create First Order
-                                                        </a> --}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -180,84 +173,6 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Status update
-            document.querySelectorAll('.status-select').forEach(select => {
-                const originalValue = select.value;
-
-                select.addEventListener('change', function() {
-                    const orderId = this.dataset.id;
-                    const status = this.value;
-                    const selectElement = this;
-
-                    Swal.fire({
-                        title: 'Update Status?',
-                        text: `Change order status to ${status.replace('_', ' ')}?`,
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes, update it',
-                        cancelButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            fetch(`/admin/orders/${orderId}/status`, {
-                                    method: 'PATCH',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector(
-                                            'meta[name="csrf-token"]').content
-                                    },
-                                    body: JSON.stringify({
-                                        status: status
-                                    })
-                                })
-                                .then(res => res.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: 'Updated',
-                                            text: 'Status updated successfully',
-                                            timer: 1500,
-                                            showConfirmButton: false
-                                        });
-                                        updateStatusColor(selectElement);
-                                    }
-                                })
-                                .catch(() => {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error',
-                                        text: 'Failed to update status'
-                                    });
-                                    selectElement.value = originalValue;
-                                });
-                        } else {
-                            selectElement.value = originalValue;
-                        }
-                    });
-                });
-
-                updateStatusColor(select);
-            });
-
-            function updateStatusColor(select) {
-                select.classList.remove('text-warning', 'text-primary', 'text-info', 'text-success', 'text-danger');
-
-                const colorMap = {
-                    'pending': 'text-warning',
-                    'in_progress': 'text-primary',
-                    'delivered': 'text-info',
-                    'installed': 'text-success',
-                    'completed': 'text-success',
-                    'cancelled': 'text-danger'
-                };
-
-                if (colorMap[select.value]) {
-                    select.classList.add(colorMap[select.value]);
-                }
-            }
-        });
-
         function deleteOrder(id) {
             Swal.fire({
                 title: 'Are you sure?',

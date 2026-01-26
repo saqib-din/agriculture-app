@@ -103,29 +103,27 @@
                                                 <!-- Actions -->
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.clients.show', $client->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary" title="View">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip" title="View">
                                                         <i class="ti ti-eye f-20"></i>
                                                     </a>
 
                                                     <a href="{{ route('admin.clients.edit', $client->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary" title="Edit">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip" title="Edit">
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
 
-                                                    <a href="#" class="avtar avtar-xs btn-link-secondary"
-                                                        title="Delete"
-                                                        onclick="event.preventDefault();
-                                                        document.getElementById('delete-form-{{ $client->id }}').submit();">
+                                                    <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
+                                                        data-id="{{ $client->id }}" data-bs-toggle="tooltip" title="Delete">
                                                         <i class="ti ti-trash f-20"></i>
                                                     </a>
 
-                                                    <!-- Delete Form -->
                                                     <form id="delete-form-{{ $client->id }}"
                                                         action="{{ route('admin.clients.destroy', $client->id) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
+
                                                 </td>
                                             </tr>
                                         @endforeach

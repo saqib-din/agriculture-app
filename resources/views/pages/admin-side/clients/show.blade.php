@@ -58,9 +58,9 @@
                                         @endif
                                         <span>
                                             @if ($client->status)
-                                                <span class="badge bg-success">Active</span>
+                                                <span class="badge bg-light-success">Active</span>
                                             @else
-                                                <span class="badge bg-danger">Inactive</span>
+                                                <span class="badge bg-light-danger">Inactive</span>
                                             @endif
                                         </span>
                                     </div>
@@ -124,28 +124,29 @@
                                             <p class="text-muted mb-1">Company</p>
                                             <h6>{{ $client->company ?? 'N/A' }}</h6>
                                         </div>
-                                        @if ($client->address)
-                                            <div class="col-12">
-                                                <p class="text-muted mb-1">Address</p>
-                                                <h6>{{ $client->address }}</h6>
-                                            </div>
-                                        @endif
-                                        <div class="col-md-4">
+
+                                        <div class="col-md-6">
                                             <p class="text-muted mb-1">City</p>
                                             <h6>{{ $client->city ?? 'N/A' }}</h6>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <p class="text-muted mb-1">State</p>
                                             <h6>{{ $client->state ?? 'N/A' }}</h6>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <p class="text-muted mb-1">Country</p>
                                             <h6>{{ $client->country ?? 'N/A' }}</h6>
                                         </div>
                                         @if ($client->notes)
-                                            <div class="col-12">
+                                            <div class="col-6">
                                                 <p class="text-muted mb-1">Notes</p>
                                                 <p>{{ $client->notes }}</p>
+                                            </div>
+                                        @endif
+                                        @if ($client->address)
+                                            <div class="col-6">
+                                                <p class="text-muted mb-1">Address</p>
+                                                <h6>{{ $client->address }}</h6>
                                             </div>
                                         @endif
                                         <div class="col-md-6">
@@ -179,9 +180,9 @@
                                                     <tr>
                                                         <th>Order #</th>
                                                         <th>Products</th>
-                                                        <th>Total Amount</th>
                                                         <th>Status</th>
-                                                        <th>Date</th>
+                                                        <th class="text-end">Date</th>
+                                                        <th class="text-end">Total Amount</th>
                                                         <th class="text-end">Action</th>
                                                     </tr>
                                                 </thead>
@@ -196,9 +197,7 @@
                                                                     {{ $order->products->count() }} Items
                                                                 </span>
                                                             </td>
-                                                            <td>
-                                                                <strong>PKR {{ number_format($order->total, 2) }}</strong>
-                                                            </td>
+
                                                             <td>
                                                                 @php
                                                                     $statusColors = [
@@ -215,8 +214,11 @@
                                                                     {{ ucfirst(str_replace('_', ' ', $order->status)) }}
                                                                 </span>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-end">
                                                                 <small>{{ $order->created_at->format('d M, Y') }}</small>
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <strong>PKR {{ number_format($order->total, 2) }}</strong>
                                                             </td>
                                                             <td class="text-end">
                                                                 <a href="{{ route('admin.orders.show', $order->id) }}"
@@ -256,7 +258,7 @@
                                                     <tr>
                                                         <th>Quote #</th>
                                                         <th>Products</th>
-                                                        <th>Status</th>
+                                                        {{-- <th>Status</th> --}}
                                                         <th>Quote Status</th>
                                                         <th>Date</th>
                                                         <th class="text-end">Action</th>
@@ -273,7 +275,7 @@
                                                                     {{ $quote->products->count() }} Items
                                                                 </span>
                                                             </td>
-                                                            <td>
+                                                            {{-- <td>
                                                                 @php
                                                                     $statusColors = [
                                                                         'pending' => 'warning',
@@ -286,7 +288,7 @@
                                                                     class="badge bg-light-{{ $statusColors[$quote->status] ?? 'secondary' }}">
                                                                     {{ ucfirst($quote->status) }}
                                                                 </span>
-                                                            </td>
+                                                            </td> --}}
                                                             <td>
                                                                 @php
                                                                     $quoteStatusColors = [

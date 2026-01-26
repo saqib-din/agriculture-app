@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Variable;
-
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,8 +20,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
+    public function boot(): void
     {
-        view()->share('hasAboutData', Variable::exists());
+        View::composer('*', function ($view) {
+            $variables = Cache::remember('company_variables', 3600, function () {
+                return DB::table('variables')->pluck('value', 'key')->toArray();
+            });
+
+            $view->with('company', $variables);
+        });
     }
 }

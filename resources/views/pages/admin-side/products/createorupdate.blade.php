@@ -43,8 +43,9 @@
             <!-- Main Content -->
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('admin.products.storeUpdate', $product->id ?? null) }}" method="POST"
-                        enctype="multipart/form-data">
+                    <form
+                        action="{{ isset($product) ? route('admin.products.storeUpdate', $product->id) : route('admin.products.storeUpdate') }}"
+                        method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="card">
@@ -147,7 +148,7 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Quantity</label>
                                                     <input type="number" name="quantity" class="form-control"
-                                                        placeholder="Enter quantity"
+                                                        placeholder="Enter quantity" min="0"
                                                         value="{{ old('quantity', $product->quantity ?? '') }}" />
                                                 </div>
                                             </div>
@@ -253,9 +254,9 @@
                                                                                     placeholder="e.g., 2.5 kg, Red, Large"
                                                                                     value="{{ $spec->value }}" />
                                                                             </div>
-                                                                            <div class="col-md-1">
+                                                                            <div class="col-md-1 mb-2">
                                                                                 <button type="button"
-                                                                                    class="btn btn-danger btn-sm remove-spec">
+                                                                                    class="btn btn-light-danger btn-sm remove-spec">
                                                                                     <i class="ti ti-trash"></i>
                                                                                 </button>
                                                                             </div>
@@ -310,18 +311,10 @@
                                                                     style="object-fit:cover;" />
 
                                                                 <button type="button"
-                                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1"
-                                                                    onclick="document.getElementById('delete-form-{{ $img->id }}').submit();">
+                                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-image-btn"
+                                                                    data-image-id="{{ $img->id }}">
                                                                     <i class="ti ti-trash"></i>
                                                                 </button>
-
-                                                                <form id="delete-form-{{ $img->id }}"
-                                                                    action="{{ route('admin.products.imageDestroy', $img->id) }}"
-                                                                    method="POST" style="display:none;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                </form>
-
                                                             </div>
                                                         @endforeach
                                                     </div>
@@ -351,7 +344,6 @@
     </div>
 
     <style>
-        /* Tab Styling */
         .nav-tabs .nav-link {
             color: #6c757d;
             font-weight: 500;
@@ -362,32 +354,12 @@
             border-bottom: 2px solid #4680ff;
         }
 
-        /* Image Wrapper */
         .image-wrapper {
             position: relative;
             border-radius: 8px;
             overflow: hidden;
         }
 
-        .delete-image-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        }
-
-        .image-wrapper:hover .delete-image-btn {
-            opacity: 1;
-        }
-
-        .image-wrapper:hover img {
-            opacity: 0.6;
-        }
-
-        /* Specification Card */
         .specification-row .card {
             border: 1px solid #e5e7eb;
             transition: all 0.2s ease;
@@ -397,7 +369,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Image Preview */
         #imagePreview img {
             width: 100px;
             height: 100px;
@@ -408,7 +379,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Slug Generation
             const productNameInput = document.getElementById('productName');
             const productSlugInput = document.getElementById('productSlug');
             const editSlugBtn = document.getElementById('editSlugBtn');
@@ -447,12 +417,9 @@
                 }
             });
 
-            // Add Specification
             let specIndex = {{ isset($product) ? $product->specifications->count() : 0 }};
             document.getElementById('addSpecBtn').addEventListener('click', function() {
                 const container = document.getElementById('specificationsContainer');
-
-                // Remove info alert if exists
                 const alert = container.querySelector('.alert-info');
                 if (alert) alert.remove();
 
@@ -485,14 +452,12 @@
                 specIndex++;
             });
 
-            // Remove Specification
             document.addEventListener('click', function(e) {
                 if (e.target.closest('.remove-spec')) {
                     e.target.closest('.specification-row').remove();
                 }
             });
 
-            // Image Preview
             document.getElementById('imageInput').addEventListener('change', function(e) {
                 const preview = document.getElementById('imagePreview');
                 preview.innerHTML = '';
@@ -509,15 +474,69 @@
                 });
             });
 
-            // Delete Existing Image
+            // Delete existing images
             document.querySelectorAll('.delete-image-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    if (confirm('Are you sure you want to delete this image?')) {
-                        const imageId = this.dataset.id;
-                        document.getElementById(`delete-form-${imageId}`).submit();
+                    if (!confirm('Are you sure you want to delete this image?')) {
+                        return;
                     }
+
+                    const imageId = this.dataset.imageId;
+                    const imageWrapper = this.closest('.image-wrapper');
+
+                    this.disabled = true;
+                    this.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+                    fetch(`/admin/products/image-destroy/${imageId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            imageWrapper.remove();
+                            showSuccessMessage('Image deleted successfully');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error deleting image');
+                            this.disabled = false;
+                            this.innerHTML = '<i class="ti ti-trash"></i>';
+                        });
                 });
             });
         });
+
+        function showSuccessMessage(message) {
+            let existingMsg = document.querySelector('.ajax-success-msg');
+            if (existingMsg) existingMsg.remove();
+
+            const msgBox = document.createElement('div');
+            msgBox.className = 'alert alert-success ajax-success-msg fade show';
+            msgBox.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+                min-width: 280px;
+                max-width: 350px;
+                padding: 12px 18px;
+                border-radius: 10px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            `;
+            msgBox.innerHTML = `
+                <i class="ti ti-check text-success fs-5"></i>
+                <span class="flex-grow-1">${message}</span>
+            `;
+
+            document.body.appendChild(msgBox);
+
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+                setTimeout(() => msgBox.remove(), 300);
+            }, 3000);
+        }
     </script>
 @endsection

@@ -1,11 +1,6 @@
 <!-- Header  -->
 <header class="header has-item-bot" id="header-main">
 
-    @php
-        // Fetch all variables as key => value for easy access
-        $variables = \App\Models\Variable::pluck('value', 'key');
-    @endphp
-
     <div class="tf-container w-1780">
         <div class="row">
             <div class="col-lg-12">
@@ -16,14 +11,13 @@
                                 <div class="d-flex align-items-center">
                                     <div class="flex-shrink-0">
                                         <img src="{{ asset('assets/images/logo/logo3x.png') }}" style="height: 3em;"
-                                            alt="" />
+                                            alt="{{ $company['company_name'] ?? 'Logo' }}" />
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h5 class="text-dark mb-0 fw-5">
-                                            {{ $variables['company_name'] ?? 'Scrumad' }}
+                                            {{ $company['company_name'] ?? 'Company Name' }}
                                         </h5>
-                                        {{-- Optional slogan --}}
-                                        <span class="text-dark">{{ $variables['company_slogan'] ?? '' }}</span>
+                                        <span class="text-dark">{{ $company['company_slogan'] ?? '' }}</span>
                                     </div>
                                 </div>
                             </a>
@@ -33,26 +27,18 @@
                                 <li class="item has-child {{ request()->is('/') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/') }}">Home</a>
                                 </li>
-                                {{-- @if (isset($products) && $products->isNotEmpty()) --}}
                                 <li class="item has-child {{ request()->is('products') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/products') }}">Products</a>
                                 </li>
-                                {{-- @endif --}}
-                                {{-- @if (isset($services) && $services->isNotEmpty()) --}}
                                 <li class="item has-child {{ request()->is('services') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/services') }}">Services</a>
                                 </li>
-                                {{-- @endif --}}
-                                {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
                                 <li class="item has-child {{ request()->is('teams') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/teams') }}">Team</a>
                                 </li>
-                                {{-- @endif --}}
-                                @if ($hasAboutData)
-                                    <li class="item has-child {{ request()->is('aboutus') ? 'current-menu' : '' }}">
-                                        <a href="{{ url('aboutus') }}">About us</a>
-                                    </li>
-                                @endif
+                                <li class="item has-child {{ request()->is('aboutus') ? 'current-menu' : '' }}">
+                                    <a href="{{ url('aboutus') }}">About us</a>
+                                </li>
                                 <li class="item has-child {{ request()->is('contactus') ? 'current-menu' : '' }}">
                                     <a href="{{ url('/contactus') }}">Contact us</a>
                                 </li>
@@ -76,8 +62,8 @@
                     <div class="inner-mobile-nav overflow-y-auto">
                         <div class="top">
                             <div class="logo">
-                                <a href="index.html" rel="home" class="main-logo">
-                                    <img id="mobile-logo_header" alt=""
+                                <a href="{{ url('/') }}" rel="home" class="main-logo">
+                                    <img id="mobile-logo_header" alt="{{ $company['company_name'] ?? 'Logo' }}"
                                         src="{{ asset('assets/images/logo/logo-2.png') }}" />
                                 </a>
                                 <div class="mobile-nav-close">
@@ -93,7 +79,6 @@
                                             Home
                                         </a>
                                     </li>
-                                    {{-- @if (isset($products) && $products->isNotEmpty()) --}}
                                     <li
                                         class="menu-item menu-item-has-children-mobile {{ request()->is('products') ? 'current-nav' : '' }}">
                                         <a class="item-menu-mobile {{ request()->is('products') ? 'current' : '' }}"
@@ -101,8 +86,6 @@
                                             Products
                                         </a>
                                     </li>
-                                    {{-- @endif --}}
-                                    {{-- @if (isset($services) && $services->isNotEmpty()) --}}
                                     <li
                                         class="menu-item menu-item-has-children-mobile {{ request()->is('services') ? 'current-nav' : '' }}">
                                         <a class="item-menu-mobile {{ request()->is('services') ? 'current' : '' }}"
@@ -110,8 +93,6 @@
                                             Services
                                         </a>
                                     </li>
-                                    {{-- @endif --}}
-                                    {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
                                     <li
                                         class="menu-item menu-item-has-children-mobile {{ request()->is('teams') ? 'current-nav' : '' }}">
                                         <a class="item-menu-mobile {{ request()->is('teams') ? 'current' : '' }}"
@@ -119,16 +100,13 @@
                                             Teams
                                         </a>
                                     </li>
-                                    {{-- @endif --}}
-                                    @if ($hasAboutData)
-                                        <li
-                                            class="menu-item menu-item-has-children-mobile {{ request()->is('aboutus') ? 'current-nav' : '' }}">
-                                            <a class="item-menu-mobile {{ request()->is('aboutus') ? 'current' : '' }}"
-                                                href="{{ url('/aboutus') }}">
-                                                About Us
-                                            </a>
-                                        </li>
-                                    @endif
+                                    <li
+                                        class="menu-item menu-item-has-children-mobile {{ request()->is('aboutus') ? 'current-nav' : '' }}">
+                                        <a class="item-menu-mobile {{ request()->is('aboutus') ? 'current' : '' }}"
+                                            href="{{ url('/aboutus') }}">
+                                            About Us
+                                        </a>
+                                    </li>
                                     <li
                                         class="menu-item menu-item-has-children-mobile {{ request()->is('contactus') ? 'current-nav' : '' }}">
                                         <a class="item-menu-mobile {{ request()->is('contactus') ? 'current' : '' }}"
@@ -144,39 +122,51 @@
                             <div class="infor-list">
                                 <ul>
                                     <li>
-                                        <h5 class="title">
-                                            Address:
-                                        </h5>
-                                        <p>{{ $variables['company_address'] ?? 'Prinsengracht 250, Amsterdam Netherlands' }}
-                                        </p>
-
+                                        <h5 class="title">Address:</h5>
+                                        <p>{{ $company['company_address'] ?? 'N/A' }}</p>
                                     </li>
                                     <li>
-                                        <h5 class="title">
-                                            Phone:
-                                        </h5>
-                                        <p>{{ $variables['company_phone'] ?? '+1 987 654 3210' }}</p>
-
+                                        <h5 class="title">Phone:</h5>
+                                        <p>{{ $company['company_phone'] ?? 'N/A' }}</p>
                                     </li>
                                     <li>
-                                        <h5 class="title">
-                                            Email:
-                                        </h5>
-                                        <p>{{ $variables['company_email'] ?? 'Donalfarms@gmail.com' }}</p>
-
+                                        <h5 class="title">Email:</h5>
+                                        <p>{{ $company['company_email'] ?? 'N/A' }}</p>
                                     </li>
                                 </ul>
                             </div>
                             <div class="wg-social">
                                 <ul class="list">
-                                    @foreach (['facebook', 'twitter', 'instagram', 'pinterest'] as $social)
-                                        @if (!empty($variables[$social]))
-                                            <li class="item">
-                                                <a href="{{ $variables[$social] }}"><i
-                                                        class="icon-{{ $social }}"></i></a>
-                                            </li>
-                                        @endif
-                                    @endforeach
+                                    @if (!empty($company['facebook']))
+                                        <li class="item">
+                                            <a href="{{ $company['facebook'] }}" target="_blank"><i
+                                                    class="icon-facebook"></i></a>
+                                        </li>
+                                    @endif
+                                    @if (!empty($company['twitter']))
+                                        <li class="item">
+                                            <a href="{{ $company['twitter'] }}" target="_blank"><i
+                                                    class="icon-twitter"></i></a>
+                                        </li>
+                                    @endif
+                                    @if (!empty($company['instagram']))
+                                        <li class="item">
+                                            <a href="{{ $company['instagram'] }}" target="_blank"><i
+                                                    class="icon-instagram"></i></a>
+                                        </li>
+                                    @endif
+                                    @if (!empty($company['linkedin']))
+                                        <li class="item">
+                                            <a href="{{ $company['linkedin'] }}" target="_blank"><i
+                                                    class="icon-linkedin"></i></a>
+                                        </li>
+                                    @endif
+                                    @if (!empty($company['youtube']))
+                                        <li class="item">
+                                            <a href="{{ $company['youtube'] }}" target="_blank"><i
+                                                    class="icon-youtube"></i></a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -192,36 +182,29 @@
                     <div class="header-inner ">
                         <div class="header-left">
                             <div class="logo-site">
-                                <a href="index.html">
-                                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="" />
+                                <a href="{{ url('/') }}">
+                                    <img src="{{ asset('assets/images/logo/logo.png') }}"
+                                        alt="{{ $company['company_name'] ?? 'Logo' }}" />
                                 </a>
                             </div>
                             <div class="main-nav">
                                 <ul class="nav-list">
-                                    <li class="item has-child current-menu">
+                                    <li class="item has-child {{ request()->is('/') ? 'current-menu' : '' }}">
                                         <a href="{{ url('/') }}">Home</a>
                                     </li>
-                                    {{-- @if (isset($products) && $products->isNotEmpty()) --}}
-                                    <li class="item has-child">
+                                    <li class="item has-child {{ request()->is('products') ? 'current-menu' : '' }}">
                                         <a href="{{ url('/products') }}">Products</a>
                                     </li>
-                                    {{-- @endif --}}
-                                    {{-- @if (isset($services) && $services->isNotEmpty()) --}}
-                                    <li class="item has-child">
+                                    <li class="item has-child {{ request()->is('services') ? 'current-menu' : '' }}">
                                         <a href="{{ url('/services') }}">Services</a>
                                     </li>
-                                    {{-- @endif --}}
-                                    {{-- @if (isset($teams) && $teams->isNotEmpty()) --}}
-                                    <li class="item has-child">
-                                        <a href="{{ url('/team') }}">Team</a>
+                                    <li class="item has-child {{ request()->is('teams') ? 'current-menu' : '' }}">
+                                        <a href="{{ url('/teams') }}">Team</a>
                                     </li>
-                                    {{-- @endif --}}
-                                    @if ($hasAboutData)
-                                        <li class="item has-child">
-                                            <a href="{{ url('/aboutus') }}">About Us</a>
-                                        </li>
-                                    @endif
-                                    <li class="item has-child">
+                                    <li class="item has-child {{ request()->is('aboutus') ? 'current-menu' : '' }}">
+                                        <a href="{{ url('/aboutus') }}">About Us</a>
+                                    </li>
+                                    <li class="item has-child {{ request()->is('contactus') ? 'current-menu' : '' }}">
                                         <a href="{{ url('/contactus') }}">Contact Us</a>
                                     </li>
                                 </ul>

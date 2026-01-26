@@ -9,13 +9,14 @@
                         <div class="col-md-12">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('index') }}">Orders</a></li>
-                                <li class="breadcrumb-item">Create</li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.orders.index') }}">Orders</a></li>
+                                <li class="breadcrumb-item">{{ isset($order) ? 'Edit' : 'Create' }}</li>
                             </ul>
                         </div>
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h2 class="mb-0">Create New Order</h2>
+                                <h2 class="mb-0">
+                                    {{ isset($order) ? 'Edit Order - ' . $order->order_number : 'Create New Order' }}</h2>
                             </div>
                         </div>
                     </div>
@@ -24,8 +25,12 @@
 
             @include('components.alerts')
 
-            <form action="{{ route('admin.orders.store') }}" method="POST" id="orderForm">
+            <form action="{{ isset($order) ? route('admin.orders.update', $order->id) : route('admin.orders.store') }}"
+                method="POST" id="orderForm">
                 @csrf
+                @if (isset($order))
+                    @method('PUT')
+                @endif
                 <input type="hidden" name="quote_request_id" value="{{ $quoteRequestId ?? '' }}">
 
                 <div class="row">
@@ -44,31 +49,12 @@
                                             @foreach ($clients as $client)
                                                 <option value="{{ $client->id }}" data-email="{{ $client->email }}"
                                                     data-phone="{{ $client->phone }}" data-company="{{ $client->company }}"
-                                                    data-address="{{ $client->address }}">
+                                                    data-address="{{ $client->address }}"
+                                                    {{ (isset($order) && $order->client_id == $client->id) || (isset($selectedClientId) && $selectedClientId == $client->id) ? 'selected' : '' }}>
                                                     {{ $client->name }} - {{ $client->email }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </div>
-
-                                    <!-- Client Details Display -->
-                                    <div class="col-12" id="clientDetails" style="display: none;">
-                                        <div class="alert alert-info">
-                                            <div class="row g-2">
-                                                <div class="col-md-6">
-                                                    <strong>Email:</strong> <span id="clientEmail"></span>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong>Phone:</strong> <span id="clientPhone"></span>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong>Company:</strong> <span id="clientCompany"></span>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <strong>Address:</strong> <span id="clientAddress"></span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +66,7 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">Products</h5>
-                                <button type="button" class="btn btn-sm btn-primary" id="addProductBtn">
+                                <button type="button" class="btn btn-md btn-primary d-flex" id="addProductBtn">
                                     <i class="ti ti-plus me-1"></i> Add Product
                                 </button>
                             </div>
@@ -107,7 +93,8 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="3" class="text-end">
-                                                    <strong>Tax (17%):</strong>
+                                                    <strong>GST (<span
+                                                            id="gstPercentage">{{ $gstRate ?? 0 }}</span>%):</strong>
                                                 </td>
                                                 <td class="text-end"><strong id="taxDisplay">PKR 0.00</strong></td>
                                                 <td></td>
@@ -118,7 +105,8 @@
                                                         <strong class="me-2">Discount:</strong>
                                                         <input type="number" name="discount" id="discountInput"
                                                             class="form-control form-control-sm" style="width: 150px;"
-                                                            value="0" min="0" step="0.01">
+                                                            value="{{ isset($order) ? $order->discount : 0 }}"
+                                                            min="0" step="0.01">
                                                     </div>
                                                 </td>
                                                 <td class="text-end"><strong id="discountDisplay">PKR 0.00</strong></td>
@@ -148,19 +136,19 @@
                             </div>
                             <div class="card-body">
                                 <label class="form-label">Notes</label>
-                                <textarea name="notes" class="form-control" rows="3" placeholder="Enter any additional notes..."></textarea>
+                                <textarea name="notes" class="form-control" rows="3" placeholder="Enter any additional notes...">{{ isset($order) ? $order->notes : '' }}</textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- Submit Buttons -->
-                    <div class="col-12">
+                    <div class="col-12 mb-4">
                         <div class="d-flex justify-content-end gap-2">
-                            <a href="{{ route('index') }}" class="btn btn-outline-secondary">
-                                <i class="ti ti-x me-1"></i> Cancel
+                            <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-secondary">
+                                Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="ti ti-check me-1"></i> Create Order
+                                {{ isset($order) ? 'Update Order' : 'Create Order' }}
                             </button>
                         </div>
                     </div>
@@ -172,67 +160,96 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const clientSelect = document.getElementById('clientSelect');
-            const clientDetails = document.getElementById('clientDetails');
             const addProductBtn = document.getElementById('addProductBtn');
             const productsTableBody = document.getElementById('productsTableBody');
             const discountInput = document.getElementById('discountInput');
 
             const products = @json($products);
+            const quoteProducts = @json($quoteProducts ?? []);
+
+            @php
+                $orderProductsData = [];
+                if (isset($order)) {
+                    $orderProductsData = $order->products
+                        ->map(function ($product) {
+                            return [
+                                'id' => $product->id,
+                                'quantity' => $product->pivot->quantity,
+                                'price' => $product->pivot->price,
+                            ];
+                        })
+                        ->toArray();
+                }
+            @endphp
+
+            const orderProducts = @json($orderProductsData);
+
+            const gstRate = {{ $gstRate ?? 0 }};
             let productCount = 0;
 
-            // Client selection handler
-            clientSelect.addEventListener('change', function() {
-                if (this.value) {
-                    const option = this.options[this.selectedIndex];
-                    document.getElementById('clientEmail').textContent = option.dataset.email || 'N/A';
-                    document.getElementById('clientPhone').textContent = option.dataset.phone || 'N/A';
-                    document.getElementById('clientCompany').textContent = option.dataset.company || 'N/A';
-                    document.getElementById('clientAddress').textContent = option.dataset.address || 'N/A';
-                    clientDetails.style.display = 'block';
-                } else {
-                    clientDetails.style.display = 'none';
-                }
-            });
+            // Pre-populate products from quote if available
+            if (quoteProducts.length > 0) {
+                quoteProducts.forEach(product => {
+                    addProductRow(product.id, product.pivot.quantity, product.price);
+                });
+            }
+            // Pre-populate products from order if editing
+            else if (orderProducts.length > 0) {
+                orderProducts.forEach(product => {
+                    addProductRow(product.id, product.quantity, product.price);
+                });
+            }
 
             // Add product row
             addProductBtn.addEventListener('click', function() {
+                addProductRow();
+            });
+
+            function addProductRow(selectedProductId = null, selectedQuantity = 1, selectedPrice = 0) {
                 const row = document.createElement('tr');
                 const rowId = 'product-row-' + productCount++;
 
                 row.id = rowId;
                 row.innerHTML = `
-            <td>
-                <select class="form-select product-select" name="products[${rowId}][id]" required onchange="updateProductPrice(this)">
-                    <option value="">Select Product...</option>
-                    ${products.map(p => `
-                                <option value="${p.id}" data-price="${p.price}" data-sku="${p.sku}">
-                                    ${p.name} - ${p.sku} (PKR ${parseFloat(p.price).toFixed(2)})
-                                </option>
-                            `).join('')}
-                </select>
-            </td>
-            <td>
-                <input type="number" class="form-control text-center quantity-input" 
-                       name="products[${rowId}][quantity]" 
-                       value="1" min="1" required onchange="calculateRowTotal(this)">
-            </td>
-            <td>
-                <input type="number" class="form-control text-end price-input" 
-                       name="products[${rowId}][price]" 
-                       value="0.00" step="0.01" readonly>
-            </td>
-            <td class="text-end">
-                <strong class="row-subtotal">PKR 0.00</strong>
-            </td>
-            <td class="text-center">
-                <button type="button" class="btn btn-sm btn-icon btn-link-danger" onclick="removeProductRow('${rowId}')">
-                    <i class="ti ti-trash"></i>
-                </button>
-            </td>
-        `;
+                    <td>
+                        <select class="form-select product-select"
+                            name="products[${rowId}][id]"
+                            required
+                            onchange="updateProductPrice(this)">
+                            <option value="">Select Product...</option>
+                            ${products.map(p => `
+                                    <option value="${p.id}"
+                                        data-price="${p.price}"
+                                        data-sku="${p.sku}"
+                                        ${selectedProductId == p.id ? 'selected' : ''}>
+                                        ${p.name} (${p.sku})
+                                    </option>
+                                `).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control text-center quantity-input" 
+                               name="products[${rowId}][quantity]" 
+                               value="${selectedQuantity}" min="1" required onchange="calculateRowTotal(this)">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control text-end price-input" 
+                               name="products[${rowId}][price]" 
+                               value="${parseFloat(selectedPrice).toFixed(2)}" step="0.01" required onchange="calculateRowTotal(this)">
+                    </td>
+                    <td class="text-end">
+                        <strong class="row-subtotal">PKR ${(selectedQuantity * selectedPrice).toFixed(2)}</strong>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-icon btn-link-danger" onclick="removeProductRow('${rowId}')">
+                            <i class="ti ti-trash"></i>
+                        </button>
+                    </td>
+                `;
 
                 productsTableBody.appendChild(row);
-            });
+                calculateGrandTotal();
+            }
 
             // Update product price when selected
             window.updateProductPrice = function(select) {
@@ -261,22 +278,28 @@
                 calculateGrandTotal();
             };
 
-            // Calculate grand total
+            // Calculate grand total with GST
             function calculateGrandTotal() {
                 let subtotal = 0;
 
+                // Calculate subtotal from all products
                 document.querySelectorAll('.row-subtotal').forEach(el => {
                     const amount = parseFloat(el.textContent.replace('PKR ', '').replace(',', '')) || 0;
                     subtotal += amount;
                 });
 
+                // Get discount
                 const discount = parseFloat(discountInput.value) || 0;
-                const taxableAmount = subtotal - discount;
-                const tax = taxableAmount * 0.17;
-                const grandTotal = subtotal + tax - discount;
 
+                // Calculate GST on subtotal (before discount)
+                const gstAmount = subtotal * (gstRate / 100);
+
+                // Calculate grand total: Subtotal + GST - Discount
+                const grandTotal = subtotal + gstAmount - discount;
+
+                // Update displays
                 document.getElementById('subtotalDisplay').textContent = `PKR ${subtotal.toFixed(2)}`;
-                document.getElementById('taxDisplay').textContent = `PKR ${tax.toFixed(2)}`;
+                document.getElementById('taxDisplay').textContent = `PKR ${gstAmount.toFixed(2)}`;
                 document.getElementById('discountDisplay').textContent = `PKR ${discount.toFixed(2)}`;
                 document.getElementById('grandTotalDisplay').textContent = `PKR ${grandTotal.toFixed(2)}`;
             }

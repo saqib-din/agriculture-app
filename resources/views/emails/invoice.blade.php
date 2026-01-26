@@ -268,7 +268,7 @@
                                 <p>
                                     {{ $order->client->city }}{{ $order->client->state
                                         ? ',
-                                                                                                                                                                                                            ' .
+                                                                                                                                                                                                                                                ' .
                                             $order->client->state
                                         : '' }}
                                 </p>

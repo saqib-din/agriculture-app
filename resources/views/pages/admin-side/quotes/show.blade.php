@@ -20,64 +20,60 @@
 
                                 <!-- Action Buttons -->
                                 <div class="d-flex gap-2">
-                                    @if ($quoteRequest->isExistingClient())
-                                        <!-- If Client Exists - Show View Client & Create Order -->
-                                        <a href="{{ route('admin.clients.show', $quoteRequest->client_id) }}"
-                                            class="btn btn-light-info">
-                                            <i class="ti ti-user-check me-1"></i> View Client
-                                        </a>
-
-                                        <a href="{{ route('admin.orders.create', ['quote_id' => $quoteRequest->id]) }}"
-                                            class="btn btn-light-success">
-                                            <i class="ti ti-shopping-cart me-1"></i> Create Order
-                                        </a>
-                                    @else
-                                        <!-- If Client Doesn't Exist - Show Convert Button -->
-                                        <form action="{{ route('admin.quotes.convertToClient', $quoteRequest) }}"
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            <button type="submit" class="btn btn-light-success"
-                                                onclick="return confirm('Convert this quote to a client?')">
-                                                <i class="ti ti-user-plus me-1"></i> Convert to Client
-                                            </button>
-                                        </form>
-                                    @endif
-
-                                    @if ($quoteRequest->quote_status !== 'rejected')
-                                        <form action="{{ route('admin.quotes.reject', $quoteRequest) }}" method="POST"
-                                            class="d-inline">
-                                            @csrf
-                                            <button type="submit" class="btn btn-light-danger"
-                                                onclick="return confirm('Reject this quote?')">
-                                                <i class="ti ti-x me-1"></i> Reject
-                                            </button>
-                                        </form>
-                                    @endif
-
-                                    {{-- @if ($quoteRequest->quote_status === 'rejected' || $quoteRequest->quote_status === 'converted')
+                                    @if ($quoteRequest->quote_status === 'rejected')
                                         <form action="{{ route('admin.quotes.reopen', $quoteRequest) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             <button type="submit" class="btn btn-light-warning">
-                                                <i class="ti ti-refresh me-1"></i> Reopen
+                                                <i class="ti ti-refresh me-1"></i> Reopen Quote
                                             </button>
                                         </form>
-                                    @endif --}}
+                                    @elseif ($quoteRequest->quote_status === 'converted')
+                                        <!-- Show View Order Button when Converted -->
+                                        @if ($quoteRequest->order)
+                                            <a href="{{ route('admin.orders.show', $quoteRequest->order->id) }}"
+                                                class="btn btn-light-primary">
+                                                <i class="ti ti-eye me-1"></i> View Order
+                                            </a>
+                                        @endif
 
-                                    <button type="button" class="btn btn-light-primary" data-bs-toggle="modal"
-                                        data-bs-target="#addActivityModal">
-                                        <i class="ti ti-plus me-1"></i> Add Activity
-                                    </button>
+                                        <span class="badge bg-light-success fs-6 px-3 py-2">
+                                            <i class="ti ti-check-circle me-1"></i> Already Converted
+                                        </span>
+                                    @else
+                                        @if ($quoteRequest->isExistingClient())
+                                            <a href="{{ route('admin.clients.show', $quoteRequest->client_id) }}"
+                                                class="btn btn-light-info">
+                                                <i class="ti ti-user-check me-1"></i> View Client
+                                            </a>
 
-                                    {{-- <form action="{{ route('admin.quotes.destroy', $quoteRequest) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger"
-                                            onclick="return confirm('Delete this quote permanently?')">
-                                            <i class="ti ti-trash me-1"></i> Delete
-                                        </button>
-                                    </form> --}}
+                                            <a href="{{ route('admin.orders.create', ['quote_request_id' => $quoteRequest->id]) }}"
+                                                class="btn btn-light-success">
+                                                <i class="ti ti-shopping-cart me-1"></i> Create Order
+                                            </a>
+                                        @else
+                                            <button type="button" class="btn btn-light-success" id="convertToClientBtn"
+                                                data-quote-id="{{ $quoteRequest->id }}">
+                                                <span class="btn-text">
+                                                    <i class="ti ti-user-plus me-1"></i> Convert to Client
+                                                </span>
+                                                <span class="btn-loading d-none">
+                                                    <span class="spinner-border spinner-border-sm me-1" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </span>
+                                                    Converting...
+                                                </span>
+                                            </button>
+                                        @endif
+
+                                        <form action="{{ route('admin.quotes.reject', $quoteRequest) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-light-danger d-flex">
+                                                <i class="ti ti-x me-1"></i> Reject
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -91,7 +87,6 @@
             <div class="row">
                 <!-- Left Column - Customer Info -->
                 <div class="col-md-4">
-                    <!-- Customer Information Card -->
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0">Customer Information</h5>
@@ -152,6 +147,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Status Display -->
                                 <div class="col-12">
                                     <div class="d-flex align-items-center">
                                         <div class="avtar avtar-s bg-light-secondary flex-shrink-0">
@@ -160,226 +156,96 @@
                                         <div class="ms-2">
                                             <p class="mb-0 text-muted small">Status</p>
                                             <h6 class="mb-0">
-                                                @switch($quoteRequest->status)
+                                                @switch($quoteRequest->quote_status)
+                                                    @case('new')
+                                                        <span class="badge bg-light-info">New</span>
+                                                    @break
+
                                                     @case('pending')
                                                         <span class="badge bg-light-warning">Pending</span>
                                                     @break
 
-                                                    @case('processing')
-                                                        <span class="badge bg-light-info">Processing</span>
+                                                    @case('converted')
+                                                        <span class="badge bg-light-primary">Converted</span>
                                                     @break
 
                                                     @case('completed')
                                                         <span class="badge bg-light-success">Completed</span>
                                                     @break
 
-                                                    @case('cancelled')
-                                                        <span class="badge bg-light-danger">Cancelled</span>
-                                                    @break
-                                                @endswitch
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- <div class="col-12">
-                                    <div class="d-flex align-items-center">
-                                        <div class="avtar avtar-s bg-light-secondary flex-shrink-0">
-                                            <i class="ti ti-flag"></i>
-                                        </div>
-                                        <div class="ms-2">
-                                            <p class="mb-0 text-muted small">Quote Status</p>
-                                            <h6 class="mb-0">
-                                                @switch($quoteRequest->quote_status)
-                                                    @case('pending')
-                                                        <span class="badge bg-light-warning">Pending</span>
-                                                    @break
-
-                                                    @case('converted')
-                                                        <span class="badge bg-light-success">Converted</span>
-                                                    @break
-
                                                     @case('rejected')
                                                         <span class="badge bg-light-danger">Rejected</span>
                                                     @break
 
-                                                    @case('reopened')
-                                                        <span class="badge bg-light-info">Reopened</span>
-                                                    @break
+                                                    @default
+                                                        <span
+                                                            class="badge bg-light-secondary">{{ ucfirst($quoteRequest->quote_status) }}</span>
                                                 @endswitch
                                             </h6>
                                         </div>
                                     </div>
-                                </div> --}}
-                            </div>
-
-                            <!-- Message History Section -->
-                            @php
-                                // Get all email activities from the quote
-                                $emailActivities = $quoteRequest
-                                    ->activities()
-                                    ->where('type', 'email')
-                                    ->orWhere(function ($query) {
-                                        $query->whereNotNull('details')->where('details', 'like', '%Email sent%');
-                                    })
-                                    ->latest()
-                                    ->get();
-
-                                $hasMessages = $quoteRequest->customer_message || $emailActivities->isNotEmpty();
-                            @endphp
-
-                            @if ($hasMessages)
-                                <hr>
-                                <div class="message-history">
-                                    <h6 class="mb-3 text-dark">
-                                        <i class="ti ti-messages me-1"></i> Conversation History
-                                    </h6>
-
-                                    <div class="messages-container" style="max-height: 400px; overflow-y: auto;">
-                                        <!-- Customer Initial Message -->
-                                        @if ($quoteRequest->customer_message)
-                                            <div class="message-item mb-3">
-                                                <div class="d-flex align-items-start">
-                                                    <div class="avtar avtar-s bg-light-primary flex-shrink-0">
-                                                        <i class="ti ti-user"></i>
-                                                    </div>
-                                                    <div class="ms-2 flex-grow-1">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-1">
-                                                            <strong
-                                                                class="small text-dark">{{ $quoteRequest->customer_name }}</strong>
-                                                            <small
-                                                                class="text-muted">{{ $quoteRequest->created_at->format('d M, Y h:i A') }}</small>
-                                                        </div>
-                                                        <div class="message-content bg-light-primary p-2 rounded">
-                                                            <p class="mb-0 small">{{ $quoteRequest->customer_message }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-
-                                        <!-- Admin Replies -->
-                                        @foreach ($emailActivities as $activity)
-                                            @php
-                                                // Extract the actual message from activity details
-                                                $messageContent = '';
-                                                if (str_contains($activity->details, 'Email sent to customer:')) {
-                                                    $messageContent = trim(
-                                                        str_replace('Email sent to customer:', '', $activity->details),
-                                                    );
-                                                } else {
-                                                    $messageContent = $activity->details;
-                                                }
-                                            @endphp
-
-                                            <div class="message-item mb-3">
-                                                <div class="d-flex align-items-start">
-                                                    <div class="avtar avtar-s bg-light-success flex-shrink-0">
-                                                        <i class="ti ti-headset"></i>
-                                                    </div>
-                                                    <div class="ms-2 flex-grow-1">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-center mb-1">
-                                                            <strong class="small text-dark">Admin Support</strong>
-                                                            <small
-                                                                class="text-muted">{{ $activity->created_at->format('d M, Y h:i A') }}</small>
-                                                        </div>
-                                                        <div class="message-content bg-light-success p-2 rounded">
-                                                            <p class="mb-0 small">{{ $messageContent }}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
                                 </div>
-                            @endif
+                            </div>
 
                             <hr>
 
-                            <!-- Action Buttons -->
                             <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-light-success" data-bs-toggle="modal"
-                                    data-bs-target="#replyModal">
-                                    <i class="ti ti-send me-1"></i> Send Message
-                                </button>
-
-                                <a href="{{ route('admin.quotes.index') }}" class="btn btn-outline-secondary">
+                                <div class="d-flex justify-content-between gap-2">
+                                    <button type="button" class="btn btn-light-success d-flex" data-bs-toggle="modal"
+                                        data-bs-target="#replyModal">
+                                        <i class="ti ti-send me-1"></i> Send Message
+                                    </button>
+                                    <button type="button" class="btn btn-light-warning d-flex" data-bs-toggle="modal"
+                                        data-bs-target="#sendquoteModal">
+                                        <i class="ti ti-mail me-1"></i> Send Quote
+                                    </button>
+                                </div>
+                                <a href="{{ route('admin.quotes.index') }}"
+                                    class="btn btn-outline-secondary d-flex justify-content-center">
                                     <i class="ti ti-arrow-left me-1"></i> Back to List
                                 </a>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <style>
-                        .message-history {
-                            background: #f8f9fa;
-                            padding: 15px;
-                            border-radius: 8px;
-                        }
+                <!-- Send Quote Modal -->
+                <div class="modal fade" id="sendquoteModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('admin.quotes.send', $quoteRequest) }}" method="POST"
+                                id="sendQuoteForm">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirm Send Quote</h5>
+                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
 
-                        .messages-container {
-                            padding: 10px 0;
-                        }
+                                <div class="modal-body">
+                                    <p>Are you sure you want to send this quote to
+                                        <strong>{{ $quoteRequest->customer_email }}</strong>?
+                                    </p>
+                                    <p class="text-muted small">The quote details and invoice PDF will be sent via email.
+                                    </p>
+                                </div>
 
-                        .message-item {
-                            animation: fadeIn 0.3s ease-in;
-                        }
-
-                        @keyframes fadeIn {
-                            from {
-                                opacity: 0;
-                                transform: translateY(10px);
-                            }
-
-                            to {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
-                        }
-
-                        .message-content {
-                            position: relative;
-                            word-wrap: break-word;
-                            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-                        }
-
-                        .message-content p {
-                            line-height: 1.6;
-                        }
-
-                        .messages-container::-webkit-scrollbar {
-                            width: 6px;
-                        }
-
-                        .messages-container::-webkit-scrollbar-track {
-                            background: #f1f1f1;
-                            border-radius: 10px;
-                        }
-
-                        .messages-container::-webkit-scrollbar-thumb {
-                            background: #888;
-                            border-radius: 10px;
-                        }
-
-                        .messages-container::-webkit-scrollbar-thumb:hover {
-                            background: #555;
-                        }
-
-                        /* Customer message styling */
-                        .bg-light-primary.message-content {
-                            background-color: rgba(70, 128, 255, 0.1) !important;
-                            border-left: 3px solid #4680ff;
-                        }
-
-                        /* Admin message styling */
-                        .bg-light-success.message-content {
-                            background-color: rgba(44, 168, 127, 0.1) !important;
-                            border-left: 3px solid #2ca87f;
-                        }
-                    </style>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-light-success" id="sendQuoteBtn">
+                                        <span class="btn-text">
+                                            {{-- <i class="ti ti-send me-1"></i>  --}}
+                                            Yes, Send By Email
+                                        </span>
+                                        <span class="btn-loading d-none">
+                                            <span class="spinner-border spinner-border-sm me-1"></span>
+                                            Sending...
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Column - Products & Status -->
@@ -395,13 +261,13 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover align-middle">
                                     <thead>
                                         <tr>
                                             <th>Product</th>
-                                            <th>SKU</th>
-                                            <th class="text-end">Model</th>
+                                            <th>SKU/Model</th>
                                             <th class="text-center">Quantity</th>
+                                            <th class="text-end">Unit Price</th>
                                             <th class="text-end">Subtotal</th>
                                         </tr>
                                     </thead>
@@ -410,7 +276,8 @@
                                         @foreach ($quoteRequest->products as $product)
                                             @php
                                                 $quantity = $product->pivot->quantity;
-                                                $subtotal = $product->price * $quantity;
+                                                $price = $product->pivot->price ?? $product->price;
+                                                $subtotal = $price * $quantity;
                                                 $total += $subtotal;
                                             @endphp
                                             <tr>
@@ -435,30 +302,31 @@
                                                 </td>
                                                 <td>
                                                     <span class="badge bg-light-secondary">{{ $product->sku }}</span>
+                                                    <br><small class="text-muted">{{ $product->model }}</small>
                                                 </td>
-                                                <td class="text-end">
-                                                    <strong>{{ $product->model }}</strong>
-                                                </td>
+
+                                                <!-- Editable Quantity -->
                                                 <td class="text-center">
-                                                    <div class="d-flex align-items-center justify-content-center gap-2">
-                                                        <button class="btn btn-sm btn-icon btn-light-secondary"
-                                                            onclick="updateQuantity({{ $product->id }}, -1, this)">
-                                                            <i class="ti ti-minus"></i>
-                                                        </button>
-                                                        <span class="badge bg-light-primary px-3 quantity-display"
-                                                            id="qty-{{ $product->id }}"
-                                                            data-quantity="{{ $quantity }}">
-                                                            {{ $quantity }}
-                                                        </span>
-                                                        <button class="btn btn-sm btn-icon btn-light-secondary"
-                                                            onclick="updateQuantity({{ $product->id }}, 1, this)">
-                                                            <i class="ti ti-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                    <input type="number"
+                                                        class="form-control form-control-sm text-center quantity-input"
+                                                        id="quantity-{{ $product->id }}" value="{{ $quantity }}"
+                                                        min="1" data-product-id="{{ $product->id }}"
+                                                        style="max-width: 70px; margin: auto;">
                                                 </td>
+
+                                                <!-- Editable Price -->
                                                 <td class="text-end">
-                                                    <strong class="subtotal-display" id="subtotal-{{ $product->id }}"
-                                                        data-price="{{ $product->price }}">
+                                                    <input type="number"
+                                                        class="form-control form-control-sm text-end price-input"
+                                                        id="price-{{ $product->id }}" value="{{ $price }}"
+                                                        step="0.01" min="0"
+                                                        data-product-id="{{ $product->id }}"
+                                                        style="max-width: 100px; margin-left: auto;">
+                                                </td>
+
+                                                <!-- Subtotal -->
+                                                <td class="text-end">
+                                                    <strong class="subtotal-display" id="subtotal-{{ $product->id }}">
                                                         PKR {{ number_format($subtotal, 2) }}
                                                     </strong>
                                                 </td>
@@ -476,41 +344,6 @@
                                     </tfoot>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Update Status Card -->
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h5 class="mb-0">Update Status</h5>
-                        </div>
-                        <div class="card-body">
-                            <form id="statusUpdateForm">
-                                @csrf
-                                <div class="row align-items-end">
-                                    <div class="col-md-8">
-                                        <label class="form-label">Change Request Status</label>
-                                        <select class="form-select" id="statusSelect" name="status">
-                                            <option value="pending"
-                                                {{ $quoteRequest->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="processing"
-                                                {{ $quoteRequest->status == 'processing' ? 'selected' : '' }}>Processing
-                                            </option>
-                                            <option value="completed"
-                                                {{ $quoteRequest->status == 'completed' ? 'selected' : '' }}>Completed
-                                            </option>
-                                            <option value="cancelled"
-                                                {{ $quoteRequest->status == 'cancelled' ? 'selected' : '' }}>Cancelled
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary w-100">
-                                            <i class="ti ti-check me-1"></i> Update Status
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -539,8 +372,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary d-flex">
                             <i class="ti ti-send me-1"></i> Send Reply
                         </button>
                     </div>
@@ -549,88 +382,98 @@
         </div>
     </div>
 
-    <!-- Add Activity Modal -->
-    <div class="modal fade" id="addActivityModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('admin.quotes.storeActivity', $quoteRequest) }}" method="POST">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add Activity</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <!-- Activity Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="activityOffcanvas" style="width:480px;">
+        <div class="offcanvas-header border-bottom">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h5 class="offcanvas-title mb-0">
+                    <i class="ti ti-history me-2"></i>Activity Timeline
+                </h5>
+
+                <!-- Add Activity Button -->
+                <button class="btn btn-sm btn-primary" data-bs-toggle="collapse" data-bs-target="#addActivityForm">
+                    <i class="ti ti-plus"></i> Add Activity
+                </button>
+            </div>
+        </div>
+
+        <div class="offcanvas-body p-0">
+
+            <!-- Add Activity Form -->
+            <div class="collapse bg-body border-bottom p-3 bg-light" id="addActivityForm">
+                <form action="{{ route('admin.quotes.storeActivity', $quoteRequest) }}" method="POST" class="bg-body">
+                    @csrf
+                    <div class="mb-2">
+                        <label class="form-label small">Activity Type</label>
+                        <select name="type" class="form-select form-select-sm" required>
+                            <option value="call">Call</option>
+                            <option value="message">Message</option>
+                            <option value="meeting">Meeting</option>
+                            <option value="email">Email</option>
+                            <option value="other" selected>Other</option>
+                        </select>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Activity Type <span class="text-danger">*</span></label>
-                            <select name="type" class="form-select" required>
-                                <option value="">Select Type</option>
-                                <option value="call">Phone Call</option>
-                                <option value="message">Message/SMS</option>
-                                <option value="meeting">Meeting</option>
-                                <option value="email">Email</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Details <span class="text-danger">*</span></label>
-                            <textarea name="details" class="form-control" rows="4" placeholder="Enter activity details..." required></textarea>
-                        </div>
+
+                    <div class="mb-2">
+                        <label class="form-label small">Title</label>
+                        <input name="title" class="form-control form-control-sm" placeholder="Enter title">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="ti ti-plus me-1"></i> Add Activity
+
+                    <div class="mb-2">
+                        <label class="form-label small">Details</label>
+                        <textarea name="details" class="form-control form-control-sm" placeholder="Enter details" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-sm btn-light-success mt-2">
+                            <i class="ti ti-check me-1"></i> Save Activity
                         </button>
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
+                </form>
+            </div>
 
-    <!-- Activity Offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="activityOffcanvas" style="width: 400px;">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title">
-                <i class="ti ti-history me-2"></i> Activity Log
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body p-0">
+            <!-- Timeline -->
             <div class="activity-timeline p-3">
+
                 @forelse($quoteRequest->activities as $activity)
                     <div class="timeline-item mb-4">
+
                         <div class="d-flex">
+
+                            <!-- Icon -->
                             <div class="flex-shrink-0">
-                                <div
-                                    class="avtar avtar-s 
-                            @switch($activity->type)
-                                @case('call') bg-light-info @break
-                                @case('message') bg-light-warning @break
-                                @case('meeting') bg-light-primary @break
-                                @case('email') bg-light-success @break
-                                @default bg-light-secondary
-                            @endswitch">
-                                    <i
-                                        class="ti 
-                                @switch($activity->type)
-                                    @case('call') ti-phone @break
-                                    @case('message') ti-message @break
-                                    @case('meeting') ti-users @break
-                                    @case('email') ti-mail @break
-                                    @default ti-info-circle
-                                @endswitch"></i>
+                                <div class="avtar avtar-s bg-light-{{ $activity->type_color }}">
+                                    <i class="ti {{ $activity->type_icon }}"></i>
                                 </div>
                             </div>
+
                             <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <h6 class="mb-0 text-sm">{{ ucfirst($activity->type) }}</h6>
-                                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
+
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h6 class="mb-0 text-sm text-capitalize">
+                                        {{ $activity->title ?? 'Activity' }}
+                                    </h6>
+                                    <span class="badge bg-light-{{ $activity->type_color }} ms-1 text-capitalize">
+                                        {{ str_replace('_', ' ', $activity->type) }}
+                                    </span>
                                 </div>
-                                <p class="text-muted mb-0 small">{{ $activity->details }}</p>
-                                <small class="text-muted">{{ $activity->created_at->format('d M, Y h:i A') }}</small>
+
+                                <p class="text-muted mb-1" style="font-size:0.80rem;">
+                                    {{ $activity->details }}
+                                </p>
+
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">
+                                        {{ $activity->created_at->format('d M Y, h:i A') }}
+                                    </small>
+                                    <small class="text-muted">
+                                        {{ $activity->created_at->diffForHumans() }}
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 @empty
                     <div class="text-center py-5">
                         <div class="avtar avtar-xl bg-light-secondary mx-auto mb-3">
@@ -659,135 +502,242 @@
             background: #e9ecef;
         }
 
-        .quantity-display {
-            min-width: 45px;
-            font-size: 14px;
+        .price-input,
+        .quantity-input {
             font-weight: 600;
         }
 
-        .btn-icon {
-            width: 28px;
-            height: 28px;
-            padding: 0;
+        .btn-loading {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+        }
+
+        #convertToClientBtn.loading .btn-text,
+        #sendQuoteBtn.loading .btn-text {
+            display: none;
+        }
+
+        #convertToClientBtn.loading .btn-loading,
+        #sendQuoteBtn.loading .btn-loading {
+            display: inline-flex !important;
+        }
+
+        #convertToClientBtn:disabled,
+        #sendQuoteBtn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
     </style>
 
     <script>
-        // Update quantity
-        function updateQuantity(productId, change, button) {
-            const qtyElement = document.getElementById(`qty-${productId}`);
-            const subtotalElement = document.getElementById(`subtotal-${productId}`);
-            const currentQty = parseInt(qtyElement.dataset.quantity);
-            const newQty = currentQty + change;
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-            if (newQty < 1) {
-                showNotification('Quantity cannot be less than 1', 'warning');
-                return;
+            // Convert to Client
+            const convertBtn = document.getElementById('convertToClientBtn');
+            if (convertBtn) {
+                convertBtn.addEventListener('click', function() {
+                    const quoteId = this.dataset.quoteId;
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `/admin/quotes/${quoteId}/convert-to-client`;
+
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = '_token';
+                    csrfInput.value = csrfToken;
+
+                    form.appendChild(csrfInput);
+                    this.classList.add('loading');
+                    this.disabled = true;
+
+                    document.body.appendChild(form);
+                    form.submit();
+                });
             }
 
-            button.disabled = true;
-
-            fetch(`/admin/quotes/{{ $quoteRequest->id }}/update-quantity`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        quantity: newQty
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        qtyElement.textContent = newQty;
-                        qtyElement.dataset.quantity = newQty;
-
-                        const price = parseFloat(subtotalElement.dataset.price);
-                        const newSubtotal = price * newQty;
-                        subtotalElement.textContent =
-                            `PKR ${newSubtotal.toLocaleString('en-PK', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-
-                        recalculateTotal();
-                        showNotification('Quantity updated successfully', 'success');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showNotification('Failed to update quantity', 'danger');
-                })
-                .finally(() => {
-                    button.disabled = false;
+            // Send Quote Form
+            const sendQuoteForm = document.getElementById('sendQuoteForm');
+            if (sendQuoteForm) {
+                sendQuoteForm.addEventListener('submit', function(e) {
+                    const btn = document.getElementById('sendQuoteBtn');
+                    btn.classList.add('loading');
+                    btn.disabled = true;
                 });
-        }
+            }
 
-        // Recalculate total
-        function recalculateTotal() {
-            let total = 0;
-            document.querySelectorAll('.subtotal-display').forEach(element => {
-                const price = parseFloat(element.dataset.price);
-                const qtyElement = element.closest('tr').querySelector('.quantity-display');
-                const qty = parseInt(qtyElement.dataset.quantity);
-                total += price * qty;
+            // Handle Quantity Updates
+            let quantityTimeout;
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    clearTimeout(quantityTimeout);
+                    const productId = this.dataset.productId;
+                    const newQuantity = parseInt(this.value);
+
+                    if (newQuantity < 1) {
+                        showNotification('Quantity cannot be less than 1', 'warning');
+                        this.value = 1;
+                        return;
+                    }
+
+                    quantityTimeout = setTimeout(() => {
+                        updateQuantity(productId, newQuantity);
+                    }, 500);
+                });
             });
 
-            document.getElementById('total-amount').textContent =
-                `PKR ${total.toLocaleString('en-PK', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-        }
+            // Handle Price Updates
+            let priceTimeout;
+            document.querySelectorAll('.price-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    clearTimeout(priceTimeout);
+                    const productId = this.dataset.productId;
+                    const newPrice = parseFloat(this.value);
 
-        // Show notification
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                    if (isNaN(newPrice) || newPrice < 0) {
+                        showNotification('Invalid price', 'warning');
+                        return;
+                    }
 
-            const icon = type === 'success' ? 'ti-check' : type === 'warning' ? 'ti-alert-triangle' : 'ti-x';
+                    priceTimeout = setTimeout(() => {
+                        updatePrice(productId, newPrice);
+                    }, 500);
+                });
+            });
 
-            notification.innerHTML = `
-        <i class="ti ${icon} me-2"></i>${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-            document.body.appendChild(notification);
-
-            setTimeout(() => notification.remove(), 3000);
-        }
-
-        // Status update form
-        document.addEventListener('DOMContentLoaded', function() {
-            const statusForm = document.getElementById('statusUpdateForm');
-            const statusSelect = document.getElementById('statusSelect');
-
-            statusForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const status = statusSelect.value;
-
-                fetch(`/admin/quotes/{{ $quoteRequest->id }}/status`, {
+            // Update Quantity via AJAX
+            function updateQuantity(productId, quantity) {
+                fetch(`/admin/quotes/{{ $quoteRequest->id }}/update-quantity`, {
                         method: 'PATCH',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            'X-CSRF-TOKEN': csrfToken
                         },
                         body: JSON.stringify({
-                            status: status
+                            product_id: productId,
+                            quantity: quantity
                         })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            showNotification('Status updated successfully', 'success');
-                            setTimeout(() => location.reload(), 1500);
+                            updateSubtotalDisplay(productId);
+                            showNotification('Quantity updated success', 'success');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        showNotification('Failed to update status', 'danger');
+                        showNotification('Failed to update quantity', 'danger');
                     });
-            });
+            }
+
+            // Update Price via AJAX
+            function updatePrice(productId, price) {
+                fetch(`/admin/quotes/{{ $quoteRequest->id }}/update-price`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            price: price
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateSubtotalDisplay(productId);
+                            showNotification('Price updated successfully', 'success');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Failed to update price', 'danger');
+                    });
+            }
+
+            // Update Subtotal Display
+            function updateSubtotalDisplay(productId) {
+                const quantityInput = document.getElementById(`quantity-${productId}`);
+                const priceInput = document.getElementById(`price-${productId}`);
+                const subtotalDisplay = document.getElementById(`subtotal-${productId}`);
+
+                const quantity = parseInt(quantityInput.value);
+                const price = parseFloat(priceInput.value);
+                const subtotal = quantity * price;
+
+                subtotalDisplay.textContent = `PKR ${subtotal.toLocaleString('en-PK', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}`;
+
+                updateTotal();
+            }
+
+            // Update Total
+            function updateTotal() {
+                let total = 0;
+                document.querySelectorAll('.subtotal-display').forEach(element => {
+                    const value = parseFloat(element.textContent.replace('PKR', '').replace(/,/g, '')
+                        .trim());
+                    total += value;
+                });
+
+                document.getElementById('total-amount').textContent = `PKR ${total.toLocaleString('en-PK', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}`;
+            }
+
+            // Notification System
+            let notificationCount = 0;
+
+            function showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+
+                notification.className = `alert alert-${type} alert-dismissible fade show`;
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: ${20 + notificationCount * 75}px;
+                    right: 20px;
+                    z-index: 9999;
+                    min-width: 280px;
+                    max-width: 360px;
+                    padding: 12px 18px;
+                    border-radius: 10px;
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+                    transition: all 0.3s ease-in-out;
+                `;
+
+                const icon =
+                    type === 'success' ? 'ti-check' :
+                    type === 'warning' ? 'ti-alert-triangle' :
+                    type === 'danger' ? 'ti-x' :
+                    'ti-info';
+
+                notification.innerHTML = `
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="ti ${icon} fs-5"></i>
+                        <span class="flex-grow-1">${message}</span>
+                        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+                notificationCount++;
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                        notificationCount--;
+                    }, 300);
+                }, 3000);
+            }
+
+            window.showNotification = showNotification;
         });
     </script>
+
 @endsection

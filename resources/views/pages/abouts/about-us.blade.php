@@ -72,13 +72,13 @@
                         </div>
                         <div class="col-lg-7">
                             <div class="text-wrap">
-                                @if ($variables->isNotEmpty())
+                                @if (!empty($company['about_us']))
                                     <p class="text-1 wow fadeInUp" data-wow-delay="0s">
-                                        {{ $variables->first()->about_us }}
+                                        {{ $company['about_us'] ?? '' }}
                                     </p>
-                                    <p class="text-2 wow fadeInUp" data-wow-delay="0s">
+                                    {{-- <p class="text-2 wow fadeInUp" data-wow-delay="0s">
                                         {{ $variables->first()->about_us }}
-                                    </p>
+                                    </p> --}}
                                 @else
                                     <p class="text-1 wow fadeInUp" data-wow-delay="0s">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacus odio,
@@ -112,9 +112,9 @@
                                 <p class="title font-worksans fw-7">
                                     Our Mission
                                 </p>
-                                @if ($variables->isNotEmpty())
+                                @if (!empty($company['company_mission']))
                                     <p class="text font-snowfall">
-                                        {{ $variables->first()->company_mission }}
+                                        {{ $company['company_mission'] }}
                                     </p>
                                 @else
                                     <p class="text font-snowfall">
@@ -130,9 +130,9 @@
                                 <p class="title font-worksans fw-7">
                                     Our Vision
                                 </p>
-                                @if ($variables->isNotEmpty())
+                                @if (!empty($company['company_vision']))
                                     <p class="text font-snowfall">
-                                        {{ $variables->first()->company_vision }}
+                                        {{ $company['company_vision'] }}
                                     </p>
                                 @else
                                     <p class="text font-snowfall">

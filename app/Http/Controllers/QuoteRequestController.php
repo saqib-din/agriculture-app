@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class QuoteRequestController extends Controller
 {
@@ -35,7 +36,7 @@ class QuoteRequestController extends Controller
             // Check if customer email exists in clients table
             $client = Client::where('email', $validated['customer_email'])->first();
 
-            // Create quote request
+            // Create quote request with 'new' status
             $quoteRequest = QuoteRequest::create([
                 'client_id' => $client ? $client->id : null,
                 'customer_name' => $validated['customer_name'],
@@ -43,17 +44,13 @@ class QuoteRequestController extends Controller
                 'customer_phone' => $validated['customer_phone'] ?? null,
                 'customer_message' => $validated['customer_message'] ?? null,
                 'total_quantity' => $validated['total_quantity'] ?? null,
-                'status' => 'pending',
-                'quote_status' => 'pending'
+                'quote_status' => 'new' // Initial status
             ]);
 
             // Attach products with quantities
             foreach ($validated['products'] as $index => $productId) {
                 $quantity = $validated['quantities'][$index] ?? 1;
-
-                $quoteRequest->products()->attach($productId, [
-                    'quantity' => $quantity
-                ]);
+                $quoteRequest->products()->attach($productId, ['quantity' => $quantity]);
             }
 
             // Create initial activity
@@ -74,7 +71,7 @@ class QuoteRequestController extends Controller
 
             DB::commit();
 
-            // Send email notification (optional)
+            // Send email notification
             $this->sendQuoteNotification($quoteRequest);
 
             return response()->json([
@@ -84,6 +81,7 @@ class QuoteRequestController extends Controller
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Quote Store Error: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
@@ -110,32 +108,6 @@ class QuoteRequestController extends Controller
         return view('pages.admin-side.quotes.show', compact('quoteRequest'));
     }
 
-    // Admin: Update status
-    public function updateStatus(Request $request)
-    {
-        $request->validate([
-            'id' => 'required|exists:quote_requests,id',
-            'status' => 'required|in:pending,processing,completed,cancelled'
-        ]);
-
-        $quote = QuoteRequest::findOrFail($request->id);
-        $oldStatus = $quote->status;
-        $quote->status = $request->status;
-        $quote->save();
-
-        // Log activity
-        QuoteActivity::create([
-            'quote_request_id' => $quote->id,
-            'type' => 'other',
-            'details' => "Status changed from {$oldStatus} to {$request->status}"
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'status' => $quote->status
-        ]);
-    }
-
     // Admin: Update quantity
     public function updateQuantity(Request $request, QuoteRequest $quoteRequest)
     {
@@ -144,18 +116,92 @@ class QuoteRequestController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $quoteRequest->products()->updateExistingPivot(
-            $request->product_id,
-            ['quantity' => $request->quantity]
-        );
+        try {
+            DB::beginTransaction();
 
-        return response()->json(['success' => true]);
+            $quoteRequest->products()->updateExistingPivot(
+                $request->product_id,
+                ['quantity' => $request->quantity]
+            );
+
+            // Auto-update status from 'new' to 'pending' on first interaction
+            if ($quoteRequest->quote_status === 'new') {
+                $quoteRequest->update(['quote_status' => 'pending']);
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote status changed from New to Pending'
+                ]);
+            }
+
+            // Log activity
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => "Product quantity updated to {$request->quantity}"
+            ]);
+
+            DB::commit();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Update Quantity Error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    // Admin: Update price
+    public function updatePrice(Request $request, QuoteRequest $quoteRequest)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'price' => 'required|numeric|min:0'
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $quoteRequest->products()->updateExistingPivot(
+                $request->product_id,
+                ['price' => $request->price]
+            );
+
+            // Auto-update status from 'new' to 'pending' on first interaction
+            if ($quoteRequest->quote_status === 'new') {
+                $quoteRequest->update(['quote_status' => 'pending']);
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote status changed from New to Pending'
+                ]);
+            }
+
+            // Log activity
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => "Product price updated to PKR " . number_format($request->price, 2)
+            ]);
+
+            DB::commit();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Update Price Error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 
     // Admin: Convert to client
-    public function convertToClient(QuoteRequest $quoteRequest)
+    public function convertToClient(Request $request, QuoteRequest $quoteRequest)
     {
         if ($quoteRequest->isExistingClient()) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Quote is already linked to a client.'
+                ], 400);
+            }
             return redirect()->back()->with('error', 'Quote is already linked to a client.');
         }
 
@@ -166,65 +212,105 @@ class QuoteRequestController extends Controller
                 'name' => $quoteRequest->customer_name,
                 'email' => $quoteRequest->customer_email,
                 'phone' => $quoteRequest->customer_phone,
-                'status' => true
             ]);
 
             $quoteRequest->update([
                 'client_id' => $client->id,
-                'quote_status' => 'converted'
+                'quote_status' => 'pending' // Set to pending after client conversion
             ]);
 
             QuoteActivity::create([
                 'quote_request_id' => $quoteRequest->id,
                 'type' => 'other',
-                'details' => "Converted to client: {$client->name}"
+                'details' => "Converted to client: {$client->name}. Status changed to Pending."
             ]);
 
             DB::commit();
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'redirect' => route('admin.quotes.show', $quoteRequest)
+                ]);
+            }
 
             return redirect()->route('admin.quotes.show', $quoteRequest)
                 ->with('success', 'Quote converted to client successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Convert to Client Error: ' . $e->getMessage());
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to convert to client: ' . $e->getMessage()
+                ], 500);
+            }
+
             return redirect()->back()->with('error', 'Failed to convert to client: ' . $e->getMessage());
         }
     }
 
+    // Admin: Convert to Order
     public function convertToOrder(QuoteRequest $quoteRequest)
     {
         if ($quoteRequest->order) {
             return back()->with('error', 'Order already exists for this quote.');
         }
 
+        if (!$quoteRequest->canConvertToOrder()) {
+            return back()->with('error', 'Quote must have a linked client and be in pending status to convert to order.');
+        }
+
         try {
             DB::beginTransaction();
+
+            // Calculate totals from quote products
+            $subtotal = 0;
+            foreach ($quoteRequest->products as $product) {
+                $price = $product->pivot->price ?? $product->price;
+                $quantity = $product->pivot->quantity;
+                $subtotal += $price * $quantity;
+            }
+
+            $taxRate = 0;
+            $taxAmount = $subtotal * ($taxRate / 100);
+            $total = $subtotal + $taxAmount;
 
             // Create order
             $order = \App\Models\Order::create([
                 'quote_request_id' => $quoteRequest->id,
                 'client_id' => $quoteRequest->client_id,
-                'order_no' => 'ORD-' . now()->timestamp,
+                'order_number' => 'ORD-' . now()->format('Ymd') . '-' . str_pad($quoteRequest->id, 5, '0', STR_PAD_LEFT),
                 'status' => 'pending',
-                'total' => null, // calculate later if needed
+                'subtotal' => $subtotal,
+                'tax_rate' => $taxRate,
+                'tax_amount' => $taxAmount,
+                'discount' => 0,
+                'total' => $total,
             ]);
 
             // Copy products from quote to order
             foreach ($quoteRequest->products as $product) {
+                $price = $product->pivot->price ?? $product->price;
+                $quantity = $product->pivot->quantity;
+                $subtotalProduct = $price * $quantity;
+
                 $order->products()->attach($product->id, [
-                    'quantity' => $product->pivot->quantity
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'subtotal' => $subtotalProduct
                 ]);
             }
 
-            // Update quote status
-            $quoteRequest->update([
-                'quote_status' => 'converted'
-            ]);
+            // ✅ Update quote status to CONVERTED (not completed)
+            $quoteRequest->update(['quote_status' => 'converted']);
 
             // Activity log
             QuoteActivity::create([
                 'quote_request_id' => $quoteRequest->id,
                 'type' => 'other',
-                'details' => 'Quote converted to order #' . $order->order_no
+                'details' => 'Quote converted to order #' . $order->order_number . '. Status changed to Converted.'
             ]);
 
             DB::commit();
@@ -233,54 +319,104 @@ class QuoteRequestController extends Controller
                 ->with('success', 'Quote converted to order successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error('Convert to Order Error: ' . $e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
 
-
     // Admin: Reject quote
     public function reject(QuoteRequest $quoteRequest)
     {
-        $quoteRequest->update(['quote_status' => 'rejected']);
+        if (!$quoteRequest->canReject()) {
+            return redirect()->back()->with('error', 'This quote cannot be rejected.');
+        }
 
-        QuoteActivity::create([
-            'quote_request_id' => $quoteRequest->id,
-            'type' => 'other',
-            'details' => 'Quote rejected'
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return redirect()->back()->with('success', 'Quote rejected successfully.');
+            $quoteRequest->update(['quote_status' => 'rejected']);
+
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => 'Quote rejected by admin'
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Quote rejected successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Reject Quote Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to reject quote.');
+        }
     }
 
     // Admin: Reopen quote
-    // public function reopen(QuoteRequest $quoteRequest)
-    // {
-    //     $quoteRequest->update(['quote_status' => 'reopened']);
+    public function reopen(QuoteRequest $quoteRequest)
+    {
+        if (!$quoteRequest->canReopen()) {
+            return redirect()->back()->with('error', 'Only rejected quotes can be reopened.');
+        }
 
-    //     QuoteActivity::create([
-    //         'quote_request_id' => $quoteRequest->id,
-    //         'type' => 'other',
-    //         'details' => 'Quote reopened'
-    //     ]);
+        try {
+            DB::beginTransaction();
 
-    //     return redirect()->back()->with('success', 'Quote reopened successfully.');
-    // }
+            $quoteRequest->update(['quote_status' => 'pending']);
+
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'other',
+                'details' => 'Quote reopened and set to pending status'
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Quote reopened successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Reopen Quote Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to reopen quote.');
+        }
+    }
 
     // Admin: Store activity
     public function storeActivity(Request $request, QuoteRequest $quoteRequest)
     {
         $request->validate([
             'type' => 'required|in:call,message,meeting,email,other',
-            'details' => 'required|string'
+            'title' => 'nullable',
+            'details' => 'nullable|string'
         ]);
 
-        QuoteActivity::create([
-            'quote_request_id' => $quoteRequest->id,
-            'type' => $request->type,
-            'details' => $request->details
-        ]);
+        try {
+            DB::beginTransaction();
 
-        return redirect()->back()->with('success', 'Activity added successfully.');
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => $request->type,
+                'title' => $request->title,
+                'details' => $request->details
+            ]);
+
+            // Auto-update status from 'new' to 'pending' on first activity
+            if ($quoteRequest->quote_status === 'new') {
+                $quoteRequest->update(['quote_status' => 'pending']);
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote status changed from New to Pending'
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Activity added successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Store Activity Error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to add activity.');
+        }
     }
 
     // Admin: Reply to customer
@@ -297,6 +433,8 @@ class QuoteRequestController extends Controller
         ]);
 
         try {
+            DB::beginTransaction();
+
             // Send email
             Mail::raw($request->reply_message, function ($message) use ($quoteRequest) {
                 $message->to($quoteRequest->customer_email)
@@ -310,9 +448,124 @@ class QuoteRequestController extends Controller
                 'details' => 'Email sent to customer: ' . substr($request->reply_message, 0, 100) . '...'
             ]);
 
+            // Auto-update status from 'new' to 'pending' on first reply
+            if ($quoteRequest->quote_status === 'new') {
+                $quoteRequest->update(['quote_status' => 'pending']);
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote status changed from New to Pending'
+                ]);
+            }
+
+            DB::commit();
+
             return back()->with('success', 'Reply sent successfully!');
         } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Reply Email Error: ' . $e->getMessage());
             return back()->with('error', 'Failed to send reply: ' . $e->getMessage());
+        }
+    }
+
+    // Admin: Send Quote with PDF Invoice
+    public function sendQuote(QuoteRequest $quoteRequest)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Load products with images
+            $quoteRequest->load('products.images');
+
+            // Calculate totals
+            $subtotal = 0;
+            $products = [];
+
+            foreach ($quoteRequest->products as $product) {
+                $price = $product->pivot->price ?? $product->price;
+                $quantity = $product->pivot->quantity ?? 1;
+                $productSubtotal = $price * $quantity;
+                $subtotal += $productSubtotal;
+
+                $imageUrl = null;
+                if ($product->images && $product->images->first()) {
+                    $imagePath = storage_path('app/public/' . $product->images->first()->image);
+                    if (file_exists($imagePath)) {
+                        $imageUrl = asset('storage/' . $product->images->first()->image);
+                    }
+                }
+
+                $products[] = [
+                    'name' => $product->name,
+                    'sku' => $product->sku ?? 'N/A',
+                    'brand' => $product->brand ?? 'N/A',
+                    'model' => $product->model ?? 'N/A',
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'subtotal' => $productSubtotal,
+                    'image' => $imageUrl
+                ];
+            }
+
+            $taxRate = 0;
+            $taxAmount = $subtotal * ($taxRate / 100);
+            $total = $subtotal + $taxAmount;
+
+            // Generate quote number
+            $quoteNumber = 'QT-' . now()->format('Ymd') . '-' . str_pad($quoteRequest->id, 5, '0', STR_PAD_LEFT);
+
+            $data = [
+                'quote' => $quoteRequest,
+                'products' => $products,
+                'subtotal' => $subtotal,
+                'tax_rate' => $taxRate,
+                'tax_amount' => $taxAmount,
+                'total' => $total,
+                'quote_number' => $quoteNumber
+            ];
+
+            // Generate PDF
+            $pdf = Pdf::loadView('emails.quote-invoice-pdf', $data)
+                ->setPaper('a4', 'portrait')
+                ->setOption('defaultFont', 'DejaVu Sans');
+
+            $pdfContent = $pdf->output();
+
+            // Send email with PDF
+            Mail::send('emails.quote-details', $data, function ($message) use ($quoteRequest, $pdfContent, $quoteNumber) {
+                $message->to($quoteRequest->customer_email)
+                    ->subject('Quote Request - ' . $quoteNumber)
+                    ->attachData($pdfContent, 'quote-' . $quoteNumber . '.pdf', [
+                        'mime' => 'application/pdf',
+                    ]);
+            });
+
+            // Log activity
+            QuoteActivity::create([
+                'quote_request_id' => $quoteRequest->id,
+                'type' => 'email',
+                'details' => 'Quote details and invoice PDF sent to customer via email'
+            ]);
+
+            // Auto-update status from 'new' to 'pending'
+            if ($quoteRequest->quote_status === 'new') {
+                $quoteRequest->update(['quote_status' => 'pending']);
+                QuoteActivity::create([
+                    'quote_request_id' => $quoteRequest->id,
+                    'type' => 'other',
+                    'details' => 'Quote status changed from New to Pending'
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Quote sent successfully with invoice PDF!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Send Quote Error: ' . $e->getMessage());
+            Log::error('Stack Trace: ' . $e->getTraceAsString());
+
+            return redirect()->back()->with('error', 'Failed to send quote: ' . $e->getMessage());
         }
     }
 
@@ -324,6 +577,7 @@ class QuoteRequestController extends Controller
             return redirect()->route('admin.quotes.index')
                 ->with('success', 'Quote request deleted successfully.');
         } catch (\Exception $e) {
+            Log::error('Delete Quote Error: ' . $e->getMessage());
             return redirect()->route('admin.quotes.index')
                 ->with('error', 'Failed to delete quote request.');
         }
@@ -333,19 +587,25 @@ class QuoteRequestController extends Controller
     private function sendQuoteNotification($quoteRequest)
     {
         try {
+            $quoteRequest->load('products');
+
             // Admin notification
             Mail::send('emails.quote-admin', ['quote' => $quoteRequest], function ($message) {
-                $message->to(config('mail.admin_email', 'admin@example.com'))
+                $adminEmail = config('mail.admin_email', env('ADMIN_EMAIL', 'admin@example.com'));
+                $message->to($adminEmail)
                     ->subject('New Quote Request Received');
             });
 
             // Customer confirmation
             Mail::send('emails.quote-customer', ['quote' => $quoteRequest], function ($message) use ($quoteRequest) {
                 $message->to($quoteRequest->customer_email)
-                    ->subject('Quote Request Confirmation');
+                    ->subject('Quote Request Confirmation - ' . config('app.name'));
             });
+
+            Log::info('Quote notification emails sent successfully for Quote ID: ' . $quoteRequest->id);
         } catch (\Exception $e) {
             Log::error('Quote notification email failed: ' . $e->getMessage());
+            Log::error('Stack Trace: ' . $e->getTraceAsString());
         }
     }
 }

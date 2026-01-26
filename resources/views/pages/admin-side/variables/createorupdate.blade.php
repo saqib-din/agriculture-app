@@ -42,7 +42,8 @@
                                             <label class="form-label">Company Name <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="name" class="form-control"
-                                                value="{{ old('name', $variables['company_name'] ?? '') }}" placeholder="Enter company name"  required>
+                                                value="{{ old('name', $variables['company_name'] ?? '') }}"
+                                                placeholder="Enter company name" required>
                                         </div>
                                     </div>
 
@@ -51,7 +52,8 @@
                                             <label class="form-label">Company Email <span
                                                     class="text-danger">*</span></label>
                                             <input type="email" name="email" class="form-control"
-                                                value="{{ old('email', $variables['company_email'] ?? '') }}" placeholder="Enter company email" required>
+                                                value="{{ old('email', $variables['company_email'] ?? '') }}"
+                                                placeholder="Enter company email" required>
                                         </div>
                                     </div>
 
@@ -60,7 +62,35 @@
                                             <label class="form-label">Company Phone <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="phone" class="form-control"
-                                                value="{{ old('phone', $variables['company_phone'] ?? '') }}" placeholder="Enter company phone" required>
+                                                value="{{ old('phone', $variables['company_phone'] ?? '') }}"
+                                                placeholder="Enter company phone" required>
+                                        </div>
+                                    </div>
+
+                                    {{-- GST Field --}}
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">GST Rate (%) <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="number" name="gst_rate" id="gstRateInput" class="form-control"
+                                                    value="{{ old('gst_rate', $variables['gst_rate'] ?? '0') }}"
+                                                    placeholder="Enter GST rate" max="100"
+                                                    step="0.01" required>
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                            {{-- <small class="text-muted">Example: For 15% GST, enter 15</small>
+                                            <div id="gstExample" class="mt-2" style="display: none;">
+                                                <div class="alert alert-info py-2 px-3 mb-0">
+                                                    <small>
+                                                        <strong>Example Calculation:</strong><br>
+                                                        Amount: PKR <span id="exampleAmount">150.00</span><br>
+                                                        GST (<span id="exampleRate">0</span>%): PKR <span
+                                                            id="exampleGst">0.00</span><br>
+                                                        Total: PKR <span id="exampleTotal">150.00</span>
+                                                    </small>
+                                                </div>
+                                            </div> --}}
                                         </div>
                                     </div>
 
@@ -69,7 +99,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Fax</label>
                                             <input type="text" name="fax" class="form-control"
-                                                value="{{ old('fax', $variables['company_fax'] ?? '') }}" placeholder="Enter company fax">
+                                                value="{{ old('fax', $variables['company_fax'] ?? '') }}"
+                                                placeholder="Enter company fax">
                                         </div>
                                     </div>
 
@@ -87,7 +118,8 @@
                                             <div class="mb-3">
                                                 <label class="form-label">{{ ucfirst($social) }}</label>
                                                 <input type="text" name="{{ $social }}" class="form-control"
-                                                    value="{{ old($social, $variables[$social] ?? '') }}" placeholder="Enter social link url">
+                                                    value="{{ old($social, $variables[$social] ?? '') }}"
+                                                    placeholder="Enter social link url">
                                             </div>
                                         </div>
                                     @endforeach
@@ -97,7 +129,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Registration Number</label>
                                             <input type="text" name="reg" class="form-control"
-                                                value="{{ old('reg', $variables['registration_number'] ?? '') }}" placeholder="Enter registration number">
+                                                value="{{ old('reg', $variables['registration_number'] ?? '') }}"
+                                                placeholder="Enter registration number">
                                         </div>
                                     </div>
 
@@ -105,7 +138,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Company Slogan</label>
                                             <input type="text" name="slogan" class="form-control"
-                                                value="{{ old('slogan', $variables['company_slogan'] ?? '') }}" placeholder="Enter company slogan">
+                                                value="{{ old('slogan', $variables['company_slogan'] ?? '') }}"
+                                                placeholder="Enter company slogan">
                                         </div>
                                     </div>
 
@@ -113,7 +147,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Map URL</label>
                                             <input type="text" name="map" class="form-control"
-                                                value="{{ old('map', $variables['company_map'] ?? '') }}" placeholder="Enter map url">
+                                                value="{{ old('map', $variables['company_map'] ?? '') }}"
+                                                placeholder="Enter map url">
                                         </div>
                                     </div>
 
@@ -121,7 +156,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">About Us</label>
                                             <input type="text" name="about_us" class="form-control"
-                                                value="{{ old('about_us', $variables['about_us'] ?? '') }}" placeholder="Enter about us">
+                                                value="{{ old('about_us', $variables['about_us'] ?? '') }}"
+                                                placeholder="Enter about us">
                                         </div>
                                     </div>
 
@@ -129,7 +165,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Company Mission</label>
                                             <input type="text" name="company_mission" class="form-control"
-                                                value="{{ old('company_mission', $variables['company_mission'] ?? '') }}" placeholder="Enter company mission">
+                                                value="{{ old('company_mission', $variables['company_mission'] ?? '') }}"
+                                                placeholder="Enter company mission">
                                         </div>
                                     </div>
 
@@ -137,7 +174,8 @@
                                         <div class="mb-3">
                                             <label class="form-label">Company Vision</label>
                                             <input type="text" name="company_vision" class="form-control"
-                                                value="{{ old('company_vision', $variables['company_vision'] ?? '') }}" placeholder="Enter company vision">
+                                                value="{{ old('company_vision', $variables['company_vision'] ?? '') }}"
+                                                placeholder="Enter company vision">
                                         </div>
                                     </div>
 

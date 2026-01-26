@@ -1,9 +1,9 @@
 <!-- Footer -->
 <footer class="footer" id="footer-main">
 
-    @php
+    {{-- @php
         $variables = \App\Models\Variable::pluck('value', 'key');
-    @endphp
+    @endphp --}}
 
     <div class="footer-inner">
         <div class="tf-container w-1290">
@@ -20,10 +20,9 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h5 class="text-light mb-0 fw-5">
-                                                {{ $variables['company_name'] ?? 'Scrumad' }}
-                                            </h5>
+                                                {{ $company['company_name'] ?? 'Company Name' }} </h5>
                                             <span class="text-light">
-                                                {{ $variables['company_slogan'] ?? '' }}
+                                                {{ $company['company_slogan'] ?? '' }}
                                             </span>
                                         </div>
                                     </div>
@@ -43,19 +42,19 @@
                         <ul class="contact-list tf-collapse-content">
                             <li>
                                 <i class="fa-solid fa-location-dot fs-17"></i>
-                                <p class="address">{{ $variables['company_address'] ?? 'N/A' }}</p>
+                                <p class="address">{{ $company['company_address'] }}</p>
                             </li>
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                <p class="phone-number fs-15">Call us: {{ $variables['company_phone'] ?? 'N/A' }}</p>
+                                <p class="phone-number fs-15">Call us: {{ $company['company_phone'] ?? 'N/A' }}</p>
                             </li>
                             <li>
                                 <i class="icon-package-box"></i>
-                                <p class="email fs-15">Mail: {{ $variables['company_email'] ?? 'N/A' }}</p>
+                                <p class="email fs-15">Mail: {{ $company['company_email'] ?? 'N/A' }}</p>
                             </li>
                             <li>
                                 <i class="fa-solid fa-clock"></i>
-                                <p class="time-open fs-15">Mon - Sat: {{ $variables['working_hours'] ?? 'N/A' }}</p>
+                                <p class="time-open fs-15">Mon - Sat: {{ $company['working_hours'] ?? 'N/A' }}</p>
                             </li>
                         </ul>
                     </div>

@@ -4,47 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Variable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class VariablesController extends Controller
 {
-    // public function index()
-    // {
-    //     $variables = Variable::orderBy('id', 'desc')->get();
-    //     return view('pages.admin-side.variables.index', compact('variables'));
-    // }
-
-    // Quick access method - toggle between create and edit
-    // public function quickAccess()
-    // {
-    //     // Check if any variable exists
-    //     $latestVariable = Variable::latest()->first();
-
-    //     if ($latestVariable) {
-    //         // If variable exists, redirect to edit
-    //         return redirect()->route('variables.edit', $latestVariable->id);
-    //     } else {
-    //         // If no variable exists, redirect to create
-    //         return redirect()->route('variables.create');
-    //     }
-    // }
-
-    // public function create()
-    // {
-    //     return view('pages.admin-side.variables.createorupdate');
-    // }
-
-    // public function edit($id)
-    // {
-    //     $variable = Variable::findOrFail($id);
-    //     return view('pages.admin-side.variables.createorupdate', compact('variable'));
-    // }
-
     public function create()
     {
         $variables = Variable::pluck('value', 'key');
         return view('pages.admin-side.variables.createorupdate', compact('variables'));
     }
-
 
     public function storeOrUpdate(Request $request)
     {
@@ -52,6 +20,7 @@ class VariablesController extends Controller
             'name'  => 'required|string|max:20',
             'email' => 'required|email|max:40',
             'phone' => 'required|string|max:20',
+            'gst_rate' => 'required|numeric|min:0|max:100',
 
             'fax'             => 'nullable|string|max:40',
             'working_hours'   => 'nullable|string|max:40',
@@ -73,6 +42,7 @@ class VariablesController extends Controller
             'name' => 'company_name',
             'email' => 'company_email',
             'phone' => 'company_phone',
+            'gst_rate' => 'gst_rate',
             'fax' => 'company_fax',
             'working_hours' => 'working_hours',
             'linkedin' => 'linkedin',
@@ -96,21 +66,46 @@ class VariablesController extends Controller
             );
         }
 
+        // Clear cache
+        Cache::forget('company_variables');
+
         return back()->with('success', 'Variables saved successfully');
     }
 
-    // public function show($id)
-    // {
-    //     $variable = Variable::findOrFail($id);
-    //     return view('pages.admin-side.variables.show', compact('variable'));
-    // }
+    /**
+     * Get all variables as key-value array
+     */
+    public static function getAllVariables()
+    {
+        return Cache::remember('company_variables', 3600, function () {
+            return Variable::pluck('value', 'key')->toArray();
+        });
+    }
 
-    // public function destroy($id)
-    // {
-    //     $variable = Variable::findOrFail($id);
-    //     $variable->delete();
+    /**
+     * Get GST rate
+     */
+    public static function getGstRate()
+    {
+        $variables = self::getAllVariables();
+        return floatval($variables['gst_rate'] ?? 0);
+    }
 
-    //     return redirect()->route('variables.index')
-    //         ->with('success', 'Variable Deleted!');
-    // }
+    /**
+     * Calculate GST amount
+     */
+    public static function calculateGst($amount)
+    {
+        $gstRate = self::getGstRate();
+        return round($amount * ($gstRate / 100), 2);
+    }
+
+    /**
+     * Calculate total with GST
+     */
+    public static function calculateTotalWithGst($amount)
+    {
+        $gstAmount = self::calculateGst($amount);
+        return round($amount + $gstAmount, 2);
+    }
 }
