@@ -30,24 +30,42 @@ class TeamController extends Controller
     public function save(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name'        => 'required|max:50',
             'designation' => 'required',
-            'status' => 'required',
+            'status'      => 'required',
+            'is_ceo'      => 'nullable|boolean',
         ]);
 
-        $team = $request->id ? Team::findOrFail($request->id) : new Team();
+        if ($request->is_ceo == 1) {
+            $ceoExists = Team::where('is_ceo', 1)
+                ->when($request->id, function ($query) use ($request) {
+                    $query->where('id', '!=', $request->id);
+                })
+                ->exists();
 
-        $team->name = $request->name;
+            if ($ceoExists) {
+                return back()
+                    ->withErrors(['is_ceo' => 'CEO already exists. Only one CEO is allowed.'])
+                    ->withInput();
+            }
+        }
+
+        $team = $request->id
+            ? Team::findOrFail($request->id)
+            : new Team();
+
+        $team->name        = $request->name;
         $team->designation = $request->designation;
-        $team->status = $request->status;
+        $team->status      = $request->status;
         $team->description = $request->description;
-        $team->phone = $request->phone;
-        $team->email = $request->email;
-        $team->linkedin = $request->linkedin;
-        $team->facebook = $request->facebook;
-        $team->instagram = $request->instagram;
-        $team->is_ceo = $request->is_ceo;
+        $team->phone       = $request->phone;
+        $team->email       = $request->email;
+        $team->linkedin    = $request->linkedin;
+        $team->facebook    = $request->facebook;
+        $team->instagram   = $request->instagram;
+        $team->is_ceo      = $request->is_ceo ?? 0;
 
+        // ✅ Image Upload
         if ($request->hasFile('image')) {
 
             if ($team->image && file_exists(public_path('uploads/teams/' . $team->image))) {
@@ -63,7 +81,9 @@ class TeamController extends Controller
         $team->save();
 
         return redirect()->route('teams.index')
-            ->with('success', $request->id ? 'Team updated successfully' : 'Team added successfully');
+            ->with('success', $request->id
+                ? 'Team updated successfully'
+                : 'Team added successfully');
     }
 
     public function destroy($id)

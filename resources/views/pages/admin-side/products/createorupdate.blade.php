@@ -25,7 +25,18 @@
                 </div>
             </div>
 
-            @include('components.alerts')
+            {{-- Show success/error as toast --}}
+            @if (session('success') || session('error'))
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        @if (session('success'))
+                            showToast('{{ session('success') }}', 'success');
+                        @elseif (session('error'))
+                            showToast('{{ session('error') }}', 'danger');
+                        @endif
+                    });
+                </script>
+            @endif
 
             {{-- Display Validation Errors --}}
             @if ($errors->any())
@@ -224,7 +235,7 @@
                                                     <label class="form-label fw-semibold mb-0">
                                                         <i class="ti ti-list-details me-2"></i>Product Specifications
                                                     </label>
-                                                    <button type="button" class="btn btn-sm btn-primary"
+                                                    <button type="button" class="btn btn-md btn-primary d-flex"
                                                         id="addSpecBtn">
                                                         <i class="ti ti-plus me-1"></i>Add Specification
                                                     </button>
@@ -302,10 +313,11 @@
                                                     <label class="form-label fw-semibold">
                                                         <i class="ti ti-photo me-2"></i>Existing Images
                                                     </label>
-                                                    <div class="d-flex flex-wrap gap-2">
+                                                    <div class="d-flex flex-wrap gap-2" id="existingImagesContainer">
                                                         @foreach ($product->images as $img)
                                                             <div class="image-wrapper position-relative"
-                                                                style="width:150px; height:150px;">
+                                                                style="width:150px; height:150px;"
+                                                                data-image-id="{{ $img->id }}">
                                                                 <img src="{{ asset('storage/' . $img->image) }}"
                                                                     alt="Product Image" class="img-thumbnail w-100 h-100"
                                                                     style="object-fit:cover;" />
@@ -343,6 +355,60 @@
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteImageModal" tabindex="-1" aria-labelledby="deleteImageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
+                <div class="modal-body text-center p-4">
+                    <!-- Icon -->
+                    <div class="mb-3">
+                        <div class="bg-danger bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px;">
+                            <i class="ti ti-trash text-danger" style="font-size: 2.5rem;"></i>
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <h4 class="mb-2 fw-bold">Delete This Image?</h4>
+
+                    <!-- Description -->
+                    <p class="text-muted mb-4">
+                        This action cannot be undone.<br>
+                        Are you sure you want to delete this image?
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                            <i class="ti ti-trash me-2"></i>Yes, Delete It
+                        </button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+        <div id="successToast" class="toast border-0 shadow-lg" role="alert"
+            style="border-radius: 12px; overflow: hidden;">
+            <div class="d-flex align-items-center p-3 bg-success text-white">
+                <div class="toast-icon me-3">
+                    <i class="ti ti-check-circle fs-3 animate-check"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="fw-bold mb-1">Success!</div>
+                    <div id="toastMessage" class="small opacity-90">Operation completed successfully</div>
+                </div>
+                <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
     <style>
         .nav-tabs .nav-link {
             color: #6c757d;
@@ -358,6 +424,12 @@
             position: relative;
             border-radius: 8px;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .specification-row .card {
@@ -375,10 +447,97 @@
             object-fit: cover;
             border-radius: 8px;
         }
+
+        /* Modal Animation */
+        .modal.fade .modal-dialog {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform: scale(0.7);
+            opacity: 0;
+        }
+
+        .modal.show .modal-dialog {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Delete Button */
+        .delete-image-btn {
+            transition: all 0.2s ease;
+            opacity: 0.9;
+        }
+
+        .delete-image-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Fade Out Animation */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 0.3s ease-out forwards;
+        }
+
+        /* Check Icon Animation */
+        @keyframes checkmark {
+            0% {
+                transform: scale(0) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(180deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        .animate-check {
+            animation: checkmark 0.5s ease-out;
+        }
     </style>
 
     <script>
+        // Make showToast globally available
+        function showToast(message, type = 'success') {
+            const toastEl = document.getElementById('successToast');
+            const messageEl = document.getElementById('toastMessage');
+            const iconEl = toastEl.querySelector('.toast-icon i');
+
+            // Update icon and color
+            if (type === 'success') {
+                iconEl.className = 'ti ti-check-circle fs-3 animate-check';
+                toastEl.querySelector('.d-flex').classList.remove('bg-danger');
+                toastEl.querySelector('.d-flex').classList.add('bg-success');
+            } else {
+                iconEl.className = 'ti ti-x-circle fs-3 animate-check';
+                toastEl.querySelector('.d-flex').classList.remove('bg-success');
+                toastEl.querySelector('.d-flex').classList.add('bg-danger');
+            }
+
+            // Update message
+            messageEl.textContent = message;
+
+            // Show toast
+            const toast = new bootstrap.Toast(toastEl, {
+                delay: 3000
+            });
+            toast.show();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Product Name and Slug
             const productNameInput = document.getElementById('productName');
             const productSlugInput = document.getElementById('productSlug');
             const editSlugBtn = document.getElementById('editSlugBtn');
@@ -417,6 +576,7 @@
                 }
             });
 
+            // Specifications
             let specIndex = {{ isset($product) ? $product->specifications->count() : 0 }};
             document.getElementById('addSpecBtn').addEventListener('click', function() {
                 const container = document.getElementById('specificationsContainer');
@@ -458,6 +618,7 @@
                 }
             });
 
+            // Image Preview
             document.getElementById('imageInput').addEventListener('change', function(e) {
                 const preview = document.getElementById('imagePreview');
                 preview.innerHTML = '';
@@ -474,69 +635,77 @@
                 });
             });
 
-            // Delete existing images
+            // Delete Image Modal
+            let currentImageId = null;
+            let currentImageWrapper = null;
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteImageModal'));
+
+            // Show modal on delete button click
             document.querySelectorAll('.delete-image-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    if (!confirm('Are you sure you want to delete this image?')) {
-                        return;
-                    }
-
-                    const imageId = this.dataset.imageId;
-                    const imageWrapper = this.closest('.image-wrapper');
-
-                    this.disabled = true;
-                    this.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-
-                    fetch(`/admin/products/image-destroy/${imageId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            imageWrapper.remove();
-                            showSuccessMessage('Image deleted successfully');
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error deleting image');
-                            this.disabled = false;
-                            this.innerHTML = '<i class="ti ti-trash"></i>';
-                        });
+                    currentImageId = this.dataset.imageId;
+                    currentImageWrapper = this.closest('.image-wrapper');
+                    deleteModal.show();
                 });
             });
+
+            // Confirm delete
+            document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                if (!currentImageId) return;
+
+                const confirmBtn = this;
+                const originalHtml = confirmBtn.innerHTML;
+
+                // Show loading
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-2"></span>Deleting...';
+
+                // Send delete request
+                fetch(`/admin/products/image-destroy/${currentImageId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Hide modal
+                            deleteModal.hide();
+
+                            // Fade out and remove image
+                            currentImageWrapper.classList.add('fade-out');
+                            setTimeout(() => {
+                                currentImageWrapper.remove();
+
+                                // Check if no images left
+                                const container = document.getElementById(
+                                    'existingImagesContainer');
+                                if (container && container.children.length === 0) {
+                                    container.closest('.col-md-12').remove();
+                                }
+                            }, 300);
+
+                            // Show success toast
+                            showToast('Image deleted successfully!', 'success');
+
+                            // Reset button
+                            confirmBtn.disabled = false;
+                            confirmBtn.innerHTML = originalHtml;
+                        } else {
+                            throw new Error(data.message || 'Failed to delete image');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        deleteModal.hide();
+                        showToast('Error deleting image. Please try again.', 'danger');
+                        confirmBtn.disabled = false;
+                        confirmBtn.innerHTML = originalHtml;
+                    });
+            });
         });
-
-        function showSuccessMessage(message) {
-            let existingMsg = document.querySelector('.ajax-success-msg');
-            if (existingMsg) existingMsg.remove();
-
-            const msgBox = document.createElement('div');
-            msgBox.className = 'alert alert-success ajax-success-msg fade show';
-            msgBox.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 9999;
-                min-width: 280px;
-                max-width: 350px;
-                padding: 12px 18px;
-                border-radius: 10px;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            `;
-            msgBox.innerHTML = `
-                <i class="ti ti-check text-success fs-5"></i>
-                <span class="flex-grow-1">${message}</span>
-            `;
-
-            document.body.appendChild(msgBox);
-
-            setTimeout(() => {
-                msgBox.classList.remove('show');
-                setTimeout(() => msgBox.remove(), 300);
-            }, 3000);
-        }
     </script>
 @endsection

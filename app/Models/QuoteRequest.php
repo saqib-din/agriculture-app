@@ -19,12 +19,6 @@ class QuoteRequest extends Model
         'quote_status',
     ];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationships
-    |--------------------------------------------------------------------------
-    */
-
     // Client (optional)
     public function client()
     {
@@ -52,6 +46,11 @@ class QuoteRequest extends Model
             ->orderBy('created_at', 'desc');
     }
 
+    public function emailLogs()
+    {
+        return $this->hasMany(EmailLog::class)->latest();
+    }
+
     // Orders created from quote
     public function orders()
     {
@@ -63,12 +62,6 @@ class QuoteRequest extends Model
     {
         return $this->hasOne(Order::class);
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Helper / Business Logic
-    |--------------------------------------------------------------------------
-    */
 
     public function isExistingClient()
     {
@@ -86,12 +79,6 @@ class QuoteRequest extends Model
         return $this->isExistingClient()
             && $this->quote_status !== 'rejected';
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Status Helper Methods
-    |--------------------------------------------------------------------------
-    */
 
     // Check if quote can be converted to order
     public function canConvertToOrder()
@@ -143,12 +130,6 @@ class QuoteRequest extends Model
         return $this->quote_status === 'converted';
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Accessors & Mutators
-    |--------------------------------------------------------------------------
-    */
-
     // Get status badge HTML
     public function getStatusBadgeAttribute()
     {
@@ -169,11 +150,6 @@ class QuoteRequest extends Model
         return ucfirst(str_replace('_', ' ', $this->quote_status));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Scopes
-    |--------------------------------------------------------------------------
-    */
 
     // Scope for new quotes
     public function scopeNew($query)

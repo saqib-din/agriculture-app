@@ -44,7 +44,7 @@ class OrderActivity extends Model
             'email' => 'secondary',
             'payment' => 'success',
             'status_change' => 'info',
-            default => 'light'
+            default => 'secondary'
         };
     }
 }

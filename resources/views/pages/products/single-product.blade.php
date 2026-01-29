@@ -176,7 +176,7 @@
                                     @if ($product->images->count())
                                         @foreach ($product->images as $image)
                                             <div class="swiper-slide">
-                                                <div class="image item">
+                                                <div class="image item" style="height:10em;">
                                                     <img src="{{ asset('storage/' . $image->image) }}"
                                                         data-src="{{ asset('storage/' . $image->image) }}" alt=""
                                                         class="lazyload">
@@ -288,10 +288,12 @@
                                 </li>
                                 <li>
                                     <p>
-                                        Category:
-                                        <a href="#">
-                                            {{ $product->category?->name ?? 'Jam & Jelly' }}
-                                        </a>
+                                        @if ($product->category)
+                                            Category:
+                                            <a href="#">
+                                                {{ $product->category->name }}
+                                            </a>
+                                        @endif
                                     </p>
                                 </li>
                             </ul>
@@ -301,63 +303,82 @@
             </div>
         </section>
 
-        <!-- Section tab -->
-        <section class="s-tab">
-            <div class="tf-container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="wg-tabs style-2">
-                            <div class="flex justify-center">
-                                <ul class="menu-tab">
-                                    <li class="item active"><a href="javascript:void(0)" class="btn-tab">Description</a>
-                                    </li>
-                                    <li class="item"><a href="javascript:void(0)" class="btn-tab">Additional
-                                            information</a></li>
-                                </ul>
-                            </div>
-                            <div class="widget-content-tab">
-                                <div class="widget-content-inner active">
-                                    {{-- <p class="text-1">{{ $product->brief_details }}</p> --}}
-                                    <p class="text-2">{{ $product->description }}</p>
-                                </div>
-                                <div class="widget-content-inner">
-                                    <div class="table-infor">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Specifications Name</th>
-                                                    <th>Value</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @if ($product->specifications && $product->specifications->count() > 0)
-                                                    @foreach ($product->specifications as $specification)
-                                                        <tr>
+        {{-- Show whole section ONLY if at least one exists --}}
+        @if (!empty($product->description) || ($product->specifications && $product->specifications->count() > 0))
 
-                                                            <th>{{ $specification->name }}</th>
-                                                            <td>
-                                                                <p>{{ $specification->value }}</p>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @else
-                                                    <tr>
-                                                        <td colspan="2" class="text-center text-muted">
-                                                            <i class="ti ti-info-circle me-2"></i>
-                                                            No specifications available for this product.
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
+            <section class="s-tab">
+                <div class="tf-container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="wg-tabs style-2">
+
+                                {{-- Tabs --}}
+                                <div class="flex justify-center">
+                                    <ul class="menu-tab">
+
+                                        {{-- Description Tab --}}
+                                        @if (!empty($product->description))
+                                            <li class="item active">
+                                                <a href="javascript:void(0)" class="btn-tab">Description</a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Additional Information Tab --}}
+                                        @if ($product->specifications && $product->specifications->count() > 0)
+                                            <li class="item {{ empty($product->description) ? 'active' : '' }}">
+                                                <a href="javascript:void(0)" class="btn-tab">Additional Information</a>
+                                            </li>
+                                        @endif
+
+                                    </ul>
                                 </div>
+
+                                {{-- Tab Contents --}}
+                                <div class="widget-content-tab">
+
+                                    {{-- Description Content --}}
+                                    @if (!empty($product->description))
+                                        <div class="widget-content-inner active">
+                                            <p class="text-2">{{ $product->description }}</p>
+                                        </div>
+                                    @endif
+
+                                    {{-- Additional Information Content --}}
+                                    @if ($product->specifications && $product->specifications->count() > 0)
+                                        <div
+                                            class="widget-content-inner {{ empty($product->description) ? 'active' : '' }}">
+                                            <div class="table-infor">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Specifications Name</th>
+                                                            <th>Value</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($product->specifications as $specification)
+                                                            <tr>
+                                                                <th>{{ $specification->name }}</th>
+                                                                <td>{{ $specification->value }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+        @endif
+
+
     </div>
 
     <!-- Quotation Modal -->

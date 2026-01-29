@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content center">
-                            <p class="sub-title">Buy Health Foods At Our Store</p>
+                            <p class="sub-title">Buy Products At Our Store</p>
                             <h1 class="title">Shop products</h1>
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
@@ -32,6 +32,8 @@
             <img src="{{ asset('assets/images/item/grass-6.png') }}" alt="">
         </div>
     </div>
+
+    <!-- Success Message -->
     <div id="msg" class="success-message-box" style="display: none;">
         <div class="success-content">
             <div class="success-icon">
@@ -53,7 +55,6 @@
             position: fixed;
             top: 20px;
             right: -400px;
-            /* start off-screen right */
             max-width: 450px;
             z-index: 9999;
             display: flex;
@@ -74,8 +75,7 @@
             color: #ffffff;
         }
 
-        .success-icon,
-        .error-icon {
+        .success-icon {
             background: rgba(255, 255, 255, 0.2);
             padding: 10px;
             border-radius: 50%;
@@ -92,11 +92,6 @@
             stroke: #28a745;
         }
 
-        .error-icon svg {
-            color: #dc3545;
-            stroke: #dc3545;
-        }
-
         .success-content strong {
             font-size: 18px;
             font-weight: 600;
@@ -111,39 +106,6 @@
             line-height: 1.5;
         }
 
-        /* Error Message Styling */
-        .error-message-box {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-left: 5px solid #dc3545;
-            padding: 20px 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
-            animation: slideDown 0.5s ease-out;
-        }
-
-        .error-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #ffffff;
-        }
-
-        .error-content strong {
-            font-size: 18px;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .error-content p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
-            line-height: 1.5;
-        }
-
-        /* Slide in from right */
         @keyframes slideInRight {
             0% {
                 right: -400px;
@@ -156,7 +118,6 @@
             }
         }
 
-        /* Slide out to right */
         @keyframes slideOutRight {
             0% {
                 right: 20px;
@@ -168,243 +129,7 @@
                 opacity: 0;
             }
         }
-    </style>
-    <!-- Main-content -->
-    <div class="main-content page-shop-product pt-0">
-        <div class="tf-container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="tf-sidebar">
-                        <div class="sidebar-item sb-category">
-                            <h5 class="sb-title">Categories</h5>
-                            <div class="sb-content">
-                                <ul class="category-list">
-                                    @foreach ($categories as $category)
-                                        <li class="item">
-                                            <a href="#tf-shop-control">
-                                                {{ $category->name }} ({{ $category->products_count }})
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
 
-                            </div>
-                        </div>
-                        {{-- <div class="sidebar-item sb-latest-new">
-                            <h5 class="sb-title">Popular Products</h5>
-                            <div class="sb-content sb-popular-product">
-                                <ul class="latest-list style-2">
-                                    <li class="item img-hover">
-                                        <div class="image hover-item">
-                                            <img src="{{ asset('assets/images/widget/sb-new.jpg') }}" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <a href="#" class="name font-worksans fw-5 hover-text-4">
-                                                Green organic mix smoothie for everyday
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> --}}
-                    </div>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="tf-shop-control" id="tf-shop-control">
-                        <div class="control-left">
-                            <p class="font-worksans fw-5">
-                                Showing {{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }} of
-                                {{ $products->total() }} results
-                            </p>
-                        </div>
-                        <div class="control-right d-flex align-items-center">
-                            <div class="wrap-quantity mb-0 main-quote-section me-4" style="display: none;">
-                                <button type="button" class="tf-btn btn-add-cart" data-bs-toggle="modal"
-                                    data-bs-target="#quoteModal">
-                                    <span class="text-style">Request A Quote (<span id="selectedCount">0</span>)</span>
-                                    <span class="icon">
-                                        <i class="fa-solid fa-file-lines"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="tf-control-sorting">
-                                <div class="tf-dropdown-sort">
-                                    <div class="tf-btn style-2" data-bs-toggle="dropdown">
-                                        <span class="text-sort-value">Default sorting</span>
-                                        <i class="icon-arrow_down"></i>
-                                    </div>
-                                    <div class="dropdown-menu">
-                                        <div class="select-item">
-                                            <span class="text-value-item">New Post</span>
-                                        </div>
-                                        <div class="select-item">
-                                            <span class="text-value-item">All Post</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="wg-shop-content">
-                        <div class="grid-layout-3 gap-30-20">
-                            @foreach ($products as $product)
-                                <div class="card-product style-2 wow fadeInUp" data-wow-delay="0s">
-                                    <button class="request-quote-btn" data-product-id="{{ $product->id }}"
-                                        data-product-name="{{ $product->name }}"
-                                        data-product-image="{{ $product->images->first() ? asset('storage/' . $product->images->first()->image) : asset('assets/images/item/haagen.png') }}"
-                                        data-product-price="{{ $product->price }}">
-                                        Request a Quote
-                                    </button>
-
-                                    <div class="image">
-                                        <img src="{{ $product->images->first()
-                                            ? asset('storage/' . $product->images->first()->image)
-                                            : asset('assets/images/item/haagen.png') }}"
-                                            data-src="{{ $product->images->first()
-                                                ? asset('storage/' . $product->images->first()->image)
-                                                : asset('assets/images/item/haagen.png') }}"
-                                            alt="{{ $product->name }}" class="lazyload" style="height:6em;">
-                                    </div>
-
-                                    <a href="{{ route('products.show', $product->slug) }}"
-                                        class="name-product font-worksans hover-text-4">
-                                        {{ $product->name }}
-                                    </a>
-
-                                    <div class="pricing-star">
-                                        <div class="price-wrap">
-                                            <span class="price-2">
-                                                PKR {{ number_format($product->price, 2) }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- Pagination -->
-                    @if ($products->hasPages())
-                        <div class="tf-page-pagination">
-                            <ul>
-                                @if ($products->onFirstPage())
-                                    <li class="disabled">
-                                        <a class="prev"><i class="fas fa-angle-double-left"></i></a>
-                                    </li>
-                                @else
-                                    <li>
-                                        <a href="{{ $products->previousPageUrl() }}" class="prev">
-                                            <i class="fas fa-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                @endif
-
-                                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
-                                    <li>
-                                        <a class="{{ $page == $products->currentPage() ? 'active' : '' }}"
-                                            href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endforeach
-
-                                @if ($products->hasMorePages())
-                                    <li>
-                                        <a href="{{ $products->nextPageUrl() }}" class="next">
-                                            <i class="fas fa-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="disabled">
-                                        <a class="next"><i class="fas fa-angle-double-right"></i></a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quotation Modal -->
-    <div class="modal modalCentered fade modal-log" id="quoteModal">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
-                <div class="modal-log-wrap list-file-delete">
-                    <div class="box-title">
-                        <h2 class="title fw-bold">Quotation Request</h2>
-                        <p class="fw-normal font-nunito h6 fs-18 text-main">
-                            Request a quote for selected products
-                        </p>
-                    </div>
-
-                    <!-- Selected Products List -->
-                    <div class="selected-products-list mb-4">
-                        <h6 class="mb-3">Selected Products:</h6>
-                        <div id="selectedProductsList" class="list-group">
-                            <!-- Products will be dynamically added here -->
-                        </div>
-                    </div>
-
-                    <form id="quoteRequestForm" class="form-log">
-                        @csrf
-                        <div class="form-content">
-                            <!-- Row 1: Name and Email -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <label for="customer_name" class="text-uppercase">Name *</label>
-                                        <input type="text" name="customer_name" id="customer_name"
-                                            placeholder="Enter Name" required>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <label for="customer_phone" class="text-uppercase">Phone</label>
-                                        <input type="tel" name="customer_phone" id="customer_phone"
-                                            placeholder="Enter Phone Number">
-                                    </fieldset>
-                                </div>
-                            </div>
-
-                            <!-- Row 2: Phone -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <label for="customer_email" class="text-uppercase">Email *</label>
-                                        <input type="email" name="customer_email" id="customer_email"
-                                            placeholder="Enter Email" required>
-                                    </fieldset>
-                                </div>
-                            </div>
-
-                            <!-- Row 3: Message -->
-                            <div class="row">
-                                <div class="col-12">
-                                    <fieldset>
-                                        <label for="customer_message" class="text-uppercase">Message</label>
-                                        <textarea name="customer_message" id="customer_message" placeholder="Additional information or requirements"
-                                            rows="3"></textarea>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="button-submit">
-                            <button type="submit" class="tf-btn-nor w-100">
-                                <span class="submit-text">Send Request</span>
-                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <style>
         .card-product {
             position: relative;
         }
@@ -412,6 +137,8 @@
         .card-product .image {
             position: relative;
             overflow: hidden;
+            height: 128px !important;
+            width: 216px;
         }
 
         .request-quote-btn {
@@ -440,12 +167,6 @@
         .request-quote-btn.selected {
             opacity: 1;
             transform: translateY(0);
-            background-color: #f8c32c;
-            color: black;
-
-        }
-
-        .request-quote-btn.selected:hover {
             background-color: #f8c32c;
             color: black;
         }
@@ -530,18 +251,446 @@
             opacity: 0.5;
             pointer-events: none;
         }
+
+        .active-category {
+            color: #278d45 !important;
+            font-weight: 600;
+        }
+
+        .category-list .item a {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-list .item a:hover {
+            color: #235130;
+            padding-left: 5px;
+        }
+
+        .no-products-found {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .no-products-found i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
     </style>
+
+    <!-- Main-content -->
+    <div class="main-content page-shop-product pt-0">
+        <div class="tf-container">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="tf-sidebar">
+                        <!-- Categories -->
+                        <div class="sidebar-item sb-category">
+                            <h5 class="sb-title">Categories</h5>
+                            <div class="sb-content">
+                                <ul class="category-list">
+                                    <li class="item">
+                                        <a href="{{ route('products.public.list', ['search' => request('search'), 'sort' => request('sort')]) }}"
+                                            class="{{ !request('category') ? 'active-category' : '' }}">
+                                            All Products
+                                        </a>
+                                    </li>
+                                    @foreach ($categories as $category)
+                                        <li class="item">
+                                            <a href="{{ route('products.public.list', ['category' => $category->id, 'search' => request('search'), 'sort' => request('sort')]) }}"
+                                                class="{{ request('category') == $category->id ? 'active-category' : '' }}">
+                                                {{ $category->name }} ({{ $category->products_count }})
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Popular Products -->
+                        <div class="sidebar-item sb-latest-new">
+                            <h5 class="sb-title">Popular Products</h5>
+                            <div class="sb-content sb-popular-product">
+                                <ul class="latest-list style-2">
+                                    @forelse ($popularProducts as $popularProduct)
+                                        <li class="item img-hover">
+                                            <div class="image hover-item">
+                                                <a href="{{ route('products.show', $popularProduct->slug) }}">
+                                                    <img src="{{ $popularProduct->images->first() ? asset('storage/' . $popularProduct->images->first()->image) : asset('assets/images/item/haagen.png') }}"
+                                                        alt="{{ $popularProduct->name }}" style="height:6em;">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <a href="{{ route('products.show', $popularProduct->slug) }}"
+                                                    class="name font-worksans fw-5 hover-text-4">
+                                                    {{ Str::limit($popularProduct->name, 40) }}
+                                                </a>
+                                                <div class="pricing-star">
+                                                    <span class="price font-worksans fw-6">
+                                                        PKR {{ number_format($popularProduct->price, 2) }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <li class="item">
+                                            <p class="text-muted">No popular products yet</p>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Section -->
+                <div class="col-lg-8">
+                    <div class="tf-shop-control" id="tf-shop-control">
+                        <!-- Search Bar -->
+                        <div class="control-left" style="width: -webkit-fill-available;">
+                            <div class="search-product me-4" style="width: -webkit-fill-available;">
+                                <form action="{{ route('products.public.list') }}" method="GET"
+                                    class="form-search style-1" id="searchForm">
+                                    <input type="hidden" name="category" value="{{ request('category') }}"
+                                        id="categoryInput">
+                                    <input type="hidden" name="sort" value="{{ request('sort') }}" id="sortInput">
+                                    <fieldset>
+                                        <input type="text" name="search" id="searchInput"
+                                            placeholder="Search Product..." value="{{ request('search') }}"
+                                            autocomplete="off">
+                                    </fieldset>
+                                    <button type="submit" class="btn-search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Quote Button & Sorting -->
+                        <div class="control-right d-flex align-items-center">
+                            <div class="wrap-quantity mb-0 main-quote-section me-4" style="display: none;">
+                                <button type="button" class="tf-btn btn-add-cart" data-bs-toggle="modal"
+                                    data-bs-target="#quoteModal">
+                                    <span class="text-style">Request A Quote (<span id="selectedCount">0</span>)</span>
+                                    <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
+                                </button>
+                            </div>
+
+                            <div class="tf-control-sorting">
+                                <div class="tf-dropdown-sort">
+                                    <div class="tf-btn style-2" data-bs-toggle="dropdown">
+                                        <span class="text-sort-value">
+                                            @switch(request('sort'))
+                                                @case('popular')
+                                                    Popular Products
+                                                @break
+
+                                                @default
+                                                    Recent Products
+                                            @endswitch
+                                        </span>
+                                        <i class="icon-arrow_down"></i>
+                                    </div>
+                                    <div class="dropdown-menu">
+                                        <div class="select-item">
+                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'recent'])) }}"
+                                                class="select-item">
+                                                <span class="text-value-item">Recent Products</span>
+                                            </a>
+                                        </div>
+                                        <div class="select-item">
+                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'popular'])) }}"
+                                                class="select-item">
+                                                <span class="text-value-item">Popular Products</span>
+                                            </a>
+                                        </div>
+                                        {{-- <div class="select-item">
+                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'price_high'])) }}"
+                                                class="select-item">
+                                                <span class="text-value-item">Price: High to Low</span>
+                                            </a>
+                                        </div>
+                                        <div class="select-item">
+                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'price_low'])) }}"
+                                                class="select-item">
+                                                <span class="text-value-item">Price: Low to High</span>
+                                            </a>
+                                        </div> --}}
+
+                                        {{-- <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'name_asc'])) }}"
+                                            class="select-item">
+                                            <span class="text-value-item">Name: A to Z</span>
+                                        </a>
+                                        <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'name_desc'])) }}"
+                                            class="select-item">
+                                            <span class="text-value-item">Name: Z to A</span>
+                                        </a> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="wg-shop-content" id="productsContainer">
+                        @if ($products->count() > 0)
+                            <div class="grid-layout-3 gap-30-20" id="productGrid">
+                                @foreach ($products as $product)
+                                    <div class="card-product style-2 wow fadeInUp" data-wow-delay="0s">
+                                        <button class="request-quote-btn" data-product-id="{{ $product->id }}"
+                                            data-product-name="{{ $product->name }}"
+                                            data-product-image="{{ $product->images->first() ? asset('storage/' . $product->images->first()->image) : asset('assets/images/item/haagen.png') }}"
+                                            data-product-price="{{ $product->price }}">
+                                            Request a Quote
+                                        </button>
+
+                                        <div class="image">
+                                            <a href="{{ route('products.show', $product->slug) }}">
+                                                <img src="{{ $product->images->first() ? asset('storage/' . $product->images->first()->image) : asset('assets/images/item/haagen.png') }}"
+                                                    alt="{{ $product->name }}">
+                                            </a>
+                                        </div>
+
+                                        <a href="{{ route('products.show', $product->slug) }}"
+                                            class="name-product font-worksans hover-text-4">
+                                            {{ $product->name }}
+                                        </a>
+
+                                        <div class="pricing-star">
+                                            <div class="price-wrap">
+                                                <span class="price-2">
+                                                    PKR {{ number_format($product->price, 2) }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="no-products-found">
+                                <i class="fas fa-box-open"></i>
+                                <h4>No Products Found</h4>
+                                <p class="text-muted">Try adjusting your search or filter criteria</p>
+                                <a href="{{ route('products.public.list') }}" class="btn btn-secondary">
+                                    Clear Filters
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div id="loadingSpinner" class="text-center my-5" style="display: none;">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-muted">Searching products...</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div id="paginationContainer">
+                        @if ($products->hasPages())
+                            <div class="d-flex justify-content-between align-items-center flex-wrap mt-4">
+                                <!-- Results Count -->
+                                <p class="font-worksans text-dark fw-5 mb-0">
+                                    Showing {{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }}
+                                    of {{ $products->total() }} results
+                                </p>
+
+                                <!-- Pagination -->
+                                <div class="tf-page-pagination">
+                                    <ul class="mb-0 d-flex align-items-center">
+
+                                        {{-- Previous --}}
+                                        @if ($products->onFirstPage())
+                                            <li class="disabled">
+                                                <a class="prev"><i class="fas fa-angle-double-left"></i></a>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <a href="{{ $products->appends(request()->query())->previousPageUrl() }}"
+                                                    class="prev">
+                                                    <i class="fas fa-angle-double-left"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Page Numbers (Only 3) --}}
+                                        @php
+                                            $current = $products->currentPage();
+                                            $last = $products->lastPage();
+                                            $start = max(1, $current - 1);
+                                            $end = min($last, $current + 1);
+                                        @endphp
+
+                                        @for ($page = $start; $page <= $end; $page++)
+                                            <li>
+                                                <a class="{{ $page == $current ? 'active' : '' }}"
+                                                    href="{{ $products->appends(request()->query())->url($page) }}">
+                                                    {{ $page }}
+                                                </a>
+                                            </li>
+                                        @endfor
+
+                                        {{-- Next --}}
+                                        @if ($products->hasMorePages())
+                                            <li>
+                                                <a href="{{ $products->appends(request()->query())->nextPageUrl() }}"
+                                                    class="next">
+                                                    <i class="fas fa-angle-double-right"></i>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="disabled">
+                                                <a class="next"><i class="fas fa-angle-double-right"></i></a>
+                                            </li>
+                                        @endif
+
+                                    </ul>
+                                </div>
+
+                            </div>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quotation Modal -->
+    <div class="modal modalCentered fade modal-log" id="quoteModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
+                <div class="modal-log-wrap list-file-delete">
+                    <div class="box-title">
+                        <h2 class="title fw-bold">Quotation Request</h2>
+                        <p class="fw-normal font-nunito h6 fs-18 text-main">Request a quote for selected products</p>
+                    </div>
+
+                    <div class="selected-products-list mb-4">
+                        <h6 class="mb-3">Selected Products:</h6>
+                        <div id="selectedProductsList" class="list-group"></div>
+                    </div>
+
+                    <form id="quoteRequestForm" class="form-log">
+                        @csrf
+                        <div class="form-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="customer_name" class="text-uppercase">Name *</label>
+                                        <input type="text" name="customer_name" id="customer_name"
+                                            placeholder="Enter Name" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="customer_phone" class="text-uppercase">Phone</label>
+                                        <input type="tel" name="customer_phone" id="customer_phone"
+                                            placeholder="Enter Phone Number">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <label for="customer_email" class="text-uppercase">Email *</label>
+                                        <input type="email" name="customer_email" id="customer_email"
+                                            placeholder="Enter Email" required>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <fieldset>
+                                        <label for="customer_message" class="text-uppercase">Message</label>
+                                        <textarea name="customer_message" id="customer_message" placeholder="Additional information or requirements"
+                                            rows="3">Hello,
+
+I would like to request a quotation for the selected product(s).
+Please provide pricing, availability, and any additional details at your earliest convenience.
+
+Thank you.</textarea>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-submit">
+                            <button type="submit" class="tf-btn-nor w-100">
+                                <span class="submit-text">Send Request</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const quoteButtons = document.querySelectorAll('.request-quote-btn');
-            const mainQuoteSection = document.querySelector('.main-quote-section');
-            const quoteForm = document.getElementById('quoteRequestForm');
-            const selectedProductsList = document.getElementById('selectedProductsList');
-            const selectedCountSpan = document.getElementById('selectedCount');
+            // ========================================
+            // QUOTE MANAGEMENT SYSTEM
+            // ========================================
             let selectedProducts = [];
+            const mainQuoteSection = document.querySelector('.main-quote-section');
+            const selectedCountSpan = document.getElementById('selectedCount');
+            const selectedProductsList = document.getElementById('selectedProductsList');
+            const quoteForm = document.getElementById('quoteRequestForm');
 
-            // Function to update selected products display
+            // Make this function global so search can access it
+            window.initializeQuoteButtons = function() {
+                const quoteButtons = document.querySelectorAll('.request-quote-btn');
+
+                quoteButtons.forEach(button => {
+                    // Remove existing listeners by cloning
+                    const newButton = button.cloneNode(true);
+                    button.parentNode.replaceChild(newButton, button);
+
+                    const productId = newButton.getAttribute('data-product-id');
+                    const isSelected = selectedProducts.some(p => p.id === productId);
+
+                    if (isSelected) {
+                        newButton.classList.add('selected');
+                        newButton.textContent = 'Selected';
+                    }
+
+                    newButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const productId = this.getAttribute('data-product-id');
+                        const productName = this.getAttribute('data-product-name');
+                        const productImage = this.getAttribute('data-product-image');
+                        const productPrice = this.getAttribute('data-product-price');
+
+                        this.classList.toggle('selected');
+
+                        if (this.classList.contains('selected')) {
+                            this.textContent = 'Selected';
+                            selectedProducts.push({
+                                id: productId,
+                                name: productName,
+                                image: productImage,
+                                price: productPrice,
+                                quantity: 1
+                            });
+                        } else {
+                            this.textContent = 'Request a Quote';
+                            selectedProducts = selectedProducts.filter(p => p.id !== productId);
+                        }
+
+                        updateMainQuoteButton();
+                    });
+                });
+            };
+
             function updateSelectedProductsDisplay() {
                 selectedProductsList.innerHTML = '';
 
@@ -554,117 +703,73 @@
                     const productItem = document.createElement('div');
                     productItem.className = 'product-item';
                     productItem.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}">
-                        <div class="product-item-info">
-                            <div class="product-item-name">${product.name}</div>
-                            <div class="product-item-price">PKR ${parseFloat(product.price).toLocaleString('en-PK', {minimumFractionDigits: 2})}</div>
-                        </div>
-                        <div class="product-item-quantity">
-                            <label style="margin: 0; font-size: 12px;">Qty:</label>
-                            <input type="number" class="quantity-input" data-index="${index}" 
-                                   value="${product.quantity}" min="1" max="1000">
-                        </div>
-                        <button type="button" class="product-item-remove ms-2" data-index="${index}">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="product-item-info">
+                        <div class="product-item-name">${product.name}</div>
+                        <div class="product-item-price">PKR ${parseFloat(product.price).toLocaleString('en-PK', {minimumFractionDigits: 2})}</div>
+                    </div>
+                    <div class="product-item-quantity">
+                        <label style="margin: 0; font-size: 12px;">Qty:</label>
+                        <input type="number" class="quantity-input" data-index="${index}" value="${product.quantity}" min="1" max="1000">
+                    </div>
+                    <button type="button" class="product-item-remove ms-2" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
                     selectedProductsList.appendChild(productItem);
                 });
 
-                // Add event listeners for quantity change
                 document.querySelectorAll('.quantity-input').forEach(input => {
                     input.addEventListener('change', function() {
                         const index = parseInt(this.dataset.index);
                         const newQuantity = parseInt(this.value) || 1;
-                        if (newQuantity > 0) {
-                            selectedProducts[index].quantity = newQuantity;
-                        } else {
-                            this.value = 1;
-                            selectedProducts[index].quantity = 1;
-                        }
+                        selectedProducts[index].quantity = newQuantity > 0 ? newQuantity : 1;
+                        if (newQuantity <= 0) this.value = 1;
                     });
                 });
 
-                // Add event listeners for remove buttons
                 document.querySelectorAll('.product-item-remove').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const index = parseInt(this.dataset.index);
                         const productId = selectedProducts[index].id;
-
-                        // Remove from array
                         selectedProducts.splice(index, 1);
-
-                        // Update button state
                         const button = document.querySelector(`[data-product-id="${productId}"]`);
                         if (button) {
                             button.classList.remove('selected');
                             button.textContent = 'Request a Quote';
                         }
-
-                        // Update display
                         updateSelectedProductsDisplay();
                         updateMainQuoteButton();
                     });
                 });
             }
 
-            // Function to update main quote button
             function updateMainQuoteButton() {
                 selectedCountSpan.textContent = selectedProducts.length;
-                if (selectedProducts.length > 0) {
-                    mainQuoteSection.style.display = 'block';
-                } else {
-                    mainQuoteSection.style.display = 'none';
-                }
+                mainQuoteSection.style.display = selectedProducts.length > 0 ? 'block' : 'none';
             }
 
-            // Handle individual product selection
-            quoteButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            // Initialize quote buttons on page load
+            window.initializeQuoteButtons();
 
-                    const productId = this.getAttribute('data-product-id');
-                    const productName = this.getAttribute('data-product-name');
-                    const productImage = this.getAttribute('data-product-image');
-                    const productPrice = this.getAttribute('data-product-price');
-
-                    this.classList.toggle('selected');
-
-                    if (this.classList.contains('selected')) {
-                        this.textContent = 'Selected';
-                        selectedProducts.push({
-                            id: productId,
-                            name: productName,
-                            image: productImage,
-                            price: productPrice,
-                            quantity: 1
-                        });
-                    } else {
-                        this.textContent = 'Request a Quote';
-                        selectedProducts = selectedProducts.filter(p => p.id !== productId);
-                    }
-
-                    updateMainQuoteButton();
-                });
-            });
-
-            // When modal opens, update the products list
             document.getElementById('quoteModal').addEventListener('show.bs.modal', function() {
                 updateSelectedProductsDisplay();
             });
 
-            // Handle form submission
             quoteForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 if (selectedProducts.length === 0) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'No Products Selected',
-                        text: 'Please select at least one product to request a quote.',
-                        confirmButtonColor: '#235130'
-                    });
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'No Products Selected',
+                            text: 'Please select at least one product to request a quote.',
+                            confirmButtonColor: '#235130'
+                        });
+                    } else {
+                        alert('Please select at least one product to request a quote.');
+                    }
                     return;
                 }
 
@@ -677,14 +782,11 @@
                 spinner.classList.remove('d-none');
 
                 const formData = new FormData(this);
-
-                // Add selected products with quantities
                 selectedProducts.forEach(product => {
                     formData.append('products[]', product.id);
                     formData.append('quantities[]', product.quantity);
                 });
 
-                // Calculate total quantity
                 const totalQty = selectedProducts.reduce((sum, p) => sum + parseInt(p.quantity), 0);
                 formData.set('total_quantity', totalQty);
 
@@ -703,64 +805,183 @@
                         spinner.classList.add('d-none');
 
                         if (data.success) {
-                            // Show left-side slide-in message
-                            showSuccessMessage();
+                            const msgBox = document.getElementById('msg');
+                            msgBox.style.display = 'flex';
+                            msgBox.style.right = '-400px';
+                            msgBox.style.animation = 'slideInRight 0.5s forwards';
+                            setTimeout(() => {
+                                msgBox.style.animation = 'slideOutRight 0.5s forwards';
+                                setTimeout(() => {
+                                    msgBox.style.display = 'none';
+                                }, 500);
+                            }, 5000);
 
-                            // Reset form and selections
                             quoteForm.reset();
                             selectedProducts = [];
-
-                            quoteButtons.forEach(btn => {
+                            document.querySelectorAll('.request-quote-btn').forEach(btn => {
                                 btn.classList.remove('selected');
                                 btn.textContent = 'Request a Quote';
                             });
-
                             updateMainQuoteButton();
-
-                            const modalElement = document.getElementById('quoteModal');
-                            const modal = bootstrap.Modal.getInstance(modalElement);
+                            const modal = bootstrap.Modal.getInstance(document.getElementById(
+                                'quoteModal'));
                             if (modal) modal.hide();
                         } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: data.message ||
-                                    'Failed to submit quote request. Please try again.',
-                                confirmButtonColor: '#235130'
-                            });
+                            if (typeof Swal !== 'undefined') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message || 'Failed to submit quote request.',
+                                    confirmButtonColor: '#235130'
+                                });
+                            } else {
+                                alert(data.message || 'Failed to submit quote request.');
+                            }
                         }
                     })
                     .catch(error => {
                         submitBtn.disabled = false;
                         submitText.classList.remove('d-none');
                         spinner.classList.add('d-none');
-
                         console.error('Error:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred. Please try again later.',
-                            confirmButtonColor: '#235130'
-                        });
+                        alert('An error occurred. Please try again later.');
                     });
             });
+
+            // ========================================
+            // REAL-TIME SEARCH FUNCTIONALITY
+            // ========================================
+            const searchInput = document.getElementById('searchInput');
+            const categoryInput = document.getElementById('categoryInput');
+            const sortInput = document.getElementById('sortInput');
+            const productsContainer = document.getElementById('productsContainer');
+            const paginationContainer = document.getElementById('paginationContainer');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            let searchTimeout;
+            const DEBOUNCE_DELAY = 500;
+
+            // Real-time search on input
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                const searchValue = this.value.trim();
+
+                searchTimeout = setTimeout(() => {
+                    performSearch(searchValue);
+                }, DEBOUNCE_DELAY);
+            });
+
+            // Main search function
+            function performSearch(searchQuery, page = 1) {
+                loadingSpinner.style.display = 'block';
+                productsContainer.style.opacity = '0.5';
+
+                const params = new URLSearchParams();
+                if (searchQuery) params.append('search', searchQuery);
+                if (categoryInput.value) params.append('category', categoryInput.value);
+                if (sortInput.value) params.append('sort', sortInput.value);
+                if (page > 1) params.append('page', page);
+
+                fetch(`{{ route('products.public.list') }}?${params.toString()}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            productsContainer.innerHTML = data.html;
+                            paginationContainer.innerHTML = data.pagination;
+
+                            // Re-initialize quote buttons
+                            window.initializeQuoteButtons();
+                            attachPaginationHandlers();
+
+                            // Update URL
+                            const newUrl = `${window.location.pathname}?${params.toString()}`;
+                            window.history.pushState({}, '', newUrl);
+
+                            // Smooth scroll
+                            document.getElementById('tf-shop-control').scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        } else {
+                            throw new Error(data.message || 'Search failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Search error:', error);
+                        productsContainer.innerHTML = `
+                        <div class="no-products-found">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h4>Error Loading Products</h4>
+                            <p class="text-muted">${error.message || 'Please try again later'}</p>
+                        </div>
+                    `;
+                    })
+                    .finally(() => {
+                        loadingSpinner.style.display = 'none';
+                        productsContainer.style.opacity = '1';
+                    });
+            }
+
+            // Pagination handlers
+            function attachPaginationHandlers() {
+                document.querySelectorAll('.pagination-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const page = this.getAttribute('data-page');
+                        if (page) {
+                            performSearch(searchInput.value, page);
+                        }
+                    });
+                });
+            }
+
+            // Category filter
+            document.querySelectorAll('.category-list .item a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    document.querySelectorAll('.category-list .item a').forEach(a =>
+                        a.classList.remove('active-category')
+                    );
+                    this.classList.add('active-category');
+
+                    const url = new URL(this.href);
+                    const categoryId = url.searchParams.get('category') || '';
+                    categoryInput.value = categoryId;
+
+                    performSearch(searchInput.value);
+                });
+            });
+
+            // Sort dropdown
+            document.querySelectorAll('.dropdown-menu .select-item a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const url = new URL(this.href);
+                    const sortValue = url.searchParams.get('sort') || 'recent';
+                    sortInput.value = sortValue;
+
+                    const sortText = this.querySelector('.text-value-item').textContent;
+                    document.querySelector('.text-sort-value').textContent = sortText;
+
+                    performSearch(searchInput.value);
+                });
+            });
+
+            // Initialize pagination on page load
+            attachPaginationHandlers();
         });
-
-        function showSuccessMessage() {
-            const msgBox = document.getElementById('msg');
-
-            // Reset position and display
-            msgBox.style.display = 'flex';
-            msgBox.style.right = '-400px'; // start off-screen
-            msgBox.style.animation = 'slideInRight 0.5s forwards';
-
-            // Auto hide after 4 seconds
-            setTimeout(() => {
-                msgBox.style.animation = 'slideOutRight 0.5s forwards';
-                setTimeout(() => {
-                    msgBox.style.display = 'none';
-                }, 500);
-            }, 5000);
-        }
     </script>
 @endsection

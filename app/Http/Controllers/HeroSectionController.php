@@ -25,10 +25,13 @@ class HeroSectionController extends Controller
         $hero = $id ? HeroSection::findOrFail($id) : new HeroSection();
 
         $request->validate([
-            'hero_title'    => 'required|string|max:255',
-            'status'        => 'required',
-            'image'         => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'hero_title'     => 'required|string|max:100',
+            'hero_subtitle'  => 'nullable|string|max:200',
+            'description'    => 'nullable|string|max:255',
+            'status'         => 'required',
+            'image'          => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
+
 
         if ($request->hasFile('image')) {
             if ($id && $hero->image && file_exists(public_path('uploads/hero/' . $hero->image))) {

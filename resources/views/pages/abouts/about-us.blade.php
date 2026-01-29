@@ -12,11 +12,12 @@
                     <div class="col-lg-12">
                         <div class="content">
                             <p class="sub-title">
-                                Nurturing the Earth, Feeding the World
+                                Harnessing the Sun, Powering the World
                             </p>
                             <h1 class="title">
-                                About the Farm
+                                About Our Solar Plant
                             </h1>
+
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
                             </div>
@@ -25,11 +26,11 @@
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="{{ url('/aboutus') }}">About Us </a>
+                                {{-- <a href="{{ url('/aboutus') }}">About Us </a>
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
-                                </div>
-                                <a href="javascript:void(0)">About The Farm</a>
+                                </div> --}}
+                                <a href="javascript:void(0)">About Us</a>
                             </div>
                         </div>
                     </div>
@@ -60,13 +61,14 @@
                                             alt="">
                                     </div>
                                     <p class="sub-title">
-                                        Welcome to DonalFarm Agriculture & Organic Farms
+                                        Welcome to Solar Plant Energy Solutions
                                     </p>
                                     <p class="title wow fadeInUp" data-wow-delay="0s">
-                                        Providing The Finest
-                                        Products To The Best
-                                        Feed Suppliers.
+                                        Delivering Reliable <br>
+                                        Clean Energy <br>
+                                        To Homes and Businesses.
                                     </p>
+
                                 </div>
                             </div>
                         </div>

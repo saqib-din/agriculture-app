@@ -35,8 +35,8 @@ class ServicesController extends Controller
         $service = $id ? Service::findOrFail($id) : new Service();
 
         $request->validate([
-            'service_name'     => 'required|string|max:255',
-            'description'      => 'nullable|string',
+            'service_name'     => 'required|string|max:30',
+            'description'      => 'nullable|string|max:255',
             'image'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'main_service'     => 'nullable|boolean',
             'featured_service' => 'nullable|boolean',

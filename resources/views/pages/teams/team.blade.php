@@ -16,7 +16,7 @@
                                 Dedicated And Pofessional People
                             </p>
                             <h1 class="title">
-                                Meet our farmers
+                                Meet our teams members
                             </h1>
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
@@ -26,11 +26,8 @@
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="{{ url('/aboutus') }}">About Us </a>
-                                <div class="icon">
-                                    <i class="icon-arrow-right1"></i>
-                                </div>
-                                <a href="javascript:void(0)">Meet Our farmers </a>
+
+                                <a href="javascript:void(0)">Teams Member </a>
 
                             </div>
                         </div>
@@ -95,16 +92,16 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="heading-section text-center has-text mb-81">
-                            <p class="sub-title">Meet The Farmers </p>
+                            <p class="sub-title">Meet Our Solar Experts</p>
                             <p class="title text-anime-style-2">
                                 People Who Are Dedicated <br>
-                                To Their Work And Love Nature
-
+                                To Clean Energy And Sustainability
                             </p>
                             <p class="text">
-                                Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus
-                                non finibus rutrum.
+                                Our team of solar specialists is committed to delivering efficient, reliable, and
+                                eco-friendly energy solutions, helping communities harness the power of the sun.
                             </p>
+
                             <div class="img-item">
                                 <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
                                     alt="" />
@@ -139,7 +136,8 @@
                                                             class="icon-facebook1"></i></a></li>
                                             @endif
                                             @if ($team->linkedin)
-                                                <li><a href="{{ $team->linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                                                <li><a href="{{ $team->linkedin }}" target="_blank"><i
+                                                            class="fab fa-linkedin"></i></a></li>
                                             @endif
                                             @if ($team->instagram)
                                                 <li><a href="{{ $team->instagram }}" target="_blank"><i

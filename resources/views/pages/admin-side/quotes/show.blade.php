@@ -43,12 +43,12 @@
                                     @else
                                         @if ($quoteRequest->isExistingClient())
                                             <a href="{{ route('admin.clients.show', $quoteRequest->client_id) }}"
-                                                class="btn btn-light-info">
+                                                class="btn btn-light-info d-flex">
                                                 <i class="ti ti-user-check me-1"></i> View Client
                                             </a>
 
                                             <a href="{{ route('admin.orders.create', ['quote_request_id' => $quoteRequest->id]) }}"
-                                                class="btn btn-light-success">
+                                                class="btn btn-light-success d-flex">
                                                 <i class="ti ti-shopping-cart me-1"></i> Create Order
                                             </a>
                                         @else
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Send Quote Modal -->
                 <div class="modal fade" id="sendquoteModal">
                     <div class="modal-dialog modal-dialog-centered">
@@ -225,8 +225,13 @@
                                     <p>Are you sure you want to send this quote to
                                         <strong>{{ $quoteRequest->customer_email }}</strong>?
                                     </p>
-                                    <p class="text-muted small">The quote details and invoice PDF will be sent via email.
-                                    </p>
+                                    <p class="text-muted small">The quote details and invoice PDF will be sent via email in
+                                        the background.</p>
+
+                                    <div class="alert alert-info mb-0">
+                                        <i class="ti ti-info-circle me-2"></i>
+                                        <small>You'll receive a notification once the email is successfully sent.</small>
+                                    </div>
                                 </div>
 
                                 <div class="modal-footer">
@@ -234,12 +239,11 @@
                                         data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-light-success" id="sendQuoteBtn">
                                         <span class="btn-text">
-                                            {{-- <i class="ti ti-send me-1"></i>  --}}
-                                            Yes, Send By Email
+                                            <i class="ti ti-send me-1"></i> Yes, Send By Email
                                         </span>
                                         <span class="btn-loading d-none">
                                             <span class="spinner-border spinner-border-sm me-1"></span>
-                                            Sending...
+                                            Processing...
                                         </span>
                                     </button>
                                 </div>
@@ -247,6 +251,15 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    document.getElementById('sendQuoteForm').addEventListener('submit', function() {
+                        const btn = document.getElementById('sendQuoteBtn');
+                        btn.querySelector('.btn-text').classList.add('d-none');
+                        btn.querySelector('.btn-loading').classList.remove('d-none');
+                        btn.disabled = true;
+                    });
+                </script>
 
                 <!-- Right Column - Products & Status -->
                 <div class="col-md-8">
@@ -354,7 +367,7 @@
     <!-- Reply Modal -->
     <div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form action="{{ route('admin.quotes.reply', $quoteRequest->id) }}" method="POST">
+            <form action="{{ route('admin.quotes.reply', $quoteRequest->id) }}" method="POST" id="replyForm">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -370,17 +383,37 @@
                             <label class="form-label">Message <span class="text-danger">*</span></label>
                             <textarea name="reply_message" class="form-control" rows="8" placeholder="Type your message here..." required></textarea>
                         </div>
+
+                        <div class="alert alert-info mb-0">
+                            <i class="ti ti-info-circle me-2"></i>
+                            <small>Your reply will be sent in the background. This won't block your workflow.</small>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary d-flex">
-                            <i class="ti ti-send me-1"></i> Send Reply
+                        <button type="submit" class="btn btn-primary" id="replyBtn">
+                            <span class="btn-text">
+                                <i class="ti ti-send me-1"></i> Send Reply
+                            </span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-1"></span>
+                                Sending...
+                            </span>
                         </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('replyForm').addEventListener('submit', function() {
+            const btn = document.getElementById('replyBtn');
+            btn.querySelector('.btn-text').classList.add('d-none');
+            btn.querySelector('.btn-loading').classList.remove('d-none');
+            btn.disabled = true;
+        });
+    </script>
 
     <!-- Activity Offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="activityOffcanvas" style="width:480px;">
@@ -434,46 +467,129 @@
 
             <!-- Timeline -->
             <div class="activity-timeline p-3">
+                @php
+                    $allActivities = collect();
 
-                @forelse($quoteRequest->activities as $activity)
+                    // Add custom activities
+                    foreach ($quoteRequest->activities as $activity) {
+                        $allActivities->push([
+                            'type' => 'custom',
+                            'data' => $activity,
+                            'created_at' => $activity->created_at,
+                        ]);
+                    }
+
+                    // Add email logs
+                    if ($quoteRequest->emailLogs) {
+                        foreach ($quoteRequest->emailLogs as $emailLog) {
+                            $allActivities->push([
+                                'type' => 'email',
+                                'data' => $emailLog,
+                                'created_at' => $emailLog->created_at,
+                            ]);
+                        }
+                    }
+
+                    // Add initial customer message (if exists)
+                    if ($quoteRequest->customer_message) {
+                        $allActivities->push([
+                            'type' => 'customer_message',
+                            'data' => $quoteRequest,
+                            'created_at' => $quoteRequest->created_at,
+                        ]);
+                    }
+
+                    // Sort by date (newest first)
+                    $allActivities = $allActivities->sortByDesc('created_at');
+                @endphp
+
+                @forelse($allActivities as $item)
                     <div class="timeline-item mb-4">
-
                         <div class="d-flex">
-
-                            <!-- Icon -->
+                            {{-- Icon based on activity type --}}
                             <div class="flex-shrink-0">
-                                <div class="avtar avtar-s bg-light-{{ $activity->type_color }}">
-                                    <i class="ti {{ $activity->type_icon }}"></i>
-                                </div>
+                                @if ($item['type'] === 'custom')
+                                    {{-- Custom Activity --}}
+                                    <div class="avtar avtar-s bg-light-{{ $item['data']->type_color }}">
+                                        <i class="ti {{ $item['data']->type_icon }}"></i>
+                                    </div>
+                                @elseif($item['type'] === 'email')
+                                    {{-- Email Log --}}
+                                    <div
+                                        class="avtar avtar-s bg-light-{{ $item['data']->status === 'sent' ? 'success' : ($item['data']->status === 'pending' ? 'warning' : 'danger') }}">
+                                        <i class="ti ti-mail"></i>
+                                    </div>
+                                @else
+                                    {{-- Customer Message --}}
+                                    <div class="avtar avtar-s bg-light-primary">
+                                        <i class="ti ti-message-circle"></i>
+                                    </div>
+                                @endif
                             </div>
 
+                            {{-- Content --}}
                             <div class="flex-grow-1 ms-3">
+                                @if ($item['type'] === 'custom')
+                                    {{-- Custom Activity Content --}}
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="mb-0 text-sm text-capitalize">
+                                            {{ $item['data']->title ?? 'Activity' }}
+                                        </h6>
+                                        <span class="badge bg-light-{{ $item['data']->type_color }} ms-1 text-capitalize">
+                                            {{ str_replace('_', ' ', $item['data']->type) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-muted mb-1" style="font-size: 0.80rem;">
+                                        {{ $item['data']->details }}
+                                    </p>
+                                @elseif($item['type'] === 'email')
+                                    {{-- Email Log Content --}}
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="mb-0 text-sm">
+                                            {{ ucfirst($item['data']->email_type) }} Email
+                                            {{ ucfirst($item['data']->status) }}
+                                        </h6>
+                                        <span
+                                            class="badge bg-light-{{ $item['data']->status === 'sent' ? 'success' : ($item['data']->status === 'pending' ? 'warning' : 'danger') }}">
+                                            {{ ucfirst($item['data']->status) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-muted mb-1 small">
+                                        <strong>To:</strong> {{ $item['data']->recipient_email }}
+                                        @if ($item['data']->attempt_number > 1)
+                                            <span class="badge bg-light-warning ms-1">
+                                                Attempt {{ $item['data']->attempt_number }}
+                                            </span>
+                                        @endif
+                                    </p>
+                                    @if ($item['data']->error_message)
+                                        <div class="alert alert-danger p-2 mb-1 mt-2">
+                                            <small><strong>Error:</strong> {{ $item['data']->error_message }}</small>
+                                        </div>
+                                    @endif
+                                @else
+                                    {{-- Customer Message --}}
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="mb-0 text-sm">Customer Message</h6>
+                                        <span class="badge bg-light-primary ms-1">Initial Request</span>
+                                    </div>
+                                    <p class="text-muted mb-1" style="font-size: 0.80rem;">
+                                        {{ $item['data']->customer_message }}
+                                    </p>
+                                @endif
 
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <h6 class="mb-0 text-sm text-capitalize">
-                                        {{ $activity->title ?? 'Activity' }}
-                                    </h6>
-                                    <span class="badge bg-light-{{ $activity->type_color }} ms-1 text-capitalize">
-                                        {{ str_replace('_', ' ', $activity->type) }}
-                                    </span>
-                                </div>
-
-                                <p class="text-muted mb-1" style="font-size:0.80rem;">
-                                    {{ $activity->details }}
-                                </p>
-
-                                <div class="d-flex justify-content-between">
+                                {{-- Timestamp --}}
+                                <div class="d-flex justify-content-between mt-2">
                                     <small class="text-muted">
-                                        {{ $activity->created_at->format('d M Y, h:i A') }}
+                                        {{ $item['created_at']->format('d M, Y h:i A') }}
                                     </small>
                                     <small class="text-muted">
-                                        {{ $activity->created_at->diffForHumans() }}
+                                        {{ $item['created_at']->diffForHumans() }}
                                     </small>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 @empty
                     <div class="text-center py-5">
                         <div class="avtar avtar-xl bg-light-secondary mx-auto mb-3">

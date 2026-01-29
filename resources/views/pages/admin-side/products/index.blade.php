@@ -400,22 +400,23 @@
                 });
         });
 
+        // ----- Dropdown Status / Quantity / Price -----
         document.addEventListener('click', function(e) {
+
+            // Open/close dropdown
             if (e.target.closest('.status-btn')) {
                 e.preventDefault();
                 e.stopPropagation();
-
                 let btn = e.target.closest('.status-btn');
                 let menu = btn.nextElementSibling;
-
                 document.querySelectorAll('.dropdown-menu-custom').forEach(m => {
                     if (m !== menu) m.classList.remove('show');
                 });
-
                 menu.classList.toggle('show');
                 return;
             }
 
+            // Dropdown item clicked (Quantity/Price)
             if (e.target.closest('.dropdown-item-custom')) {
                 let item = e.target.closest('.dropdown-item-custom');
                 let menu = item.closest('.dropdown-menu-custom');
@@ -444,7 +445,15 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        location.reload();
+                        btn.disabled = false;
+
+                        if (type === 'quantity') {
+                            updateQuantityBtn(btn, data);
+                        } else {
+                            updatePriceBtn(btn, data);
+                        }
+
+                        showSuccessMessage(data.message);
                     })
                     .catch(error => {
                         alert('Error updating display');
@@ -455,11 +464,13 @@
                 menu.classList.remove('show');
             }
 
+            // Click outside dropdown
             if (!e.target.closest('.dropdown-container')) {
                 document.querySelectorAll('.dropdown-menu-custom').forEach(m => m.classList.remove('show'));
             }
         });
 
+        // ----- Toggle Product Status -----
         document.querySelectorAll('.toggle-status').forEach(badge => {
             badge.addEventListener('click', function() {
                 let id = this.dataset.id;
@@ -485,39 +496,60 @@
                     .catch(error => {
                         alert('Error updating status');
                         console.error(error);
-                        location.reload();
                     });
             });
         });
 
-        function showSuccessMessage(message) {
+        // ----- Update Quantity Button Display -----
+        function updateQuantityBtn(btn, data) {
+            if (data.type === 'hide') {
+                btn.innerHTML = `<i class="ti ti-lock text-muted"></i> Hidden <i class="ti ti-chevron-down ms-1"></i>`;
+            } else if (data.type === 'availability') {
+                let qty = data.new_quantity ?? 0;
+                btn.innerHTML =
+                    `<i class="ti ti-check text-success"></i> ${qty>0?'Available':'Out of stock'} <i class="ti ti-chevron-down ms-1"></i>`;
+            } else {
+                let qty = data.new_quantity ?? 0;
+                btn.innerHTML = `<i class="ti ti-package"></i> ${qty} in stock <i class="ti ti-chevron-down ms-1"></i>`;
+            }
+        }
 
-            // Remove old message if exists
+        // ----- Update Price Button Display -----
+        function updatePriceBtn(btn, data) {
+            if (data.type === 'hide') {
+                btn.innerHTML = `<i class="ti ti-lock text-muted"></i> Hidden <i class="ti ti-chevron-down ms-1"></i>`;
+            } else if (data.type === 'call') {
+                btn.innerHTML =
+                    `<i class="ti ti-mail text-primary"></i> Email for Price <i class="ti ti-chevron-down ms-1"></i>`;
+            } else {
+                let price = data.new_price ?? 0;
+                btn.innerHTML = `<i class="ti ti-currency-rupee"></i> PKR ${price} <i class="ti ti-chevron-down ms-1"></i>`;
+            }
+        }
+
+        // ----- Success Message Function -----
+        function showSuccessMessage(message) {
             let existingMsg = document.querySelector('.ajax-success-msg');
             if (existingMsg) existingMsg.remove();
 
             const msgBox = document.createElement('div');
             msgBox.className = 'alert alert-success ajax-success-msg fade show';
-
             msgBox.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        min-width: 280px;
-        max-width: 350px;
-        padding: 12px 18px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    `;
-
-            msgBox.innerHTML = `
-        <i class="ti-check text-success fs-5"></i>
-        <span class="flex-grow-1">${message}</span>
-    `;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 280px;
+            max-width: 350px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+            msgBox.innerHTML = `<i class="ti-check text-success fs-5"></i>
+                            <span class="flex-grow-1">${message}</span>`;
 
             document.body.appendChild(msgBox);
 

@@ -40,7 +40,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade {{ session('active_tab', 'profile-1') == 'profile-1' ? 'show active' : '' }}"
                             id="profile-1" role="tabpanel" aria-labelledby="profile-tab-1">
-                            <div class="col-12 card mt-4">
+                            {{-- <div class="col-12 card mt-4">
                                 <div class="card-header text-Danger">
                                     <h5 class="mb-0">Delete Account</h5>
                                 </div>
@@ -50,13 +50,12 @@
                                         removed.
                                         Please download any important data before continuing.
                                     </p>
-                                    {{-- Delete Button --}}
                                     <button class="btn btn-light-danger d-flex align-items-center" data-bs-toggle="modal"
                                         data-bs-target="#deleteAccountModal">
                                         <i class="ti ti-trash me-1"></i> Delete Account
                                     </button>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="row">
 
                                 {{-- Personal Information --}}

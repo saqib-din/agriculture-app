@@ -26,7 +26,7 @@ class PageController extends Controller
     public function save(Request $request, $id = null)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
             'slug' => 'required|string|max:255|unique:pages,slug,' . $id,
             'content' => 'required',
             'status' => 'required|in:Active,Inactive',

@@ -65,11 +65,28 @@
                                                             @endif
                                                         </div>
                                                         <div class="col justify-content-center">
-                                                            {{ $hero->hero_title }}
+                                                            @php
+                                                                $titleWords = explode(' ', $hero->hero_title ?? '');
+                                                                $titleChunks = array_chunk($titleWords, 5);
+                                                            @endphp
+
+                                                            @foreach ($titleChunks as $chunk)
+                                                                {{ implode(' ', $chunk) }}<br>
+                                                            @endforeach
+
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>{{ $hero->hero_subtitle ?? '-' }}</td>
+                                                <td>
+                                                    @php
+                                                        $subtitleWords = explode(' ', $hero->hero_subtitle ?? '-');
+                                                        $subtitleChunks = array_chunk($subtitleWords, 5);
+                                                    @endphp
+
+                                                    @foreach ($subtitleChunks as $chunk)
+                                                        {{ implode(' ', $chunk) }}<br>
+                                                    @endforeach
+                                                </td>
                                                 <td>
                                                     @php
                                                         $words = explode(' ', $hero->description ?? '');

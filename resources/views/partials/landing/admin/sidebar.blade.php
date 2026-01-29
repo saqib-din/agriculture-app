@@ -63,7 +63,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('products.list') }}" class="pc-link">
                         <span class="pc-micon">
-                             <svg class="pc-icon">
+                            <svg class="pc-icon">
                                 <use xlink:href="#custom-element-plus"></use>
                             </svg>
                         </span>
@@ -81,24 +81,6 @@
                         <span class="pc-mtext" data-i18n="Categories">Categories</span>
                     </a>
                 </li>
-
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-element-plus"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="List">List</span>
-                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="{{ route('products.list') }}"
-                                data-i18n="Products">Products</a></li>
-                        <li class="pc-item"><a class="pc-link" href="{{ route('index') }}"
-                                data-i18n="Categories">Categories</a></li>
-                    </ul>
-                </li> --}}
 
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('admin.quotes.index') }}" class="pc-link">
@@ -119,6 +101,7 @@
                         <span class="pc-mtext">Clients</span>
                     </a>
                 </li>
+
                 <li class="pc-item">
                     <a href="{{ route('admin.orders.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -128,26 +111,6 @@
                     </a>
                 </li>
 
-
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
-                        <span class="pc-micon"><i class="ti ti-users"></i></span>
-                        <span class="pc-mtext">Clients & Orders</span>
-                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item">
-                            <a class="pc-link" href="#">
-                                <i class="ti ti-users"></i> Clients
-                            </a>
-                        </li>
-                        <li class="pc-item">
-                            <a class="pc-link" href="#">
-                                <i class="ti ti-shopping-cart"></i> Orders
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('teams.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -183,28 +146,6 @@
                     </a>
                 </li>
 
-                <li class="pc-item">
-                    <a href="{{ route('variables.create') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-keyboard"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Variables">Variables</span>
-                    </a>
-                </li>
-
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pages.index') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-crop"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Pages">Pages</span><span class="pc-arrow"></span>
-                    </a>
-                </li>
-
                 <li class="pc-item pc-hasmenu">
                     <a href="{{ route('admin.contacts.index') }}" class="pc-link">
                         <span class="pc-micon">
@@ -223,8 +164,30 @@
                                 <use xlink:href="#custom-image"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Partners">Partners</span>
+                        <span class="pc-mtext" data-i18n="Partners">Company Logo</span>
                         <span class="pc-arrow"></span>
+                    </a>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="{{ route('pages.index') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-crop"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Pages">Pages</span><span class="pc-arrow"></span>
+                    </a>
+                </li>
+
+                <li class="pc-item">
+                    <a href="{{ route('variables.create') }}" class="pc-link">
+                        <span class="pc-micon">
+                            <svg class="pc-icon">
+                                <use xlink:href="#custom-keyboard"></use>
+                            </svg>
+                        </span>
+                        <span class="pc-mtext" data-i18n="Variables">Variables</span>
                     </a>
                 </li>
 
@@ -235,21 +198,9 @@
                                 <use xlink:href="#custom-user-square"></use>
                             </svg>
                         </span>
-                        <span class="pc-mtext" data-i18n="Users">Users</span><span class="pc-arrow"></span>
+                        <span class="pc-mtext" data-i18n="Users">User Profile</span><span class="pc-arrow"></span>
                     </a>
                 </li>
-
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="#" class="pc-link">
-                        <span class="pc-micon">
-                            <svg class="pc-icon">
-                                <use xlink:href="#custom-setting-2"></use>
-                            </svg>
-                        </span>
-                        <span class="pc-mtext" data-i18n="Application">App Settings</span><span
-                            class="pc-arrow"></span>
-                    </a>
-                </li> --}}
 
             </ul>
         </div>

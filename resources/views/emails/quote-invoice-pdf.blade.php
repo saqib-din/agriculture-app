@@ -192,6 +192,11 @@
 </head>
 
 <body>
+
+    @php
+        $variables = \App\Models\Variable::pluck('value', 'key');
+    @endphp
+
     <div class="invoice-container">
         <!-- Header -->
         <div class="invoice-header">
@@ -285,7 +290,8 @@
         <!-- Footer -->
         <div class="footer">
             <p><strong>Thank you for your interest!</strong></p>
-            <p>For any queries, please contact us at {{ config('mail.from.address') }} or call {{ $quote->customer_phone }}</p>
+            <p>For any queries, please contact us at {{ config('mail.from.address') }} or call
+                {{ $quote->customer_phone }}</p>
             <p style="margin-top: 10px; font-size: 11px;">This is a computer-generated quote. No signature required.</p>
             <p style="margin-top: 5px; font-size: 11px;">Quote valid for 30 days from issue date.</p>
         </div>

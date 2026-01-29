@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style-preset.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset(path: 'admin/assets/css/plugins/animate.min.css') }}" />
 
+    {{-- Stack for additional styles from child pages --}}
+    @stack('styles')
+
 </head>
 
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
@@ -80,6 +83,10 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> --}}
 
+    {{-- jQuery for Select2 and other plugins --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    {{-- Stack for additional scripts from child pages --}}
     @stack('scripts')
 
     {{-- Stats Counter --}}

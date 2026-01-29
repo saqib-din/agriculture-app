@@ -28,19 +28,6 @@ class QuoteActivity extends Model
     }
 
     // Accessors
-    public function getTypeColorAttribute()
-    {
-        return match ($this->type) {
-            'call' => 'info',
-            'message' => 'primary',
-            'meeting' => 'warning',
-            'email' => 'success',
-            'payment' => 'success',
-            'other' => 'secondary',
-            default => 'secondary',
-        };
-    }
-
     public function getTypeIconAttribute()
     {
         return match ($this->type) {
@@ -48,9 +35,24 @@ class QuoteActivity extends Model
             'message' => 'ti-message',
             'meeting' => 'ti-users',
             'email' => 'ti-mail',
-            'payment' => 'ti-currency-dollar',
-            'other' => 'ti-note',
-            default => 'ti-note',
+            // 'payment' => 'ti-credit-card',
+            'status_change' => 'ti-refresh',
+            'error' => 'ti-alert-circle',
+            default => 'ti-clipboard'
+        };
+    }
+
+    public function getTypeColorAttribute()
+    {
+        return match ($this->type) {
+            'call' => 'info',
+            'message' => 'success',
+            'meeting' => 'warning',
+            'email' => 'primary',
+            // 'payment' => 'success',
+            'status_change' => 'info',
+            'error' => 'danger',
+            default => 'secondary'
         };
     }
 }

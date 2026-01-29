@@ -25,13 +25,13 @@
                                         <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
                                             class="tf-trainsition-draw-left access-trainsition">
                                         <span class="tf-fade-top fade-item-1">
-                                            {{ $hero->hero_subtitle ?? 'Better Agriculture for Better Future' }}
+                                            {{ $hero->hero_subtitle ?? 'Clean Energy for a Better Future' }}
                                         </span>
                                     </p>
 
                                     <!-- Title -->
                                     <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                        {!! nl2br(e($hero->hero_title ?? 'Every Crop Counts, <br> Every Farmer Matters.')) !!}
+                                        {!! nl2br(e($hero->hero_title ?? 'Every Ray Counts, <br> Every Plant Matters.')) !!}
                                     </h1>
 
                                     <!-- Line under title -->
@@ -45,7 +45,9 @@
                                         {!! nl2br(
                                             e(
                                                 $hero->description ??
-                                                    'The paramount doctrine of the economic and technological euphoria of recent <br> decades has been that everything depends on innovation.',
+                                                    'The cornerstone of modern energy progress is that sustainable growth depends on
+                                                                                                                                solar innovation <br> In today’s energy era, the key to advancement lies in our ability to innovate with
+                                                                                                                                solar technology.',
                                             ),
                                         ) !!}
                                     </p>
@@ -55,7 +57,6 @@
                         </div>
                     </div>
                 @empty
-                    <!-- Fallback if no hero slides exist -->
                     <div class="swiper-slide">
                         <div class="slide-home-3 overflow-hidden">
                             <div class="image tf-animate-zoom-in-out">
@@ -69,19 +70,21 @@
                                         <img src="{{ asset('assets/images/item/leaves-2.png') }}" alt=""
                                             class="tf-trainsition-draw-left access-trainsition">
                                         <span class="tf-fade-top fade-item-1">
-                                            Better Agriculture for Better Future
+                                            Clean Energy for a Better Future
                                         </span>
                                     </p>
                                     <h1 class="title font-farmhouse tf-fade-right fade-item-2">
-                                        Every Crop Counts, <br> Every Farmer Matters.
+                                        Every Ray Counts, <br> Every Plant Matters.
                                     </h1>
                                     <div class="img-item">
                                         <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt=""
                                             class="tf-trainsition-draw-left access-trainsition">
                                     </div>
                                     <p class="text font-nunito tf-fade-left fade-item-4">
-                                        The paramount doctrine of the economic and technological euphoria of recent <br>
-                                        decades has been that everything depends on innovation.
+                                        “The cornerstone of modern energy progress is that sustainable growth depends on
+                                        solar innovation.” <br>
+                                        “In today’s energy era, the key to advancement lies in our ability to innovate with
+                                        solar technology.”
                                     </p>
                                 </div>
                             </div>
@@ -118,11 +121,10 @@
             <div class="heading-section text-center has-text has-img-item mt-0">
                 <p class="sub-title">What Is Our Expertise?</p>
                 <p class="title text-anime-style-1 overflow-hidden">
-                    We Providing The <br> Best Agricultural Services
+                    We Providing The <br> Best Solar Energy Solutions
                 </p>
                 <p class="text">
-                    Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non finibus rutrum.
-                </p>
+                    We provide innovative solar technology that powers homes and industries sustainably. </p>
             </div>
             <div class="s-slider">
                 <div class="tf-container w-1290">
@@ -172,7 +174,7 @@
     @if ($products->count() > 0)
         <!-- Section shopping today  -->
         <section class="s-shopping">
-            <div class="tf-container w-1620">
+            <div class="tf-container w-1290">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content-wrap">
@@ -190,16 +192,17 @@
                                         </p>
                                     </div>
 
-                                    <p class="title  wow fadeInLeft" data-wow-delay="0s">
+                                    <p class="title wow fadeInLeft" data-wow-delay="0s">
                                         We Provide High <br>
-                                        Quality Agricultural <br>
-                                        Products.
+                                        Quality Solar <br>
+                                        Energy Solutions.
                                     </p>
                                     <p class="text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ex
-                                        igula, pulvinar ultrices justo sed, bibendum lobortis nibh. Pellentesque
-                                        mattis eros sit amet lorem tristique faucibus.
+                                        Our solar solutions are designed to maximize efficiency and sustainability,
+                                        delivering reliable and clean energy for homes, businesses, and communities. Join us
+                                        in harnessing the power of the sun for a brighter future.
                                     </p>
+
                                 </div>
                                 <a href="{{ url('/products') }}" class="tf-btn scale-40">
                                     <span class="text-style ">
@@ -314,7 +317,7 @@
                 </div>
                 <div class="content-section">
                     <div class="heading-section has-text mb-35">
-                        <p class="sub-title">Meet The Farmer</p>
+                        <p class="sub-title">Meet The Teams Member</p>
                         <p class="title mb-18 text-anime-style-1">
                             {{ $ceo->designation ?? 'We Are Dedicated Farmers' }}
                         </p>
@@ -346,93 +349,6 @@
             </div>
         </section>
     @endif
-    {{-- <section class="s-testimonial style-2">
-        @php
-            $ceo = $teams->where('is_ceo', 1)->first();
-        @endphp
-
-        @if ($ceo)
-            <div class="wrap">
-                <div class="image wow fadeInLeft" data-wow-delay="0s">
-                    <div class="scroll-element-2">
-                        @if ($ceo->image)
-                            <img src="{{ asset('uploads/teams/' . $ceo->image) }}" alt="{{ $ceo->name }}"
-                                style="height: 10em; left: 50px; width: 55em;" />
-                        @else
-                            <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
-                        @endif
-                    </div>
-                </div>
-                <div class="content-section">
-                    <div class="heading-section has-text mb-35">
-                        <p class="sub-title">Meet The Farmer</p>
-                        <p class="title mb-18 text-anime-style-1">
-                            {{ $ceo->designation ?? 'We Are Dedicated Farmers' }}
-                        </p>
-                        <p class="quote font-snowfall fs-30">
-                            {{ $ceo->description ?? 'Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.' }}
-                        </p>
-                        <div class="img-item">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                alt="" />
-                        </div>
-                    </div>
-                    <div class="bot">
-                        <div class="author-wrap">
-                            <p class="author text-upper fw-6 font-worksans">
-                                <a href="#" target="_blank">{{ $ceo->name }}</a> - Talk
-                            </p>
-                            <p class="duty">
-                                {{ $ceo->designation }} CEO
-                            </p>
-                        </div>
-                        <a href="{{ url('/teams') }}" class="tf-btn scale-40">
-                            <span class="text-style">View All The Teams</span>
-                            <div class="icon">
-                                <i class="icon-arrow_right"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @else
-            <div class="wrap">
-                <div class="image wow fadeInLeft" data-wow-delay="0s">
-                    <div class="scroll-element-2">
-                        <img src="{{ asset('assets/images/item/s-testi.png') }}" alt="" />
-                    </div>
-                </div>
-                <div class="content-section">
-                    <div class="heading-section has-text mb-35">
-                        <p class="sub-title">Meet The Farmer</p>
-                        <p class="title mb-18 text-anime-style-1">We Are Dedicated Farmers</p>
-                        <p class="quote font-snowfall fs-30">
-                            Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth,
-                            good morals, and happiness. Farmers are the embodiment of hard work, dedication, and resilience.
-                        </p>
-                        <div class="img-item">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                alt="" />
-                        </div>
-                    </div>
-                    <div class="bot">
-                        <div class="author-wrap">
-                            <p class="author text-upper fw-6 font-worksans">
-                                <a href="#" target="_blank">Donald Christopher</a> - Talk
-                            </p>
-                            <p class="duty">Farm Owner Donald Farm Happiness</p>
-                        </div>
-                        <a href="{{ url('/teams') }}" class="tf-btn scale-40">
-                            <span class="text-style">View All The Teams</span>
-                            <div class="icon">
-                                <i class="icon-arrow_right"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </section> --}}
 
     <!-- Section testimonial 3 -->
     @if ($testimonials->count())
@@ -441,18 +357,19 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="heading-section text-center has-text relative">
-                            <p class="sub-title ">Testimonials From People Who Have
-                                Experienced It
-                                <i class="icon-quote tf-animate__box-2 "></i>
-
+                            <p class="sub-title">
+                                Testimonials From People Who Have Experienced Our Solar Solutions
+                                <i class="icon-quote tf-animate__box-2"></i>
                             </p>
-                            <p class="title wow fadeInUp" data-wow-delay="0s">What Customers Says?
+                            <p class="title wow fadeInUp" data-wow-delay="0s">
+                                What Customers Say?
                             </p>
                             <p class="text">
-                                Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non
-                                finibus rutrum.
-
+                                "Switching to solar has transformed our energy bills and reduced our carbon footprint. <br>
+                                The
+                                installation was smooth, and the team provided excellent support every step of the way."
                             </p>
+
                             <div class="img-item">
                                 <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
                                     alt="" />
@@ -528,163 +445,8 @@
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="s-img-item scroll-element-3">
-            <img class="scale-1-1 lazyload" src="./images/section/yellow-f.png"
-                data-src="{{ asset('assets/images/section/yellow-f.png') }}" alt="">
-        </div> --}}
         </section><!-- /.Section testimonial 3 -->
     @endif
-    <!-- Section testimonial 3 -->
-    {{-- <section class="s-testimonial-3 overflow-hidden">
-        <div class="tf-container w-1290">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="heading-section text-center has-text relative">
-                        <p class="sub-title ">Testimonials From People Who Have
-                            Experienced It
-                            <i class="icon-quote tf-animate__box-2 "></i>
-
-                        </p>
-                        <p class="title wow fadeInUp" data-wow-delay="0s">What Customers Says?
-                        </p>
-                        <p class="text">
-                            Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus non
-                            finibus rutrum.
-
-                        </p>
-                        <div class="img-item">
-                            <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                alt="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="s-slider">
-            <div class="tf-container w-1290">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <div class="testimonial-thumbs">
-                            <div class="swiper-container slider-testimonial-3-thumb">
-                                <div class="swiper-wrapper">
-
-                                    @if ($testimonials->count())
-                                        @foreach ($testimonials as $t)
-                                            <div class="swiper-slide">
-                                                <div class="image-avt">
-                                                    @if ($t->image)
-                                                        <img src="{{ asset('storage/' . $t->image) }}" class="rounded">
-                                                    @else
-                                                        <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
-                                                            alt="">
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <div class="swiper-slide">
-                                            <div class="image-avt">
-                                                <img src="{{ asset('assets/images/section/customer-say-3.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-
-                                        <div class="swiper-slide">
-                                            <div class="image-avt">
-                                                <img src="{{ asset('assets/images/widget/author-comment.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-
-                                        <div class="swiper-slide">
-                                            <div class="image-avt">
-                                                <img src="{{ asset('assets/images/section/customer-say-4.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                        </div>
-                                    @endif
-
-                                </div>
-                            </div>
-
-                            <div class="swiper-container slider-testimonial-3">
-                                <div class="swiper-wrapper">
-
-                                    @if ($testimonials->count())
-                                        @foreach ($testimonials as $t)
-                                            <div class="swiper-slide">
-                                                <div class="testimonial style-3">
-
-                                                    <div class="comment">
-                                                        <p class="caption fs-30 font-snowfall">
-                                                            {{ $t->review }}
-                                                        </p>
-                                                    </div>
-
-                                                    <div class="infor">
-                                                        <div class="name-wrap">
-                                                            <span class="name fs-18 fw-6 text-upper">
-                                                                {{ strtoupper($t->name) }}
-                                                            </span>
-
-                                                            <div class="wg-rating">
-                                                                @for ($i = 1; $i <= 5; $i++)
-                                                                    <i
-                                                                        class="fa-solid fa-star {{ $i <= $t->rating ? '' : 'text-muted' }}"></i>
-                                                                @endfor
-                                                            </div>
-                                                        </div>
-
-                                                        <p class="duty">
-                                                            {{ $t->design }}{{ $t->company ? ', ' . $t->company : '' }}
-                                                        </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        @for ($i = 0; $i < 3; $i++)
-                                            <div class="swiper-slide">
-                                                <div class="testimonial style-3">
-
-                                                    <div class="comment">
-                                                        <p class="caption fs-30 font-snowfall">
-                                                            Having been a host farmer for three seasons, we’ve seen
-                                                            firsthand
-                                                            the difference this internship makes...
-                                                        </p>
-                                                    </div>
-
-                                                    <div class="infor">
-                                                        <div class="name-wrap">
-                                                            <span class="name fs-18 fw-6 text-upper">
-                                                                CHRISTINE ROSE
-                                                            </span>
-                                                            <div class="wg-rating">
-                                                                <i class="fa-solid fa-star"></i>
-                                                                <i class="fa-solid fa-star"></i>
-                                                                <i class="fa-solid fa-star"></i>
-                                                                <i class="fa-solid fa-star"></i>
-                                                                <i class="fa-solid fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <p class="duty">Director, Radical Orange Pty Ltd.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endfor
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
 
     <!-- Section faq -->
     @if (isset($faqs) && count($faqs) > 0)
@@ -706,11 +468,13 @@
                                 </div>
 
                                 <p class="title wow fadeInUp" data-wow-delay="0s">
-                                    Most Frequently Asked Questions About The Farm.
+                                    Most Frequently Asked Questions About Our Solar Solutions
                                 </p>
                                 <p class="text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibus.
+                                    Here, we answer the most common questions about solar energy, installations, and how our
+                                    solutions help you save energy and reduce costs.
                                 </p>
+
                             </div>
 
                             <div class="tf-accordion accordion" id="accordionExample">
@@ -766,143 +530,6 @@
             </div>
         </section>
     @endif
-    {{-- <section class="s-faq has-img-item tf-pt-0">
-        <div class="tf-container w-1290">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="content-section">
-
-                        <div class="heading-section style-2 has-text mb-43">
-                            <div class="img-item">
-                                <div class="item mr-16">
-                                    <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
-                                        alt="" />
-                                </div>
-                                <p class="sub-title">
-                                    Frequently Asked Questions
-                                </p>
-                            </div>
-
-                            <p class="title wow fadeInUp" data-wow-delay="0s">
-                                Most Frequently Asked Questions About The Farm.
-                            </p>
-                            <p class="text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales faucibus.
-                            </p>
-                        </div>
-
-                        <div class="tf-accordion accordion" id="accordionExample">
-                            @if (isset($faqs) && count($faqs) > 0)
-                                @foreach ($faqs as $index => $faq)
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button {{ $index == 0 ? '' : 'collapsed' }}"
-                                                type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#faq{{ $faq->id }}"
-                                                aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
-                                                aria-controls="faq{{ $faq->id }}">
-                                                {{ $faq->title }}
-                                            </button>
-                                        </h2>
-
-                                        <div id="faq{{ $faq->id }}"
-                                            class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}"
-                                            data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                {{ $faq->content }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                            What proof do you need for Carer’s tickets?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Under 2’s are free and need a ticket...
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                            Do I have to pay extra for the shows?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Under 2’s are free and need a ticket...
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                            aria-expanded="false" aria-controls="collapseThree">
-                                            Can I bring my team or friends?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Under 2’s are free and need a ticket...
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                            aria-expanded="false" aria-controls="collapseFour">
-                                            Can I join the farm as a permanent member?
-                                        </button>
-                                    </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            Under 2’s are free and need a ticket...
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-5">
-                    <div class="s-right img-hover">
-                        <div class="image-wrap hover-item">
-                            <div class="image">
-                                <img src="{{ asset('assets/images/item/fas.jpg') }}"
-                                    data-src="{{ asset('assets/images/item/fas.jpg') }}" alt=""
-                                    class="lazyload tf-animate-2" />
-                            </div>
-                        </div>
-                        <div class="img-item tf-animate__box-2">
-                            <img class="up-down-move" src="{{ asset('assets/images/item/question.png') }}"
-                                alt="" />
-                        </div>
-                        <div class="content">
-                            <p class="text fs-30 font-snowfall">
-                                You didn't find your question? See more questions and ask us today!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
 
     <!-- Section contact us -->
     <section class="s-contact-us has-img-item">
@@ -925,12 +552,7 @@
                                     </div>
                                     <div class="infor">
                                         <p class="title">Farm Address</p>
-
-                                        @if (!empty($company['company_address']))
-                                            <p class="text">{{ $company['company_address'] }}</p>
-                                        @else
-                                            <p class="text">N/A</p>
-                                        @endif
+                                        <p class="text">{{ $company['company_address'] ?: 'N/A' }}</p>
                                     </div>
                                 </li>
 
@@ -941,15 +563,10 @@
                                     </div>
                                     <div class="infor">
                                         <p class="title">Contact Us</p>
-
-                                        @if (!empty($company))
-                                            <p class="text">
-                                                {{ $company['company_email'] ?? 'N/A' }} <br>
-                                                Call Us 24/7: {{ $company['company_phone'] ?? 'N/A' }}
-                                            </p>
-                                        @else
-                                            <p class="text">N/A</p>
-                                        @endif
+                                        <p class="text">
+                                            Email: {{ $company['company_email'] ?: 'N/A' }} <br>
+                                            Call Us 24/7: {{ $company['company_phone'] ?: 'N/A' }}
+                                        </p>
                                     </div>
                                 </li>
 
@@ -960,15 +577,8 @@
                                     </div>
                                     <div class="infor">
                                         <p class="title">Working Hours</p>
-
-                                        @if (!empty($company['working_hours']))
-                                            <p class="text">
-                                                Mon - Fri: {{ $company['working_hours'] }}
-                                            </p>
-                                        @else
-                                            <p class="text">N/A</p>
-                                        @endif
-
+                                        <p class="text">
+                                            {{ $company['working_hours'] ?: 'Mon - Fri: N/A' }}</p>
                                     </div>
                                 </li>
 
@@ -1127,36 +737,55 @@
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     if (data.success) {
-                                                        // Success message show
-                                                        document.getElementById('msg').style.display = 'block';
-                                                        document.getElementById('error-msg').style.display = 'none';
+                                                        // Show success message
+                                                        const successMsg = document.getElementById('msg');
+                                                        const errorMsg = document.getElementById('error-msg');
 
-                                                        // Form reset 
+                                                        successMsg.style.display = 'block';
+                                                        errorMsg.style.display = 'none';
+
+                                                        // Reset form
                                                         document.getElementById('contactform').reset();
 
                                                         // Smooth scroll to message
-                                                        document.getElementById('msg').scrollIntoView({
+                                                        successMsg.scrollIntoView({
                                                             behavior: 'smooth',
                                                             block: 'center'
                                                         });
 
+                                                        // Fade out success message and hide error message too
                                                         setTimeout(function() {
-                                                            $("#msg").fadeOut(600);
+                                                            $(successMsg).fadeOut(600, function() {
+                                                                // Ensure both messages are hidden
+                                                                successMsg.style.display = 'none';
+                                                                errorMsg.style.display = 'none';
+                                                            });
                                                         }, 5000);
+
                                                     } else {
-                                                        // Error message
+                                                        // Show error message
                                                         const errorBox = document.getElementById('error-msg');
+                                                        const successMsg = document.getElementById('msg');
+
                                                         errorBox.querySelector('p').textContent = data.message ||
                                                             'Something went wrong';
                                                         errorBox.style.display = 'block';
-                                                        document.getElementById('msg').style.display = 'none';
+                                                        successMsg.style.display = 'none';
 
                                                         // Smooth scroll to error
                                                         errorBox.scrollIntoView({
                                                             behavior: 'smooth',
                                                             block: 'center'
                                                         });
+
+                                                        // Optional: fade out error message after some time too
+                                                        setTimeout(function() {
+                                                            $(errorBox).fadeOut(600, function() {
+                                                                errorBox.style.display = 'none';
+                                                            });
+                                                        }, 5000);
                                                     }
+
 
                                                     // Button enable return
                                                     submitBtn.disabled = false;
@@ -1357,38 +986,7 @@
             margin-top: 10em !important;
         }
     </style>
-    {{-- Company logo --}}
-    {{-- @if ($partners->count() > 0)
-        <section class="s-partner pb-100">
-            <div class="tf-container w-1780">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="slider-wrap">
-                            <div class="swiper-container slider-partner">
-                                <div class="swiper-wrapper">
 
-                                    @foreach ($partners as $partner)
-                                        <div class="swiper-slide">
-                                            <div class="slide-partner">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="{{ asset('storage/' . $partner->image) }}"
-                                                            alt="{{ $partner->name }}" class="lazyload">
-                                                        <p class="text-center mt-2">{{ $partner->name }}</p>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif --}}
     @if ($partners->count() > 0)
         <section class="s-partner pb-100">
             <div class="tf-container w-1780">

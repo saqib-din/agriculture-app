@@ -43,18 +43,30 @@
                             <div class="card-body">
                                 <div class="row g-3">
                                     <div class="col-md-12">
-                                        <label class="form-label">Select Client <span class="text-danger">*</span></label>
-                                        <select name="client_id" id="clientSelect" class="form-select" required>
-                                            <option value="">Choose a client...</option>
-                                            @foreach ($clients as $client)
-                                                <option value="{{ $client->id }}" data-email="{{ $client->email }}"
-                                                    data-phone="{{ $client->phone }}" data-company="{{ $client->company }}"
-                                                    data-address="{{ $client->address }}"
-                                                    {{ (isset($order) && $order->client_id == $client->id) || (isset($selectedClientId) && $selectedClientId == $client->id) ? 'selected' : '' }}>
-                                                    {{ $client->name }} - {{ $client->email }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                        @if (isset($selectedClientId) && $selectedClientId)
+                                            <select class="form-select" disabled>
+                                                @foreach ($clients as $client)
+                                                    <option value="{{ $client->id }}"
+                                                        {{ $selectedClientId == $client->id ? 'selected' : '' }}>
+                                                        {{ $client->name }} - {{ $client->email }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" name="client_id" value="{{ $selectedClientId }}">
+                                        @else
+                                            {{-- New Order: admin can select --}}
+                                            <label class="form-label">Select Client <span
+                                                    class="text-danger">*</span></label>
+                                            <select name="client_id" id="clientSelect" class="form-select" required>
+                                                <option value="">Choose a client...</option>
+                                                @foreach ($clients as $client)
+                                                    <option value="{{ $client->id }}">
+                                                        {{ $client->name }} - {{ $client->email }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -75,9 +87,11 @@
                                     <table class="table table-hover" id="productsTable">
                                         <thead>
                                             <tr>
-                                                <th style="width: 40%;">Product</th>
-                                                <th style="width: 15%;" class="text-center">Quantity</th>
-                                                <th style="width: 20%;" class="text-end">Price</th>
+                                                <th style="width: 40%;">Product <span class="text-danger">*</span></th>
+                                                <th style="width: 15%;" class="text-center">Quantity <span
+                                                        class="text-danger">*</span></th>
+                                                <th style="width: 20%;" class="text-end">Price <span
+                                                        class="text-danger">*</span></th>
                                                 <th style="width: 20%;" class="text-end">Subtotal</th>
                                                 <th style="width: 5%;" class="text-center">Action</th>
                                             </tr>
@@ -156,6 +170,123 @@
             </form>
         </div>
     </div>
+@endsection
+
+@push('styles')
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
+
+    <style>
+        .product-select {
+            font-size: 0.875rem;
+        }
+
+        /* Select2 Custom Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            min-height: 38px;
+            border-color: #dee2e6;
+        }
+
+        /* .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+                                        line-height: 38px;
+                                        padding-left: 12px;
+                                    } */
+
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+
+        /* .select2-container--bootstrap-5.select2-container--focus .select2-selection,
+                                    .select2-container--bootstrap-5.select2-container--open .select2-selection {
+                                        border-color: #86b7fe;
+                                        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                                    } */
+
+        /* .select2-dropdown {
+                                        border-color: #dee2e6;
+                                    } */
+
+        .select2-container--bootstrap-5 .select2-results__option {
+            padding: 8px 12px;
+        }
+
+        /* .select2-container--bootstrap-5 .select2-results__option--highlighted {
+                                        background-color: #0d6efd;
+                                        color: white;
+                                    } */
+
+        .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 6px 12px;
+        }
+
+
+        /* .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field:focus {
+                border-color: #86b7fe;
+                outline: 0;
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                }  */
+
+        /* Product option styling */
+        .product-option-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-option-name {
+            font-weight: 500;
+            color: #212529;
+        }
+
+        .product-option-sku {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-left: 8px;
+            /* display: none; */
+        }
+
+        .product-option-price {
+            font-size: 0.9em;
+            color: #198754;
+            font-weight: 600;
+            margin-left: auto;
+            padding-left: 12px;
+            display: none;
+
+        }
+
+        /* Animation for row addition */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #productsTableBody tr {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* Hover effect for delete button */
+        .btn-link-danger:hover {
+            background-color: #fff5f5;
+            border-radius: 4px;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -187,6 +318,16 @@
             const gstRate = {{ $gstRate ?? 0 }};
             let productCount = 0;
 
+            // Initialize Select2 for client select if exists
+            if (clientSelect) {
+                $(clientSelect).select2({
+                    theme: 'bootstrap-5',
+                    placeholder: 'Choose a client...',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+
             // Pre-populate products from quote if available
             if (quoteProducts.length > 0) {
                 quoteProducts.forEach(product => {
@@ -214,28 +355,28 @@
                     <td>
                         <select class="form-select product-select"
                             name="products[${rowId}][id]"
-                            required
-                            onchange="updateProductPrice(this)">
+                            id="product-select-${rowId}"
+                            required>
                             <option value="">Select Product...</option>
                             ${products.map(p => `
-                                    <option value="${p.id}"
-                                        data-price="${p.price}"
-                                        data-sku="${p.sku}"
-                                        ${selectedProductId == p.id ? 'selected' : ''}>
-                                        ${p.name} (${p.sku})
-                                    </option>
-                                `).join('')}
+                                                                <option value="${p.id}"
+                                                                    data-price="${p.price}"
+                                                                    data-sku="${p.sku}"
+                                                                    ${selectedProductId == p.id ? 'selected' : ''}>
+                                                                    ${p.name} (${p.sku}) - PKR ${parseFloat(p.price).toFixed(2)}
+                                                                </option>
+                                                            `).join('')}
                         </select>
                     </td>
                     <td>
                         <input type="number" class="form-control text-center quantity-input" 
                                name="products[${rowId}][quantity]" 
-                               value="${selectedQuantity}" min="1" required onchange="calculateRowTotal(this)">
+                               value="${selectedQuantity}" min="1" required>
                     </td>
                     <td>
                         <input type="number" class="form-control text-end price-input" 
                                name="products[${rowId}][price]" 
-                               value="${parseFloat(selectedPrice).toFixed(2)}" step="0.01" required onchange="calculateRowTotal(this)">
+                               value="${parseFloat(selectedPrice).toFixed(2)}" step="0.01" required>
                     </td>
                     <td class="text-end">
                         <strong class="row-subtotal">PKR ${(selectedQuantity * selectedPrice).toFixed(2)}</strong>
@@ -248,7 +389,66 @@
                 `;
 
                 productsTableBody.appendChild(row);
+
+                // Initialize Select2 for the new product select
+                const newSelect = $(`#product-select-${rowId}`);
+                newSelect.select2({
+                    theme: 'bootstrap-5',
+                    placeholder: 'Select Product...',
+                    allowClear: true,
+                    width: '100%',
+                    templateResult: formatProductOption,
+                    templateSelection: formatProductSelection
+                });
+
+                // Event handler for product selection change
+                newSelect.on('change', function() {
+                    updateProductPrice(this);
+                });
+
+                // Event handlers for quantity and price changes
+                row.querySelector('.quantity-input').addEventListener('input', function() {
+                    calculateRowTotal(this);
+                });
+
+                row.querySelector('.price-input').addEventListener('input', function() {
+                    calculateRowTotal(this);
+                });
+
                 calculateGrandTotal();
+            }
+
+            // Format product option in dropdown with better styling
+            function formatProductOption(product) {
+                if (!product.id) {
+                    return product.text;
+                }
+
+                const $product = $(product.element);
+                const price = $product.data('price');
+                const sku = $product.data('sku');
+
+                const $container = $('<div class="product-option-text"></div>');
+                const $name = $('<span class="product-option-name"></span>').text(product.text.split(' (')[0]);
+                const $sku = $('<span class="product-option-sku"></span>').text(`SKU: ${sku}`);
+                const $price = $('<span class="product-option-price"></span>').text(
+                    `PKR ${parseFloat(price).toFixed(2)}`);
+
+                $container.append($name, $sku, $price);
+
+                return $container;
+            }
+
+            // Format selected product
+            function formatProductSelection(product) {
+                if (!product.id) {
+                    return product.text;
+                }
+
+                const $product = $(product.element);
+                const sku = $product.data('sku');
+
+                return `${product.text.split(' (')[0]} (${sku})`;
             }
 
             // Update product price when selected
@@ -274,7 +474,12 @@
 
             // Remove product row
             window.removeProductRow = function(rowId) {
-                document.getElementById(rowId).remove();
+                const row = document.getElementById(rowId);
+
+                // Destroy Select2 before removing the row
+                $(row).find('.product-select').select2('destroy');
+
+                row.remove();
                 calculateGrandTotal();
             };
 
@@ -307,10 +512,4 @@
             discountInput.addEventListener('input', calculateGrandTotal);
         });
     </script>
-
-    <style>
-        .product-select {
-            font-size: 0.875rem;
-        }
-    </style>
-@endsection
+@endpush

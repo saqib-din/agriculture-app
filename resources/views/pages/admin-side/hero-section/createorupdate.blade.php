@@ -46,8 +46,7 @@
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Hero Subtitle <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label">Hero Subtitle </label>
                                             <input type="text" name="hero_subtitle" class="form-control"
                                                 placeholder="Enter hero subtitle"
                                                 value="{{ old('hero_subtitle', $hero->hero_subtitle ?? '') }}" required>
@@ -59,7 +58,7 @@
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Description <span class="text-danger">*</span></label>
+                                            <label class="form-label">Description </label>
                                             <input type="text" name="description" class="form-control"
                                                 placeholder="Enter description"
                                                 value="{{ old('description', $hero->description ?? '') }}" required>
@@ -71,7 +70,7 @@
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Status <span class="text-danger">*</span></label>
+                                            <label class="form-label">Status </label>
                                             <select name="status" class="form-select" required>
                                                 <option value="Active"
                                                     {{ old('status', $hero->status ?? '') == 'Active' ? 'selected' : '' }}>

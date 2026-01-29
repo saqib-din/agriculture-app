@@ -23,11 +23,11 @@ class ClientsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:50',
             'email' => 'required|email|unique:clients,email',
             'phone' => 'nullable|string|max:20',
             'company' => 'nullable|string|max:255',
-            'address' => 'nullable|string',
+            'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
             'state' => 'nullable|string|max:100',
             'zip' => 'nullable|string|max:20',
@@ -90,6 +90,12 @@ class ClientsController extends Controller
 
     public function destroy(Client $client)
     {
+
+        if ($client->orders()->count() > 0) {
+            return redirect()->route('admin.clients.index')
+                ->with('error', 'Cannot delete client: orders exist for this client.');
+        }
+
         if ($client->image) {
             Storage::disk('public')->delete($client->image);
         }

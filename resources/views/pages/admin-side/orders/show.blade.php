@@ -13,32 +13,6 @@
                                 <li class="breadcrumb-item">{{ $order->order_number }}</li>
                             </ul>
                         </div>
-
-                        {{-- <div class="d-print-none card mb-3">
-                            <div class="card-body p-3">
-                                <ul class="list-inline ms-auto mb-0 d-flex justify-content-end flex-wrap">
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-pencil-simple-line f-22"></i></a></li>
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-eye f-22"></i></a></li>
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-download-simple f-22"></i></a></li>
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-printer f-22"></i></a></li>
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-paper-plane-tilt f-22"></i></a></li>
-                                    <li class="list-inline-item align-bottom me-2"><a href="#"
-                                            class="avtar avtar-s btn-link-secondary"><i
-                                                class="ph-duotone ph-share-network f-22"></i></a></li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
                     </div>
                 </div>
             </div>
@@ -47,7 +21,6 @@
 
             <div class="col-md-12">
                 <div class="page-header-title d-flex justify-content-between align-items-center flex-wrap">
-
                     <div class="d-print-none card mb-3 w-100">
                         <div class="card-body p-3">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -55,17 +28,6 @@
                                 {{-- Order Number --}}
                                 <div class="d-flex align-items-center gap-2">
                                     <h2 class="mb-0">{{ $order->order_number }}</h2>
-                                    @php
-                                        $statusColors = [
-                                            'new' => 'info',
-                                            'processing' => 'warning',
-                                            'completed' => 'success',
-                                            'cancelled' => 'danger',
-                                        ];
-                                    @endphp
-                                    {{-- <span class="badge bg-{{ $statusColors[$order->status] ?? 'secondary' }}">
-                                        {{ ucfirst($order->status) }}
-                                    </span> --}}
                                 </div>
 
                                 {{-- Action Buttons --}}
@@ -90,33 +52,14 @@
                                         </li>
                                     @endif
 
-                                    {{-- Generate Invoice Button - Only show if status is completed --}}
-                                    @if ($order->canGenerateInvoice() && $order->status === 'completed')
-                                        <li class="list-inline-item">
-                                            <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
-                                                class="avtar avtar-s btn-link-primary" data-bs-toggle="tooltip"
-                                                title="Generate Invoice">
-                                                <i class="ti ti-printer f-22"></i>
-                                            </a>
-                                        </li>
-
-                                        {{-- Send Invoice Button - Only show if status is completed --}}
-                                        <li class="list-inline-item">
-                                            <form action="{{ route('admin.orders.sendInvoice', $order->id) }}"
-                                                method="POST" class="d-inline send-invoice-form">
-                                                @csrf
-                                                <button type="submit" class="avtar avtar-s btn-link-info send-invoice-btn"
-                                                    data-bs-toggle="tooltip" title="Send Invoice">
-                                                    <span class="btn-icon">
-                                                        <i class="ti ti-mail f-22"></i>
-                                                    </span>
-                                                    <span class="btn-loading d-none">
-                                                        <span class="spinner-border spinner-border-sm"></span>
-                                                    </span>
-                                                </button>
-                                            </form>
-                                        </li>
-                                    @endif
+                                    {{-- Generate Invoice Button --}}
+                                    <li class="list-inline-item">
+                                        <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
+                                            class="avtar avtar-s btn-link-primary" data-bs-toggle="tooltip"
+                                            title="Generate Invoice">
+                                            <i class="ti ti-printer f-22"></i>
+                                        </a>
+                                    </li>
 
                                     {{-- Edit Button --}}
                                     @if (!in_array($order->status, ['completed', 'cancelled']))
@@ -169,63 +112,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-                    {{-- <div class="btn-group flex-wrap gap-2">
-                        @if ($order->canBeReopened())
-                            <form action="{{ route('admin.orders.reopenOrder', $order->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-warning"
-                                    onclick="return confirm('Are you sure you want to reopen this order?')">
-                                    <i class="ti ti-refresh me-1"></i> Reopen Order
-                                </button>
-                            </form>
-                        @endif
-
-                        @if ($order->canGenerateInvoice())
-                            <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
-                                class="btn btn-outline-primary">
-                                <i class="ti ti-printer me-1"></i> Generate Invoice
-                            </a>
-
-                            <form action="{{ route('admin.orders.sendInvoice', $order->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-info">
-                                    <i class="ti ti-mail me-1"></i> Send Invoice
-                                </button>
-                            </form>
-                        @endif
-
-                        @if (!in_array($order->status, ['completed', 'cancelled']))
-                            <a href="{{ route('admin.orders.edit', $order->id) }}"
-                                class="btn btn-outline-secondary">
-                                <i class="ti ti-edit me-1"></i> Edit
-                            </a>
-                        @endif
-
-                        @if (!in_array($order->status, ['completed', 'cancelled']))
-                            <form action="{{ route('admin.orders.markCompleted', $order->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-success"
-                                    onclick="return confirm('Mark this order as completed?')">
-                                    <i class="ti ti-check me-1"></i> Mark Completed
-                                </button>
-                            </form>
-
-                            <form action="{{ route('admin.orders.markCancelled', $order->id) }}" method="POST"
-                                class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-danger"
-                                    onclick="return confirm('Are you sure you want to cancel this order?')">
-                                    <i class="ti ti-x me-1"></i> Cancel Order
-                                </button>
-                            </form>
-                        @endif
-                    </div> --}}
                 </div>
             </div>
 
@@ -322,6 +208,14 @@
                                         <div class="ms-2">
                                             <p class="mb-0 text-muted small">Status</p>
                                             <h6 class="mb-0">
+                                                @php
+                                                    $statusColors = [
+                                                        'new' => 'info',
+                                                        'processing' => 'warning',
+                                                        'completed' => 'success',
+                                                        'cancelled' => 'danger',
+                                                    ];
+                                                @endphp
                                                 <span
                                                     class="badge bg-light-{{ $statusColors[$order->status] ?? 'secondary' }}">
                                                     {{ ucfirst($order->status) }}
@@ -335,14 +229,12 @@
                             <hr>
 
                             <div class="d-grid gap-2">
-                                {{-- <form action="{{ route('admin.orders.sendInvoice', $order->id) }}" method="POST"
-                                    class="d-inline">
-                                    @csrf
-                                    <button type="submit"
-                                        class="btn btn-light-warning d-flex justify-content-center w-100">
-                                        <i class="ti ti-mail me-1"></i> Send Invoice By Email
-                                    </button>
-                                </form> --}}
+                                <button type="button"
+                                    class="btn btn-light-warning d-flex justify-content-center open-invoice-modal"
+                                    data-route="{{ route('admin.orders.sendInvoice', $order->id) }}"
+                                    data-email="{{ $order->client->email }}">
+                                    <i class="ti ti-mail me-2"></i> Send Invoice By Email
+                                </button>
 
                                 <a href="{{ route('admin.clients.show', $order->client->id) }}"
                                     class="btn btn-light-success d-flex justify-content-center">
@@ -520,34 +412,99 @@
                         </div>
                     </form>
                 </div>
-
             </div>
 
-            <!-- Activities Timeline -->
+            <!-- Blade - Without Spatie for now -->
             <div class="activity-timeline p-3">
-                @forelse($order->activities as $activity)
+                @php
+                    $allActivities = collect();
+
+                    // Custom activities
+                    foreach ($order->activities as $activity) {
+                        $allActivities->push([
+                            'type' => 'custom',
+                            'data' => $activity,
+                            'created_at' => $activity->created_at,
+                        ]);
+                    }
+
+                    // Email logs
+                    foreach ($order->emailLogs as $emailLog) {
+                        $allActivities->push([
+                            'type' => 'email',
+                            'data' => $emailLog,
+                            'created_at' => $emailLog->created_at,
+                        ]);
+                    }
+
+                    $allActivities = $allActivities->sortByDesc('created_at');
+                @endphp
+
+                @forelse($allActivities as $item)
                     <div class="timeline-item mb-4">
                         <div class="d-flex">
                             <div class="flex-shrink-0">
-                                <div class="avtar avtar-s bg-light-{{ $activity->type_color }}">
-                                    <i class="ti {{ $activity->type_icon }}"></i>
-                                </div>
+                                @if ($item['type'] === 'custom')
+                                    <div class="avtar avtar-s bg-light-{{ $item['data']->type_color }}">
+                                        <i class="ti {{ $item['data']->type_icon }}"></i>
+                                    </div>
+                                @else
+                                    {{-- Email --}}
+                                    <div
+                                        class="avtar avtar-s bg-light-{{ $item['data']->status === 'sent' ? 'success' : ($item['data']->status === 'pending' ? 'warning' : 'danger') }}">
+                                        <i class="ti ti-mail"></i>
+                                    </div>
+                                @endif
                             </div>
+
                             <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-start mb-1">
-                                    <h6 class="mb-0 text-sm text-capitalize">
-                                        {{ $activity->title ?? 'Activity' }}
-                                    </h6>
-                                    <span class="badge bg-light-{{ $activity->type_color }} ms-1 text-capitalize">
-                                        {{ str_replace('_', ' ', $activity->type) }}
-                                    </span>
-                                </div>
-                                <p class="text-muted mb-1" style="font-size: 0.80rem;">{{ $activity->details }}</p>
-                                <div class="d-flex justify-content-between">
+                                @if ($item['type'] === 'custom')
+                                    {{-- Custom Activity --}}
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="mb-0 text-sm text-capitalize">
+                                            {{ $item['data']->title ?? 'Activity' }}
+                                        </h6>
+                                        <span class="badge bg-light-{{ $item['data']->type_color }} ms-1 text-capitalize">
+                                            {{ str_replace('_', ' ', $item['data']->type) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-muted mb-1" style="font-size: 0.80rem;">
+                                        {{ $item['data']->details }}
+                                    </p>
+                                @else
+                                    {{-- Email Log --}}
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="mb-0 text-sm">
+                                            {{ ucfirst($item['data']->email_type) }} Email
+                                            {{ ucfirst($item['data']->status) }}
+                                        </h6>
+                                        <span
+                                            class="badge bg-light-{{ $item['data']->status === 'sent' ? 'success' : ($item['data']->status === 'pending' ? 'warning' : 'danger') }}">
+                                            {{ ucfirst($item['data']->status) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-muted mb-1 small">
+                                        <strong>To:</strong> {{ $item['data']->recipient_email }}
+                                        @if ($item['data']->attempt_number > 1)
+                                            <span class="badge bg-light-warning ms-1">
+                                                Attempt {{ $item['data']->attempt_number }}
+                                            </span>
+                                        @endif
+                                    </p>
+                                    @if ($item['data']->error_message)
+                                        <div class="alert alert-danger p-2 mb-1 mt-2">
+                                            <small><strong>Error:</strong> {{ $item['data']->error_message }}</small>
+                                        </div>
+                                    @endif
+                                @endif
+
+                                <div class="d-flex justify-content-between mt-2">
                                     <small class="text-muted">
-                                        {{ $activity->created_at->format('d M, Y h:i A') }}
+                                        {{ $item['created_at']->format('d M, Y h:i A') }}
                                     </small>
-                                    <small class="text-muted">{{ $activity->created_at->diffForHumans() }}</small>
+                                    <small class="text-muted">
+                                        {{ $item['created_at']->diffForHumans() }}
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -564,6 +521,57 @@
         </div>
     </div>
 
+    {{-- ===== Send Invoice Modal ===== --}}
+    <div class="modal fade" id="sendInvoiceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="POST" id="sendInvoiceForm">
+                    @csrf
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Send Invoice</h5>
+                        <button class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to send this invoice to
+                            <strong id="invoiceEmail"></strong>?
+                        </p>
+                        <p class="text-muted small">
+                            The invoice PDF will be sent via email in the background.
+                        </p>
+
+                        <div class="alert alert-info mb-0">
+                            <i class="ti ti-info-circle me-2"></i>
+                            <small>You'll be notified once the email is successfully delivered. You can continue working
+                                without waiting.</small>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button type="submit" class="btn btn-light-success" id="sendInvoiceBtn">
+                            <span class="btn-text">
+                                <i class="ti ti-send me-1"></i> Yes, Send By Email
+                            </span>
+                            <span class="btn-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-1"></span>
+                                Processing...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+{{-- Styles --}}
+@push('styles')
     <style>
         .timeline-item {
             position: relative;
@@ -580,71 +588,117 @@
             background: #e9ecef;
         }
     </style>
+@endpush
 
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
+{{-- Scripts --}}
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-                // Send Invoice Form
-                const sendInvoiceForm = document.querySelector('.send-invoice-form');
-                if (sendInvoiceForm) {
-                    const sendBtn = sendInvoiceForm.querySelector('.send-invoice-btn');
-                    sendInvoiceForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        toggleButtonLoading(sendBtn, true);
-                        this.submit();
-                    });
-                }
+            // ========== Send Invoice Modal Logic ==========
+            const sendInvoiceModal = document.getElementById('sendInvoiceModal');
+            const sendInvoiceForm = document.getElementById('sendInvoiceForm');
+            const sendInvoiceBtn = document.getElementById('sendInvoiceBtn');
+            const invoiceEmailElement = document.getElementById('invoiceEmail');
 
-                // Reopen Order Form
-                const reopenForm = document.querySelector('.reopen-form');
-                if (reopenForm) {
-                    const reopenBtn = reopenForm.querySelector('.reopen-btn');
-                    reopenForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        toggleButtonLoading(reopenBtn, true);
-                        this.submit();
-                    });
-                }
+            // Handle click on "open-invoice-modal" buttons
+            document.querySelectorAll('.open-invoice-modal').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
 
-                // Complete Order Form
-                const completeForm = document.querySelector('.complete-form');
-                if (completeForm) {
-                    const completeBtn = completeForm.querySelector('.complete-btn');
-                    completeForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        toggleButtonLoading(completeBtn, true);
-                        this.submit();
-                    });
-                }
+                    const route = this.getAttribute('data-route');
+                    const email = this.getAttribute('data-email');
 
-                // Cancel Order Form
-                const cancelForm = document.querySelector('.cancel-form');
-                if (cancelForm) {
-                    const cancelBtn = cancelForm.querySelector('.cancel-btn');
-                    cancelForm.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        toggleButtonLoading(cancelBtn, true);
-                        this.submit();
-                    });
-                }
+                    // Set form action
+                    sendInvoiceForm.action = route;
 
-                // Toggle button loading state
-                function toggleButtonLoading(button, isLoading) {
-                    const btnIcon = button.querySelector('.btn-icon');
-                    const btnLoading = button.querySelector('.btn-loading');
+                    // Display email
+                    invoiceEmailElement.textContent = email;
 
-                    if (isLoading) {
-                        btnIcon.classList.add('d-none');
-                        btnLoading.classList.remove('d-none');
-                        button.disabled = true;
-                    } else {
-                        btnIcon.classList.remove('d-none');
-                        btnLoading.classList.add('d-none');
-                        button.disabled = false;
-                    }
-                }
+                    // Reset button state
+                    resetButton(sendInvoiceBtn);
+
+                    // Show modal
+                    const modal = new bootstrap.Modal(sendInvoiceModal);
+                    modal.show();
+                });
             });
-        </script>
-    @endpush
-@endsection
+
+            // Handle form submission
+            sendInvoiceForm.addEventListener('submit', function() {
+                showLoading(sendInvoiceBtn);
+            });
+
+            // Reset button when modal closes
+            sendInvoiceModal.addEventListener('hidden.bs.modal', function() {
+                resetButton(sendInvoiceBtn);
+            });
+
+            // ========== Other Form Handlers ==========
+
+            // Reopen Order Form
+            const reopenForm = document.querySelector('.reopen-form');
+            if (reopenForm) {
+                const reopenBtn = reopenForm.querySelector('.reopen-btn');
+                reopenForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    toggleIconLoading(reopenBtn, true);
+                    this.submit();
+                });
+            }
+
+            // Complete Order Form
+            const completeForm = document.querySelector('.complete-form');
+            if (completeForm) {
+                const completeBtn = completeForm.querySelector('.complete-btn');
+                completeForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    toggleIconLoading(completeBtn, true);
+                    this.submit();
+                });
+            }
+
+            // Cancel Order Form
+            const cancelForm = document.querySelector('.cancel-form');
+            if (cancelForm) {
+                const cancelBtn = cancelForm.querySelector('.cancel-btn');
+                cancelForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    toggleIconLoading(cancelBtn, true);
+                    this.submit();
+                });
+            }
+
+            // ========== Helper Functions ==========
+
+            // For modal buttons with .btn-text and .btn-loading
+            function showLoading(button) {
+                button.querySelector('.btn-text').classList.add('d-none');
+                button.querySelector('.btn-loading').classList.remove('d-none');
+                button.disabled = true;
+            }
+
+            function resetButton(button) {
+                button.querySelector('.btn-text').classList.remove('d-none');
+                button.querySelector('.btn-loading').classList.add('d-none');
+                button.disabled = false;
+            }
+
+            // For icon buttons with .btn-icon and .btn-loading
+            function toggleIconLoading(button, isLoading) {
+                const btnIcon = button.querySelector('.btn-icon');
+                const btnLoading = button.querySelector('.btn-loading');
+
+                if (isLoading) {
+                    btnIcon.classList.add('d-none');
+                    btnLoading.classList.remove('d-none');
+                    button.disabled = true;
+                } else {
+                    btnIcon.classList.remove('d-none');
+                    btnLoading.classList.add('d-none');
+                    button.disabled = false;
+                }
+            }
+        });
+    </script>
+@endpush

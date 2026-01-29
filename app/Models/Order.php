@@ -96,4 +96,14 @@ class Order extends Model
     {
         return !$this->isCancelled();
     }
+
+    public function emailLogs()
+    {
+        return $this->hasMany(EmailLog::class)->latest();
+    }
+
+    public function invoiceLogs()
+    {
+        return $this->emailLogs()->where('email_type', 'invoice');
+    }
 }

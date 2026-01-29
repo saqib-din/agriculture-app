@@ -10,8 +10,10 @@ use App\Http\Controllers\VariablesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Jobs\SendInvoiceEmailJob;
+
+// use Illuminate\Support\Facades\Mail;
+// use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class OrderController extends Controller
@@ -146,11 +148,11 @@ class OrderController extends Controller
         }
     }
 
+    // Controller - Simple version
     public function show(Order $order)
     {
-        $order->load(['client', 'products', 'quoteRequest', 'activities']);
+        $order->load(['client', 'products', 'quoteRequest', 'activities', 'emailLogs']);
 
-        // Get GST rate for display
         $gstRate = $order->tax_rate ?? VariablesController::getGstRate();
 
         return view('pages.admin-side.orders.show', compact('order', 'gstRate'));
@@ -263,7 +265,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'type' => 'required|in:call,message,meeting,email,payment,other',
-            'title' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:30',
             'details' => 'nullable|string'
         ]);
 
@@ -299,32 +301,59 @@ class OrderController extends Controller
         return view('pages.admin-side.orders.print', compact('order'));
     }
 
-    public function sendInvoice(Order $order)
+    public function sendInvoice($id)
     {
         try {
-            // Change status to processing only if current status is 'new'
-            if ($order->status === 'new') {
-                $order->update(['status' => 'processing']);
+            $order = Order::with('client')->findOrFail($id);
+
+            // Validate that client exists and has email
+            if (!$order->client || !$order->client->email) {
+                return redirect()->back()->with('error', 'Customer email not found!');
             }
 
-            $order->load(['client', 'products']);
+            // Dispatch job to queue
+            SendInvoiceEmailJob::dispatch($order);
 
-            // Generate PDF from print view
-            $pdf = PDF::loadView('pages.admin-side.orders.print', compact('order'));
-
-            // Send email with PDF attachment
-            Mail::send('emails.invoice', ['order' => $order], function ($message) use ($order, $pdf) {
-                $message->to($order->client->email, $order->client->name)
-                    ->subject('Invoice - Order #' . $order->id)
-                    ->attachData($pdf->output(), 'invoice-' . $order->id . '.pdf');
-            });
-
-            return redirect()->back()->with('success', 'Invoice sent successfully!');
+            return redirect()->back()->with('success', 'Invoice is being sent! Customer will receive it shortly.');
         } catch (\Exception $e) {
-            Log::error('Send Invoice Error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to send invoice: ' . $e->getMessage());
+            Log::error('Invoice Dispatch Error: ' . $e->getMessage(), [
+                'order_id' => $id
+            ]);
+
+            return redirect()->back()->with('error', 'Failed to queue invoice: ' . $e->getMessage());
         }
     }
+
+    // public function sendInvoice(Order $order)
+    // {
+    //     try {
+    //         // Change status to processing only if current status is 'new'
+    //         if ($order->status === 'new') {
+    //             $order->update(['status' => 'processing']);
+    //         }
+
+    //         $order->load(['client', 'products']);
+
+    //         // Generate PDF from print view
+
+
+    //         $pdf = PDF::loadView('pages.admin-side.orders.print', compact('order'))
+    //             ->setPaper('a4', 'portrait')
+    //             ->setOption('defaultFont', 'DejaVu Sans');
+
+    //         // Send email with PDF attachment
+    //         Mail::send('emails.invoice', ['order' => $order], function ($message) use ($order, $pdf) {
+    //             $message->to($order->client->email, $order->client->name)
+    //                 ->subject('Invoice - Order #' . $order->id)
+    //                 ->attachData($pdf->output(), 'invoice-' . $order->id . '.pdf');
+    //         });
+
+    //         return redirect()->back()->with('success', 'Invoice sent successfully!');
+    //     } catch (\Exception $e) {
+    //         Log::error('Send Invoice Error: ' . $e->getMessage());
+    //         return redirect()->back()->with('error', 'Failed to send invoice: ' . $e->getMessage());
+    //     }
+    // }
 
     public function markCompleted(Order $order)
     {

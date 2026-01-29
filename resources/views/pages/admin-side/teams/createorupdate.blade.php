@@ -23,6 +23,8 @@
                 </div>
             </div>
 
+              @include('components.alerts')
+
             <div class="row">
                 <div class="col-12">
 

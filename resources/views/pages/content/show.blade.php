@@ -25,11 +25,7 @@
                                 <div class="icon">
                                     <i class="icon-arrow-right1"></i>
                                 </div>
-                                <a href="{{ url('/aboutus') }}">About Us </a>
-                                <div class="icon">
-                                    <i class="icon-arrow-right1"></i>
-                                </div>
-                                <a href="javascript:void(0)">About The Farm</a>
+                                <a href="#">{{ $page->name }} </a>
                             </div>
                         </div>
                     </div>

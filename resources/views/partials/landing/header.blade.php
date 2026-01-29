@@ -15,9 +15,9 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h5 class="text-dark mb-0 fw-5">
-                                            {{ $company['company_name'] ?? 'Company Name' }}
+                                            {{ $company['company_name'] ?: 'Scrumad' }}
                                         </h5>
-                                        <span class="text-dark">{{ $company['company_slogan'] ?? '' }}</span>
+                                        {{-- <span class="text-dark">{{ $company['company_slogan'] ?? '' }}</span> --}}
                                     </div>
                                 </div>
                             </a>
@@ -45,7 +45,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="header-right">
+                    {{-- <div class="header-right">
                         <div class="icon-wrap">
                             <a href="{{ route('login') }}" class="icon style-circle bg-light">
                                 <i class="icon-user"></i>
@@ -55,17 +55,23 @@
                         <div class="mobile-button">
                             <span></span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="mobile-nav-wrap">
                     <div class="overlay-mobile-nav"></div>
                     <div class="inner-mobile-nav overflow-y-auto">
                         <div class="top">
                             <div class="logo">
-                                <a href="{{ url('/') }}" rel="home" class="main-logo">
-                                    <img id="mobile-logo_header" alt="{{ $company['company_name'] ?? 'Logo' }}"
-                                        src="{{ asset('assets/images/logo/logo-2.png') }}" />
-                                </a>
+                                <div class="flex-shrink-0">
+                                    <img src="{{ asset('assets/images/logo/logo3x.png') }}" style="height: 3em;"
+                                        alt="{{ $company['company_name'] ?? 'Logo' }}" />
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5 class="text-light mb-0 fw-5">
+                                        {{ $company['company_name'] ?: 'Scrumad' }}
+                                    </h5>
+                                    {{-- <span class="text-dark">{{ $company['company_slogan'] ?? '' }}</span> --}}
+                                </div>
                                 <div class="mobile-nav-close">
                                     <i class="icon-close"></i>
                                 </div>

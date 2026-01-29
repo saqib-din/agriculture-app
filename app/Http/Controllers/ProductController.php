@@ -12,17 +12,97 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
         $variables = Variable::all();
         $categories = Category::withCount('products')->get();
-        $products = Product::where('status', 1)
-            ->with(['images', 'category'])
-            ->latest()
-            ->paginate(9);
 
-        return view('pages.products.product-list', compact('products', 'variables', 'categories'));
+        // Popular products (sidebar)
+        $popularProducts = Product::where('status', 1)
+            ->whereHas('quoteRequests', function ($q) {
+                $q->whereDate('quote_requests.created_at', '>=', now()->subDays(30));
+            })
+            ->withCount(['quoteRequests' => function ($q) {
+                $q->whereDate('quote_requests.created_at', '>=', now()->subDays(30));
+            }])
+            ->orderBy('quote_requests_count', 'desc')
+            ->take(3)
+            ->get();
+
+        // Main products query
+        $query = Product::where('status', 1)
+            ->with(['images', 'category']);
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    // ->orWhere('description', 'LIKE', "%{$search}%")
+                    // ->orWhere('brief_details', 'LIKE', "%{$search}%")
+                    // ->orWhere('brand', 'LIKE', "%{$search}%")
+                    // ->orWhere('model', 'LIKE', "%{$search}%")
+                    ->orWhere('sku', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'recent');
+        switch ($sort) {
+            case 'popular':
+                $query->withCount('quoteRequests')
+                    ->orderBy('quote_requests_count', 'desc');
+                break;
+
+            // case 'price_low':
+            //     $query->orderBy('price', 'asc');
+            //     break;
+
+            // case 'price_high':
+            //     $query->orderBy('price', 'desc');
+            //     break;
+
+            // case 'name_asc':
+            //     $query->orderBy('name', 'asc');
+            //     break;
+
+            // case 'name_desc':
+            //     $query->orderBy('name', 'desc');
+            //     break;
+
+            default:
+                $query->latest();
+        }
+
+        $products = $query->paginate(9);
+
+        // logger($products);
+
+        // AJAX response
+        if ($request->ajax()) {
+            $productsHtml = view('pages.products.partials.product-grid', compact('products'))->render();
+            $paginationHtml = view('pages.products.partials.pagination', compact('products'))->render();
+
+            return response()->json([
+                'success' => true,
+                'html' => $productsHtml,
+                'pagination' => $paginationHtml
+            ]);
+        }
+
+        return view('pages.products.product-list', compact(
+            'products',
+            'variables',
+            'categories',
+            'popularProducts'
+        ));
     }
+
 
     public function showBySlug($slug)
     {
@@ -73,7 +153,7 @@ class ProductController extends Controller
         $sku = $product?->sku;
         if (!$isUpdate) {
             do {
-                $sku = 'SKU-' . strtoupper(Str::random(8)) . time();
+                $sku = strtoupper(Str::random(4));
             } while (Product::where('sku', $sku)->exists());
         }
 
@@ -134,23 +214,24 @@ class ProductController extends Controller
         }
 
         // Handle specifications
-        if ($request->has('specifications')) {
-            // Delete old specifications if updating
-            if ($isUpdate) {
-                $product->specifications()->delete();
-            }
+        if ($isUpdate) {
+            // Always delete old specs first
+            $product->specifications()->delete();
+        }
 
-            // Add new specifications
+        if ($request->has('specifications')) {
             foreach ($request->specifications as $index => $spec) {
-                if (!empty($spec['name']) && !empty($spec['value'])) {
+                // Create spec even if name or value is empty (nullable)
+                if (!is_null($spec['name']) || !is_null($spec['value'])) {
                     $product->specifications()->create([
-                        'name' => $spec['name'],
-                        'value' => $spec['value'],
+                        'name' => $spec['name'] ?? null,
+                        'value' => $spec['value'] ?? null,
                         'order' => $index,
                     ]);
                 }
             }
         }
+
 
         $msg = $isUpdate ? 'Product Updated Successfully' : 'Product Added Successfully';
         return redirect()->route('products.list')->with('success', $msg);
@@ -203,7 +284,8 @@ class ProductController extends Controller
         return response()->json([
             'ok' => true,
             'message' => 'Quantity display updated',
-            'new_value' => $request->type
+            'type' => $request->type,
+            'new_quantity' => $product->quantity
         ]);
     }
 
@@ -215,7 +297,8 @@ class ProductController extends Controller
         return response()->json([
             'ok' => true,
             'message' => 'Price display updated',
-            'new_value' => $request->type
+            'type' => $request->type,
+            'new_price' => $product->price
         ]);
     }
 
@@ -234,6 +317,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+
+            if ($product->category) {
+                return redirect()->back()->with('error', 'Cannot delete product: it is linked to a category.');
+            }
+
             // Delete all images from storage
             foreach ($product->images as $image) {
                 if (Storage::disk('public')->exists($image->image)) {

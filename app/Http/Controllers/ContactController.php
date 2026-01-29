@@ -29,9 +29,9 @@ class ContactController extends Controller
     {
         // Validation
         $validated = $request->validate([
-            'name'    => ['required', 'string', 'max:255'],
-            'subject' => ['required', 'string', 'max:255'],
-            'email'   => ['required', 'email', 'max:255'],
+            'name'    => ['required', 'string', 'max:50'],
+            'subject' => ['required', 'string', 'max:80'],
+            'email'   => ['required', 'email', 'max:50'],
             'phone'   => ['required', 'string', 'max:50'],
             'message' => ['required', 'string', 'max:2000'],
             'terms'   => ['accepted'],
@@ -167,7 +167,7 @@ class ContactController extends Controller
         }
 
         $request->validate([
-            'reply_message' => ['required', 'string', 'max:5000'],
+            'reply_message' => ['required', 'string', 'max:2000'],
         ]);
 
         if (!$contact->email) {

@@ -20,10 +20,10 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h5 class="text-light mb-0 fw-5">
-                                                {{ $company['company_name'] ?? 'Company Name' }} </h5>
-                                            <span class="text-light">
-                                                {{ $company['company_slogan'] ?? '' }}
-                                            </span>
+                                                {{ $company['company_name'] ?: 'Scrumad' }}
+                                                {{-- <span class="text-light">
+                                                    {{ $company['company_slogan'] ?: 'N/A' }}
+                                                </span> --}}
                                         </div>
                                     </div>
                                 </a>
@@ -42,19 +42,19 @@
                         <ul class="contact-list tf-collapse-content">
                             <li>
                                 <i class="fa-solid fa-location-dot fs-17"></i>
-                                <p class="address">{{ $company['company_address'] }}</p>
+                                <p class="address">Address: {{ $company['company_address'] ?: 'N/A' }}</p>
                             </li>
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                <p class="phone-number fs-15">Call us: {{ $company['company_phone'] ?? 'N/A' }}</p>
+                                <p class="phone-number fs-15">Call us: {{ $company['company_phone'] ?: 'N/A' }}</p>
                             </li>
                             <li>
                                 <i class="icon-package-box"></i>
-                                <p class="email fs-15">Mail: {{ $company['company_email'] ?? 'N/A' }}</p>
+                                <p class="email fs-15">Mail: {{ $company['company_email'] ?: 'N/A' }}</p>
                             </li>
                             <li>
                                 <i class="fa-solid fa-clock"></i>
-                                <p class="time-open fs-15">Mon - Sat: {{ $company['working_hours'] ?? 'N/A' }}</p>
+                                <p class="time-open fs-15">Mon - Sat: {{ $company['working_hours'] ?: 'N/A' }}</p>
                             </li>
                         </ul>
                     </div>
@@ -106,9 +106,9 @@
                         <div class="wg-social">
                             <ul class="list">
                                 @foreach (['facebook', 'twitter', 'instagram', 'youtube', 'linkedin'] as $social)
-                                    @if (!empty($variables[$social]))
+                                    @if (!empty($company[$social]))
                                         <li class="item">
-                                            <a href="{{ $variables[$social] }}" target="_blank">
+                                            <a href="{{ $company[$social] }}" target="_blank">
                                                 <i class="icon-{{ $social }}"></i>
                                             </a>
                                         </li>

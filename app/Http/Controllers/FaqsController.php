@@ -24,8 +24,8 @@ class FaqsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'   => 'required|string|max:255',
-            'content' => 'required|string',
+            'title'   => 'required|string|max:100',
+            'content' => 'required|string|max:200',
             'status'  => 'required|boolean',
         ]);
 
@@ -35,7 +35,7 @@ class FaqsController extends Controller
             'status'  => $request->status,
         ]);
 
-       return redirect()->route('faqs.index')->with('success', 'FAQ added successfully!');
+        return redirect()->route('faqs.index')->with('success', 'FAQ added successfully!');
     }
 
     // Edit form
@@ -49,8 +49,8 @@ class FaqsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title'   => 'required|string|max:255',
-            'content' => 'required|string',
+            'title'   => 'required|string|max:100',
+            'content' => 'required|string|max:200',
             'status'  => 'required|boolean',
         ]);
 

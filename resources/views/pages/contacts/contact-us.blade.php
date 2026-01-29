@@ -82,8 +82,8 @@
 
                                              @if (!empty($company))
                                                  <p class="text">
-                                                     {{ $company['company_email'] ?? 'N/A' }} <br>
-                                                     Call Us 24/7: {{ $company['company_phone'] ?? 'N/A' }}
+                                                     Email: {{ $company['company_email'] ?: 'N/A' }} <br>
+                                                     Call Us 24/7: {{ $company['company_phone'] ?: 'N/A' }}
                                                  </p>
                                              @else
                                                  <p class="text">N/A</p>
@@ -248,36 +248,55 @@
                                                      .then(response => response.json())
                                                      .then(data => {
                                                          if (data.success) {
-                                                             // Success message show 
-                                                             document.getElementById('msg').style.display = 'block';
-                                                             document.getElementById('error-msg').style.display = 'none';
+                                                             // Show success message
+                                                             const successMsg = document.getElementById('msg');
+                                                             const errorMsg = document.getElementById('error-msg');
 
-                                                             // Form reset 
+                                                             successMsg.style.display = 'block';
+                                                             errorMsg.style.display = 'none';
+
+                                                             // Reset form
                                                              document.getElementById('contactform').reset();
 
                                                              // Smooth scroll to message
-                                                             document.getElementById('msg').scrollIntoView({
+                                                             successMsg.scrollIntoView({
                                                                  behavior: 'smooth',
                                                                  block: 'center'
                                                              });
 
+                                                             // Fade out success message and hide error message too
                                                              setTimeout(function() {
-                                                                 $("#msg").fadeOut(600);
+                                                                 $(successMsg).fadeOut(600, function() {
+                                                                     // Ensure both messages are hidden
+                                                                     successMsg.style.display = 'none';
+                                                                     errorMsg.style.display = 'none';
+                                                                 });
                                                              }, 5000);
+
                                                          } else {
-                                                             // Error message
+                                                             // Show error message
                                                              const errorBox = document.getElementById('error-msg');
+                                                             const successMsg = document.getElementById('msg');
+
                                                              errorBox.querySelector('p').textContent = data.message ||
                                                                  'Something went wrong';
                                                              errorBox.style.display = 'block';
-                                                             document.getElementById('msg').style.display = 'none';
+                                                             successMsg.style.display = 'none';
 
                                                              // Smooth scroll to error
                                                              errorBox.scrollIntoView({
                                                                  behavior: 'smooth',
                                                                  block: 'center'
                                                              });
+
+                                                             // Optional: fade out error message after some time too
+                                                             setTimeout(function() {
+                                                                 $(errorBox).fadeOut(600, function() {
+                                                                     errorBox.style.display = 'none';
+                                                                 });
+                                                             }, 5000);
                                                          }
+
 
                                                          // Button enable return
                                                          submitBtn.disabled = false;

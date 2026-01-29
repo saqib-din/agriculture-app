@@ -55,20 +55,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Status -->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select name="status" class="form-select">
-                                                <option value="Active"
-                                                    {{ old('status', $service->status ?? '') == 'Active' ? 'selected' : '' }}>
-                                                    Active</option>
-                                                <option value="Inactive"
-                                                    {{ old('status', $service->status ?? '') == 'Inactive' ? 'selected' : '' }}>
-                                                    Inactive</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
 
                                     <!-- Main Service -->
                                     <div class="col-md-6">
@@ -100,22 +87,35 @@
                                         </div>
                                     </div>
 
-                                    <!-- Description -->
+                                    <!-- Status -->
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Description</label>
-                                            <textarea type="text" name="description" class="form-control" rows="1" placeholder="Enter description"
-                                                value="{{ old('description', $service->description ?? '') }}"></textarea>
+                                            <label class="form-label">Status </label>
+                                            <select name="status" class="form-select">
+                                                <option value="Active"
+                                                    {{ old('status', $service->status ?? '') == 'Active' ? 'selected' : '' }}>
+                                                    Active</option>
+                                                <option value="Inactive"
+                                                    {{ old('status', $service->status ?? '') == 'Inactive' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <!-- Image -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Service Image</label>
                                             <input class="form-control" type="file" name="image">
                                         </div>
+                                    </div>
 
+                                    <!-- Description -->
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea name="description" class="form-control" rows="3" placeholder="Enter description">{{ old('description', $service->description ?? '') }}</textarea>
+                                        </div>
                                     </div>
 
                                     <!-- Submit -->
@@ -127,14 +127,10 @@
 
                                 </div>
                             </form>
-
                         </div>
                     </div>
-
                 </div>
             </div>
-            <!-- [ Main Content ] end -->
-
         </div>
     </div>
 @endsection

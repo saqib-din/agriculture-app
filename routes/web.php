@@ -18,12 +18,9 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\QuoteRequestController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
-/*
-|--------------------------------------------------------------------------
-| PUBLIC ROUTES (No Authentication Required)
-|--------------------------------------------------------------------------
-*/
+// PUBLIC ROUTES (No Authentication Required)
 
 // Welcome Page
 Route::get('/', [HomeController::class, 'welcome'])->name('welcomepage');
@@ -34,7 +31,7 @@ Route::get('/products', [ProductController::class, 'list'])->name('products.publ
 // Public single product
 Route::get('products/{slug}', [ProductController::class, 'showBySlug'])->name('products.show');
 
-// ✅ QUOTE REQUEST - PUBLIC ROUTE (Customers can submit without login)
+// QUOTE REQUEST - PUBLIC ROUTE (Customers can submit without login)
 Route::post('/quote-request', [QuoteRequestController::class, 'store'])->name('quote.store');
 
 // Services
@@ -58,17 +55,15 @@ Route::get('/not-found', function () {
     return view('pages.errors.404');
 })->name('not-found');
 
-/*
-|--------------------------------------------------------------------------
-| AUTHENTICATED ROUTES (Login Required)
-|--------------------------------------------------------------------------
-*/
+// AUTHENTICATED ROUTES (Login Required)
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // User Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

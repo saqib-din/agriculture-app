@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\VariablesController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Share company variables with ALL views
         View::composer('*', function ($view) {
-            $variables = Cache::remember('company_variables', 3600, function () {
-                return DB::table('variables')->pluck('value', 'key')->toArray();
-            });
-
-            $view->with('company', $variables);
+            $view->with('company', VariablesController::getAllVariables());
         });
     }
 }

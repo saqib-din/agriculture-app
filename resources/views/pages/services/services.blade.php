@@ -104,15 +104,12 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="heading-section text-center has-text mb-81">
-                            <p class="sub-title">What Is Our Expertise?
+                            <p class="sub-title">What Is Our Expertise?</p>
+                            <p class="title text-anime-style-1 overflow-hidden">
+                                We Providing The <br> Best Solar Energy Solutions
                             </p>
-                            <p class="title text-anime-style-1">We Providing The <br>
-                                Best Agricultural Services</p>
                             <p class="text">
-                                Duis eleifend euismod arcu, nec faucibus mauris finibus id. Integer mattis, tellus
-                                non finibus
-                                rutrum.
-                            </p>
+                                We provide innovative solar technology that powers homes and industries sustainably. </p>
                             <div class="img-item">
                                 <img class="tf-animate-1" src="{{ asset('assets/images/item/rice-plant-2.png') }}"
                                     alt="" />

@@ -221,9 +221,12 @@
 </head>
 
 <body>
-    <button onclick="window.print()" class="print-button no-print">
-        Print Invoice
-    </button>
+    @if (!isset($isPdf))
+        <button onclick="window.print()" class="print-button no-print">
+            Print Invoice
+        </button>
+    @endif
+
     @php
         $variables = \App\Models\Variable::pluck('value', 'key');
     @endphp
@@ -268,7 +271,7 @@
                                 <p>
                                     {{ $order->client->city }}{{ $order->client->state
                                         ? ',
-                                                                                                                                                                                                            ' .
+                                                                                                                                                                                                                                                ' .
                                             $order->client->state
                                         : '' }}
                                 </p>
