@@ -102,10 +102,10 @@
 
                         <div class="card-body table-card">
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0" id="pc-dt-simple">
                                     <thead>
                                         <tr>
-                                            <th width="40">
+                                            <th width="40" data-sortable="false">
                                                 <input type="checkbox" class="form-check-input" id="selectAll">
                                             </th>
                                             <th>Product / Brand</th>
@@ -113,7 +113,7 @@
                                             <th width="180">Quantity</th>
                                             <th width="180">Price</th>
                                             <th class="text-center" width="100">Status</th>
-                                            <th class="text-end" width="120">Actions</th>
+                                            <th class="text-end" width="120" data-sortable="false">Actions</th>
                                         </tr>
                                     </thead>
 
@@ -360,10 +360,93 @@
     </style>
 
     <script>
-        document.getElementById('selectAll').addEventListener('change', function() {
-            document.querySelectorAll('.product-checkbox')
-                .forEach(cb => cb.checked = this.checked);
+        let dataTable;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize DataTable with proper configuration
+            dataTable = new simpleDatatables.DataTable('#pc-dt-simple', {
+                sortable: true,
+                searchable: true,
+                fixedHeight: true,
+                columns: [{
+                        select: 0,
+                        sortable: false
+                    }, // Checkbox column
+                    {
+                        select: 6,
+                        sortable: false
+                    } // Actions column
+                ]
+            });
+
+            // Wait for DataTable to finish rendering
+            setTimeout(initializeCheckboxes, 100);
+
+            // Re-initialize checkboxes after any DataTable update (search, sort, pagination)
+            dataTable.on('datatable.update', function() {
+                setTimeout(initializeCheckboxes, 50);
+            });
+
+            dataTable.on('datatable.sort', function() {
+                setTimeout(initializeCheckboxes, 50);
+            });
+
+            dataTable.on('datatable.search', function() {
+                setTimeout(initializeCheckboxes, 50);
+            });
         });
+
+        function initializeCheckboxes() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+
+            if (!selectAllCheckbox) return;
+
+            // Remove old event listeners by cloning
+            const newSelectAll = selectAllCheckbox.cloneNode(true);
+            selectAllCheckbox.parentNode.replaceChild(newSelectAll, selectAllCheckbox);
+
+            // Add fresh event listener
+            newSelectAll.addEventListener('change', function() {
+                const productCheckboxes = document.querySelectorAll('.product-checkbox');
+                productCheckboxes.forEach(cb => {
+                    cb.checked = this.checked;
+                });
+            });
+
+            // Update selectAll state when individual checkboxes change
+            document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+                // Remove old listeners by cloning
+                const newCheckbox = checkbox.cloneNode(true);
+                checkbox.parentNode.replaceChild(newCheckbox, checkbox);
+
+                // Add fresh event listener
+                newCheckbox.addEventListener('change', function() {
+                    updateSelectAllState();
+                });
+            });
+
+            // Initial state check
+            updateSelectAllState();
+        }
+
+        function updateSelectAllState() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const productCheckboxes = document.querySelectorAll('.product-checkbox');
+            const checkedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
+
+            if (!selectAllCheckbox || productCheckboxes.length === 0) return;
+
+            if (checkedCheckboxes.length === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            } else if (checkedCheckboxes.length === productCheckboxes.length) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = true;
+            }
+        }
 
         document.getElementById('applyBulk').addEventListener('click', function() {
             let ids = [];
@@ -471,12 +554,12 @@
         });
 
         // ----- Toggle Product Status -----
-        document.querySelectorAll('.toggle-status').forEach(badge => {
-            badge.addEventListener('click', function() {
-                let id = this.dataset.id;
-                const currentBadge = this;
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toggle-status')) {
+                const badge = e.target.closest('.toggle-status');
+                let id = badge.dataset.id;
 
-                currentBadge.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+                badge.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
 
                 fetch(`/admin/products/status/${id}`, {
                         method: 'POST',
@@ -487,17 +570,16 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        currentBadge.textContent = data.status ? 'Active' : 'Inactive';
-                        currentBadge.classList.remove('bg-light-success', 'bg-light-danger');
-                        currentBadge.classList.add(data.status ? 'bg-light-success' :
-                            'bg-light-danger');
+                        badge.textContent = data.status ? 'Active' : 'Inactive';
+                        badge.classList.remove('bg-light-success', 'bg-light-danger');
+                        badge.classList.add(data.status ? 'bg-light-success' : 'bg-light-danger');
                         showSuccessMessage(`Status updated to ${data.status ? 'Active' : 'Inactive'}`);
                     })
                     .catch(error => {
                         alert('Error updating status');
                         console.error(error);
                     });
-            });
+            }
         });
 
         // ----- Update Quantity Button Display -----

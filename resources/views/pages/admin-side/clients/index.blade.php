@@ -50,7 +50,7 @@
                         <!-- Card Body -->
                         <div class="card-body table-card">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -103,17 +103,20 @@
                                                 <!-- Actions -->
                                                 <td class="text-end">
                                                     <a href="{{ route('admin.clients.show', $client->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip" title="View">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
+                                                        title="View">
                                                         <i class="ti ti-eye f-20"></i>
                                                     </a>
 
                                                     <a href="{{ route('admin.clients.edit', $client->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip" title="Edit">
+                                                        class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
+                                                        title="Edit">
                                                         <i class="ti ti-edit f-20"></i>
                                                     </a>
 
                                                     <a href="#" class="avtar avtar-xs btn-link-secondary bs-pass-para"
-                                                        data-id="{{ $client->id }}" data-bs-toggle="tooltip" title="Delete">
+                                                        data-id="{{ $client->id }}" data-bs-toggle="tooltip"
+                                                        title="Delete">
                                                         <i class="ti ti-trash f-20"></i>
                                                     </a>
 
@@ -140,3 +143,12 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

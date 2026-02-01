@@ -93,7 +93,8 @@ class ClientsController extends Controller
 
         if ($client->orders()->count() > 0) {
             return redirect()->route('admin.clients.index')
-                ->with('error', 'Cannot delete client: orders exist for this client.');
+                ->with('info', 'Cannot delete this client because orders exist for them. Delete the orders first, then you can delete the client.
+.');
         }
 
         if ($client->image) {

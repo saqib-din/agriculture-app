@@ -421,157 +421,6 @@ class QuoteRequestController extends Controller
         }
     }
 
-    // // Admin: Reply to customer
-    // public function reply(Request $request, $id)
-    // {
-    //     $quoteRequest = QuoteRequest::findOrFail($id);
-
-    //     if (!$quoteRequest->customer_email) {
-    //         return back()->with('error', 'No email found for this customer!');
-    //     }
-
-    //     $request->validate([
-    //         'reply_message' => 'required|string|max:5000',
-    //     ]);
-
-    //     try {
-    //         DB::beginTransaction();
-
-    //         // Send email
-    //         Mail::raw($request->reply_message, function ($message) use ($quoteRequest) {
-    //             $message->to($quoteRequest->customer_email)
-    //                 ->subject('Reply from ' . config('app.name'));
-    //         });
-
-    //         // Log activity
-    //         QuoteActivity::create([
-    //             'quote_request_id' => $quoteRequest->id,
-    //             'type' => 'email',
-    //             'details' => 'Email sent to customer: ' . substr($request->reply_message, 0, 100) . '...'
-    //         ]);
-
-    //         // Auto-update status from 'new' to 'pending' on first reply
-    //         if ($quoteRequest->quote_status === 'new') {
-    //             $quoteRequest->update(['quote_status' => 'pending']);
-    //             QuoteActivity::create([
-    //                 'quote_request_id' => $quoteRequest->id,
-    //                 'type' => 'other',
-    //                 'details' => 'Quote status changed from New to Pending'
-    //             ]);
-    //         }
-
-    //         DB::commit();
-
-    //         return back()->with('success', 'Reply sent successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error('Reply Email Error: ' . $e->getMessage());
-    //         return back()->with('error', 'Failed to send reply: ' . $e->getMessage());
-    //     }
-    // }
-
-    // // Admin: Send Quote with PDF Invoice
-    // public function sendQuote(QuoteRequest $quoteRequest)
-    // {
-    //     try {
-    //         DB::beginTransaction();
-
-    //         // Load products with images
-    //         $quoteRequest->load('products.images');
-
-    //         // Calculate totals
-    //         $subtotal = 0;
-    //         $products = [];
-
-    //         foreach ($quoteRequest->products as $product) {
-    //             $price = $product->pivot->price ?? $product->price;
-    //             $quantity = $product->pivot->quantity ?? 1;
-    //             $productSubtotal = $price * $quantity;
-    //             $subtotal += $productSubtotal;
-
-    //             $imageUrl = null;
-    //             if ($product->images && $product->images->first()) {
-    //                 $imagePath = storage_path('app/public/' . $product->images->first()->image);
-    //                 if (file_exists($imagePath)) {
-    //                     $imageUrl = asset('storage/' . $product->images->first()->image);
-    //                 }
-    //             }
-
-    //             $products[] = [
-    //                 'name' => $product->name,
-    //                 'sku' => $product->sku ?? 'N/A',
-    //                 'brand' => $product->brand ?? 'N/A',
-    //                 'model' => $product->model ?? 'N/A',
-    //                 'quantity' => $quantity,
-    //                 'price' => $price,
-    //                 'subtotal' => $productSubtotal,
-    //                 'image' => $imageUrl
-    //             ];
-    //         }
-
-    //         $taxRate = 0;
-    //         $taxAmount = $subtotal * ($taxRate / 100);
-    //         $total = $subtotal + $taxAmount;
-
-    //         // Generate quote number
-    //         $quoteNumber = 'QT-' . now()->format('Ymd') . '-' . str_pad($quoteRequest->id, 5, '0', STR_PAD_LEFT);
-
-    //         $data = [
-    //             'quote' => $quoteRequest,
-    //             'products' => $products,
-    //             'subtotal' => $subtotal,
-    //             'tax_rate' => $taxRate,
-    //             'tax_amount' => $taxAmount,
-    //             'total' => $total,
-    //             'quote_number' => $quoteNumber
-    //         ];
-
-    //         // Generate PDF
-    //         $pdf = Pdf::loadView('emails.quote-invoice-pdf', $data)
-    //             ->setPaper('a4', 'portrait')
-    //             ->setOption('defaultFont', 'DejaVu Sans');
-
-    //         $pdfContent = $pdf->output();
-
-    //         // Send email with PDF
-    //         Mail::send('emails.quote-details', $data, function ($message) use ($quoteRequest, $pdfContent, $quoteNumber) {
-    //             $message->to($quoteRequest->customer_email)
-    //                 ->subject('Quote Request - ' . $quoteNumber)
-    //                 ->attachData($pdfContent, 'quote-' . $quoteNumber . '.pdf', [
-    //                     'mime' => 'application/pdf',
-    //                 ]);
-    //         });
-
-    //         // Log activity
-    //         QuoteActivity::create([
-    //             'quote_request_id' => $quoteRequest->id,
-    //             'type' => 'email',
-    //             'details' => 'Quote details and invoice PDF sent to customer via email'
-    //         ]);
-
-    //         // Auto-update status from 'new' to 'pending'
-    //         if ($quoteRequest->quote_status === 'new') {
-    //             $quoteRequest->update(['quote_status' => 'pending']);
-    //             QuoteActivity::create([
-    //                 'quote_request_id' => $quoteRequest->id,
-    //                 'type' => 'other',
-    //                 'details' => 'Quote status changed from New to Pending'
-    //             ]);
-    //         }
-
-    //         DB::commit();
-
-    //         return redirect()->back()->with('success', 'Quote sent successfully with invoice PDF!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error('Send Quote Error: ' . $e->getMessage());
-    //         Log::error('Stack Trace: ' . $e->getTraceAsString());
-
-    //         return redirect()->back()->with('error', 'Failed to send quote: ' . $e->getMessage());
-    //     }
-    // }
-
-
     // Admin: Reply to customer
     public function reply(Request $request, $id)
     {
@@ -614,7 +463,15 @@ class QuoteRequestController extends Controller
     public function destroy(QuoteRequest $quoteRequest)
     {
         try {
+            // Block delete if order exists
+            if ($quoteRequest->orders()->exists()) {
+                return redirect()->route('admin.quotes.index')
+                    ->with('warning', 'This quote request cannot be deleted because an order has been created from it. Delete the order first if you want to delete this quote.');
+            }
+
+            // Safe to delete
             $quoteRequest->delete();
+
             return redirect()->route('admin.quotes.index')
                 ->with('success', 'Quote request deleted successfully.');
         } catch (\Exception $e) {
@@ -623,6 +480,7 @@ class QuoteRequestController extends Controller
                 ->with('error', 'Failed to delete quote request.');
         }
     }
+
 
     // Send email notification
     private function sendQuoteNotification($quoteRequest)

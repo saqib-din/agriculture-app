@@ -123,11 +123,6 @@
 
                                                 <!-- ACTION -->
                                                 <td class="text-end">
-                                                    {{-- <a href="{{ route('services.show', $service->id) }}"
-                                                        class="avtar avtar-xs btn-link-secondary">
-                                                        <i class="ti ti-eye f-20"></i>
-                                                    </a> --}}
-
                                                     <a href="{{ route('services.edit', $service->id) }}"
                                                         class="avtar avtar-xs btn-link-secondary" data-bs-toggle="tooltip"
                                                         title="Edit">
@@ -161,3 +156,12 @@
     </div>
     <!-- [ Main Content ] end -->
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

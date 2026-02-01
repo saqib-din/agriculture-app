@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content center">
-                            <p class="sub-title">Buy Products At Our Store</p>
+                            <p class="sub-title">Buy Solar Plant Products at Our Store</p>
                             <h1 class="title">Shop products</h1>
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">
@@ -269,7 +269,7 @@
 
         .no-products-found {
             background: #f9f9f9;
-            border-radius: 10px;
+            border-radius: 25px;
             padding: 60px 20px;
             text-align: center;
         }
@@ -278,6 +278,154 @@
             font-size: 4rem;
             color: #ddd;
             margin-bottom: 20px;
+        }
+
+        .tf-shop-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .control-left {
+            width: -webkit-fill-available;
+        }
+
+        .search-product {
+            width: -webkit-fill-available;
+        }
+
+        .control-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .filters {
+            padding: 1em;
+            width: 18em;
+            border-radius: 100px;
+            background-color: #f8c32c;
+            border: none;
+            color: black;
+        }
+
+        @media (max-width: 991.98px) {
+            .tf-shop-control {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .control-left {
+                flex: 1 1 100%;
+                width: 100% !important;
+            }
+
+            .search-product {
+                width: 100% !important;
+                margin-right: 0 !important;
+            }
+
+            .control-right {
+                flex: 1 1 100%;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .main-quote-section {
+                margin-right: 10px !important;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .tf-shop-control {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .control-left {
+                width: 100% !important;
+            }
+
+            .search-product {
+                width: 100% !important;
+                margin-right: 0 !important;
+            }
+
+            .control-right {
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .main-quote-section {
+                width: 100%;
+                margin-right: 0 !important;
+            }
+
+            .main-quote-section .tf-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tf-control-sorting {
+                width: 100%;
+            }
+
+            .tf-dropdown-sort {
+                width: 100%;
+            }
+
+            .tf-btn.style-2 {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                width: 100%;
+            }
+        }
+
+
+        @media (max-width: 575.98px) {
+            .tf-shop-control {
+                padding: 10px;
+            }
+
+            .form-search input {
+                font-size: 13px;
+                padding: 10px 45px 10px 15px;
+            }
+
+            .btn-search {
+                padding: 8px 12px;
+            }
+
+            .tf-btn.btn-add-cart {
+                font-size: 13px;
+                padding: 10px 15px;
+            }
+
+            .tf-btn.style-2 {
+                font-size: 13px;
+                padding: 10px 15px;
+            }
+        }
+
+        @media (max-width: 399.98px) {
+            .form-search input {
+                font-size: 12px;
+                padding: 8px 40px 8px 12px;
+            }
+
+            .btn-search {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .tf-btn.btn-add-cart .text-style {
+                font-size: 12px;
+            }
+
+            .tf-btn.style-2 .text-sort-value {
+                font-size: 12px;
+            }
         }
     </style>
 
@@ -408,27 +556,6 @@
                                                 <span class="text-value-item">Popular Products</span>
                                             </a>
                                         </div>
-                                        {{-- <div class="select-item">
-                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'price_high'])) }}"
-                                                class="select-item">
-                                                <span class="text-value-item">Price: High to Low</span>
-                                            </a>
-                                        </div>
-                                        <div class="select-item">
-                                            <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'price_low'])) }}"
-                                                class="select-item">
-                                                <span class="text-value-item">Price: Low to High</span>
-                                            </a>
-                                        </div> --}}
-
-                                        {{-- <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'name_asc'])) }}"
-                                            class="select-item">
-                                            <span class="text-value-item">Name: A to Z</span>
-                                        </a>
-                                        <a href="{{ route('products.public.list', array_merge(request()->query(), ['sort' => 'name_desc'])) }}"
-                                            class="select-item">
-                                            <span class="text-value-item">Name: Z to A</span>
-                                        </a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -463,7 +590,18 @@
                                         <div class="pricing-star">
                                             <div class="price-wrap">
                                                 <span class="price-2">
-                                                    PKR {{ number_format($product->price, 2) }}
+                                                    @if ($product->price_display === 'hide')
+                                                        {{-- Don't show anything --}}
+                                                    @elseif ($product->price_display === 'call')
+                                                        Email for Price
+                                                    @else
+                                                        {{-- 'price' or default - show price --}}
+                                                        @if ($product->price)
+                                                            PKR {{ number_format($product->price, 2) }}
+                                                        @else
+                                                            N/A
+                                                        @endif
+                                                    @endif
                                                 </span>
                                             </div>
                                         </div>
@@ -475,7 +613,8 @@
                                 <i class="fas fa-box-open"></i>
                                 <h4>No Products Found</h4>
                                 <p class="text-muted">Try adjusting your search or filter criteria</p>
-                                <a href="{{ route('products.public.list') }}" class="btn btn-secondary">
+                                <a href="{{ route('products.public.list') }}"
+                                    class="btn btn-secondary filters mt-2 fs-5">
                                     Clear Filters
                                 </a>
                             </div>
@@ -635,9 +774,7 @@ Thank you.</textarea>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ========================================
             // QUOTE MANAGEMENT SYSTEM
-            // ========================================
             let selectedProducts = [];
             const mainQuoteSection = document.querySelector('.main-quote-section');
             const selectedCountSpan = document.getElementById('selectedCount');
@@ -848,9 +985,7 @@ Thank you.</textarea>
                     });
             });
 
-            // ========================================
             // REAL-TIME SEARCH FUNCTIONALITY
-            // ========================================
             const searchInput = document.getElementById('searchInput');
             const categoryInput = document.getElementById('categoryInput');
             const sortInput = document.getElementById('sortInput');

@@ -35,7 +35,7 @@
         <i class="fas fa-box-open"></i>
         <h4>No Products Found</h4>
         <p class="text-muted">Try adjusting your search or filter criteria</p>
-        <a href="{{ route('products.public.list') }}" class="btn btn-secondary">
+        <a href="{{ route('products.public.list') }}" class="btn btn-secondary filters mt-2 fs-5">
             Clear Filters
         </a>
 

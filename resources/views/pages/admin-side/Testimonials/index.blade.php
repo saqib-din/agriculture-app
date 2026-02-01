@@ -111,3 +111,12 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

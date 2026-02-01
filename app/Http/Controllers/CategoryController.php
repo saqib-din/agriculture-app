@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        
+
         $request->validate([
             'name' => 'required|string|max:30|unique:categories,name,' . $id,
         ]);
@@ -43,11 +43,15 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        // Set products' category_id to null before deleting
-        $category->products()->update(['category_id' => null]);
+        // Check if category is used in products
+        if ($category->products()->exists()) {
+            return redirect()->back()
+                ->with('info', 'This category cannot be deleted because it is linked to products. Delete the products first, then you can delete this category..');
+        }
 
+        // Safe to delete
         $category->delete();
 
-        return redirect()->back()->with('success', 'Category deleted successfully');
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

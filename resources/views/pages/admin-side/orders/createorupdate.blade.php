@@ -173,7 +173,6 @@
 @endsection
 
 @push('styles')
-    <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
         rel="stylesheet" />
@@ -183,39 +182,20 @@
             font-size: 0.875rem;
         }
 
-        /* Select2 Custom Styling */
         .select2-container--bootstrap-5 .select2-selection {
             min-height: 38px;
             border-color: #dee2e6;
         }
 
-        /* .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
-                                        line-height: 38px;
-                                        padding-left: 12px;
-                                    } */
-
         .select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
             height: 36px;
         }
-
-        /* .select2-container--bootstrap-5.select2-container--focus .select2-selection,
-                                    .select2-container--bootstrap-5.select2-container--open .select2-selection {
-                                        border-color: #86b7fe;
-                                        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-                                    } */
-
-        /* .select2-dropdown {
-                                        border-color: #dee2e6;
-                                    } */
 
         .select2-container--bootstrap-5 .select2-results__option {
             padding: 8px 12px;
         }
 
-        /* .select2-container--bootstrap-5 .select2-results__option--highlighted {
-                                        background-color: #0d6efd;
-                                        color: white;
-                                    } */
+
 
         .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
             border: 1px solid #dee2e6;
@@ -224,13 +204,7 @@
         }
 
 
-        /* .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field:focus {
-                border-color: #86b7fe;
-                outline: 0;
-                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-                }  */
 
-        /* Product option styling */
         .product-option-text {
             display: flex;
             justify-content: space-between;
@@ -246,7 +220,6 @@
             font-size: 0.85em;
             color: #6c757d;
             margin-left: 8px;
-            /* display: none; */
         }
 
         .product-option-price {
@@ -256,10 +229,8 @@
             margin-left: auto;
             padding-left: 12px;
             display: none;
-
         }
 
-        /* Animation for row addition */
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -276,7 +247,6 @@
             animation: slideIn 0.3s ease-out;
         }
 
-        /* Hover effect for delete button */
         .btn-link-danger:hover {
             background-color: #fff5f5;
             border-radius: 4px;
@@ -359,13 +329,13 @@
                             required>
                             <option value="">Select Product...</option>
                             ${products.map(p => `
-                                                                <option value="${p.id}"
-                                                                    data-price="${p.price}"
-                                                                    data-sku="${p.sku}"
-                                                                    ${selectedProductId == p.id ? 'selected' : ''}>
-                                                                    ${p.name} (${p.sku}) - PKR ${parseFloat(p.price).toFixed(2)}
-                                                                </option>
-                                                            `).join('')}
+                                                                    <option value="${p.id}"
+                                                                        data-price="${p.price}"
+                                                                        data-sku="${p.sku}"
+                                                                        ${selectedProductId == p.id ? 'selected' : ''}>
+                                                                        ${p.name} (${p.sku}) - PKR ${parseFloat(p.price).toFixed(2)}
+                                                                    </option>
+                                                                `).join('')}
                         </select>
                     </td>
                     <td>

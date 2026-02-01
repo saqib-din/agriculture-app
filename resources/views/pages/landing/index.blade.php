@@ -46,8 +46,8 @@
                                             e(
                                                 $hero->description ??
                                                     'The cornerstone of modern energy progress is that sustainable growth depends on
-                                                                                                                                solar innovation <br> In today’s energy era, the key to advancement lies in our ability to innovate with
-                                                                                                                                solar technology.',
+                                                                                                                                                                        solar innovation <br> In today’s energy era, the key to advancement lies in our ability to innovate with
+                                                                                                                                                                        solar technology.',
                                             ),
                                         ) !!}
                                     </p>
@@ -539,9 +539,16 @@
                     <div class="col-lg-5">
                         <div class="content-left">
                             <div class="image mb-30 mh-unset">
-                                <iframe src="https://www.google.com/maps?q=33.5261858,73.1330973&hl=en&z=18&output=embed"
-                                    width="520" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                @php
+                                    $map = \App\Http\Controllers\VariablesController::getVariable('company_map');
+                                @endphp
+
+                                <iframe
+                                    src="{{ !empty($map) ? $map : 'https://www.google.com/maps?q=33.5261858,73.1330973&hl=en&z=18&output=embed' }}"
+                                    width="520" height="450" style="border:0;" allowfullscreen loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+
                             </div>
                             <ul class="contact-list">
 
@@ -981,11 +988,11 @@
             <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
         </div>
     </section><!-- /.Section contact us -->
-    <style>
+    {{-- <style>
         .s-contact-us {
             margin-top: 10em !important;
         }
-    </style>
+    </style> --}}
 
     @if ($partners->count() > 0)
         <section class="s-partner pb-100">
@@ -999,7 +1006,7 @@
                                     @foreach ($partners as $partner)
                                         <div class="swiper-slide">
                                             <div class="slide-partner">
-                                                <div class="image" style="height:4em;">
+                                                <div class="image">
                                                     <a href="#">
                                                         <img src="{{ asset('storage/' . $partner->image) }}"
                                                             alt="{{ $partner->name }}" class="lazyload">
@@ -1017,8 +1024,8 @@
                 </div>
             </div>
         </section>
-    @else
-        <section class="s-partner pb-100">
+    @endif
+    {{-- <section class="s-partner pb-100">
             <div class="tf-container w-1780">
                 <div class="row">
                     <div class="col-lg-12">
@@ -1098,7 +1105,5 @@
                     </div>
                 </div>
             </div>
-        </section>
-    @endif
-
+        </section> --}}
 @endsection

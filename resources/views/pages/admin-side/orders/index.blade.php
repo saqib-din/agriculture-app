@@ -39,7 +39,7 @@
 
                         <div class="card-body table-card">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="pc-dt-simple">
                                     <thead>
                                         <tr>
                                             <th>Order #</th>
@@ -190,3 +190,12 @@
         }
     </script>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

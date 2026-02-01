@@ -104,17 +104,28 @@
                     {{-- Social Icons --}}
                     <div class="footer-right">
                         <div class="wg-social">
+                            @php
+                                $icons = [
+                                    'facebook' => 'fab fa-facebook-f',
+                                    'twitter' => 'fab fa-twitter',
+                                    'instagram' => 'fab fa-instagram',
+                                    'youtube' => 'fab fa-youtube',
+                                    'linkedin' => 'fab fa-linkedin-in',
+                                ];
+                            @endphp
+
                             <ul class="list">
-                                @foreach (['facebook', 'twitter', 'instagram', 'youtube', 'linkedin'] as $social)
+                                @foreach ($icons as $social => $icon)
                                     @if (!empty($company[$social]))
                                         <li class="item">
                                             <a href="{{ $company[$social] }}" target="_blank">
-                                                <i class="icon-{{ $social }}"></i>
+                                                <i class="{{ $icon }}"></i>
                                             </a>
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
+
                         </div>
                     </div>
 

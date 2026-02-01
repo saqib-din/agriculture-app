@@ -78,7 +78,7 @@
                                                 <td style="max-width: 220px;">
                                                     @php
                                                         $words = explode(' ', $team->description ?? '');
-                                                        $chunks = array_chunk($words, 5); // Split into arrays of 5 words each
+                                                        $chunks = array_chunk($words, 3);
                                                     @endphp
 
                                                     @foreach ($chunks as $chunk)
@@ -143,99 +143,20 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <!-- [ Main Content ] end -->
-
-                {{-- CEO Designation Card --}}
-                {{-- @foreach ($teams as $team)
-                    @if ($team->is_ceo)
-                        <div class="col-xl-4 col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0">
-                                            <div class="avtar avtar-s bg-light-danger"><i class="ti ti-brand f-12">C E O</i>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 mx-3">
-                                            <p class="mb-1">{{ $team->name }}</p>
-                                            <h6 class="mb-0">{{ $team->designation }}</h6>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <p class="mb-1">
-                                                @if ($team->status == 'Active')
-                                                    <span class="badge bg-light-success">Active</span>
-                                                @else
-                                                    <span class="badge bg-light-danger">Inactive</span>
-                                                @endif
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h6>Description</h6>
-                                    <p>
-                                        @php
-                                            $words = explode(' ', $team->description ?? '');
-                                            $chunks = array_chunk($words, 5);
-                                        @endphp
-
-                                        @foreach ($chunks as $chunk)
-                                            {{ implode(' ', $chunk) }}<br>
-                                        @endforeach
-                                    </p>
-                                    <ul class="list-inline pt-2">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            Social Links:
-                                            <p class="mb-0 d-flex align-items-center">
-                                                @if ($team->linkedin)
-                                                    <a class="avtar avtar-xs btn-link-secondary"
-                                                        href="{{ $team->linkedin }}" target="_blank"><i
-                                                            class="ti ti-brand-linkedin f-20"></i></a>
-                                                @endif
-                                                @if ($team->facebook)
-                                                    <a class="avtar avtar-xs btn-link-secondary"
-                                                        href="{{ $team->facebook }}" target="_blank"><i
-                                                            class="ti ti-brand-facebook f-20"></i></a>
-                                                @endif
-                                                @if ($team->instagram)
-                                                    <a class="avtar avtar-xs btn-link-secondary"
-                                                        href="{{ $team->instagram }}" target="_blank"><i
-                                                            class="ti ti-brand-instagram f-20"></i></a>
-                                                @endif
-                                            </p>
-                                        </div>
-                                    </ul>
-                                    <div class="d-flex align-items-center justify-content-end mt-4">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <a href="{{ route('createorupdate', $team->id) }}"
-                                                class="btn btn-light-secondary">
-                                                <i class="ti ti-edit f-20"></i>
-                                            </a>
-
-                                            <a href="#" class="btn btn-light-danger bs-pass-para"
-                                                data-id="{{ $team->id }}" title="Delete">
-                                                <i class="ti ti-trash f-20"></i>
-                                            </a>
-
-                                            <form id="delete-form-{{ $team->id }}"
-                                                action="{{ route('teams.destroy', $team->id) }}" method="POST"
-                                                style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach --}}
             </div>
         </div>
     </div>
 
     <!-- [ Main Content ] end -->
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

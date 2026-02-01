@@ -318,9 +318,11 @@ class ProductController extends Controller
     {
         try {
 
-            if ($product->category) {
-                return redirect()->back()->with('error', 'Cannot delete product: it is linked to a category.');
+            if ($product->quoteRequests()->exists()) {
+                return redirect()->back()
+                    ->with('info', 'This product cannot be deleted because it is used in a quotation. Delete the quotation first to delete this product.');
             }
+
 
             // Delete all images from storage
             foreach ($product->images as $image) {

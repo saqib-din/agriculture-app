@@ -7,21 +7,45 @@ use App\Models\HeroSection;
 
 class HeroSectionController extends Controller
 {
+    const MAX_HERO_SECTIONS = 3;
 
     public function index()
     {
         $heroSections = HeroSection::all();
-        return view('pages.admin-side.hero-section.index', compact('heroSections'));
+        $maxReached = $heroSections->count() >= self::MAX_HERO_SECTIONS;
+
+        return view('pages.admin-side.hero-section.index', compact('heroSections', 'maxReached'));
     }
 
     public function form($id = null)
     {
         $hero = $id ? HeroSection::findOrFail($id) : null;
+
+        // Check limit only for new records
+        if (!$id) {
+            $currentCount = HeroSection::count();
+            if ($currentCount >= self::MAX_HERO_SECTIONS) {
+                return redirect()
+                    ->route('hero-section.index')
+                    ->with('error', 'Maximum limit reached! You can only have ' . self::MAX_HERO_SECTIONS . ' hero sections.');
+            }
+        }
+
         return view('pages.admin-side.hero-section.createorupdate', compact('hero'));
     }
 
     public function save(Request $request, $id = null)
     {
+        // Check limit for new records
+        if (!$id) {
+            $currentCount = HeroSection::count();
+            if ($currentCount >= self::MAX_HERO_SECTIONS) {
+                return redirect()
+                    ->route('hero-section.index')
+                    ->with('error', 'Cannot add more hero sections. Maximum limit of ' . self::MAX_HERO_SECTIONS . ' reached!');
+            }
+        }
+
         $hero = $id ? HeroSection::findOrFail($id) : new HeroSection();
 
         $request->validate([
@@ -31,7 +55,6 @@ class HeroSectionController extends Controller
             'status'         => 'required',
             'image'          => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
-
 
         if ($request->hasFile('image')) {
             if ($id && $hero->image && file_exists(public_path('uploads/hero/' . $hero->image))) {

@@ -41,7 +41,7 @@
                                 </div>
                             @else
                                 <div class="table-responsive">
-                                    <table class="table table-hover" id="pc-dt-simple-1">
+                                    <table class="table table-hover" id="pc-dt-simple">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -101,7 +101,7 @@
 
                                                     </td>
                                                 </tr>
-                                                
+
                                                 <!-- View Modal -->
                                                 <div class="modal fade" id="viewModal{{ $contact->id }}" tabindex="-1"
                                                     aria-hidden="true">
@@ -152,36 +152,36 @@
                                                 </div>
 
 
-                                                <!-- Reply Modal -->
-                                                <div class="modal fade" id="replyModal{{ $contact->id }}" tabindex="-1"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-md modal-dialog-centered">
-                                                        <div class="modal-content border-0 shadow">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Reply to {{ $contact->name }}</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal"></button>
-                                                            </div>
-                                                            <form
-                                                                action="{{ url('/admin/contacts/' . $contact->id . '/reply') }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Message</label>
-                                                                        <textarea name="reply_message" class="form-control" rows="4" required>{{ $contact->reply_message ?? '' }}</textarea>
+                                                    <!-- Reply Modal -->
+                                                    <div class="modal fade" id="replyModal{{ $contact->id }}" tabindex="-1"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-md modal-dialog-centered">
+                                                            <div class="modal-content border-0 shadow">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Reply to {{ $contact->name }}</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ url('/admin/contacts/' . $contact->id . '/reply') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Message</label>
+                                                                            <textarea name="reply_message" class="form-control" rows="4" required>{{ $contact->reply_message ?? '' }}</textarea>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-light-info">Send
-                                                                        Reply</button>
-                                                                </div>
-                                                            </form>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-light-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
+                                                                        <button type="submit" class="btn btn-light-info">Send
+                                                                            Reply</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -194,11 +194,13 @@
         </div>
     </div>
 
-    {{-- @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#pc-dt-simple-1').DataTable();
-            });
-        </script>
-    @endpush --}}
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.dt = new simpleDatatables.DataTable('#pc-dt-simple', {
+            sortable: true,
+            searchable: true,
+            fixedHeight: true
+        });
+    });
+</script>

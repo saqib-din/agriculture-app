@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function welcome()
     {
         $heroSections = HeroSection::where('status', 'active')->get();
-        $testimonials = Testimonial::where('status', 1)->get(); 
+        $testimonials = Testimonial::where('status', 1)->get();
         $faqs = Faq::where('status', 1)->get();
         $services = Service::where('status', 'active')->get();
         $teams = Team::where('status', 'active')->get();

@@ -65,7 +65,6 @@ class TeamController extends Controller
         $team->instagram   = $request->instagram;
         $team->is_ceo      = $request->is_ceo ?? 0;
 
-        // ✅ Image Upload
         if ($request->hasFile('image')) {
 
             if ($team->image && file_exists(public_path('uploads/teams/' . $team->image))) {

@@ -45,17 +45,17 @@
                             </ul>
                         </div>
                     </div>
-                    {{-- <div class="header-right">
+                    <div class="header-right">
                         <div class="icon-wrap">
-                            <a href="{{ route('login') }}" class="icon style-circle bg-light">
+                            {{-- <a href="{{ route('login') }}" class="icon style-circle bg-light">
                                 <i class="icon-user"></i>
-                            </a>
+                            </a> --}}
                         </div>
 
                         <div class="mobile-button">
                             <span></span>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <div class="mobile-nav-wrap">
                     <div class="overlay-mobile-nav"></div>
@@ -142,37 +142,26 @@
                                 </ul>
                             </div>
                             <div class="wg-social">
+                                @php
+                                    $icons = [
+                                        'facebook' => 'fab fa-facebook-f',
+                                        'twitter' => 'fab fa-twitter',
+                                        'instagram' => 'fab fa-instagram',
+                                        'youtube' => 'fab fa-youtube',
+                                        'linkedin' => 'fab fa-linkedin-in',
+                                    ];
+                                @endphp
+
                                 <ul class="list">
-                                    @if (!empty($company['facebook']))
-                                        <li class="item">
-                                            <a href="{{ $company['facebook'] }}" target="_blank"><i
-                                                    class="icon-facebook"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (!empty($company['twitter']))
-                                        <li class="item">
-                                            <a href="{{ $company['twitter'] }}" target="_blank"><i
-                                                    class="icon-twitter"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (!empty($company['instagram']))
-                                        <li class="item">
-                                            <a href="{{ $company['instagram'] }}" target="_blank"><i
-                                                    class="icon-instagram"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (!empty($company['linkedin']))
-                                        <li class="item">
-                                            <a href="{{ $company['linkedin'] }}" target="_blank"><i
-                                                    class="icon-linkedin"></i></a>
-                                        </li>
-                                    @endif
-                                    @if (!empty($company['youtube']))
-                                        <li class="item">
-                                            <a href="{{ $company['youtube'] }}" target="_blank"><i
-                                                    class="icon-youtube"></i></a>
-                                        </li>
-                                    @endif
+                                    @foreach ($icons as $social => $icon)
+                                        @if (!empty($company[$social]))
+                                            <li class="item">
+                                                <a href="{{ $company[$social] }}" target="_blank">
+                                                    <i class="{{ $icon }}"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

@@ -2504,7 +2504,7 @@ a.text-white {
 .footer {
   background-color: var(--Primary);
   padding-top: 65px;
-  margin-top: 20px;
+  margin-top: 27px;
   position: relative;
 }
 .footer .footer-top {
@@ -12695,10 +12695,11 @@ i.fs-12 {
 }
 
 .s-contact-us {
-  margin-bottom: -50px;
+  /* margin-bottom: -50px; */
   background-color: var(--Bg-8);
   position: relative;
-  /* margin-top: 7em; */
+  margin-top: 0em !important;
+  padding: 108px 0px 121px 0px;
 }
 .s-contact-us .image {
   border-radius: 20px;
@@ -12878,7 +12879,7 @@ i.fs-12 {
 }
 .s-partner.pb-100 {
   padding-bottom: 100px;
-  padding-top: 140px;
+  /* padding-top: 140px; */
 }
 .s-partner.style-2 {
   padding: 50px 0px;

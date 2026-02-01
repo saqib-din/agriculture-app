@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="content center">
-                            <p class="sub-title">Buy Health Foods At Our Store</p>
+                            <p class="sub-title">Buy Solar Plant Products at Our Store</p>
                             <h1 class="title">products detail</h1>
                             <div class="icon-img">
                                 <img src="{{ asset('assets/images/item/line-throw-title.png') }}" alt="">

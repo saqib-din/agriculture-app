@@ -96,7 +96,7 @@
                                                         placeholder="Enter product name"
                                                         value="{{ old('name', $product->name ?? '') }}" required />
                                                     @error('name')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                        <small class="invalid-feedback">{{ $message }}</small>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -448,7 +448,6 @@
             border-radius: 8px;
         }
 
-        /* Modal Animation */
         .modal.fade .modal-dialog {
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
             transform: scale(0.7);
@@ -460,7 +459,6 @@
             opacity: 1;
         }
 
-        /* Delete Button */
         .delete-image-btn {
             transition: all 0.2s ease;
             opacity: 0.9;
@@ -471,7 +469,6 @@
             transform: scale(1.1);
         }
 
-        /* Fade Out Animation */
         @keyframes fadeOut {
             from {
                 opacity: 1;
@@ -488,7 +485,6 @@
             animation: fadeOut 0.3s ease-out forwards;
         }
 
-        /* Check Icon Animation */
         @keyframes checkmark {
             0% {
                 transform: scale(0) rotate(0deg);

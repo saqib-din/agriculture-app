@@ -477,8 +477,13 @@
 
          <!-- Section map -->
          <div class="box-map d-flex justify-content-center">
-             <iframe src="https://www.google.com/maps?q=33.5261858,73.1330973&hl=en&z=18&output=embed" width="1530"
-                 height="450" style="border:0;" allowfullscreen="" loading="lazy"
+             @php
+                 $map = \App\Http\Controllers\VariablesController::getVariable('company_map');
+             @endphp
+
+             <iframe
+                 src="{{ !empty($map) ? $map : 'https://www.google.com/maps?q=33.5261858,73.1330973&hl=en&z=18&output=embed' }}"
+                 width="1530" height="450" style="border:0;" allowfullscreen loading="lazy"
                  referrerpolicy="no-referrer-when-downgrade">
              </iframe>
          </div><!-- Section map -->
