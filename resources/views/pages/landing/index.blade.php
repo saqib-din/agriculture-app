@@ -984,9 +984,9 @@
                 </div>
             </div>
         </div>
-        <div class="s-img-item item-1">
+        {{-- <div class="s-img-item item-1">
             <img src="{{ asset('assets/images/item/page-title-top.png') }}" alt="" />
-        </div>
+        </div> --}}
     </section><!-- /.Section contact us -->
     {{-- <style>
         .s-contact-us {

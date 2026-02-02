@@ -50,8 +50,8 @@ class HeroSectionController extends Controller
 
         $request->validate([
             'hero_title'     => 'required|string|max:100',
-            'hero_subtitle'  => 'nullable|string|max:200',
-            'description'    => 'nullable|string|max:255',
+            'hero_subtitle'  => 'required|string|max:200',
+            'description'    => 'required|string|max:255',
             'status'         => 'required',
             'image'          => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);

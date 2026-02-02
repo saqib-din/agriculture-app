@@ -670,7 +670,8 @@
                                                 <p class="mb-1 text-muted fw-semibold stat-label">{{ $card['title'] }}</p>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h3 class="mb-0 fw-bold stat-value" data-count="{{ $card['value'] }}">
-                                                        {{ $card['value'] }}+</h3>
+                                                        0
+                                                    </h3>
                                                     <span class="badge badge-{{ $card['color'] }}">
                                                         <i class="ti ti-trending-up"></i>
                                                     </span>
@@ -712,14 +713,16 @@
 
                 const counter = setInterval(() => {
                     current += increment;
+
                     if (current >= target) {
-                        element.textContent = target + '+';
+                        element.textContent = target >= 100 ? target + '+' : target;
                         clearInterval(counter);
                     } else {
-                        element.textContent = Math.floor(current) + '+';
+                        element.textContent = Math.floor(current);
                     }
                 }, stepTime);
             });
+
 
             const progressBars = document.querySelectorAll('.progress-bar');
             const observer = new IntersectionObserver((entries) => {
